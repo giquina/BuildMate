@@ -1,6 +1,8 @@
-# BuildMate
+# BuildMate AI
 
-A project management and build automation tool.
+**🏗️ UK's First AI-Powered Home Building & Renovation Platform**
+
+Transform your home building dreams into reality with AI-generated floorplans, smart material sourcing, and verified professional networks - all designed specifically for the UK market.
 
 ## 📋 Table of Contents
 - [Prerequisites](#prerequisites)
@@ -30,14 +32,55 @@ Before you begin, ensure you have the following installed on your system:
 
 ## 🚀 Installation & Setup
 
-### Step 1: Clone the Repository
+## 🚀 Quick Start
 
 ```bash
 # Clone the repository
 git clone https://github.com/giquina/BuildMate.git
-
-# Navigate to the project directory
 cd BuildMate
+
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local with your API keys
+
+# Start development server
+npm run dev
+
+# Open http://localhost:3000
+```
+
+## 🏗️ What is BuildMate AI?
+
+BuildMate AI is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
+
+- **🧠 AI Floorplan Generation**: Describe your dream home and get professional-grade layouts
+- **🛒 Materials Marketplace**: Shop from Travis Perkins, Wickes, B&Q - all in one cart
+- **👷 Verified Professionals**: Connect with rated builders, architects, and tradespeople
+- **📋 Planning Assistance**: Navigate UK building regulations and planning permission
+- **💰 Smart Budgeting**: Optimize costs with bulk purchasing and affiliate partnerships
+
+## 📁 Project Structure
+
+```
+BuildMate/
+├── src/
+│   ├── app/                 # Next.js App Router pages
+│   │   ├── layout.tsx       # Root layout with navigation
+│   │   ├── page.tsx         # Homepage component
+│   │   └── globals.css      # Global styles with Tailwind
+│   ├── components/          # Reusable React components
+│   ├── lib/                 # Utilities and configurations
+│   │   ├── uk-utils.ts      # UK-specific functions
+│   │   └── utils.ts         # General utilities
+│   └── types/
+│       └── index.ts         # TypeScript definitions
+├── public/                  # Static assets
+├── package.json             # Dependencies and scripts
+├── DEVELOPMENT.md           # Development roadmap
+└── .env.example            # Environment variables template
 ```
 
 ### Step 2: Verify Setup
