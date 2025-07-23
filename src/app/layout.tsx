@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
-import { Home, ShoppingCart, Users, LayoutDashboard } from 'lucide-react'
+import { Home, ShoppingCart, Users, LayoutDashboard, Award } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,6 +46,10 @@ export default function RootLayout({
                   <Users className="h-4 w-4 mr-2" />
                   Professionals
                 </Link>
+                <Link href="/case-studies" className="flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                  <Award className="h-4 w-4 mr-2" />
+                  Case Studies
+                </Link>
                 <Link href="/start" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium">
                   Start Building
                 </Link>
@@ -72,6 +76,10 @@ export default function RootLayout({
             <Link href="/professionals" className="nav-item nav-item-inactive">
               <Users className="h-5 w-5 mb-1" />
               <span>Pros</span>
+            </Link>
+            <Link href="/case-studies" className="nav-item nav-item-inactive">
+              <Award className="h-5 w-5 mb-1" />
+              <span>Cases</span>
             </Link>
           </div>
         </div>
