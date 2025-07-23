@@ -273,4 +273,92 @@
       </div>
     </div>
   )
+}                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className={`status-badge border ${getStatusColor(project.status)}`}>
+                      {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {project.daysLeft > 0 ? `${project.daysLeft} days left` : 'Complete'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Progress Section */}
+              <div className="mb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-gray-700">Progress</span>
+                  <span className="text-sm font-medium text-gray-900">{project.progress}%</span>
+                </div>
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill"
+                    style={{ width: `${project.progress}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-gray-600 mt-1">Next: {project.nextMilestone}</p>
+              </div>
+              
+              {/* Budget Section */}
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                <div>
+                  <p className="text-sm text-gray-600">Budget</p>
+                  <p className="font-semibold text-gray-900">{formatCurrency(project.budget)}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Spent</p>
+                  <p className="font-semibold text-gray-900">{formatCurrency(project.spent)}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Recent Activity */}
+        <div className="mt-8">
+          <div className="card">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
+              <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                View all
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {[
+                {
+                  icon: ShoppingCart,
+                  title: 'Materials ordered for Kitchen Renovation',
+                  time: '2 hours ago',
+                  color: 'green'
+                },
+                {
+                  icon: Users,
+                  title: 'Quote received from Elite Electrical',
+                  time: '1 day ago',
+                  color: 'blue'
+                },
+                {
+                  icon: Calendar,
+                  title: 'Foundation work scheduled',
+                  time: '2 days ago',
+                  color: 'orange'
+                }
+              ].map((activity, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <div className={`w-10 h-10 bg-${activity.color}-50 rounded-xl flex items-center justify-center`}>
+                    <activity.icon className={`h-5 w-5 text-${activity.color}-600`} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                    <p className="text-xs text-gray-500">{activity.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }

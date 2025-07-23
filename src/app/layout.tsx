@@ -21,28 +21,32 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {/* Global Navigation */}
-        <nav className="bg-white shadow-sm border-b fixed top-0 w-full z-50">
+        <nav className="bg-white/95 backdrop-blur-sm shadow-sm border-b fixed top-0 w-full z-50">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center py-4">
-              <Link href="/" className="flex items-center">
-                <Home className="h-8 w-8 text-blue-600" />
-                <span className="ml-2 text-xl font-bold text-gray-900">BuildMate AI</span>
+              <Link href="/" className="flex items-center group">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
+                  <Home className="h-6 w-6 text-white" />
+                </div>
+                <span className="ml-3 text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  BuildMate AI
+                </span>
               </Link>
               
               <div className="hidden md:flex items-center space-x-6">
-                <Link href="/dashboard" className="flex items-center text-gray-600 hover:text-blue-600">
-                  <LayoutDashboard className="h-4 w-4 mr-1" />
+                <Link href="/dashboard" className="flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                  <LayoutDashboard className="h-4 w-4 mr-2" />
                   Dashboard
                 </Link>
-                <Link href="/materials" className="flex items-center text-gray-600 hover:text-blue-600">
-                  <ShoppingCart className="h-4 w-4 mr-1" />
+                <Link href="/materials" className="flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                  <ShoppingCart className="h-4 w-4 mr-2" />
                   Materials
                 </Link>
-                <Link href="/professionals" className="flex items-center text-gray-600 hover:text-blue-600">
-                  <Users className="h-4 w-4 mr-1" />
+                <Link href="/professionals" className="flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                  <Users className="h-4 w-4 mr-2" />
                   Professionals
                 </Link>
-                <Link href="/start" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <Link href="/start" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium">
                   Start Building
                 </Link>
               </div>
@@ -50,7 +54,29 @@ export default function RootLayout({
           </div>
         </nav>
 
-        <main className="pt-20 min-h-screen bg-gray-50">
+        {/* Mobile Bottom Navigation */}
+        <div className="md:hidden mobile-nav">
+          <div className="flex justify-around">
+            <Link href="/dashboard" className="nav-item nav-item-inactive">
+              <LayoutDashboard className="h-5 w-5 mb-1" />
+              <span>Dashboard</span>
+            </Link>
+            <Link href="/materials" className="nav-item nav-item-inactive">
+              <ShoppingCart className="h-5 w-5 mb-1" />
+              <span>Materials</span>
+            </Link>
+            <Link href="/start" className="nav-item bg-blue-600 text-white rounded-lg">
+              <Home className="h-5 w-5 mb-1" />
+              <span>Build</span>
+            </Link>
+            <Link href="/professionals" className="nav-item nav-item-inactive">
+              <Users className="h-5 w-5 mb-1" />
+              <span>Pros</span>
+            </Link>
+          </div>
+        </div>
+
+        <main className="pt-20 pb-20 md:pb-0 min-h-screen bg-gray-50">
           {children}
         </main>
       </body>
