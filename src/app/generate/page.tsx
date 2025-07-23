@@ -1,3 +1,19 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Card, CardContent } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
+import { Sparkles, Loader2, Download, Share2, Heart, Eye } from 'lucide-react'
+
+export default function GeneratePage() {
+  const [isGenerating, setIsGenerating] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsGenerating(false), 3000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}

@@ -4,420 +4,650 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import { formatCurrency } from '@/lib/uk-utils'
 import { 
-  Search, 
-  Filter, 
-  ShoppingCart, 
-  Plus, 
-  Minus,
-  Star,
-  Truck,
+  ChevronDown,
+  ChevronRight,
   CheckCircle,
-  Building,
-  Hammer,
-  Lightbulb,
-  Droplets
+  Clock,
+  Truck,
+  Star,
+  Shield,
+  Leaf,
+  Package,
+  MapPin,
+  Calendar,
+  DollarSign,
+  Award,
+  Users,
+  Settings,
+  ArrowRight,
+  TrendingUp,
+  ThumbsUp,
+  Heart,
+  MessageCircle,
+  Camera,
+  Filter,
+  BarChart3,
+  Verified,
+  Quote,
+  Image,
+  Eye,
+  BadgeCheck,
+  StarHalf
 } from 'lucide-react'
 
-interface Material {
+interface CustomerReview {
+  id: string
+  customerName: string
+  rating: number
+  title: string
+  comment: string
+  date: string
+  verified: boolean
+  projectType: string
+  helpful: number
+  photos?: string[]
+  location: string
+}
+
+interface ProfessionalEndorsement {
+  id: string
+  professionalName: string
+  company: string
+  title: string
+  quote: string
+  verified: boolean
+  yearsExperience: number
+  projectsCompleted: number
+}
+
+interface ProjectShowcase {
+  id: string
+  title: string
+  beforePhoto: string
+  afterPhoto: string
+  description: string
+  projectType: string
+  completionDate: string
+  customerName: string
+  location: string
+}
+
+interface RatingBreakdown {
+  quality: number
+  value: number
+  durability: number
+  appearance: number
+  easeOfInstall: number
+}
+
+interface ProjectMaterial {
   id: string
   name: string
   description: string
-  category: string
-  price: number
+  room: string
+  phase: string
+  quantity: number
+  unitPrice: number
+  totalPrice: number
   unit: string
   supplier: {
     name: string
     logo: string
     rating: number
-    deliveryDays: number
+    status: 'confirmed' | 'pending' | 'coordinating'
+  }
+  delivery: {
+    scheduledDate: string
+    window: string
+    status: 'scheduled' | 'in-transit' | 'delivered'
+    trackingNumber?: string
+  }
+  quality: {
+    certification: string
+    sustainabilityRating: 'A+' | 'A' | 'B' | 'C'
+    warranty: string
   }
   imageUrl: string
-  inStock: boolean
-  discount?: number
+  alternatives?: number
+  upgradePrice?: number
+  savings?: number
+  usedInProjects?: number
+  // New review and social proof fields
+  customerSatisfaction: number
+  successRate: number
+  averageRating: number
+  totalReviews: number
+  ratingBreakdown: RatingBreakdown
+  customerReviews: CustomerReview[]
+  professionalEndorsements: ProfessionalEndorsement[]
+  projectShowcases: ProjectShowcase[]
+  recommendedWith: string[]
 }
 
-interface CartItem extends Material {
-  quantity: number
+interface DeliveryPhase {
+  id: string
+  name: string
+  date: string
+  status: 'completed' | 'upcoming' | 'current'
+  materials: string[]
 }
 
-const mockMaterials: Material[] = [
+const projectMaterials: ProjectMaterial[] = [
   {
     id: '1',
-    name: 'Softwood Studwork 38x63mm x 2.4m',
-    description: 'C16 grade kiln dried timber for internal wall framing',
-    category: 'structural',
-    price: 4.99,
-    unit: 'each',
+    name: 'Premium Softwood Frame Kit',
+    description: 'Complete structural framing package - C24 grade kiln dried timber',
+    room: 'Structural',
+    phase: 'Foundation & Frame',
+    quantity: 45,
+    unitPrice: 6.99,
+    totalPrice: 314.55,
+    unit: 'pieces',
     supplier: {
       name: 'Travis Perkins',
       logo: '/logos/travis-perkins.png',
-      rating: 4.5,
-      deliveryDays: 2
+      rating: 4.8,
+      status: 'confirmed'
     },
-    imageUrl: '/materials/timber-stud.jpg',
-    inStock: true,
-    discount: 10
+    delivery: {
+      scheduledDate: '2024-02-15',
+      window: '8:00-12:00',
+      status: 'scheduled',
+      trackingNumber: 'TP2024021501'
+    },
+    quality: {
+      certification: 'FSC Certified',
+      sustainabilityRating: 'A+',
+      warranty: '10 year structural'
+    },
+    imageUrl: '/materials/premium-timber.jpg',
+    alternatives: 3,
+    savings: 85.50,
+    usedInProjects: 847
   },
   {
     id: '2',
-    name: 'Facing Brick - Ibstock Red Multi',
-    description: 'Traditional red multi facing brick, 65mm',
-    category: 'structural',
-    price: 0.85,
-    unit: 'each',
+    name: 'Ibstock Heritage Brick Collection',
+    description: 'Handmade traditional red multi - selected for character match',
+    room: 'Exterior',
+    phase: 'Foundation & Frame',
+    quantity: 2400,
+    unitPrice: 0.92,
+    totalPrice: 2208.00,
+    unit: 'bricks',
     supplier: {
       name: 'Wickes',
       logo: '/logos/wickes.png',
-      rating: 4.3,
-      deliveryDays: 3
+      rating: 4.6,
+      status: 'coordinating'
     },
-    imageUrl: '/materials/red-brick.jpg',
-    inStock: true
+    delivery: {
+      scheduledDate: '2024-02-18',
+      window: '7:00-16:00',
+      status: 'scheduled'
+    },
+    quality: {
+      certification: 'Made in Britain',
+      sustainabilityRating: 'A',
+      warranty: '50 year frost resistance'
+    },
+    imageUrl: '/materials/heritage-brick.jpg',
+    alternatives: 5,
+    upgradePrice: 145.00,
+    usedInProjects: 234
   },
   {
     id: '3',
-    name: 'Knauf Insulation Earthwool 100mm',
-    description: 'Glass mineral wool insulation roll, 8.3m²',
-    category: 'insulation',
-    price: 24.99,
-    unit: 'roll',
+    name: 'Kingspan Premium Insulation System',
+    description: 'High-performance rigid foam boards - 120mm thickness',
+    room: 'Throughout',
+    phase: 'Insulation & Services',
+    quantity: 24,
+    unitPrice: 32.50,
+    totalPrice: 780.00,
+    unit: 'boards',
     supplier: {
       name: 'B&Q',
       logo: '/logos/bq.png',
-      rating: 4.2,
-      deliveryDays: 1
+      rating: 4.4,
+      status: 'confirmed'
     },
-    imageUrl: '/materials/insulation.jpg',
-    inStock: true
+    delivery: {
+      scheduledDate: '2024-03-05',
+      window: '9:00-13:00',
+      status: 'scheduled'
+    },
+    quality: {
+      certification: 'BBA Approved',
+      sustainabilityRating: 'A+',
+      warranty: '25 year thermal performance'
+    },
+    imageUrl: '/materials/kingspan-insulation.jpg',
+    savings: 120.00,
+    usedInProjects: 1205
   },
   {
     id: '4',
-    name: 'LED Downlight 10W Dimmable',
-    description: 'Warm white 3000K, IP44 rated bathroom safe',
-    category: 'electrical',
-    price: 12.99,
-    unit: 'each',
+    name: 'Philips Smart LED Lighting Package',
+    description: 'Complete home lighting system - dimmable, colour-changing',
+    room: 'Living Areas',
+    phase: 'Finishing',
+    quantity: 18,
+    unitPrice: 24.99,
+    totalPrice: 449.82,
+    unit: 'fixtures',
     supplier: {
       name: 'Screwfix',
       logo: '/logos/screwfix.png',
-      rating: 4.6,
-      deliveryDays: 1
+      rating: 4.7,
+      status: 'pending'
     },
-    imageUrl: '/materials/led-downlight.jpg',
-    inStock: true,
-    discount: 15
+    delivery: {
+      scheduledDate: '2024-04-12',
+      window: '10:00-14:00',
+      status: 'scheduled'
+    },
+    quality: {
+      certification: 'Energy Star',
+      sustainabilityRating: 'A+',
+      warranty: '5 year manufacturer'
+    },
+    imageUrl: '/materials/smart-lighting.jpg',
+    alternatives: 7,
+    upgradePrice: 89.99,
+    usedInProjects: 1834
   },
   {
     id: '5',
-    name: 'Bathroom Suite - Modern White',
-    description: 'Close coupled toilet, basin & bath set',
-    category: 'bathroom',
-    price: 299.99,
-    unit: 'set',
+    name: 'Villeroy & Boch Bathroom Suite',
+    description: 'Contemporary white ceramic suite - water-saving technology',
+    room: 'Master Bathroom',
+    phase: 'Finishing',
+    quantity: 1,
+    unitPrice: 649.99,
+    totalPrice: 649.99,
+    unit: 'suite',
     supplier: {
       name: 'Wickes',
       logo: '/logos/wickes.png',
-      rating: 4.4,
-      deliveryDays: 5
+      rating: 4.5,
+      status: 'confirmed'
     },
-    imageUrl: '/materials/bathroom-suite.jpg',
-    inStock: true
+    delivery: {
+      scheduledDate: '2024-04-20',
+      window: '8:00-18:00',
+      status: 'scheduled'
+    },
+    quality: {
+      certification: 'WaterSense',
+      sustainabilityRating: 'A',
+      warranty: '10 year ceramic guarantee'
+    },
+    imageUrl: '/materials/vb-bathroom.jpg',
+    alternatives: 4,
+    upgradePrice: 299.99,
+    usedInProjects: 456
   },
   {
     id: '6',
-    name: 'Kitchen Unit Base 600mm',
-    description: 'Shaker style white gloss base unit with soft close',
-    category: 'kitchen',
-    price: 89.99,
-    unit: 'each',
+    name: 'Howdens Greenwich Kitchen Range',
+    description: 'Shaker-style painted finish - soft-close doors and drawers',
+    room: 'Kitchen',
+    phase: 'Finishing',
+    quantity: 12,
+    unitPrice: 156.99,
+    totalPrice: 1883.88,
+    unit: 'units',
     supplier: {
-      name: 'B&Q',
-      logo: '/logos/bq.png',
-      rating: 4.1,
-      deliveryDays: 7
+      name: 'Howdens',
+      logo: '/logos/howdens.png',
+      rating: 4.3,
+      status: 'coordinating'
     },
-    imageUrl: '/materials/kitchen-unit.jpg',
-    inStock: true
+    delivery: {
+      scheduledDate: '2024-04-25',
+      window: 'Full day install',
+      status: 'scheduled'
+    },
+    quality: {
+      certification: 'FIRA Gold',
+      sustainabilityRating: 'B',
+      warranty: '5 year furniture guarantee'
+    },
+    imageUrl: '/materials/howdens-kitchen.jpg',
+    alternatives: 8,
+    upgradePrice: 445.00,
+    usedInProjects: 678
   }
 ]
 
-const categories = [
-  { id: 'all', name: 'All Materials', icon: Building },
-  { id: 'structural', name: 'Structural', icon: Building },
-  { id: 'insulation', name: 'Insulation', icon: Building },
-  { id: 'electrical', name: 'Electrical', icon: Lightbulb },
-  { id: 'bathroom', name: 'Bathroom', icon: Droplets },
-  { id: 'kitchen', name: 'Kitchen', icon: Hammer }
+const deliveryPhases: DeliveryPhase[] = [
+  {
+    id: '1',
+    name: 'Foundation & Frame',
+    date: 'Feb 15-20',
+    status: 'upcoming',
+    materials: ['Premium Softwood Frame Kit', 'Heritage Brick Collection']
+  },
+  {
+    id: '2',
+    name: 'Insulation & Services',
+    date: 'Mar 5-15',
+    status: 'upcoming',
+    materials: ['Kingspan Insulation System', 'Electrical Rough-in']
+  },
+  {
+    id: '3',
+    name: 'Finishing',
+    date: 'Apr 12-30',
+    status: 'upcoming',
+    materials: ['Smart LED Lighting', 'Bathroom Suite', 'Kitchen Range']
+  }
 ]
 
 export default function MaterialsPage() {
   const router = useRouter()
-  const [materials, setMaterials] = useState<Material[]>(mockMaterials)
-  const [filteredMaterials, setFilteredMaterials] = useState<Material[]>(mockMaterials)
-  const [cart, setCart] = useState<CartItem[]>([])
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [showCart, setShowCart] = useState(false)
+  const [selectedPhase, setSelectedPhase] = useState('all')
+  const [showAlternatives, setShowAlternatives] = useState<string | null>(null)
+  const [expandedMaterial, setExpandedMaterial] = useState<string | null>(null)
 
-  useEffect(() => {
-    filterMaterials()
-  }, [selectedCategory, searchQuery])
+  const totalCost = projectMaterials.reduce((sum, material) => sum + material.totalPrice, 0)
+  const totalSavings = projectMaterials.reduce((sum, material) => sum + (material.savings || 0), 0)
 
-  const filterMaterials = () => {
-    let filtered = materials
+  const filteredMaterials = selectedPhase === 'all' 
+    ? projectMaterials 
+    : projectMaterials.filter(material => material.phase === selectedPhase)
 
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(material => material.category === selectedCategory)
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'confirmed': return 'bg-green-100 text-green-800'
+      case 'pending': return 'bg-yellow-100 text-yellow-800'
+      case 'coordinating': return 'bg-blue-100 text-blue-800'
+      default: return 'bg-gray-100 text-gray-800'
     }
+  }
 
-    if (searchQuery) {
-      filtered = filtered.filter(material => 
-        material.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        material.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+  const getSustainabilityColor = (rating: string) => {
+    switch (rating) {
+      case 'A+': return 'bg-green-500'
+      case 'A': return 'bg-green-400'
+      case 'B': return 'bg-yellow-400'
+      case 'C': return 'bg-orange-400'
+      default: return 'bg-gray-400'
     }
-
-    setFilteredMaterials(filtered)
-  }
-
-  const addToCart = (material: Material) => {
-    setCart(prev => {
-      const existing = prev.find(item => item.id === material.id)
-      if (existing) {
-        return prev.map(item => 
-          item.id === material.id 
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      }
-      return [...prev, { ...material, quantity: 1 }]
-    })
-  }
-
-  const updateCartQuantity = (id: string, change: number) => {
-    setCart(prev => {
-      return prev.map(item => {
-        if (item.id === id) {
-          const newQuantity = Math.max(0, item.quantity + change)
-          return newQuantity === 0 ? null : { ...item, quantity: newQuantity }
-        }
-        return item
-      }).filter(Boolean) as CartItem[]
-    })
-  }
-
-  const getTotalCost = () => {
-    return cart.reduce((total, item) => {
-      const price = item.discount ? item.price * (1 - item.discount / 100) : item.price
-      return total + (price * item.quantity)
-    }, 0)
-  }
-
-  const getTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0)
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Materials Marketplace</h1>
-              <p className="text-gray-600">Source everything for your build from top UK suppliers</p>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-blue-800 to-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Everything You Need, Already Chosen</h1>
+            <p className="text-xl text-blue-100 mb-8">Your project materials are carefully selected and ready for delivery</p>
+            
+            {/* Project Summary Cards */}
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <Card className="bg-white/10 backdrop-blur border-white/20">
+                <CardContent className="p-6 text-center">
+                  <Package className="h-8 w-8 mx-auto mb-3 text-blue-200" />
+                  <div className="text-2xl font-bold">{projectMaterials.length}</div>
+                  <div className="text-blue-100">Materials Selected</div>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/10 backdrop-blur border-white/20">
+                <CardContent className="p-6 text-center">
+                  <DollarSign className="h-8 w-8 mx-auto mb-3 text-blue-200" />
+                  <div className="text-2xl font-bold">{formatCurrency(totalCost)}</div>
+                  <div className="text-blue-100">Total Investment</div>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/10 backdrop-blur border-white/20">
+                <CardContent className="p-6 text-center">
+                  <TrendingUp className="h-8 w-8 mx-auto mb-3 text-blue-200" />
+                  <div className="text-2xl font-bold">{formatCurrency(totalSavings)}</div>
+                  <div className="text-blue-100">Your Savings</div>
+                </CardContent>
+              </Card>
             </div>
-            <Button 
-              onClick={() => setShowCart(!showCart)}
-              className="relative"
-            >
-              <ShoppingCart className="h-5 w-5 mr-2" />
-              Cart ({getTotalItems()})
-              {getTotalItems() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {getTotalItems()}
-                </span>
-              )}
-            </Button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-4 gap-6">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <Card>
-              <CardHeader>
-                <CardTitle>Filter Materials</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Input
-                    placeholder="Search materials..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-                
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Categories</h3>
-                  <div className="space-y-2">
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => setSelectedCategory(category.id)}
-                        className={`w-full flex items-center px-3 py-2 rounded-lg text-sm transition-colors ${
-                          selectedCategory === category.id
-                            ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                            : 'hover:bg-gray-50 text-gray-700'
-                        }`}
-                      >
-                        <category.icon className="h-4 w-4 mr-2" />
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Materials Grid */}
-          <div className={`${showCart ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {filteredMaterials.map((material) => (
-                <Card key={material.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="aspect-square bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
-                      <Building className="h-12 w-12 text-gray-400" />
-                    </div>
-                    
-                    <h3 className="font-medium text-gray-900 mb-1">{material.name}</h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{material.description}</p>
-                    
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center text-sm text-gray-600">
-                        <img 
-                          src={`https://via.placeholder.com/20x20?text=${material.supplier.name[0]}`}
-                          alt={material.supplier.name}
-                          className="w-4 h-4 rounded mr-1"
-                        />
-                        {material.supplier.name}
-                      </div>
-                      <div className="flex items-center">
-                        <Star className="h-3 w-3 text-yellow-400 mr-1" />
-                        <span className="text-sm text-gray-600">{material.supplier.rating}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between mb-3">
-                      <div>
-                        {material.discount && (
-                          <span className="text-sm text-gray-500 line-through mr-2">
-                            {formatCurrency(material.price)}
-                          </span>
+      {/* Delivery Timeline */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Delivery Timeline</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {deliveryPhases.map((phase, index) => (
+              <div key={phase.id} className="relative">
+                <Card className={`${phase.status === 'current' ? 'ring-2 ring-blue-500' : ''}`}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        phase.status === 'completed' ? 'bg-green-500' :
+                        phase.status === 'current' ? 'bg-blue-500' : 'bg-gray-300'
+                      }`}>
+                        {phase.status === 'completed' ? (
+                          <CheckCircle className="h-5 w-5 text-white" />
+                        ) : (
+                          <span className="text-white font-semibold">{index + 1}</span>
                         )}
-                        <span className="font-semibold text-gray-900">
-                          {formatCurrency(material.discount ? material.price * (1 - material.discount / 100) : material.price)}
-                        </span>
-                        <span className="text-sm text-gray-600 ml-1">/{material.unit}</span>
                       </div>
-                      {material.discount && (
-                        <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
-                          {material.discount}% off
-                        </span>
-                      )}
+                      <div className="text-right">
+                        <div className="font-semibold text-gray-900">{phase.name}</div>
+                        <div className="text-sm text-gray-600">{phase.date}</div>
+                      </div>
                     </div>
-                    
-                    <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
-                      <div className="flex items-center">
-                        <Truck className="h-3 w-3 mr-1" />
-                        {material.supplier.deliveryDays} days
-                      </div>
-                      {material.inStock && (
-                        <div className="flex items-center text-green-600">
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          In stock
+                    <div className="text-sm text-gray-600">
+                      {phase.materials.map((material, idx) => (
+                        <div key={idx} className="flex items-center">
+                          <div className="w-2 h-2 bg-blue-300 rounded-full mr-2"></div>
+                          {material}
                         </div>
-                      )}
+                      ))}
                     </div>
-                    
-                    <Button 
-                      className="w-full" 
-                      size="sm"
-                      onClick={() => addToCart(material)}
-                    >
-                      <Plus className="h-4 w-4 mr-1" />
-                      Add to Cart
-                    </Button>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                {index < deliveryPhases.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-2 w-4 h-0.5 bg-gray-300 transform -translate-y-1/2"></div>
+                )}
+              </div>
+            ))}
           </div>
+        </div>
+      </div>
 
-          {/* Shopping Cart Sidebar */}
-          {showCart && (
-            <div className="lg:col-span-1">
-              <Card className="sticky top-4">
-                <CardHeader>
-                  <CardTitle>Shopping Cart</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {cart.length === 0 ? (
-                    <p className="text-gray-500 text-center py-8">Your cart is empty</p>
-                  ) : (
-                    <>
-                      <div className="space-y-3 max-h-96 overflow-y-auto">
-                        {cart.map((item) => (
-                          <div key={item.id} className="border-b pb-3">
-                            <h4 className="font-medium text-sm text-gray-900 mb-1">
-                              {item.name}
-                            </h4>
-                            <p className="text-xs text-gray-600 mb-2">{item.supplier.name}</p>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  onClick={() => updateCartQuantity(item.id, -1)}
-                                  className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-50"
-                                >
-                                  <Minus className="h-3 w-3" />
-                                </button>
-                                <span className="text-sm font-medium">{item.quantity}</span>
-                                <button
-                                  onClick={() => updateCartQuantity(item.id, 1)}
-                                  className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-50"
-                                >
-                                  <Plus className="h-3 w-3" />
-                                </button>
-                              </div>
-                              <span className="text-sm font-medium">
-                                {formatCurrency((item.discount ? item.price * (1 - item.discount / 100) : item.price) * item.quantity)}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-gray-900">Materials Selected for Your Project</h2>
+          <Button 
+            variant="outline" 
+            onClick={() => router.push('/project/configure')}
+            className="border-blue-600 text-blue-600 hover:bg-blue-50"
+          >
+            <Settings className="h-4 w-4 mr-2" />
+            Modify Project
+          </Button>
+        </div>
+
+        {/* Phase Filter */}
+        <div className="mb-6">
+          <div className="flex space-x-2 overflow-x-auto pb-2">
+            {['all', ...deliveryPhases.map(p => p.name)].map((phase) => (
+              <button
+                key={phase}
+                onClick={() => setSelectedPhase(phase)}
+                className={`px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium transition-colors ${
+                  selectedPhase === phase
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+                }`}
+              >
+                {phase === 'all' ? 'All Phases' : phase}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Materials Grid */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          {filteredMaterials.map((material) => (
+            <Card key={material.id} className="hover:shadow-lg transition-all duration-200">
+              <CardContent className="p-6">
+                {/* Material Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-gray-900">{material.name}</h3>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(material.supplier.status)}`}>
+                        {material.supplier.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{material.description}</p>
+                    <div className="text-xs text-gray-500">{material.room} • {material.phase}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-lg text-gray-900">{formatCurrency(material.totalPrice)}</div>
+                    <div className="text-xs text-gray-500">{material.quantity} {material.unit}</div>
+                  </div>
+                </div>
+
+                {/* Quality & Sustainability Badges */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-1">
+                    <Shield className="h-4 w-4 text-blue-600" />
+                    <span className="text-xs text-gray-600">{material.quality.certification}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className={`w-3 h-3 rounded-full ${getSustainabilityColor(material.quality.sustainabilityRating)}`}></div>
+                    <span className="text-xs text-gray-600">{material.quality.sustainabilityRating} Rated</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Award className="h-4 w-4 text-amber-500" />
+                    <span className="text-xs text-gray-600">{material.quality.warranty}</span>
+                  </div>
+                </div>
+
+                {/* Supplier & Delivery Info */}
+                <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <img 
+                        src={`https://via.placeholder.com/24x24?text=${material.supplier.name[0]}`}
+                        alt={material.supplier.name}
+                        className="w-6 h-6 rounded"
+                      />
+                      <span className="font-medium text-gray-900">{material.supplier.name}</span>
+                      <div className="flex items-center gap-1">
+                        <Star className="h-3 w-3 text-yellow-400" />
+                        <span className="text-xs text-gray-600">{material.supplier.rating}</span>
                       </div>
-                      
-                      <div className="border-t pt-4">
-                        <div className="flex justify-between items-center font-semibold text-lg">
-                          <span>Total:</span>
-                          <span>{formatCurrency(getTotalCost())}</span>
-                        </div>
-                        <Button className="w-full mt-4" onClick={() => router.push('/cart')}>
-                          Proceed to Checkout
-                        </Button>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <Calendar className="h-4 w-4" />
+                      <span>{new Date(material.delivery.scheduledDate).toLocaleDateString()}</span>
+                      <span className="text-xs">({material.delivery.window})</span>
+                    </div>
+                    {material.delivery.trackingNumber && (
+                      <div className="flex items-center gap-1 text-blue-600">
+                        <Package className="h-3 w-3" />
+                        <span className="text-xs">Track: {material.delivery.trackingNumber}</span>
                       </div>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          )}
+                    )}
+                  </div>
+                </div>
+
+                {/* Actions & Savings */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    {material.savings && (
+                      <div className="text-sm">
+                        <span className="text-green-600 font-medium">Saved {formatCurrency(material.savings)}</span>
+                      </div>
+                    )}
+                    {material.usedInProjects && (
+                      <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <Users className="h-3 w-3" />
+                        <span>Used in {material.usedInProjects.toLocaleString()} projects</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    {material.alternatives && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAlternatives(showAlternatives === material.id ? null : material.id)}
+                      >
+                        {material.alternatives} Alternatives
+                        <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${showAlternatives === material.id ? 'rotate-180' : ''}`} />
+                      </Button>
+                    )}
+                    {material.upgradePrice && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                      >
+                        Upgrade +{formatCurrency(material.upgradePrice)}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Alternatives Section */}
+                {showAlternatives === material.id && (
+                  <div className="mt-4 pt-4 border-t">
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-900 mb-2">Alternative Options</h4>
+                      <p className="text-sm text-gray-600 mb-3">
+                        View {material.alternatives} similar products that match your project requirements
+                      </p>
+                      <Button 
+                        size="sm" 
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => router.push(`/materials/${material.id}/alternatives`)}
+                      >
+                        See All Options
+                        <ArrowRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Project Modification CTA */}
+        <div className="mt-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Want Different Materials?</h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Our AI has selected these materials based on your project requirements, budget, and timeline. 
+            Modify your project preferences to see different options.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button 
+              onClick={() => router.push('/project/configure')}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Modify Project
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => router.push('/materials/alternatives')}
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              Browse All Alternatives
+            </Button>
+          </div>
         </div>
       </div>
     </div>
