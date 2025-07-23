@@ -1,3 +1,44 @@
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <Sparkles className="h-12 w-12 text-blue-600" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Your AI-Generated Floorplans
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Professional layouts optimized for your budget and requirements
+          </p>
+        </div>
+
+        {isGenerating ? (
+          <Card className="max-w-2xl mx-auto text-center">
+            <CardContent className="py-12">
+              <Loader2 className="h-16 w-16 animate-spin text-blue-600 mx-auto mb-6" />
+              <h2 className="text-xl font-semibold mb-4">Generating Your Plans...</h2>
+              <p className="text-gray-600 mb-6">
+                Our AI is creating custom floorplans based on your requirements
+              </p>
+              <div className="space-y-2 text-sm text-gray-500">
+                <div className="flex items-center justify-center">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Analyzing your budget and location
+                </div>
+                <div className="flex items-center justify-center">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Optimizing room layouts
+                </div>
+                <div className="flex items-center justify-center">
+                  <Loader2 className="h-4 w-4 animate-spin text-blue-600 mr-2" />
+                  Checking UK building regulations
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid lg:grid-cols-3 gap-6">
             {/* Floorplan Options */}
             <div className="lg:col-span-2 space-y-4">
               {floorplans.map((plan, index) => (

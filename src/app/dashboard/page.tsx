@@ -1,4 +1,124 @@
-            <Button>
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { formatCurrency } from '@/lib/uk-utils'
+import { 
+  Plus, 
+  TrendingUp, 
+  ShoppingCart, 
+  Clock, 
+  CheckCircle, 
+  Home, 
+  Users, 
+  Download, 
+  Star,
+  Calendar
+} from 'lucide-react'
+
+// Types
+interface Project {
+  id: string
+  name: string
+  type: 'new_build' | 'renovation' | 'extension'
+  location: string
+  status: 'planning' | 'in_progress' | 'completed' | 'on_hold'
+  progress: number
+  budget: number
+  spent: number
+  createdAt: string
+  lastUpdated: string
+}
+
+// Mock data - in a real app this would come from an API
+const mockProjects: Project[] = [
+  {
+    id: '1',
+    name: 'Kitchen Renovation',
+    type: 'renovation',
+    location: 'London, SW1',
+    status: 'in_progress',
+    progress: 65,
+    budget: 25000,
+    spent: 16250,
+    createdAt: '2024-01-15',
+    lastUpdated: '2024-01-20'
+  },
+  {
+    id: '2',
+    name: 'Two-Story Extension',
+    type: 'extension',
+    location: 'Manchester, M1',
+    status: 'planning',
+    progress: 15,
+    budget: 85000,
+    spent: 12750,
+    createdAt: '2024-01-10',
+    lastUpdated: '2024-01-18'
+  },
+  {
+    id: '3',
+    name: 'Bathroom Refurbishment',
+    type: 'renovation',
+    location: 'Birmingham, B1',
+    status: 'completed',
+    progress: 100,
+    budget: 12000,
+    spent: 11800,
+    createdAt: '2023-12-01',
+    lastUpdated: '2024-01-05'
+  }
+]
+
+const statusConfig = {
+  planning: {
+    label: 'Planning',
+    color: 'bg-yellow-100 text-yellow-800',
+    icon: Clock
+  },
+  in_progress: {
+    label: 'In Progress',
+    color: 'bg-blue-100 text-blue-800',
+    icon: TrendingUp
+  },
+  completed: {
+    label: 'Completed',
+    color: 'bg-green-100 text-green-800',
+    icon: CheckCircle
+  },
+  on_hold: {
+    label: 'On Hold',
+    color: 'bg-red-100 text-red-800',
+    icon: Clock
+  }
+}
+
+export default function DashboardPage() {
+  const router = useRouter()
+  const [projects] = useState<Project[]>(mockProjects)
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
+
+  // Calculate stats
+  const getTotalBudget = () => projects.reduce((sum, p) => sum + p.budget, 0)
+  const getTotalSpent = () => projects.reduce((sum, p) => sum + p.spent, 0)
+  const getActiveProjects = () => projects.filter(p => p.status === 'in_progress' || p.status === 'planning')
+  const getCompletedProjects = () => projects.filter(p => p.status === 'completed')
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+              <p className="text-gray-600 mt-1">
+                Manage your projects, track progress, and get insights
+              </p>
+            </div>
+            <Button onClick={() => router.push('/start')}>
               <Plus className="h-5 w-5 mr-2" />
               New Project
             </Button>
@@ -165,15 +285,15 @@
                           </div>
                           
                           <div className="space-y-2">
-                            <Button className="w-full" size="sm">
+                            <Button className="w-full" size="sm" onClick={() => router.push('/generate')}>
                               <Home className="h-4 w-4 mr-2" />
                               View Floorplan
                             </Button>
-                            <Button variant="outline" className="w-full" size="sm">
+                            <Button variant="outline" className="w-full" size="sm" onClick={() => router.push('/materials')}>
                               <ShoppingCart className="h-4 w-4 mr-2" />
                               Manage Materials
                             </Button>
-                            <Button variant="outline" className="w-full" size="sm">
+                            <Button variant="outline" className="w-full" size="sm" onClick={() => router.push('/professionals')}>
                               <Users className="h-4 w-4 mr-2" />
                               View Professionals
                             </Button>
@@ -200,15 +320,15 @@
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start" variant="outline">
+                <Button className="w-full justify-start" variant="outline" onClick={() => router.push('/start')}>
                   <Plus className="h-4 w-4 mr-2" />
                   Start New Project
                 </Button>
-                <Button className="w-full justify-start" variant="outline">
+                <Button className="w-full justify-start" variant="outline" onClick={() => router.push('/materials')}>
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   Browse Materials
                 </Button>
-                <Button className="w-full justify-start" variant="outline">
+                <Button className="w-full justify-start" variant="outline" onClick={() => router.push('/professionals')}>
                   <Users className="h-4 w-4 mr-2" />
                   Find Professionals
                 </Button>
@@ -268,94 +388,6 @@
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}                  <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span className={`status-badge border ${getStatusColor(project.status)}`}>
-                      {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                    </span>
-                    <span className="text-sm text-gray-600">
-                      {project.daysLeft > 0 ? `${project.daysLeft} days left` : 'Complete'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Progress Section */}
-              <div className="mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-gray-700">Progress</span>
-                  <span className="text-sm font-medium text-gray-900">{project.progress}%</span>
-                </div>
-                <div className="progress-bar">
-                  <div 
-                    className="progress-fill"
-                    style={{ width: `${project.progress}%` }}
-                  ></div>
-                </div>
-                <p className="text-xs text-gray-600 mt-1">Next: {project.nextMilestone}</p>
-              </div>
-              
-              {/* Budget Section */}
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
-                <div>
-                  <p className="text-sm text-gray-600">Budget</p>
-                  <p className="font-semibold text-gray-900">{formatCurrency(project.budget)}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Spent</p>
-                  <p className="font-semibold text-gray-900">{formatCurrency(project.spent)}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Recent Activity */}
-        <div className="mt-8">
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
-              <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                View all
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              {[
-                {
-                  icon: ShoppingCart,
-                  title: 'Materials ordered for Kitchen Renovation',
-                  time: '2 hours ago',
-                  color: 'green'
-                },
-                {
-                  icon: Users,
-                  title: 'Quote received from Elite Electrical',
-                  time: '1 day ago',
-                  color: 'blue'
-                },
-                {
-                  icon: Calendar,
-                  title: 'Foundation work scheduled',
-                  time: '2 days ago',
-                  color: 'orange'
-                }
-              ].map((activity, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 bg-${activity.color}-50 rounded-xl flex items-center justify-center`}>
-                    <activity.icon className={`h-5 w-5 text-${activity.color}-600`} />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
-                    <p className="text-xs text-gray-500">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
