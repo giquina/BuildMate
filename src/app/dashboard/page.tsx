@@ -49,7 +49,7 @@ import {
   Gift,
   Sparkles,
   ShoppingBag,
-  Bookmark
+  Bookmark,
   PartyPopper,
   Medal,
   Crown,
@@ -63,7 +63,6 @@ import {
   Settings,
   Volume2,
   VolumeX,
-  Bookmark,
   Link,
   Copy,
   Download as DownloadIcon
