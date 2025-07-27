@@ -48,6 +48,8 @@ import {
   Target,
   Gift,
   Sparkles,
+  ShoppingBag,
+  Bookmark
   PartyPopper,
   Medal,
   Crown,
@@ -581,6 +583,49 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Saved Items & Wishlist */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center space-x-2">
+                    <Heart className="h-5 w-5" />
+                    <span>Saved Items</span>
+                  </CardTitle>
+                  <Button variant="outline" size="sm" onClick={() => router.push('/wishlist')}>
+                    View All
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                      <Package className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">Premium Oak Flooring</div>
+                      <div className="text-xs text-gray-600">Saved 2 days ago</div>
+                    </div>
+                    <div className="text-sm font-medium">{formatCurrency(45.99)}</div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
+                      <Shield className="h-4 w-4 text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">Security System</div>
+                      <div className="text-xs text-gray-600">Saved 5 days ago</div>
+                    </div>
+                    <div className="text-sm font-medium">{formatCurrency(899.99)}</div>
+                  </div>
+                </div>
+                <Button variant="outline" className="w-full justify-start">
+                  <ShoppingBag className="h-4 w-4 mr-2" />
+                  Add Saved Items to Cart
+                </Button>
+              </CardContent>
+            </Card>
 
             {/* Communication Hub */}
             <Card>

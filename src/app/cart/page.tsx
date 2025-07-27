@@ -16,7 +16,9 @@ import {
   CreditCard,
   FileText,
   Download,
-  Share
+  Share,
+  Heart,
+  Star
 } from 'lucide-react'
 
 interface CartItem {
@@ -219,12 +221,22 @@ export default function CartPage() {
                             <span className="text-sm text-gray-600">{item.unit}</span>
                           </div>
                           
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="text-red-600 hover:text-red-700 p-2"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => {/* Move to wishlist */}}
+                              className="text-gray-400 hover:text-red-500 p-2 transition-colors"
+                              title="Move to Wishlist"
+                            >
+                              <Heart className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="text-red-600 hover:text-red-700 p-2"
+                              title="Remove Item"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
                         </div>
                       </div>
                       
@@ -348,7 +360,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   
-                  <Button className="w-full mt-6" size="lg">
+                  <Button 
+                    className="w-full mt-6" 
+                    size="lg"
+                    onClick={() => router.push('/checkout')}
+                  >
                     <CreditCard className="h-5 w-5 mr-2" />
                     Proceed to Checkout
                   </Button>
@@ -358,9 +374,13 @@ export default function CartPage() {
                       <FileText className="h-4 w-4 mr-1" />
                       Save Quote
                     </Button>
-                    <Button variant="outline" size="sm">
-                      <Share className="h-4 w-4 mr-1" />
-                      Share Cart
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => router.push('/wishlist')}
+                    >
+                      <Heart className="h-4 w-4 mr-1" />
+                      View Wishlist
                     </Button>
                   </div>
                 </CardContent>

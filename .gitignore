@@ -57,3 +57,13 @@ coverage/
 # Temporary folders
 tmp/
 temp/
+
+# Claude Code specific (keep debug logs tracked but ignore sensitive data)
+errors/sensitive.log
+.claude/settings.personal.json
+
+# Keep these tracked for team development
+!errors/debug.log
+!.claude/
+!tasks/
+!scripts/

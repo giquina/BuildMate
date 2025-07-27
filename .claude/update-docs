@@ -1,0 +1,54 @@
+# Update Documentation Slash Command
+# Usage: /update-docs
+
+You are tasked with automatically updating all documentation files in the BuildMate AI construction platform project.
+
+## Files to Update:
+1. **README.md** - Project overview, installation, construction industry features
+2. **CLAUDE.md** - Development guidelines, architecture, construction domain context
+3. **docs/*** - All documentation in docs directory
+4. **Component Documentation** - React component usage and props
+5. **API Documentation** - Construction API endpoints and data structures
+
+## Construction Platform Context:
+This is a UK-focused construction platform with:
+- AI-powered floorplan generation
+- Materials marketplace integration
+- Professional contractor network
+- E-commerce flow (cart, wishlist, checkout)
+- UK building regulations compliance
+- Construction project management
+
+## Process:
+1. **Scan Codebase**: Analyze current Next.js app structure and construction features
+2. **Review Pages**: Check all app router pages for new functionality
+3. **Component Analysis**: Review UI components and construction-specific features
+4. **API Endpoints**: Document construction API routes and data structures
+5. **E-commerce Features**: Document cart, wishlist, checkout, and AI recommendations
+6. **Construction Domain**: Update UK construction industry specific documentation
+7. **Update Files**: Systematically update all documentation files
+
+## Focus Areas:
+- **E-commerce Flow**: Cart, wishlist, favorites, account creation, checkout
+- **AI Features**: Floorplan generation, material recommendations
+- **Professional Network**: Contractor profiles, ratings, project matching
+- **UK Construction**: Building regulations, planning permission, professional standards
+- **TypeScript Interfaces**: Construction domain data structures
+- **Component Library**: UI components with construction industry context
+
+## Construction Industry Considerations:
+- Professional user workflows (architects, builders, contractors)
+- Mobile-first design for on-site usage
+- UK-specific features (postcodes, building regs, VAT handling)
+- Complex project data (budgets, timelines, materials)
+- Trust and reliability requirements for construction professionals
+
+## Output Requirements:
+- Update documentation to match current implementation
+- Add missing documentation for new features
+- Ensure construction industry context is clear throughout
+- Provide implementation examples with construction use cases
+- Update installation and setup instructions
+- Document e-commerce and AI recommendation features
+
+Start by analyzing the current BuildMate AI codebase structure and construction features, then systematically update each documentation file with accurate, construction-focused content.

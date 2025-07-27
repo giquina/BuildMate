@@ -1,0 +1,82 @@
+# Project Health Slash Command
+# Usage: /project-health
+
+You are tasked with providing a comprehensive health check of the BuildMate AI construction platform repository.
+
+## Health Check Areas:
+
+### 1. Task Management
+- Count remaining tasks in `tasks/todo.md`
+- Identify high priority incomplete tasks
+- Check for overdue or stalled tasks
+- Report completion percentage
+
+### 2. Git Activity
+- Number of commits made today/this week
+- Recent commit activity analysis
+- Files changed recently
+- Branch status and synchronization
+
+### 3. Code Quality
+- Run TypeScript type checking status
+- ESLint warnings and errors count
+- Component test coverage status
+- Build status and warnings
+
+### 4. Error Tracking
+- Unresolved bugs in `errors/debug.log`
+- Recent error patterns
+- Critical vs. minor issues
+- Error resolution trends
+
+### 5. BuildMate Construction Platform Specific
+- E-commerce functionality status (cart, wishlist, checkout)
+- AI recommendation system implementation
+- Professional network features
+- Materials marketplace integration
+- UK construction compliance features
+
+### 6. Development Environment
+- Dependencies status (outdated packages)
+- Development server health
+- Build performance metrics
+- Configuration file validity
+
+### 7. Documentation Health
+- Documentation coverage for new features
+- Outdated documentation identification
+- Missing API documentation
+- Construction industry context accuracy
+
+## Output Format:
+```
+🏗️ BuildMate AI - Project Health Report
+========================================
+
+📋 Tasks: X/Y completed (Z% done)
+⚠️  High Priority: X remaining
+🔄 Recent Activity: X commits this week
+🐛 Open Issues: X bugs in debug.log
+✅ Build Status: Passing/Failing
+📚 Documentation: Current/Needs Update
+
+🚨 Critical Issues:
+- [List any critical problems]
+
+💡 Recommendations:
+- [Actionable improvement suggestions]
+
+🎯 Next Priorities:
+- [Top 3 tasks to focus on]
+```
+
+## Construction Platform Context:
+Consider BuildMate AI's specific needs:
+- Construction industry user requirements
+- UK market compliance features
+- Professional user workflows
+- Mobile-first construction site usage
+- E-commerce material purchasing flow
+- AI-powered construction recommendations
+
+Provide actionable insights that help maintain the platform's quality and development velocity while serving construction professionals effectively.

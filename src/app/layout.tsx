@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
-import { Home, Eye, DollarSign, Settings, User, ArrowRight, BookOpen } from 'lucide-react'
+import { Home, Eye, DollarSign, Settings, User, ArrowRight, BookOpen, Heart, ShoppingCart } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -69,9 +69,13 @@ export default function RootLayout({
               <Eye className="h-5 w-5 mb-1" />
               <span className="text-xs font-medium">Examples</span>
             </Link>
-            <Link href="/guides" className="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-700 transition-colors">
-              <BookOpen className="h-5 w-5 mb-1" />
-              <span className="text-xs font-medium">Guides</span>
+            <Link href="/cart" className="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-blue-700 transition-colors">
+              <ShoppingCart className="h-5 w-5 mb-1" />
+              <span className="text-xs font-medium">Cart</span>
+            </Link>
+            <Link href="/wishlist" className="flex flex-col items-center py-2 px-3 text-gray-600 hover:text-red-500 transition-colors">
+              <Heart className="h-5 w-5 mb-1" />
+              <span className="text-xs font-medium">Wishlist</span>
             </Link>
             <Link href="/configure" className="flex flex-col items-center py-2 px-4 bg-blue-700 text-white rounded-lg mx-1 hover:bg-blue-800 transition-colors">
               <Settings className="h-5 w-5 mb-1" />

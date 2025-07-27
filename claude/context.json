@@ -1,0 +1,85 @@
+{
+  "project": {
+    "name": "BuildMate AI",
+    "description": "UK-focused construction platform with AI-powered floorplan generation, materials marketplace, and professional networking",
+    "language": "TypeScript",
+    "framework": "Next.js 14",
+    "styling": "Tailwind CSS",
+    "domain": "Construction Industry"
+  },
+  "architecture": {
+    "pattern": "Next.js App Router",
+    "structure": "Feature-based pages with shared components",
+    "api": "Next.js API routes",
+    "database": "Supabase (configured)",
+    "payments": "Stripe integration",
+    "ai": "OpenAI (mocked for development)"
+  },
+  "key_directories": {
+    "src/app": "Next.js app router pages and layouts",
+    "src/components/ui": "Reusable UI component library",
+    "src/types": "TypeScript interfaces for construction domain",
+    "src/lib": "Utilities including UK-specific functions",
+    "claude/subagents": "Claude Code specialized subagents"
+  },
+  "core_features": {
+    "ai_generation": "AI-powered floorplan generation for construction projects",
+    "materials_marketplace": "Construction materials shopping with supplier integration",
+    "professional_network": "Contractor, architect, and trades directory",
+    "project_management": "Construction project tracking and management",
+    "ecommerce_flow": "Cart, wishlist, checkout for construction materials",
+    "uk_compliance": "Building regulations and planning permission support"
+  },
+  "data_models": {
+    "User": "Construction professionals with subscription tiers",
+    "Project": "Construction projects (new_build, renovation, extension)",
+    "Floorplan": "AI-generated construction layouts with SVG data",
+    "Material": "Construction materials with UK supplier integration", 
+    "Professional": "Contractors, architects, trades with certifications",
+    "Quote": "Professional estimates for construction work"
+  },
+  "ui_components": {
+    "Button": "Multiple variants with construction industry styling",
+    "Card": "Project cards, material cards, professional profiles",
+    "Badge": "Status indicators, certifications, project phases",
+    "Input": "Form inputs with UK-specific validation",
+    "Progress": "Project progress tracking and timelines"
+  },
+  "api_endpoints": {
+    "/api/ai/generate": "AI floorplan generation endpoint (mocked)",
+    "future_endpoints": "Materials API, Professional matching, Payment processing"
+  },
+  "construction_context": {
+    "target_users": ["Homeowners", "Self-builders", "Property developers", "Construction professionals"],
+    "uk_focus": "Building regulations, planning permission, UK postcodes, regional pricing",
+    "project_types": "Extensions, new builds, renovations with specific workflows",
+    "professional_types": "Architects, builders, electricians, plumbers, specialists",
+    "compliance": "UK building standards, professional certifications, insurance"
+  },
+  "development_commands": {
+    "dev": "npm run dev - Start development server",
+    "build": "npm run build - Production build",
+    "lint": "npm run lint - Code quality check", 
+    "type-check": "npm run type-check - TypeScript validation"
+  },
+  "claude_tooling": {
+    "subagents": [
+      "doc-writer - Documentation maintenance",
+      "ui-component-auditor - Component quality and UX",
+      "type-checker - TypeScript domain safety",
+      "api-validator - API quality and validation",
+      "performance-monitor - Next.js optimization"
+    ],
+    "slash_commands": [
+      "/update-docs - Auto-update all documentation",
+      "/project-health - Repository health check"
+    ],
+    "hooks": "Auto-commit on successful code changes with error checking"
+  },
+  "current_priorities": {
+    "ecommerce_enhancement": "Complete cart, wishlist, favorites, checkout flow",
+    "ai_recommendations": "Mock data for BuildMate AI suggestions in checkout",
+    "account_creation": "User registration for wishlist/favorites",
+    "dashboard_integration": "Show saved items and projects in dashboard"
+  }
+}
