@@ -155,15 +155,15 @@ export default function HomePage() {
 
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Your Dream Home,
+              AI-Powered Home Building
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-2">
-                Delivered
+                Made Simple
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Configure once. We handle everything. Start building in one click.
+              Generate floorplans, visualize designs, source materials, and connect with verified builders - all in one platform.
               <span className="block mt-2 text-lg text-blue-600 font-semibold">
-                Configure Your Dream Home Like a Tesla, Start Building Like Ordering an Uber
+                From concept to completion in 3 simple steps
               </span>
             </p>
             
@@ -172,7 +172,7 @@ export default function HomePage() {
                 href="/configure" 
                 className="inline-flex items-center bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-2xl text-lg"
               >
-                <span className="relative z-10">Configure My Dream Home</span>
+                <span className="relative z-10">Start Building Your Home</span>
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform relative z-10" />
               </Link>
               <button className="btn-secondary text-lg flex items-center justify-center group relative overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-50">
@@ -455,12 +455,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Tesla-Uber 3-Step Process */}
+      {/* Smart 3-Step Process */
       <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Build Your Dream Home in 3 Steps
+              Build Your Perfect Home in 3 Steps
             </h2>
             <p className="text-2xl text-gray-600 mb-4">
               Configure → Review → Build
@@ -475,8 +475,8 @@ export default function HomePage() {
               {
                 step: '1',
                 title: 'Configure',
-                subtitle: 'Like Tesla',
-                description: 'Design your perfect home with our Tesla-style configurator. Choose everything from layout to finishes with real-time 3D preview.',
+                subtitle: 'Smart Design',
+                description: 'Design your perfect home with our intuitive configurator. Choose everything from layout to finishes with real-time 3D preview.',
                 icon: '🏠',
                 details: 'Interactive house model snippet',
                 color: 'blue',
@@ -495,8 +495,8 @@ export default function HomePage() {
               {
                 step: '3',
                 title: 'Build',
-                subtitle: 'Like Uber',
-                description: 'One click starts your entire project. We handle the rest. Track progress like following your ride.',
+                subtitle: 'One-Click Start',
+                description: 'One click starts your entire project. We handle the rest. Track progress with real-time updates.',
                 icon: '🚀',
                 details: 'Timeline visualization',
                 color: 'green',
@@ -676,10 +676,10 @@ export default function HomePage() {
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Configure Your Dream Home?
+            Ready to Start Building Your Home?
           </h2>
           <p className="text-blue-100 text-xl mb-8 leading-relaxed">
-            <AnimatedCounter value="247" /> houses configured today. Join the Tesla-Uber revolution in home building.
+            <AnimatedCounter value="247" /> houses designed today. Start your home building journey.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -687,7 +687,7 @@ export default function HomePage() {
               href="/configure" 
               className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-2xl"
             >
-              Configure My Dream Home
+              Start Building Your Home
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link 

@@ -23,7 +23,7 @@ import {
   Settings,
   AlertCircle,
   ChevronRight,
-  Online,
+  Circle,
   Building,
   Zap,
   Wrench,
@@ -399,7 +399,7 @@ export default function ProfessionalsPage() {
                           <p className="text-lg font-semibold text-blue-700 mb-1">{member.role}</p>
                           <p className="text-gray-600 mb-2">{member.company}</p>
                           <div className={`flex items-center ${getAvailabilityColor(member.availability)} text-sm font-medium`}>
-                            <Online className="h-4 w-4 mr-1" />
+                            <Circle className="h-4 w-4 mr-1" />
                             <span className="capitalize">{member.availability}</span>
                             <span className="mx-2">•</span>
                             <span>{member.lastSeen}</span>

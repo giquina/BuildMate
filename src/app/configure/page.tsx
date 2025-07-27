@@ -149,7 +149,7 @@ export default function ConfigurePage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Configure Your Dream Home
+            Design Your Perfect Home
           </h1>
           <p className="text-gray-600 mb-4">Step 2 of 3 - Choose your style and specifications</p>
           

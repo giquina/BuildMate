@@ -147,7 +147,7 @@ export function CardFooter({ className, children, ...props }: CardFooterProps) {
   )
 }
 
-// Tesla-inspired Feature Card
+// Premium Feature Card
 interface FeatureCardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: React.ReactNode
   title: string

@@ -1,4 +1,4 @@
-// Enhanced UI Components - Tesla-Uber Design System
+// Enhanced UI Components - Professional Design System
 // Export all UI components for easy importing
 
 // Core Components

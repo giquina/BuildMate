@@ -7,9 +7,9 @@ import { Home, Eye, DollarSign, Settings, User, ArrowRight, BookOpen, Heart, Sho
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BuildMate AI - UK Home Building & Renovation Platform',
-  description: 'AI-powered home building platform for UK homeowners, self-builders, and property developers. Design floorplans, source materials, find professionals.',
-  keywords: 'home building, renovation, AI floorplan, UK construction, materials, professionals, self-build',
+  title: 'BuildMate AI - Complete Home Building Platform | Design, Build, Manage',
+  description: 'All-in-one UK home building platform. Generate AI floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders. From design to completion.',
+  keywords: 'UK home building, AI floorplans, home design, construction materials, verified builders, home renovation, property development, building platform',
 }
 
 export default function RootLayout({

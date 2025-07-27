@@ -1,17 +1,60 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent } from '@/components/ui/Card'
+import { useRouter } from 'next/navigation'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { Sparkles, Loader2, Download, Share2, Heart, Eye } from 'lucide-react'
+import { Sparkles, Loader2, Download, Share2, Heart, Eye, CheckCircle, ShoppingCart, Users, Share } from 'lucide-react'
+
+// Mock data for demonstration
+const mockProjectData = {
+  budget: 150000,
+  postcode: 'B12 9QR',
+  projectType: 'new_build',
+  bedrooms: 3,
+  style: 'Modern'
+}
+
+const mockFloorplans = [
+  {
+    id: 'fp_1',
+    name: 'Modern 3-Bedroom Layout',
+    totalArea: 120,
+    estimatedCost: 135000,
+    rooms: [
+      { name: 'Living Room', area: 25, type: 'living' },
+      { name: 'Kitchen', area: 15, type: 'kitchen' },
+      { name: 'Bedroom 1', area: 16, type: 'bedroom' },
+      { name: 'Bedroom 2', area: 12, type: 'bedroom' },
+      { name: 'Bedroom 3', area: 10, type: 'bedroom' },
+      { name: 'Bathroom', area: 6, type: 'bathroom' }
+    ],
+    svgData: '<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/><rect x="10" y="10" width="180" height="140" fill="white" stroke="#cbd5e1" stroke-width="1"/><text x="100" y="80" text-anchor="middle" fill="#334155" font-size="12">Living</text><rect x="210" y="10" width="180" height="70" fill="white" stroke="#cbd5e1" stroke-width="1"/><text x="300" y="50" text-anchor="middle" fill="#334155" font-size="12">Kitchen</text></svg>'
+  }
+]
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  }).format(amount)
+}
 
 export default function GeneratePage() {
+  const router = useRouter()
   const [isGenerating, setIsGenerating] = useState(true)
+  const [selectedPlan, setSelectedPlan] = useState(0)
+  const [floorplans] = useState(mockFloorplans)
+  const [projectData] = useState(mockProjectData)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsGenerating(false), 3000)
     return () => clearTimeout(timer)
   }, [])
+
+  const handleProceedToMaterials = () => {
+    router.push('/materials')
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
