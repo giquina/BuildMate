@@ -57,6 +57,7 @@ npm run dev
 BuildMate AI is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
 
 - **🧠 AI Floorplan Generation**: Describe your dream home and get professional-grade layouts
+- **🏠 AI Image Generation**: Create realistic home renders powered by Replicate + SDXL
 - **🛒 Materials Marketplace**: Shop from Travis Perkins, Wickes, B&Q - all in one cart
 - **👷 Verified Professionals**: Connect with rated builders, architects, and tradespeople
 - **📋 Planning Assistance**: Navigate UK building regulations and planning permission

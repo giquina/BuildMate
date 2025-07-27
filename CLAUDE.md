@@ -160,6 +160,12 @@ This project includes specialized sub-agents for enhanced development:
 - **docs-maintainer**: Documentation updates and maintenance
 - **performance-optimizer**: Next.js performance optimization
 
+## Slash Commands Available
+
+- **`/update-docs`**: Auto-update all documentation based on current codebase
+- **`/project-health`**: Comprehensive repository health check and status report
+- **`/generate-home`**: Create realistic UK home renders using AI image generation powered by Replicate + SDXL
+
 ## Development Hooks
 
 Auto-commit hook is configured to:

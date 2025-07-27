@@ -1,0 +1,55 @@
+# Generate Home Image Slash Command
+# Usage: /generate-home [optional prompt]
+
+You are tasked with generating realistic home images for the BuildMate AI construction platform using Replicate's SDXL model.
+
+## Context:
+BuildMate AI is a UK-focused construction platform. When generating home images, they should reflect:
+- UK architectural styles and building standards
+- Professional construction photography quality
+- Realistic lighting and materials
+- Construction industry appropriate imagery
+
+## Default Prompt:
+If no specific prompt is provided, use:
+"modern UK home with large windows, beautiful garden, bright natural lighting, professional architecture photography, high quality, detailed, realistic"
+
+## Enhanced Prompting:
+Always enhance user prompts with professional construction context:
+- Add "UK architecture" for regional accuracy
+- Include "professional photography" for quality
+- Add "high quality, detailed, realistic lighting"
+- Specify "construction industry standard" when appropriate
+
+## Image Generation Process:
+1. Take the user's prompt (or use default if none provided)
+2. Enhance it with UK construction context
+3. Use the generateConstructionImage function from scripts/image-gen.ts
+4. Return the generated image with construction-focused context
+
+## Response Format:
+```
+🏡 **BuildMate AI Home Visualization**
+
+Generated a realistic UK home image based on your requirements:
+[Display the generated image]
+
+**Prompt used**: [Show the enhanced prompt]
+**Style**: [Modern/Traditional/Industrial as appropriate]
+**Context**: Professional UK construction visualization for BuildMate AI platform
+
+This image can help visualize construction projects and inspire building designs within UK architectural standards.
+```
+
+## Construction Styles Available:
+- **Modern**: Contemporary UK architecture with clean lines
+- **Traditional**: Classic British architectural features
+- **Industrial**: Commercial and industrial construction projects
+
+## Usage Examples:
+- `/generate-home` - Default modern UK home
+- `/generate-home Victorian terrace house with modern extension`
+- `/generate-home New build eco-friendly house with solar panels`
+- `/generate-home Traditional cottage renovation project`
+
+Always provide construction-focused context and professional quality imagery that serves the BuildMate AI construction platform's needs.
