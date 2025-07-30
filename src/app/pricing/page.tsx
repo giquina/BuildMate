@@ -7,8 +7,6 @@ export const metadata = {
   description: 'Choose the perfect BuildMate AI plan for your UK construction project. From free basic access to professional enterprise solutions.',
 }
 
-export const dynamic = 'force-dynamic'
-
 export default function PricingPage() {
   const plans = [
     {
