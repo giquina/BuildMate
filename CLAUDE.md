@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 🚀 Claude Code Operating Rules
 
-1. **First think through the problem**, read the codebase for relevant files, and write a plan to `tasks/todo.md`.
+1. **First think through the problem**, read the codebase for relevant files, and write a plan using TodoWrite tool.
 2. **The plan should have a list of todo items** that you can check off as you complete them.
 3. **Before you begin working**, check in with me and I will verify the plan.
 4. **Then, begin working on the todo items**, marking them as complete as you go.
@@ -30,16 +30,37 @@ BuildMate AI is a UK-focused construction platform built with Next.js 14, TypeSc
 ### Project Structure
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout with navigation
-│   ├── page.tsx           # Homepage with testimonials/stats
-│   ├── globals.css        # Global styles + animations
-│   ├── api/ai/generate/   # AI floorplan generation endpoint
-│   └── [pages]/           # Feature pages (materials, professionals, etc.)
-├── components/ui/         # Reusable component library
-├── lib/                   # Utilities and configurations
-├── types/                 # TypeScript type definitions
+├── app/                          # Next.js App Router
+│   ├── layout.tsx               # Root layout with Navigation component
+│   ├── page.tsx                 # Homepage with testimonials/stats
+│   ├── globals.css              # Global styles + animations
+│   ├── pricing/page.tsx         # Pricing plans (force-static)
+│   ├── configure/page.tsx       # AI image generation & style selection
+│   ├── materials/page.tsx       # Materials marketplace with UK suppliers
+│   ├── professionals/page.tsx   # Verified UK professionals network
+│   ├── dashboard/page.tsx       # Project management dashboard
+│   ├── review/page.tsx          # Project review and assembly
+│   └── api/                     # API routes (see API Architecture section)
+├── components/ui/               # Reusable component library
+│   ├── Navigation.tsx           # Main navigation with mobile menu
+│   ├── Button.tsx               # Primary button component with variants
+│   ├── Card.tsx                 # Card components for content layout
+│   └── index.ts                 # Centralized component exports
+├── lib/                         # Utilities and configurations
+│   ├── uk-utils.ts              # UK-specific functions (postcodes, pricing)
+│   ├── performance.tsx          # Performance monitoring hooks
+│   └── utils.ts                 # General utilities
+├── types/                       # TypeScript type definitions
+│   └── index.ts                 # Core domain types (Project, Material, Professional)
 ```
+
+### Key Page Flows
+1. **Homepage (`/`)** → User education and trust building
+2. **Configure (`/configure`)** → AI image generation + style selection
+3. **Materials (`/materials`)** → UK supplier integration and shopping
+4. **Professionals (`/professionals`)** → Verified professional matching
+5. **Review (`/review`)** → Project assembly and final confirmation
+6. **Dashboard (`/dashboard`)** → Active project management
 
 ### Key Architectural Patterns
 
@@ -72,9 +93,25 @@ Components follow construction industry aesthetics:
 ### Essential Commands
 ```bash
 npm run dev          # Start development server (http://localhost:3000)
-npm run build        # Production build
+npm run build        # Production build with static generation
 npm run lint         # ESLint code quality check
 npm run type-check   # TypeScript compilation check
+npm run start        # Start production server
+```
+
+### Performance Analysis Commands
+```bash
+npm run build:analyze      # Build with bundle analyzer
+npm run analyze:size       # Analyze bundle size
+npm run analyze:deps       # Check unused dependencies
+npm run perf:audit         # Full performance audit (type-check + lint + build)
+npm run perf:lighthouse    # Run Lighthouse performance test
+```
+
+### Pre-deployment Checklist
+Always run before committing or deploying:
+```bash
+npm run type-check && npm run lint && npm run build
 ```
 
 ### Development Workflow
@@ -176,12 +213,47 @@ Auto-commit hook is configured to:
 - Automatically commit if no errors found
 - Skip commit if type errors or linting issues exist
 
+## AI Image Generation System
+
+### Replicate Integration (ACTIVE)
+The platform uses Replicate + SDXL for professional architectural rendering:
+
+**API Endpoint**: `/api/generate-image`
+- **Model**: `stability-ai/sdxl` with expert ensemble refiner
+- **Cost**: ~£0.002 per image (very affordable)
+- **Quality**: Professional photography quality, 1024x768px
+- **Styles**: Modern, Traditional, Contemporary, Victorian UK architecture
+
+**Implementation Details**:
+```typescript
+// Configure page auto-generates 4 architectural style images
+const architecturalStyles = [
+  { id: 'modern', prompt: 'modern UK house with large windows...' },
+  { id: 'traditional', prompt: 'traditional British house, red brick...' },
+  { id: 'contemporary', prompt: 'contemporary UK house, glass and steel...' },
+  { id: 'victorian', prompt: 'Victorian UK house, period elegance...' }
+]
+```
+
+**Environment Setup**:
+- Requires `REPLICATE_API_TOKEN` in environment variables
+- Already configured for all Vercel environments (production/preview/development)
+- Falls back gracefully if API fails
+
+### User Experience Flow
+1. User visits `/configure` page
+2. Shows "AI Images: 1/4 generating..." with loading spinners
+3. Images generate in parallel (15-30 seconds each)
+4. User selects preferred architectural style
+5. Selection saved and passed to materials page
+
 ## Key Implementation Notes
 
 ### Mock Data Strategy
-- AI generation uses mock SVG and data structures
+- AI generation uses mock SVG and data structures for floorplans
 - Professional and material data includes realistic UK market information
 - Case studies and testimonials reflect authentic UK construction scenarios
+- **Image generation is LIVE** - uses real Replicate API for architectural renders
 
 ### Performance Considerations
 - Lazy loading for construction images and material catalogs
@@ -192,6 +264,55 @@ Auto-commit hook is configured to:
 - No API keys in client-side code
 - Proper input validation for all construction project data
 - Secure handling of professional credentials and certifications
+
+## Deployment & Production
+
+### Vercel Deployment
+- **Production URL**: https://buildmate-ai.vercel.app
+- **Repository**: https://github.com/giquina/BuildMate
+- **Auto-deployment**: Enabled from `main` branch
+- **Environment Variables**: Configured for all environments
+
+### Critical Environment Variables
+```bash
+# Required for production
+REPLICATE_API_TOKEN=r8_xxx...        # AI image generation (ACTIVE)
+NEXT_PUBLIC_SUPABASE_URL=xxx         # Database connection
+SUPABASE_SERVICE_ROLE_KEY=xxx        # Server-side database access
+OPENAI_API_KEY=xxx                   # AI floorplan generation
+STRIPE_SECRET_KEY=xxx                # Payment processing
+```
+
+### Static Generation Issues
+- Pricing page requires `export const dynamic = 'force-static'` for proper deployment
+- Configure page has complex client-side state for image generation
+- All pages designed for static generation where possible
+
+### Build Performance
+- Bundle size limits: JS (200kb gzipped), CSS (50kb gzipped)
+- Performance budget enforced via `bundlesize` package
+- Lighthouse scoring optimized for construction industry usage
+
+## API Architecture
+
+### Core API Routes
+```
+src/app/api/
+├── ai/generate/              # AI floorplan generation (OpenAI integration)
+├── generate-image/           # AI image generation (Replicate/SDXL - ACTIVE)
+├── algorithms/
+│   ├── optimize-timeline/    # Construction timeline optimization
+│   ├── match-professionals/  # Professional matching algorithm
+│   ├── budget-optimize/      # Cost optimization algorithms
+│   ├── recommend-materials/  # Material recommendation engine
+│   └── predict-costs/        # UK construction cost prediction
+```
+
+### API Design Patterns
+- All routes return consistent `{ success: boolean, data?: any, error?: string }` format
+- UK construction industry specific algorithms and data
+- Proper error handling with construction context
+- Mock data for development, real APIs for production integration
 
 ## Future Development Areas
 
