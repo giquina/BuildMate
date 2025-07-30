@@ -28,7 +28,7 @@ import {
   generateAISuggestions, 
   type Question 
 } from '@/lib/intelligentQuestions'
-import { preGeneratedImages, getAllStyles } from '@/lib/pregenerated-images'
+import { getAllArchitecturalStyles, selectBestImageForStyle, getRandomImageForStyle } from '@/lib/pregenerated-images'
 
 // Icon mapping for different question types
 const getQuestionIcon = (questionId: string) => {
@@ -58,18 +58,33 @@ export default function ConfigurePage() {
   const [bathrooms, setBathrooms] = useState(2)
   const [customImages, setCustomImages] = useState<{[key: string]: CustomGeneratedImage}>({})
   const [showCustomGeneration, setShowCustomGeneration] = useState(false)
+  const [imageRefreshKey, setImageRefreshKey] = useState(0) // Force re-render when preferences change
 
-  // Use pre-generated images for instant loading
-  const architecturalStyles = getAllStyles().map(style => ({
-    id: style.id,
-    name: style.name,
-    description: style.description,
-    imageUrl: style.url,
-    fallbackColor: style.fallbackColor,
-    icon: style.id === 'modern' ? Building2 : 
-          style.id === 'traditional' ? Home :
-          style.id === 'contemporary' ? Sparkles : Castle
-  }));
+  // Use pre-generated images with smart selection for instant loading
+  const architecturalStyles = getAllArchitecturalStyles().map(style => {
+    // Smart image selection based on user preferences (re-runs when bedrooms change)
+    const selectedVariant = selectBestImageForStyle(style.id, bedrooms) || getRandomImageForStyle(style.id)
+    
+    return {
+      id: style.id,
+      name: style.name,
+      description: style.description,
+      imageUrl: selectedVariant?.url || `/images/architecture/${style.id}-fallback.jpg`,
+      fallbackColor: style.fallbackColor,
+      variantDescription: selectedVariant?.description || style.description,
+      tags: selectedVariant?.tags || [],
+      bedroomMatch: selectedVariant?.bedrooms === bedrooms,
+      icon: style.id === 'modern' ? Building2 : 
+            style.id === 'traditional' ? Home :
+            style.id === 'contemporary' ? Sparkles : Castle
+    }
+  });
+
+  // Refresh images when user changes bedroom preference
+  const handleBedroomChange = (newBedrooms: number) => {
+    setBedrooms(newBedrooms)
+    setImageRefreshKey(prev => prev + 1) // Trigger re-render with new smart selection
+  }
 
   const bedroomOptions = [1, 2, 3, 4, 5];
   const bathroomOptions = [1, 2, 3, 4, 5];
@@ -248,6 +263,15 @@ export default function ConfigurePage() {
                         </div>
                       )}
                       
+                      {/* Perfect match badge */}
+                      {!hasCustomImage && style.bedroomMatch && (
+                        <div className="absolute top-3 left-3">
+                          <div className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                            Perfect Match
+                          </div>
+                        </div>
+                      )}
+                      
                       {/* Selection Indicator */}
                       {selectedStyle === style.id && (
                         <div className="absolute top-3 right-3">
@@ -264,8 +288,19 @@ export default function ConfigurePage() {
                         {style.name}
                       </h3>
                       <p className="text-xs text-gray-600 text-center mb-3">
-                        {style.description}
+                        {style.variantDescription}
                       </p>
+                      
+                      {/* Tags */}
+                      {style.tags.length > 0 && (
+                        <div className="flex flex-wrap justify-center gap-1 mb-3">
+                          {style.tags.slice(0, 2).map((tag, i) => (
+                            <span key={i} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       
                       {/* Custom generation button (only visible when toggle is on) */}
                       {showCustomGeneration && !hasCustomImage && (
@@ -310,7 +345,7 @@ export default function ConfigurePage() {
                 {bedroomOptions.map((num) => (
                   <button
                     key={num}
-                    onClick={() => setBedrooms(num)}
+                    onClick={() => handleBedroomChange(num)}
                     className={`p-3 rounded-lg border-2 transition-all ${
                       bedrooms === num
                         ? 'border-blue-500 bg-blue-50 text-blue-700'
