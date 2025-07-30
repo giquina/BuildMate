@@ -4,13 +4,21 @@
 Implementing intelligent algorithms and data processing systems for BuildMate AI, focusing on ML-driven features that provide genuine value to UK construction professionals.
 
 ## 🚀 Deployment Status
-- **Status**: ✅ Successfully deployed to Vercel
-- **URL**: https://build-mate-j9gmp9zth-giquinas-projects.vercel.app
+- **Status**: ✅ Successfully deployed to Vercel & GitHub
+- **Vercel URL**: https://build-mate-bajrc3o85-giquinas-projects.vercel.app
+- **GitHub URL**: https://github.com/giquina/BuildMate
 - **Deployment Date**: July 30, 2025
 - **Build Status**: Production build completed successfully
 - **ESLint Configuration**: Fixed and optimized for Next.js 14
 - **Static Generation**: 29/29 pages generated successfully
 - **Performance**: Optimized bundle sizes with chunk splitting
+
+## 🔧 Recent Updates
+- **Currency Localization**: Fixed all $ symbols to £ symbols for UK market
+- **Navigation Enhancement**: Added complete desktop navigation with cart, materials, professionals
+- **Mobile Responsiveness**: Improved mobile layout, spacing, and touch targets
+- **Agent Organization**: Merged and organized specialized agents in `.claude/agents/`
+- **Deployment Automation**: Created vercel-deployment-specialist agent for future deployments
 
 ## 🎯 Algorithm Implementation Tasks
 
