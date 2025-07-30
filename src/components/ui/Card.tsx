@@ -63,7 +63,7 @@ export function Card({
 
   return (
     <div
-      className={cn(baseStyles, variants[variant], interactiveStyles, "p-6", className)}
+      className={cn(baseStyles, variants[variant], interactiveStyles, "p-4 sm:p-6", className)}
       {...props}
     >
       {gradientOverlay}
@@ -85,12 +85,12 @@ interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function CardHeader({ className, children, action, ...props }: CardHeaderProps) {
   return (
-    <div className={cn("flex items-start justify-between mb-6", className)} {...props}>
+    <div className={cn("flex flex-col sm:flex-row sm:items-start justify-between mb-4 sm:mb-6 gap-3 sm:gap-0", className)} {...props}>
       <div className="flex-1">
         {children}
       </div>
       {action && (
-        <div className="ml-4 flex-shrink-0">
+        <div className="sm:ml-4 flex-shrink-0">
           {action}
         </div>
       )}
@@ -105,10 +105,10 @@ interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export function CardTitle({ className, children, size = 'lg', ...props }: CardTitleProps) {
   const sizes = {
-    sm: "text-lg font-semibold",
-    md: "text-xl font-semibold",
-    lg: "text-2xl font-bold",
-    xl: "text-3xl font-extrabold"
+    sm: "text-base sm:text-lg font-semibold",
+    md: "text-lg sm:text-xl font-semibold",
+    lg: "text-xl sm:text-2xl font-bold",
+    xl: "text-2xl sm:text-3xl font-extrabold"
   }
 
   return (
@@ -154,7 +154,7 @@ interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function CardFooter({ className, children, ...props }: CardFooterProps) {
   return (
-    <div className={cn("mt-6 pt-6 border-t border-slate-200", className)} {...props}>
+    <div className={cn("mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-200", className)} {...props}>
       {children}
     </div>
   )
@@ -179,7 +179,7 @@ export function FeatureCard({
   ...props 
 }: FeatureCardProps) {
   return (
-    <Card variant="tesla" interactive gradient className={cn("p-8", className)} {...props}>
+    <Card variant="tesla" interactive gradient className={cn("p-4 sm:p-8", className)} {...props}>
       <div className="flex items-start space-x-4">
         <div className="flex-shrink-0">
           <div className="w-12 h-12 bg-tesla-600 rounded-xl flex items-center justify-center text-white shadow-lg">
@@ -226,7 +226,7 @@ export function StatsCard({ title, value, change, icon, className, ...props }: S
   }
 
   return (
-    <Card variant="elevated" className={cn("p-6", className)} {...props}>
+    <Card variant="elevated" className={cn("p-4 sm:p-6", className)} {...props}>
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <p className="text-sm font-semibold text-gray-600 mb-1 uppercase tracking-wide">{title}</p>
@@ -282,7 +282,7 @@ export function ProjectCard({
   }
 
   return (
-    <Card variant="project" interactive trustIndicator className={cn("p-6", className)} {...props}>
+    <Card variant="project" interactive trustIndicator className={cn("p-4 sm:p-6", className)} {...props}>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -309,7 +309,7 @@ export function ProjectCard({
         </div>
         
         {/* Project Details */}
-        <div className="grid grid-cols-2 gap-4 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <div>
             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">Budget</p>
             <p className="text-lg font-bold text-gray-900">{budget}</p>
@@ -359,10 +359,10 @@ export function ProfessionalCard({
   ...props 
 }: ProfessionalCardProps) {
   return (
-    <Card variant="professional" interactive className={cn("p-6", className)} {...props}>
+    <Card variant="professional" interactive className={cn("p-4 sm:p-6", className)} {...props}>
       <div className="space-y-4">
         <div className="flex items-start space-x-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center text-green-700 font-bold text-xl">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center text-green-700 font-bold text-lg sm:text-xl">
             {avatar || name.charAt(0)}
           </div>
           <div className="flex-1">
@@ -434,7 +434,7 @@ export function MaterialCard({
   ...props 
 }: MaterialCardProps) {
   return (
-    <Card variant="material" interactive className={cn("p-6", className)} {...props}>
+    <Card variant="material" interactive className={cn("p-4 sm:p-6", className)} {...props}>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">

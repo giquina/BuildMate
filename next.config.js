@@ -31,6 +31,9 @@ const nextConfig = {
   // Static optimization
   output: 'standalone',
   
+  // Disable static generation for problematic pages during deployment
+  trailingSlash: false,
+  
   // Environment variables
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,

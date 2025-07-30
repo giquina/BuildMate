@@ -562,7 +562,7 @@ export default function MaterialsPage() {
 
         {/* Phase Filter */}
         <div className="mb-6">
-          <div className="flex space-x-2 overflow-x-auto pb-2">
+          <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
             {['all', ...deliveryPhases.map(p => p.name)].map((phase) => (
               <button
                 key={phase}
@@ -580,12 +580,12 @@ export default function MaterialsPage() {
         </div>
 
         {/* Materials Grid */}
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {filteredMaterials.map((material) => (
             <Card key={material.id} className="hover:shadow-lg transition-all duration-200">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 {/* Material Header */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3 sm:gap-0">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-semibold text-gray-900">{material.name}</h3>
@@ -596,14 +596,14 @@ export default function MaterialsPage() {
                     <p className="text-sm text-gray-600 mb-2">{material.description}</p>
                     <div className="text-xs text-gray-500">{material.room} • {material.phase}</div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right">
                     <div className="font-bold text-lg text-gray-900">{formatCurrency(material.totalPrice)}</div>
                     <div className="text-xs text-gray-500">{material.quantity} {material.unit}</div>
                   </div>
                 </div>
 
                 {/* Quality & Sustainability Badges */}
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
                   <div className="flex items-center gap-1">
                     <Shield className="h-4 w-4 text-blue-600" />
                     <span className="text-xs text-gray-600">{material.quality.certification}</span>
@@ -650,8 +650,8 @@ export default function MaterialsPage() {
                 </div>
 
                 {/* Actions & Savings */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                     {material.savings && (
                       <div className="text-sm">
                         <span className="text-green-600 font-medium">Saved {formatCurrency(material.savings)}</span>
@@ -665,7 +665,7 @@ export default function MaterialsPage() {
                     )}
                   </div>
                   
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {material.alternatives && (
                       <Button
                         variant="outline"

@@ -377,12 +377,12 @@ export default function ProfessionalsPage() {
         {selectedTab === 'team' && (
           <div className="space-y-6">
             {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
               <Card className="bg-blue-50 border-blue-200">
                 <CardContent className="p-4 text-center">
-                  <MessageCircle className="h-8 w-8 text-blue-700 mx-auto mb-2" />
-                  <h3 className="font-semibold text-blue-700">Team Chat</h3>
-                  <p className="text-sm text-blue-600">3 new messages</p>
+                  <MessageCircle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-700 mx-auto mb-2" />
+                  <h3 className="text-sm sm:text-base font-semibold text-blue-700">Team Chat</h3>
+                  <p className="text-xs sm:text-sm text-blue-600">3 new messages</p>
                 </CardContent>
               </Card>
               <Card className="bg-green-50 border-green-200">
@@ -412,27 +412,27 @@ export default function ProfessionalsPage() {
             <div className="space-y-6">
               {assignedTeam.map((member) => (
                 <Card key={member.id} className="hover:shadow-lg transition-all duration-200 border-l-4 border-l-blue-700">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-start space-x-4">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 sm:mb-6 gap-4 sm:gap-0">
+                      <div className="flex items-start space-x-3 sm:space-x-4">
                         <div className="relative">
                           <img 
                             src={member.profileImage} 
                             alt={member.name}
-                            className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
+                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-white shadow-lg"
                           />
                           <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-white ${getAvailabilityDot(member.availability)}`}></div>
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center mb-2">
-                            <h3 className="text-2xl font-bold text-gray-900 mr-3">
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mr-3">
                               {member.name}
                             </h3>
                             {member.verified && (
                               <CheckCircle className="h-6 w-6 text-blue-700" />
                             )}
                           </div>
-                          <p className="text-lg font-semibold text-blue-700 mb-1">{member.role}</p>
+                          <p className="text-base sm:text-lg font-semibold text-blue-700 mb-1">{member.role}</p>
                           <p className="text-gray-600 mb-2">{member.company}</p>
                           <div className={`flex items-center ${getAvailabilityColor(member.availability)} text-sm font-medium`}>
                             <Circle className="h-4 w-4 mr-1" />
@@ -442,7 +442,7 @@ export default function ProfessionalsPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="text-left sm:text-right">
                         <div className="flex items-center mb-2">
                           <Star className="h-5 w-5 text-yellow-400 mr-1" />
                           <span className="font-bold text-lg">{member.rating}</span>
@@ -480,23 +480,23 @@ export default function ProfessionalsPage() {
                     </div>
 
                     {/* Performance Metrics */}
-                    <div className="grid grid-cols-3 gap-4 mb-4 bg-gray-50 rounded-lg p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 bg-gray-50 rounded-lg p-3 sm:p-4">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">{member.onTimeDelivery}%</div>
-                        <div className="text-sm text-gray-600">On-Time Delivery</div>
+                        <div className="text-xl sm:text-2xl font-bold text-green-600">{member.onTimeDelivery}%</div>
+                        <div className="text-xs sm:text-sm text-gray-600">On-Time Delivery</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">{member.completedTasks}</div>
-                        <div className="text-sm text-gray-600">Tasks Completed</div>
+                        <div className="text-xl sm:text-2xl font-bold text-blue-600">{member.completedTasks}</div>
+                        <div className="text-xs sm:text-sm text-gray-600">Tasks Completed</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-600">{member.clientSatisfaction}%</div>
-                        <div className="text-sm text-gray-600">Client Satisfaction</div>
+                        <div className="text-xl sm:text-2xl font-bold text-purple-600">{member.clientSatisfaction}%</div>
+                        <div className="text-xs sm:text-sm text-gray-600">Client Satisfaction</div>
                       </div>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       <Button className="bg-blue-700 hover:bg-blue-800 text-white flex items-center">
                         <MessageCircle className="h-4 w-4 mr-2" />
                         Chat Now

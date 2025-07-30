@@ -151,14 +151,17 @@ npm run type-check   # TypeScript compilation check
 - Consistent naming and file organization
 - Proper separation of concerns (UI vs. business logic)
 
-## Sub-Agents Available
+## Specialized Agents Available
 
-This project includes specialized sub-agents for enhanced development:
-- **ui-ux-specialist**: Construction industry UI/UX improvements
+This project includes specialized agents for enhanced development (located in `.claude/agents/`):
+- **ui-ux-specialist**: Construction industry UI/UX improvements and component design
 - **construction-expert**: UK building regulations and industry validation
-- **react-code-reviewer**: TypeScript/React code quality review
-- **docs-maintainer**: Documentation updates and maintenance
-- **performance-optimizer**: Next.js performance optimization
+- **react-code-reviewer**: TypeScript/React code quality review and best practices
+- **docs-maintainer**: Documentation updates and maintenance across all project files
+- **performance-optimizer**: Next.js performance optimization and bundle analysis
+- **api-validator**: API endpoint validation and construction industry business logic
+- **type-checker**: TypeScript type validation and error resolution
+- **vercel-deployment-specialist**: Vercel deployment expert for smooth production deployments
 
 ## Slash Commands Available
 

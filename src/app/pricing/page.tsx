@@ -7,6 +7,8 @@ export const metadata = {
   description: 'Choose the perfect BuildMate AI plan for your UK construction project. From free basic access to professional enterprise solutions.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function PricingPage() {
   const plans = [
     {
@@ -222,7 +224,7 @@ export default function PricingPage() {
                   {plan.name === 'Enterprise' ? (
                     <Button
                       className="w-full py-4 text-lg font-bold"
-                      variant={plan.buttonStyle as any}
+                      variant={plan.buttonStyle === 'primary' ? 'primary' : 'outline'}
                     >
                       {plan.buttonText}
                     </Button>

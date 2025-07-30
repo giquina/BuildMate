@@ -248,24 +248,24 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="text-center mb-12">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <div className="text-center mb-8 sm:mb-12">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
                 AI-Powered Home Building
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-2">
                   Made Simple
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
                 Generate floorplans, visualize designs, source materials, and connect with verified UK builders - all in one professional platform.
-                <span className="block mt-3 text-base sm:text-lg text-blue-600 font-semibold">
+                <span className="block mt-2 sm:mt-3 text-sm sm:text-base lg:text-lg text-blue-600 font-semibold">
                   From concept to completion in 3 simple steps
                 </span>
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 px-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4">
                 <Link 
                   href="/configure" 
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-8 sm:px-10 py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-lg sm:text-xl min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
                   aria-label="Start building your home with BuildMate AI configurator - Professional construction platform"
                   role="button"
                 >
@@ -274,7 +274,7 @@ export default function HomePage() {
                   <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform relative z-10" />
                 </Link>
                 <button 
-                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-8 sm:px-10 py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-lg sm:text-xl min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
                   aria-label="Watch how BuildMate AI works - Professional construction demo video"
                   role="button"
                 >
@@ -285,7 +285,7 @@ export default function HomePage() {
               </div>
               
               {/* Enhanced Trust Indicators */}
-              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-500 px-4">
+              <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 lg:gap-8 text-xs sm:text-sm text-gray-500 px-4">
                 <div className="flex items-center bg-green-50 px-3 py-2 rounded-full border border-green-200">
                   <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
                   <span className="text-green-700 font-medium">Free to start</span>
@@ -338,13 +338,13 @@ export default function HomePage() {
         {/* Success Metrics */}
         <section className="py-12 bg-white border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Trusted by thousands of UK builders</h2>
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2">Trusted by thousands of UK builders</h2>
               <p className="text-sm sm:text-base text-gray-600">Real results from real construction projects</p>
-              <p className="text-xs text-gray-500 mt-2">*Results vary by region, project complexity, and market conditions. London projects typically 30-50% higher cost.</p>
+              <p className="text-xs text-gray-500 mt-2 px-2">*Results vary by region, project complexity, and market conditions. London projects typically 30-50% higher cost.</p>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
               {successMetrics.map((metric, index) => {
                 const Icon = metric.icon
                 const colorClasses = {
