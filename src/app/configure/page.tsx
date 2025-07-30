@@ -19,7 +19,8 @@ import {
   Lightbulb,
   MapPin,
   Target,
-  Clock
+  Clock,
+  Wand2
 } from 'lucide-react'
 
 import { 
@@ -27,6 +28,7 @@ import {
   generateAISuggestions, 
   type Question 
 } from '@/lib/intelligentQuestions'
+import { preGeneratedImages, getAllStyles } from '@/lib/pregenerated-images'
 
 // Icon mapping for different question types
 const getQuestionIcon = (questionId: string) => {
@@ -43,7 +45,7 @@ const getQuestionIcon = (questionId: string) => {
   return iconMap[questionId] || CheckCircle
 }
 
-interface GeneratedImage {
+interface CustomGeneratedImage {
   url: string
   loading: boolean
   error?: string
@@ -54,70 +56,66 @@ export default function ConfigurePage() {
   const [selectedStyle, setSelectedStyle] = useState('')
   const [bedrooms, setBedrooms] = useState(3)
   const [bathrooms, setBathrooms] = useState(2)
-  const [generatedImages, setGeneratedImages] = useState<{[key: string]: GeneratedImage}>({})
-  const [imagesGenerated, setImagesGenerated] = useState(0)
+  const [customImages, setCustomImages] = useState<{[key: string]: CustomGeneratedImage}>({})
+  const [showCustomGeneration, setShowCustomGeneration] = useState(false)
 
-  const architecturalStyles = [
-    { id: 'modern', name: 'Modern', prompt: 'A modern house with clean lines and large windows', icon: Building2 },
-    { id: 'traditional', name: 'Traditional', prompt: 'A traditional house with a brick facade and a pitched roof', icon: Home },
-    { id: 'contemporary', name: 'Contemporary', prompt: 'A contemporary house with a unique, sculptural design', icon: Sparkles },
-    { id: 'castle', name: 'Castle', prompt: 'A grand castle with stone walls and turrets', icon: Castle },
-  ];
+  // Use pre-generated images for instant loading
+  const architecturalStyles = getAllStyles().map(style => ({
+    id: style.id,
+    name: style.name,
+    description: style.description,
+    imageUrl: style.url,
+    fallbackColor: style.fallbackColor,
+    icon: style.id === 'modern' ? Building2 : 
+          style.id === 'traditional' ? Home :
+          style.id === 'contemporary' ? Sparkles : Castle
+  }));
 
   const bedroomOptions = [1, 2, 3, 4, 5];
   const bathroomOptions = [1, 2, 3, 4, 5];
 
-  // Auto-generate all 4 images when page loads
-  useEffect(() => {
-    const generateAllImages = async () => {
-      // Initialize loading states
-      const initialState: {[key: string]: GeneratedImage} = {}
-      architecturalStyles.forEach(style => {
-        initialState[style.id] = { url: '', loading: true }
-      })
-      setGeneratedImages(initialState)
+  // Optional custom image generation for specific style
+  const generateCustomImage = async (styleId: string) => {
+    const style = architecturalStyles.find(s => s.id === styleId)
+    if (!style) return
 
-      // Generate images concurrently but track completion
-      const generatePromises = architecturalStyles.map(async (style) => {
-        try {
-          const response = await fetch('/api/generate-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              style: style.id,
-              prompt: style.prompt
-            })
-          })
-          
-          const data = await response.json()
-          
-          if (data.success) {
-            setGeneratedImages(prev => ({
-              ...prev,
-              [style.id]: { url: data.imageUrl, loading: false }
-            }))
-            setImagesGenerated(prev => prev + 1)
-          } else {
-            console.error(`Failed to generate ${style.name} image:`, data.error)
-            setGeneratedImages(prev => ({
-              ...prev,
-              [style.id]: { url: '', loading: false, error: data.error }
-            }))
-          }
-        } catch (error) {
-          console.error(`Error generating ${style.name} image:`, error)
-          setGeneratedImages(prev => ({
-            ...prev,
-            [style.id]: { url: '', loading: false, error: 'Generation failed' }
-          }))
-        }
-      })
+    setCustomImages(prev => ({
+      ...prev,
+      [styleId]: { url: '', loading: true }
+    }))
 
-      await Promise.all(generatePromises)
+    try {
+      const response = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          style: styleId,
+          prompt: `${style.description}, UK construction standards, architectural accuracy, professional real estate photography`
+        })
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        setCustomImages(prev => ({
+          ...prev,
+          [styleId]: { url: data.imageUrl, loading: false }
+        }))
+      } else {
+        console.error(`Failed to generate custom ${style.name} image:`, data.error)
+        setCustomImages(prev => ({
+          ...prev,
+          [styleId]: { url: '', loading: false, error: data.error }
+        }))
+      }
+    } catch (error) {
+      console.error(`Error generating custom ${style.name} image:`, error)
+      setCustomImages(prev => ({
+        ...prev,
+        [styleId]: { url: '', loading: false, error: 'Generation failed' }
+      }))
     }
-
-    generateAllImages()
-  }, [])
+  }
 
   const handleStyleSelect = (styleId: string) => {
     setSelectedStyle(styleId)
@@ -125,12 +123,14 @@ export default function ConfigurePage() {
 
   const handleContinue = () => {
     if (selectedStyle) {
+      const selectedStyleData = architecturalStyles.find(s => s.id === selectedStyle)
       // Store selections in sessionStorage for use in materials page
       sessionStorage.setItem('buildmate-config', JSON.stringify({
         style: selectedStyle,
         bedrooms,
         bathrooms,
-        generatedImage: generatedImages[selectedStyle]?.url
+        // Use custom image if generated, otherwise use pre-generated image
+        generatedImage: customImages[selectedStyle]?.url || selectedStyleData?.imageUrl
       }))
       router.push('/materials')
     }
@@ -158,18 +158,23 @@ export default function ConfigurePage() {
           </h1>
           <p className="text-gray-600 mb-4">Step 2 of 3 - Choose your style and specifications</p>
           
-          {/* Progress indicator for image generation */}
-          <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-            <div className="flex items-center space-x-1">
-              {imagesGenerated < 4 ? (
-                <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-              ) : (
-                <CheckCircle className="h-4 w-4 text-green-600" />
-              )}
-              <span>
-                AI Images: {imagesGenerated}/4 {imagesGenerated < 4 ? 'generating...' : 'ready'}
-              </span>
-            </div>
+          {/* Instant ready indicator */}
+          <div className="flex items-center justify-center space-x-2 text-sm text-green-600">
+            <CheckCircle className="h-4 w-4" />
+            <span className="font-medium">Ready! Choose from our curated architectural styles</span>
+          </div>
+          
+          {/* Optional custom generation toggle */}
+          <div className="mt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowCustomGeneration(!showCustomGeneration)}
+              className="text-blue-600 border-blue-600 hover:bg-blue-50"
+            >
+              <Wand2 className="h-4 w-4 mr-2" />
+              {showCustomGeneration ? 'Hide Custom Generation' : 'Generate Custom Styles'}
+            </Button>
           </div>
         </div>
 
@@ -183,7 +188,8 @@ export default function ConfigurePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {architecturalStyles.map((style) => {
                 const IconComponent = style.icon
-                const imageData = generatedImages[style.id]
+                const customImage = customImages[style.id]
+                const hasCustomImage = customImage?.url && !customImage?.loading
                 
                 return (
                   <div
@@ -197,27 +203,33 @@ export default function ConfigurePage() {
                   >
                     {/* Background Image */}
                     <div className="relative aspect-[4/3] rounded-t-lg overflow-hidden bg-gray-100">
-                      {imageData?.loading ? (
+                      {customImage?.loading ? (
                         <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
                           <div className="text-center">
                             <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-2" />
-                            <div className="text-sm text-gray-600">Generating {style.name}...</div>
+                            <div className="text-sm text-gray-600">Generating custom {style.name}...</div>
                           </div>
                         </div>
-                      ) : imageData?.url ? (
+                      ) : hasCustomImage ? (
                         <img
-                          src={imageData.url}
-                          alt={`${style.name} style house`}
+                          src={customImage.url}
+                          alt={`Custom ${style.name} style house`}
                           className="w-full h-full object-cover"
                         />
-                      ) : imageData?.error ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-red-50">
-                          <div className="text-center text-red-600">
-                            <div className="text-sm">Generation failed</div>
-                          </div>
-                        </div>
                       ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200" />
+                        // Use pre-generated image with fallback gradient
+                        <>
+                          <img
+                            src={style.imageUrl}
+                            alt={`${style.name} style house`}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              // If image fails to load, show gradient fallback
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                          <div className={`absolute inset-0 bg-gradient-to-br ${style.fallbackColor}`} />
+                        </>
                       )}
                       
                       {/* Icon Overlay */}
@@ -226,6 +238,15 @@ export default function ConfigurePage() {
                           <IconComponent className="h-8 w-8 text-blue-600" />
                         </div>
                       </div>
+                      
+                      {/* Custom badge */}
+                      {hasCustomImage && (
+                        <div className="absolute top-3 left-3">
+                          <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                            Custom
+                          </div>
+                        </div>
+                      )}
                       
                       {/* Selection Indicator */}
                       {selectedStyle === style.id && (
@@ -237,11 +258,32 @@ export default function ConfigurePage() {
                       )}
                     </div>
                     
-                    {/* Style Info */}
+                    {/* Style Info & Custom Generation */}
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 text-center">
+                      <h3 className="font-semibold text-gray-900 text-center mb-2">
                         {style.name}
                       </h3>
+                      <p className="text-xs text-gray-600 text-center mb-3">
+                        {style.description}
+                      </p>
+                      
+                      {/* Custom generation button (only visible when toggle is on) */}
+                      {showCustomGeneration && !hasCustomImage && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            generateCustomImage(style.id)
+                          }}
+                          disabled={customImage?.loading}
+                          className="w-full text-xs"
+                        >
+                          <Wand2 className="h-3 w-3 mr-1" />
+                          Generate Custom
+                        </Button>
+                      )}
+                      
                       {selectedStyle === style.id && (
                         <div className="mt-2 text-center">
                           <span className="text-sm text-blue-600 font-medium">✓ Selected</span>
