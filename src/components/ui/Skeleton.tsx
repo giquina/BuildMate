@@ -62,7 +62,7 @@ interface TextSkeletonProps {
 
 export function TextSkeleton({ lines = 3, className, variant = 'default' }: TextSkeletonProps) {
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('space-y-2.5', className)}>
       {Array.from({ length: lines }).map((_, index) => (
         <Skeleton
           key={index}
@@ -125,7 +125,7 @@ export function CardSkeleton({
       
       <div className="space-y-4">
         {includeAvatar && (
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             <AvatarSkeleton variant={variant} />
             <div className="space-y-2 flex-1">
               <Skeleton variant={variant} className="h-4 w-24" />
@@ -139,9 +139,9 @@ export function CardSkeleton({
           <TextSkeleton lines={lines} variant={variant} />
         </div>
         
-        <div className="flex space-x-2 pt-2">
-          <Skeleton variant={variant} className="h-8 w-20" rounded="lg" />
-          <Skeleton variant={variant} className="h-8 w-24" rounded="lg" />
+        <div className="flex space-x-4 pt-2">
+          <Skeleton variant={variant} className="h-10 w-24" rounded="lg" />
+          <Skeleton variant={variant} className="h-10 w-28" rounded="lg" />
         </div>
       </div>
     </div>
@@ -210,8 +210,8 @@ export function ListSkeleton({
   return (
     <div className={cn('space-y-4', className)}>
       {Array.from({ length: items }).map((_, index) => (
-        <div key={index} className="flex items-center space-x-3">
-          {includeAvatar && <AvatarSkeleton variant={variant} size="sm" />}
+        <div key={index} className="flex items-center space-x-4">
+          {includeAvatar && <AvatarSkeleton variant={variant} size="md" />}
           <div className="flex-1 space-y-2">
             <Skeleton variant={variant} className="h-4 w-full" />
             <Skeleton variant={variant} className="h-3 w-2/3" />
@@ -246,7 +246,7 @@ export function FormSkeleton({
       ))}
       
       {includeButtons && (
-        <div className="flex space-x-3 pt-4">
+        <div className="flex space-x-4 pt-4">
           <Skeleton variant={variant} className="h-12 w-24" rounded="lg" />
           <Skeleton variant={variant} className="h-12 w-32" rounded="lg" />
         </div>

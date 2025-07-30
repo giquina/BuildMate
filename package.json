@@ -6,9 +6,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true npm run build",
+    "build:perf": "npm run build && npm run analyze:size",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "analyze:size": "npx @next/bundle-analyzer .next",
+    "analyze:deps": "npx depcheck",
+    "analyze:unused": "npx next-bundle-analyzer",
+    "perf:analyze": "npm run build:analyze",
+    "perf:lighthouse": "npx lighthouse http://localhost:3000 --output=json --output=html --output-path=./lighthouse-report",
+    "perf:budget": "npx bundlesize",
+    "perf:audit": "npm run type-check && npm run lint && npm run build:perf"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",
@@ -31,9 +40,27 @@
     "typescript": "^5.0.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.4.4",
+    "bundlesize": "^0.18.2",
+    "depcheck": "^1.4.7",
     "eslint": "^8.0.0",
-    "eslint-config-next": "^14.0.0"
+    "eslint-config-next": "^14.0.0",
+    "lighthouse": "^11.6.0",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "web-vitals": "^3.5.2"
   },
+  "bundlesize": [
+    {
+      "path": ".next/static/js/*.js",
+      "maxSize": "200kb",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/css/*.css",
+      "maxSize": "50kb",
+      "compression": "gzip"
+    }
+  ],
   "keywords": [
     "home-building",
     "renovation",

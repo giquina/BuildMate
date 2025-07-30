@@ -11,21 +11,21 @@ interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode
 }
 
-export function Badge({
-  className,
-  variant = 'default',
-  size = 'md',
-  rounded = false,
-  dot = false,
-  dismissible = false,
-  onDismiss,
-  icon,
-  children,
-  ...props
+export function Badge({ 
+  className, 
+  variant = 'default', 
+  size = 'md', 
+  rounded = false, 
+  dot = false, 
+  dismissible = false, 
+  onDismiss, 
+  icon, 
+  children, 
+  ...props 
 }: BadgeProps) {
   const baseStyles = cn(
     'inline-flex items-center font-medium transition-all duration-200',
-    rounded ? 'rounded-full' : 'rounded-lg',
+    rounded ? 'rounded-full' : 'rounded-md',
     dismissible && 'pr-1'
   )
 
@@ -41,9 +41,9 @@ export function Badge({
   }
 
   const sizes = {
-    sm: 'px-2 py-0.5 text-xs gap-1',
-    md: 'px-2.5 py-1 text-sm gap-1.5',
-    lg: 'px-3 py-1.5 text-base gap-2'
+    sm: 'px-2 py-1 text-xs gap-1',
+    md: 'px-2.5 py-1.5 text-sm gap-1.5',
+    lg: 'px-3 py-2 text-base gap-2'
   }
 
   const dotColors = {
@@ -163,14 +163,14 @@ interface NotificationBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   showZero?: boolean
 }
 
-export function NotificationBadge({
-  className,
-  count,
-  max = 99,
-  variant = 'tesla',
-  size = 'md',
-  showZero = false,
-  ...props
+export function NotificationBadge({ 
+  className, 
+  count, 
+  max = 99, 
+  variant = 'tesla', 
+  size = 'md', 
+  showZero = false, 
+  ...props 
 }: NotificationBadgeProps) {
   if (count === 0 && !showZero) return null
 
@@ -213,20 +213,20 @@ interface FeatureBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   pro?: boolean
 }
 
-export function FeatureBadge({
-  className,
-  label,
-  description,
-  new: isNew = false,
-  beta = false,
-  pro = false,
-  ...props
+export function FeatureBadge({ 
+  className, 
+  label, 
+  description, 
+  new: isNew = false, 
+  beta = false, 
+  pro = false, 
+  ...props 
 }: FeatureBadgeProps) {
   return (
     <div
       className={cn(
         'relative inline-flex items-center gap-2 bg-gradient-to-r from-tesla-50 to-tesla-100',
-        'border border-tesla-200 rounded-xl px-4 py-2 shadow-sm',
+        'border border-tesla-200 rounded-lg px-4 py-2 shadow-sm',
         'hover:from-tesla-100 hover:to-tesla-150 transition-all duration-300',
         'group cursor-pointer',
         className
@@ -294,12 +294,12 @@ interface InteractiveBadgeProps extends BadgeProps {
   active?: boolean
 }
 
-export function InteractiveBadge({
-  className,
-  onClick,
-  active = false,
-  variant = 'default',
-  ...props
+export function InteractiveBadge({ 
+  className, 
+  onClick, 
+  active = false, 
+  variant = 'default', 
+  ...props 
 }: InteractiveBadgeProps) {
   const interactiveVariants = {
     default: cn(

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { 
   ChevronLeft, 
+  ChevronRight,
   Building2, 
   Home, 
   Sparkles, 
@@ -14,39 +15,33 @@ import {
   Bath,
   CheckCircle,
   Loader2,
-  ArrowRight
+  ArrowRight,
+  Lightbulb,
+  MapPin,
+  Target,
+  Clock
 } from 'lucide-react'
 
-// Architectural styles with icons and prompts as specified
-const architecturalStyles = [
-  { 
-    id: 'modern', 
-    name: 'Modern', 
-    icon: Building2,
-    prompt: 'modern UK house with large windows, clean lines, contemporary architecture, professional photography, high quality, detailed, realistic lighting, british residential design'
-  },
-  { 
-    id: 'traditional', 
-    name: 'Traditional', 
-    icon: Home,
-    prompt: 'traditional British house, classic design, period features, red brick, pitched roof, professional photography, high quality, detailed, realistic lighting, UK residential architecture'
-  },
-  { 
-    id: 'contemporary', 
-    name: 'Contemporary', 
-    icon: Sparkles,
-    prompt: 'contemporary UK house, mixed materials, current trends, glass and steel, innovative design, professional photography, high quality, detailed, realistic lighting, modern british architecture'
-  },
-  { 
-    id: 'victorian', 
-    name: 'Victorian', 
-    icon: Castle,
-    prompt: 'Victorian UK house, period elegance, ornate details, bay windows, decorative features, professional photography, high quality, detailed, realistic lighting, historic british architecture'
-  }
-]
+import { 
+  configurationSteps, 
+  generateAISuggestions, 
+  type Question 
+} from '@/lib/intelligentQuestions'
 
-const bedroomOptions = [1, 2, 3, 4, 5, 6]
-const bathroomOptions = [1, 2, 3, 4, 5]
+// Icon mapping for different question types
+const getQuestionIcon = (questionId: string) => {
+  const iconMap: Record<string, any> = {
+    propertyType: Home,
+    currentStyle: Building2,
+    postcode: MapPin,
+    primaryGoal: Target,
+    budget: Sparkles,
+    timeline: Clock,
+    rooms: Building2,
+    specialRequirements: CheckCircle
+  }
+  return iconMap[questionId] || CheckCircle
+}
 
 interface GeneratedImage {
   url: string
@@ -61,6 +56,16 @@ export default function ConfigurePage() {
   const [bathrooms, setBathrooms] = useState(2)
   const [generatedImages, setGeneratedImages] = useState<{[key: string]: GeneratedImage}>({})
   const [imagesGenerated, setImagesGenerated] = useState(0)
+
+  const architecturalStyles = [
+    { id: 'modern', name: 'Modern', prompt: 'A modern house with clean lines and large windows', icon: Building2 },
+    { id: 'traditional', name: 'Traditional', prompt: 'A traditional house with a brick facade and a pitched roof', icon: Home },
+    { id: 'contemporary', name: 'Contemporary', prompt: 'A contemporary house with a unique, sculptural design', icon: Sparkles },
+    { id: 'castle', name: 'Castle', prompt: 'A grand castle with stone walls and turrets', icon: Castle },
+  ];
+
+  const bedroomOptions = [1, 2, 3, 4, 5];
+  const bathroomOptions = [1, 2, 3, 4, 5];
 
   // Auto-generate all 4 images when page loads
   useEffect(() => {

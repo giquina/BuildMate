@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { formatCurrency } from '@/lib/uk-utils'
+import { formatCurrency, calculateRegionalCost, CONSTRUCTION_DISCLAIMER } from '@/lib/uk-utils'
+import { usePerformanceMonitoring } from '@/lib/performance'
 import { 
   ChevronDown,
   ChevronRight,
@@ -34,7 +35,8 @@ import {
   Image,
   Eye,
   BadgeCheck,
-  StarHalf
+  StarHalf,
+  AlertCircle
 } from 'lucide-react'
 
 interface CustomerReview {
@@ -165,7 +167,16 @@ const projectMaterials: ProjectMaterial[] = [
     imageUrl: '/materials/premium-timber.jpg',
     alternatives: 3,
     savings: 85.50,
-    usedInProjects: 847
+    usedInProjects: 847,
+    customerSatisfaction: 95,
+    successRate: 98,
+    averageRating: 4.8,
+    totalReviews: 245,
+    ratingBreakdown: { quality: 4.8, value: 4.7, durability: 4.9, appearance: 4.6, easeOfInstall: 4.8 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   },
   {
     id: '2',
@@ -196,7 +207,16 @@ const projectMaterials: ProjectMaterial[] = [
     imageUrl: '/materials/heritage-brick.jpg',
     alternatives: 5,
     upgradePrice: 145.00,
-    usedInProjects: 234
+    usedInProjects: 234,
+    customerSatisfaction: 92,
+    successRate: 96,
+    averageRating: 4.6,
+    totalReviews: 187,
+    ratingBreakdown: { quality: 4.6, value: 4.5, durability: 4.8, appearance: 4.7, easeOfInstall: 4.4 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   },
   {
     id: '3',
@@ -226,7 +246,16 @@ const projectMaterials: ProjectMaterial[] = [
     },
     imageUrl: '/materials/kingspan-insulation.jpg',
     savings: 120.00,
-    usedInProjects: 1205
+    usedInProjects: 1205,
+    customerSatisfaction: 94,
+    successRate: 97,
+    averageRating: 4.7,
+    totalReviews: 312,
+    ratingBreakdown: { quality: 4.7, value: 4.6, durability: 4.9, appearance: 4.5, easeOfInstall: 4.8 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   },
   {
     id: '4',
@@ -257,7 +286,16 @@ const projectMaterials: ProjectMaterial[] = [
     imageUrl: '/materials/smart-lighting.jpg',
     alternatives: 7,
     upgradePrice: 89.99,
-    usedInProjects: 1834
+    usedInProjects: 1834,
+    customerSatisfaction: 89,
+    successRate: 94,
+    averageRating: 4.4,
+    totalReviews: 523,
+    ratingBreakdown: { quality: 4.4, value: 4.3, durability: 4.6, appearance: 4.5, easeOfInstall: 4.2 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   },
   {
     id: '5',
@@ -288,7 +326,16 @@ const projectMaterials: ProjectMaterial[] = [
     imageUrl: '/materials/vb-bathroom.jpg',
     alternatives: 4,
     upgradePrice: 299.99,
-    usedInProjects: 456
+    usedInProjects: 456,
+    customerSatisfaction: 96,
+    successRate: 99,
+    averageRating: 4.9,
+    totalReviews: 128,
+    ratingBreakdown: { quality: 4.9, value: 4.8, durability: 5.0, appearance: 4.9, easeOfInstall: 4.7 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   },
   {
     id: '6',
@@ -319,7 +366,16 @@ const projectMaterials: ProjectMaterial[] = [
     imageUrl: '/materials/howdens-kitchen.jpg',
     alternatives: 8,
     upgradePrice: 445.00,
-    usedInProjects: 678
+    usedInProjects: 678,
+    customerSatisfaction: 91,
+    successRate: 95,
+    averageRating: 4.5,
+    totalReviews: 289,
+    ratingBreakdown: { quality: 4.5, value: 4.4, durability: 4.7, appearance: 4.6, easeOfInstall: 4.3 },
+    customerReviews: [],
+    professionalEndorsements: [],
+    projectShowcases: [],
+    recommendedWith: []
   }
 ]
 
@@ -352,24 +408,37 @@ export default function MaterialsPage() {
   const [selectedPhase, setSelectedPhase] = useState('all')
   const [showAlternatives, setShowAlternatives] = useState<string | null>(null)
   const [expandedMaterial, setExpandedMaterial] = useState<string | null>(null)
+  const { onMount, measureOperation } = usePerformanceMonitoring('MaterialsPage')
 
-  const totalCost = projectMaterials.reduce((sum, material) => sum + material.totalPrice, 0)
-  const totalSavings = projectMaterials.reduce((sum, material) => sum + (material.savings || 0), 0)
+  // Memoized calculations for better performance
+  const totalCost = useMemo(() => 
+    projectMaterials.reduce((sum, material) => sum + material.totalPrice, 0), 
+    [projectMaterials]
+  )
+  
+  const totalSavings = useMemo(() => 
+    projectMaterials.reduce((sum, material) => sum + (material.savings || 0), 0), 
+    [projectMaterials]
+  )
 
-  const filteredMaterials = selectedPhase === 'all' 
-    ? projectMaterials 
-    : projectMaterials.filter(material => material.phase === selectedPhase)
+  const filteredMaterials = useMemo(() => 
+    selectedPhase === 'all' 
+      ? projectMaterials 
+      : projectMaterials.filter(material => material.phase === selectedPhase),
+    [selectedPhase, projectMaterials]
+  )
 
-  const getStatusColor = (status: string) => {
+  // Memoized helper functions
+  const getStatusColor = useCallback((status: string) => {
     switch (status) {
       case 'confirmed': return 'bg-green-100 text-green-800'
       case 'pending': return 'bg-yellow-100 text-yellow-800'
       case 'coordinating': return 'bg-blue-100 text-blue-800'
       default: return 'bg-gray-100 text-gray-800'
     }
-  }
+  }, [])
 
-  const getSustainabilityColor = (rating: string) => {
+  const getSustainabilityColor = useCallback((rating: string) => {
     switch (rating) {
       case 'A+': return 'bg-green-500'
       case 'A': return 'bg-green-400'
@@ -377,7 +446,25 @@ export default function MaterialsPage() {
       case 'C': return 'bg-orange-400'
       default: return 'bg-gray-400'
     }
-  }
+  }, [])
+
+  // Memoized event handlers
+  const handlePhaseChange = useCallback((phase: string) => {
+    measureOperation('phaseFilter', () => setSelectedPhase(phase))
+  }, [measureOperation])
+
+  const handleShowAlternatives = useCallback((materialId: string | null) => {
+    setShowAlternatives(prev => prev === materialId ? null : materialId)
+  }, [])
+
+  const handleRouterPush = useCallback((path: string) => {
+    router.push(path)
+  }, [router])
+
+  // Performance monitoring on mount
+  useEffect(() => {
+    onMount()
+  }, [onMount])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -465,7 +552,7 @@ export default function MaterialsPage() {
           <h2 className="text-2xl font-bold text-gray-900">Materials Selected for Your Project</h2>
           <Button 
             variant="outline" 
-            onClick={() => router.push('/project/configure')}
+            onClick={() => handleRouterPush('/configure')}
             className="border-blue-600 text-blue-600 hover:bg-blue-50"
           >
             <Settings className="h-4 w-4 mr-2" />
@@ -479,7 +566,7 @@ export default function MaterialsPage() {
             {['all', ...deliveryPhases.map(p => p.name)].map((phase) => (
               <button
                 key={phase}
-                onClick={() => setSelectedPhase(phase)}
+                onClick={() => handlePhaseChange(phase)}
                 className={`px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium transition-colors ${
                   selectedPhase === phase
                     ? 'bg-blue-600 text-white'
@@ -583,7 +670,7 @@ export default function MaterialsPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setShowAlternatives(showAlternatives === material.id ? null : material.id)}
+                        onClick={() => handleShowAlternatives(material.id)}
                       >
                         {material.alternatives} Alternatives
                         <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${showAlternatives === material.id ? 'rotate-180' : ''}`} />
@@ -612,7 +699,7 @@ export default function MaterialsPage() {
                       <Button 
                         size="sm" 
                         className="bg-blue-600 hover:bg-blue-700"
-                        onClick={() => router.push(`/materials/${material.id}/alternatives`)}
+                        onClick={() => handleRouterPush(`/materials/${material.id}/alternatives`)}
                       >
                         See All Options
                         <ArrowRight className="h-4 w-4 ml-1" />
@@ -634,7 +721,7 @@ export default function MaterialsPage() {
           </p>
           <div className="flex justify-center gap-4">
             <Button 
-              onClick={() => router.push('/project/configure')}
+              onClick={() => handleRouterPush('/project/configure')}
               className="bg-blue-600 hover:bg-blue-700"
             >
               <Settings className="h-4 w-4 mr-2" />
@@ -642,11 +729,27 @@ export default function MaterialsPage() {
             </Button>
             <Button 
               variant="outline"
-              onClick={() => router.push('/materials/alternatives')}
+              onClick={() => handleRouterPush('/materials/alternatives')}
               className="border-blue-600 text-blue-600 hover:bg-blue-50"
             >
               Browse All Alternatives
             </Button>
+          </div>
+        </div>
+
+        {/* Pricing Disclaimer */}
+        <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+          <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+            <AlertCircle className="h-5 w-5 text-yellow-600 mr-2" />
+            Important Pricing Information
+          </h4>
+          <div className="text-sm text-gray-700 space-y-2">
+            <p>• Prices shown are indicative and subject to regional variations (London +30-50%, Scotland/Wales -10-20%)</p>
+            <p>• Material costs subject to market volatility and supplier availability</p>
+            <p>• Trade discounts of 5-15% may apply for professional accounts</p>
+            <p>• Delivery charges vary by location and order size</p>
+            <p>• VAT at standard rate (20%) applies to most materials</p>
+            <p>• Actual installation costs not included in material pricing</p>
           </div>
         </div>
       </div>

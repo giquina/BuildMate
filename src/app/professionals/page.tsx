@@ -162,7 +162,16 @@ const assignedTeam: TeamMember[] = [
     upcomingTasks: ['Foundation inspection', 'Structural beam installation', 'Coordination meeting'],
     completedTasks: 23,
     onTimeDelivery: 95,
-    clientSatisfaction: 98
+    clientSatisfaction: 98,
+    reviews: [],
+    projectGallery: [],
+    awards: [],
+    referralRate: 85,
+    repeatClientRate: 78,
+    successStories: [],
+    peerRecommendations: [],
+    recentFeedback: [],
+    industryRecognition: []
   },
   {
     id: '2',
@@ -191,7 +200,16 @@ const assignedTeam: TeamMember[] = [
     upcomingTasks: ['Kitchen circuit installation', 'Smart lighting setup', 'Final testing'],
     completedTasks: 18,
     onTimeDelivery: 92,
-    clientSatisfaction: 96
+    clientSatisfaction: 96,
+    reviews: [],
+    projectGallery: [],
+    awards: [],
+    referralRate: 92,
+    repeatClientRate: 88,
+    successStories: [],
+    peerRecommendations: [],
+    recentFeedback: [],
+    industryRecognition: []
   },
   {
     id: '3',
@@ -220,7 +238,16 @@ const assignedTeam: TeamMember[] = [
     upcomingTasks: ['Bathroom rough-in', 'Boiler connection', 'System pressure testing'],
     completedTasks: 12,
     onTimeDelivery: 88,
-    clientSatisfaction: 94
+    clientSatisfaction: 94,
+    reviews: [],
+    projectGallery: [],
+    awards: [],
+    referralRate: 89,
+    repeatClientRate: 82,
+    successStories: [],
+    peerRecommendations: [],
+    recentFeedback: [],
+    industryRecognition: []
   },
   {
     id: '4',
@@ -249,7 +276,16 @@ const assignedTeam: TeamMember[] = [
     upcomingTasks: ['Tile selection meeting', 'Paint color approval', 'Fixture coordination'],
     completedTasks: 19,
     onTimeDelivery: 97,
-    clientSatisfaction: 99
+    clientSatisfaction: 99,
+    reviews: [],
+    projectGallery: [],
+    awards: [],
+    referralRate: 96,
+    repeatClientRate: 93,
+    successStories: [],
+    peerRecommendations: [],
+    recentFeedback: [],
+    industryRecognition: []
   }
 ]
 
@@ -288,7 +324,7 @@ export default function ProfessionalsPage() {
               </h1>
             </div>
             <p className="text-xl text-blue-100 mb-6">
-              Your handpicked professionals are ready to bring your vision to life
+              Connect with verified UK professionals for your construction project
             </p>
             <div className="flex items-center justify-center space-x-8 text-blue-100">
               <div className="flex items-center">
@@ -543,6 +579,26 @@ export default function ProfessionalsPage() {
               ))}
             </div>
 
+            {/* Professional Availability Notice */}
+            <Card className="bg-amber-50 border border-amber-200">
+              <CardContent className="p-6">
+                <div className="flex items-start">
+                  <AlertCircle className="h-6 w-6 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Professional Availability Information</h4>
+                    <div className="text-sm text-gray-700 space-y-2">
+                      <p>• Quality UK professionals are typically booked 4-8 weeks in advance</p>
+                      <p>• All professionals shown have current CSCS cards and valid insurance</p>
+                      <p>• CSCS cards from Northern Ireland expire 31 December 2024</p>
+                      <p>• Gas Safe registration required for all gas-related work</p>
+                      <p>• Building Control notification required for electrical work under Part P</p>
+                      <p>• Availability varies by region and seasonal demand</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Need Different Professionals */}
             <Card className="bg-gray-50 border-dashed border-2 border-gray-300">
               <CardContent className="p-8 text-center">
@@ -552,6 +608,7 @@ export default function ProfessionalsPage() {
                 </h3>
                 <p className="text-gray-600 mb-4">
                   Not satisfied with your current team? We can help you find better matches for your project needs.
+                  Typical response time: 2-3 business days.
                 </p>
                 <Button className="bg-blue-700 hover:bg-blue-800 text-white">
                   Contact Support

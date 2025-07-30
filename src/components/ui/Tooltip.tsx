@@ -15,18 +15,18 @@ interface TooltipProps {
   contentClassName?: string
 }
 
-export function Tooltip({
-  children,
-  content,
-  side = 'top',
-  align = 'center',
-  variant = 'default',
-  size = 'md',
-  delay = 300,
-  disabled = false,
-  arrow = true,
-  className,
-  contentClassName,
+export function Tooltip({ 
+  children, 
+  content, 
+  side = 'top', 
+  align = 'center', 
+  variant = 'default', 
+  size = 'md', 
+  delay = 300, 
+  disabled = false, 
+  arrow = true, 
+  className, 
+  contentClassName, 
 }: TooltipProps) {
   const [isVisible, setIsVisible] = React.useState(false)
   const [shouldShow, setShouldShow] = React.useState(false)
@@ -63,7 +63,7 @@ export function Tooltip({
   }
 
   const sizes = {
-    sm: 'px-2 py-1 text-xs max-w-xs',
+    sm: 'px-2.5 py-1.5 text-xs max-w-xs',
     md: 'px-3 py-2 text-sm max-w-sm',
     lg: 'px-4 py-3 text-base max-w-md'
   }
@@ -166,14 +166,14 @@ interface InteractiveTooltipProps extends Omit<TooltipProps, 'content'> {
   }
 }
 
-export function InteractiveTooltip({
-  children,
-  title,
-  description,
-  action,
-  variant = 'tesla',
-  size = 'lg',
-  ...props
+export function InteractiveTooltip({ 
+  children, 
+  title, 
+  description, 
+  action, 
+  variant = 'tesla', 
+  size = 'lg', 
+  ...props 
 }: InteractiveTooltipProps) {
   const content = (
     <div className="space-y-2">
@@ -213,12 +213,12 @@ interface StatusTooltipProps extends Omit<TooltipProps, 'content' | 'variant'> {
   message: string
 }
 
-export function StatusTooltip({
-  children,
-  status,
-  title,
-  message,
-  ...props
+export function StatusTooltip({ 
+  children, 
+  status, 
+  title, 
+  message, 
+  ...props 
 }: StatusTooltipProps) {
   const statusConfig = {
     success: {
@@ -250,8 +250,8 @@ export function StatusTooltip({
   const config = statusConfig[status]
 
   const content = (
-    <div className="flex items-start space-x-2">
-      <div className={cn('flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold', config.bgColor, config.color)}>
+    <div className="flex items-start space-x-3">
+      <div className={cn('flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold', config.bgColor, config.color)}>
         {config.icon}
       </div>
       <div>
@@ -279,22 +279,22 @@ interface KeyboardTooltipProps extends Omit<TooltipProps, 'content'> {
   description: string
 }
 
-export function KeyboardTooltip({
-  children,
-  shortcut,
-  description,
-  ...props
+export function KeyboardTooltip({ 
+  children, 
+  shortcut, 
+  description, 
+  ...props 
 }: KeyboardTooltipProps) {
   const shortcuts = Array.isArray(shortcut) ? shortcut : [shortcut]
 
   const content = (
     <div className="space-y-2">
       <div className="text-sm">{description}</div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         {shortcuts.map((key, index) => (
           <React.Fragment key={key}>
             {index > 0 && <span className="text-xs opacity-60">+</span>}
-            <kbd className="px-2 py-1 text-xs font-semibold bg-white/20 rounded border border-white/30">
+            <kbd className="px-2 py-1 text-xs font-semibold bg-white/20 hover:bg-white/30 rounded-md border border-white/30">
               {key}
             </kbd>
           </React.Fragment>
@@ -326,14 +326,14 @@ interface HoverCardProps {
   delay?: number
 }
 
-export function HoverCard({
-  children,
-  content,
-  side = 'bottom',
-  align = 'center',
-  className,
-  contentClassName,
-  delay = 500,
+export function HoverCard({ 
+  children, 
+  content, 
+  side = 'bottom', 
+  align = 'center', 
+  className, 
+  contentClassName, 
+  delay = 500, 
 }: HoverCardProps) {
   const [isVisible, setIsVisible] = React.useState(false)
   const [shouldShow, setShouldShow] = React.useState(false)
@@ -404,5 +404,52 @@ export function HoverCard({
         </div>
       )}
     </div>
+  )
+}
+
+// Profile Hover Card
+interface ProfileHoverCardProps extends Omit<HoverCardProps, 'content'> {
+  user: {
+    name: string
+    avatarUrl: string
+    handle: string
+    bio: string
+    followers: number
+    following: number
+  }
+}
+
+export function ProfileHoverCard({ 
+  children, 
+  user, 
+  ...props 
+}: ProfileHoverCardProps) {
+  const content = (
+    <div className="space-y-3 p-2">
+      <div className="flex items-center space-x-3">
+        <img src={user.avatarUrl} alt={user.name} className="w-12 h-12 rounded-full" />
+        <div>
+          <div className="font-bold text-slate-900">{user.name}</div>
+          <div className="text-sm text-slate-500">@{user.handle}</div>
+        </div>
+      </div>
+      <p className="text-sm text-slate-700">{user.bio}</p>
+      <div className="flex items-center space-x-4 text-sm">
+        <div>
+          <span className="font-semibold">{user.followers}</span>{' '}
+          <span className="text-slate-500">Followers</span>
+        </div>
+        <div>
+          <span className="font-semibold">{user.following}</span>{' '}
+          <span className="text-slate-500">Following</span>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <HoverCard content={content} {...props}>
+      {children}
+    </HoverCard>
   )
 }

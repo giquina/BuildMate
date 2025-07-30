@@ -4,56 +4,71 @@ import { cn } from "@/lib/utils"
 interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number
   max?: number
-  variant?: 'default' | 'tesla' | 'gradient' | 'minimal'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: 'default' | 'tesla' | 'gradient' | 'minimal' | 'construction' | 'professional'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   showValue?: boolean
   animated?: boolean
   indeterminate?: boolean
   label?: string
-  color?: 'tesla' | 'success' | 'warning' | 'error'
+  color?: 'tesla' | 'success' | 'warning' | 'error' | 'construction' | 'professional'
+  phase?: string
+  constructionStage?: 'planning' | 'design' | 'materials' | 'building' | 'completion'
 }
 
-export function Progress({
-  className,
-  value = 0,
-  max = 100,
-  variant = 'default',
-  size = 'md',
-  showValue = false,
-  animated = true,
-  indeterminate = false,
-  label,
+export function Progress({ 
+  className, 
+  value = 0, 
+  max = 100, 
+  variant = 'default', 
+  size = 'md', 
+  showValue = false, 
+  animated = true, 
+  indeterminate = false, 
+  label, 
   color = 'tesla',
-  ...props
+  phase,
+  constructionStage,
+  ...props 
 }: ProgressProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
 
   const sizes = {
-    sm: 'h-1',
-    md: 'h-2',
-    lg: 'h-3'
+    sm: 'h-2',
+    md: 'h-3',
+    lg: 'h-4',
+    xl: 'h-6'
   }
 
   const colors = {
     tesla: {
-      bg: 'bg-tesla-100',
-      fill: 'bg-tesla-600',
-      gradient: 'bg-gradient-to-r from-tesla-500 to-tesla-700'
+      bg: 'bg-blue-100',
+      fill: 'bg-blue-600',
+      gradient: 'bg-gradient-to-r from-blue-500 to-blue-700'
     },
     success: {
-      bg: 'bg-success-100',
-      fill: 'bg-success-600',
-      gradient: 'bg-gradient-to-r from-success-500 to-success-700'
+      bg: 'bg-green-100',
+      fill: 'bg-green-600',
+      gradient: 'bg-gradient-to-r from-green-500 to-green-700'
     },
     warning: {
-      bg: 'bg-warning-100',
-      fill: 'bg-warning-600',
-      gradient: 'bg-gradient-to-r from-warning-500 to-warning-700'
+      bg: 'bg-yellow-100',
+      fill: 'bg-yellow-600',
+      gradient: 'bg-gradient-to-r from-yellow-500 to-yellow-700'
     },
     error: {
-      bg: 'bg-error-100',
-      fill: 'bg-error-600',
-      gradient: 'bg-gradient-to-r from-error-500 to-error-700'
+      bg: 'bg-red-100',
+      fill: 'bg-red-600',
+      gradient: 'bg-gradient-to-r from-red-500 to-red-700'
+    },
+    construction: {
+      bg: 'bg-orange-100',
+      fill: 'bg-orange-600',
+      gradient: 'bg-gradient-to-r from-orange-500 to-orange-700'
+    },
+    professional: {
+      bg: 'bg-green-100',
+      fill: 'bg-green-600',
+      gradient: 'bg-gradient-to-r from-green-500 to-green-700'
     }
   }
 
@@ -64,11 +79,126 @@ export function Progress({
   )
 
   const fillStyles = cn(
-    'h-full transition-all duration-500 ease-out rounded-full',
+    'h-full rounded-full',
     animated && 'transition-all duration-700 ease-out',
     variant === 'gradient' ? colors[color].gradient : colors[color].fill,
     variant === 'tesla' && 'shadow-sm'
   )
+
+  // Construction-specific progress variant
+  if (variant === 'construction') {
+    const stageColors = {
+      planning: 'from-blue-500 to-blue-600',
+      design: 'from-purple-500 to-purple-600', 
+      materials: 'from-orange-500 to-orange-600',
+      building: 'from-yellow-500 to-yellow-600',
+      completion: 'from-green-500 to-green-600'
+    }
+    
+    const stageBgColors = {
+      planning: 'bg-blue-100',
+      design: 'bg-purple-100',
+      materials: 'bg-orange-100', 
+      building: 'bg-yellow-100',
+      completion: 'bg-green-100'
+    }
+    
+    return (
+      <div className="space-y-3">
+        {(label || showValue || phase) && (
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-2">
+              {label && <span className="font-semibold text-gray-900">{label}</span>}
+              {phase && (
+                <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-md">
+                  {phase}
+                </span>
+              )}
+            </div>
+            {showValue && (
+              <span className="font-bold text-gray-900">
+                {Math.round(percentage)}%
+              </span>
+            )}
+          </div>
+        )}
+        <div
+          className={cn(
+            baseStyles, 
+            constructionStage ? stageBgColors[constructionStage] : 'bg-gray-200',
+            'border shadow-sm',
+            className
+          )}
+          {...props}
+        >
+          {indeterminate ? (
+            <div className={cn(
+              'h-full w-full rounded-full animate-pulse',
+              constructionStage ? `bg-gradient-to-r ${stageColors[constructionStage]}` : 'bg-gradient-to-r from-orange-500 to-orange-600'
+            )} />
+          ) : (
+            <>
+              <div
+                className={cn(
+                  'h-full rounded-full shadow-sm animate-progress-fill',
+                  constructionStage ? `bg-gradient-to-r ${stageColors[constructionStage]}` : 'bg-gradient-to-r from-orange-500 to-orange-600',
+                  animated && 'transition-all duration-1000 ease-out'
+                )}
+                style={{ width: `${percentage}%` }}
+              />
+              {/* Professional shimmer effect */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"
+                style={{ 
+                  width: `${Math.max(percentage, 30)}%`,
+                  opacity: animated && percentage > 0 ? 0.6 : 0
+                }}
+              />
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (variant === 'professional') {
+    return (
+      <div className="space-y-3">
+        {(label || showValue) && (
+          <div className="flex items-center justify-between text-sm">
+            {label && <span className="font-semibold text-gray-900">{label}</span>}
+            {showValue && (
+              <div className="flex items-center space-x-2">
+                <span className="font-bold text-green-600">
+                  {Math.round(percentage)}%
+                </span>
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-professional-pulse" />
+              </div>
+            )}
+          </div>
+        )}
+        <div
+          className={cn(baseStyles, 'bg-green-50 border-2 border-green-200 shadow-lg', className)}
+          {...props}
+        >
+          <div
+            className={cn(
+              'h-full rounded-full bg-gradient-to-r from-green-500 to-green-600 shadow-md',
+              animated && 'transition-all duration-700 ease-out'
+            )}
+            style={{ width: `${percentage}%` }}
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"
+            style={{ 
+              width: `${Math.max(percentage, 25)}%`,
+              opacity: animated ? 0.8 : 0
+            }}
+          />
+        </div>
+      </div>
+    )
+  }
 
   if (variant === 'tesla') {
     return (
@@ -77,14 +207,14 @@ export function Progress({
           <div className="flex items-center justify-between text-sm">
             {label && <span className="font-medium text-slate-900">{label}</span>}
             {showValue && (
-              <span className="font-semibold text-tesla-600">
+              <span className="font-semibold text-blue-600">
                 {Math.round(percentage)}%
               </span>
             )}
           </div>
         )}
         <div
-          className={cn(baseStyles, 'bg-tesla-50 border border-tesla-100', className)}
+          className={cn(baseStyles, 'bg-blue-50 border border-blue-100', className)}
           {...props}
         >
           {indeterminate ? (
@@ -176,18 +306,18 @@ interface CircularProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: 'tesla' | 'success' | 'warning' | 'error'
 }
 
-export function CircularProgress({
-  className,
-  value = 0,
-  max = 100,
-  size = 48,
-  strokeWidth = 4,
-  variant = 'default',
-  showValue = false,
-  animated = true,
-  indeterminate = false,
-  color = 'tesla',
-  ...props
+export function CircularProgress({ 
+  className, 
+  value = 0, 
+  max = 100, 
+  size = 48, 
+  strokeWidth = 4, 
+  variant = 'default', 
+  showValue = false, 
+  animated = true, 
+  indeterminate = false, 
+  color = 'tesla', 
+  ...props 
 }: CircularProgressProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
   const radius = (size - strokeWidth) / 2
@@ -196,14 +326,14 @@ export function CircularProgress({
   const strokeDashoffset = circumference - (percentage / 100) * circumference
 
   const colors = {
-    tesla: 'stroke-tesla-600',
+    tesla: 'stroke-blue-600',
     success: 'stroke-success-600',
     warning: 'stroke-warning-600',
     error: 'stroke-error-600'
   }
 
   const backgroundColors = {
-    tesla: 'stroke-tesla-100',
+    tesla: 'stroke-blue-100',
     success: 'stroke-success-100',
     warning: 'stroke-warning-100',
     error: 'stroke-error-100'
@@ -249,7 +379,7 @@ export function CircularProgress({
         
         {showValue && !indeterminate && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-sm font-semibold text-tesla-600">
+            <span className="text-sm font-semibold text-blue-600">
               {Math.round(percentage)}%
             </span>
           </div>
@@ -313,13 +443,13 @@ interface StepProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: 'horizontal' | 'vertical'
 }
 
-export function StepProgress({
-  className,
-  steps,
-  currentStep = 0,
-  variant = 'default',
-  orientation = 'horizontal',
-  ...props
+export function StepProgress({ 
+  className, 
+  steps, 
+  currentStep = 0, 
+  variant = 'default', 
+  orientation = 'horizontal', 
+  ...props 
 }: StepProgressProps) {
   if (variant === 'tesla') {
     return (
@@ -349,14 +479,14 @@ export function StepProgress({
                 <div
                   className={cn(
                     'flex items-center justify-center rounded-full border-2 font-semibold transition-all duration-300',
-                    orientation === 'horizontal' ? 'w-10 h-10 text-sm mb-2' : 'w-8 h-8 text-xs mr-3 mt-0.5',
-                    isCompleted && 'bg-tesla-600 border-tesla-600 text-white shadow-tesla',
-                    isCurrent && 'bg-tesla-50 border-tesla-600 text-tesla-600 ring-4 ring-tesla-100',
+                    orientation === 'horizontal' ? 'w-10 h-10 text-base mb-2' : 'w-8 h-8 text-sm mr-4 mt-0.5',
+                    isCompleted && 'bg-blue-600 border-blue-600 text-white shadow-lg',
+                    isCurrent && 'bg-blue-50 border-blue-600 text-blue-600 ring-4 ring-blue-100',
                     isUpcoming && 'bg-white border-slate-300 text-slate-400'
                   )}
                 >
                   {isCompleted ? (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   ) : (
@@ -368,10 +498,10 @@ export function StepProgress({
                 <div className={orientation === 'vertical' ? 'flex-1 pb-8' : ''}>
                   <div
                     className={cn(
-                      'font-medium text-sm',
-                      isCompleted && 'text-tesla-600',
-                      isCurrent && 'text-tesla-600',
-                      isUpcoming && 'text-slate-400'
+                      'font-semibold text-base',
+                      isCompleted && 'text-blue-600',
+                      isCurrent && 'text-blue-600',
+                      isUpcoming && 'text-slate-500'
                     )}
                   >
                     {step.label}
@@ -379,7 +509,7 @@ export function StepProgress({
                   {step.description && (
                     <div
                       className={cn(
-                        'text-xs mt-1',
+                        'text-sm mt-1',
                         isCompleted && 'text-slate-600',
                         isCurrent && 'text-slate-600',
                         isUpcoming && 'text-slate-400'
@@ -397,9 +527,9 @@ export function StepProgress({
                   className={cn(
                     'transition-all duration-300',
                     orientation === 'horizontal'
-                      ? 'flex-1 h-0.5 mx-4 mb-6'
-                      : 'w-0.5 h-8 ml-4 -mt-8',
-                    isCompleted ? 'bg-tesla-600' : 'bg-slate-200'
+                      ? 'flex-1 h-1 mx-4 mb-6'
+                      : 'w-1 h-8 ml-4 -mt-8',
+                    isCompleted ? 'bg-blue-600' : 'bg-slate-200'
                   )}
                 />
               )}

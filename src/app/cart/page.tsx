@@ -180,6 +180,9 @@ export default function CartPage() {
               <Button onClick={() => router.push('/materials')}>
                 Browse Materials
               </Button>
+              <Button variant="outline" onClick={() => router.push('/')}>
+                Continue Shopping
+              </Button>
             </CardContent>
           </Card>
         ) : (

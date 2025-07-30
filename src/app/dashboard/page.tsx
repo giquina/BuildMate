@@ -346,7 +346,7 @@ export default function DashboardPage() {
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
                 )}
               </Button>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => alert('Contacting team...')}>
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Contact Team
               </Button>

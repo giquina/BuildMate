@@ -69,7 +69,7 @@ export function Input({
   }
 
   const baseInputStyles = cn(
-    "block w-full rounded-xl border bg-white px-4 py-3 text-base transition-all duration-200",
+    "block w-full rounded-lg border bg-white px-4 py-3 text-base transition-all duration-200",
     "focus:outline-none focus:ring-4",
     "placeholder:text-slate-400",
     "disabled:bg-slate-50 disabled:text-slate-500 disabled:cursor-not-allowed",
@@ -216,7 +216,7 @@ export function Input({
           <input
             id={inputId}
             className={cn(
-              "block w-full rounded-2xl border-2 bg-white px-5 py-4 text-base font-medium transition-all duration-300",
+              "block w-full rounded-xl border-2 bg-white px-5 py-4 text-base font-medium transition-all duration-300",
               "focus:outline-none focus:ring-4 focus:scale-[1.02]",
               "placeholder:text-slate-400 placeholder:font-normal",
               "shadow-sm hover:shadow-md focus:shadow-tesla",
@@ -318,15 +318,15 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
   state?: 'default' | 'success' | 'warning' | 'error'
 }
 
-export function Textarea({
-  className,
-  label,
-  error,
-  helperText,
+export function Textarea({ 
+  className, 
+  label, 
+  error, 
+  helperText, 
   variant = 'default',
   state = 'default',
-  id,
-  ...props
+  id, 
+  ...props 
 }: TextareaProps) {
   const textareaId = id || React.useId()
   const actualState = error ? 'error' : state
@@ -351,7 +351,7 @@ export function Textarea({
   }
 
   const baseStyles = cn(
-    "block w-full rounded-xl border bg-white px-4 py-3 text-base transition-all duration-200",
+    "block w-full rounded-lg border bg-white px-4 py-3 text-base transition-all duration-200",
     "focus:outline-none focus:ring-4",
     "placeholder:text-slate-400 resize-vertical",
     "disabled:bg-slate-50 disabled:text-slate-500 disabled:cursor-not-allowed",
@@ -370,7 +370,7 @@ export function Textarea({
         <textarea
           id={textareaId}
           className={cn(
-            "block w-full rounded-2xl border-2 bg-white px-5 py-4 text-base font-medium transition-all duration-300",
+            "block w-full rounded-xl border-2 bg-white px-5 py-4 text-base font-medium transition-all duration-300",
             "focus:outline-none focus:ring-4 focus:scale-[1.01]",
             "placeholder:text-slate-400 placeholder:font-normal",
             "shadow-sm hover:shadow-md focus:shadow-tesla",

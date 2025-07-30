@@ -67,3 +67,4 @@ errors/sensitive.log
 !.claude/
 !tasks/
 !scripts/
+.vercel

@@ -191,11 +191,13 @@ export default function CheckoutPage() {
                     placeholder="First Name"
                     value={billingInfo.firstName}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, firstName: e.target.value }))}
+                    required
                   />
                   <Input
                     placeholder="Last Name"
                     value={billingInfo.lastName}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, lastName: e.target.value }))}
+                    required
                   />
                 </div>
                 <Input
@@ -203,28 +205,33 @@ export default function CheckoutPage() {
                   type="email"
                   value={billingInfo.email}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, email: e.target.value }))}
+                  required
                 />
                 <Input
                   placeholder="Address"
                   value={billingInfo.address}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, address: e.target.value }))}
+                  required
                 />
                 <div className="grid md:grid-cols-2 gap-4">
                   <Input
                     placeholder="City"
                     value={billingInfo.city}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, city: e.target.value }))}
+                    required
                   />
                   <Input
                     placeholder="Postcode"
                     value={billingInfo.postcode}
                     onChange={(e) => setBillingInfo(prev => ({ ...prev, postcode: e.target.value }))}
+                    required
                   />
                 </div>
                 <Input
                   placeholder="Phone Number"
                   value={billingInfo.phone}
                   onChange={(e) => setBillingInfo(prev => ({ ...prev, phone: e.target.value }))}
+                  required
                 />
               </CardContent>
             </Card>

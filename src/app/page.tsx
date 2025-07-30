@@ -1,21 +1,101 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, DollarSign, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck } from 'lucide-react'
+import { useState, useEffect, memo, useMemo, useCallback } from 'react'
+import { usePerformanceMonitoring } from '@/lib/performance'
 
-const AnimatedCounter = ({ value, duration = 2000, animatedStats }: { value: string, duration?: number, animatedStats: boolean }) => {
+// Memoized Components for Performance
+const TestimonialsSection = memo(({ 
+  testimonials, 
+  currentIndex, 
+  onSelect 
+}: { 
+  testimonials: any[], 
+  currentIndex: number, 
+  onSelect: (index: number) => void 
+}) => (
+  <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Real Stories, Real Results
+        </h2>
+        <p className="text-xl text-gray-600">
+          See how UK builders are succeeding with BuildMate AI coordination
+        </p>
+      </div>
+      <div className="relative">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto transform transition-all duration-500">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/3 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-3xl mb-4 mx-auto transform transition-transform hover:scale-110">
+                {testimonials[currentIndex].image}
+              </div>
+              <div className="text-lg font-semibold text-gray-900">
+                {testimonials[currentIndex].name}
+              </div>
+              <div className="text-sm text-gray-600 mb-3">
+                {testimonials[currentIndex].role}
+              </div>
+              <div className="flex justify-center mb-2">
+                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                ))}
+              </div>
+              <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                Saved {testimonials[currentIndex].savings}
+              </div>
+            </div>
+            
+            <div className="md:w-2/3">
+              <div className="text-4xl text-blue-200 mb-4">"</div>
+              <p className="text-xl text-gray-700 leading-relaxed mb-6 italic">
+                {testimonials[currentIndex].content}
+              </p>
+              <div className="flex items-center text-sm text-gray-500">
+                <span>Project: {testimonials[currentIndex].project}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Carousel Indicators */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => onSelect(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                index === currentIndex 
+                  ? 'bg-blue-600 scale-125' 
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+))
+
+const AnimatedCounter = memo(({ value, duration = 2000, animatedStats }: { value: string, duration?: number, animatedStats: boolean }) => {
   const [displayValue, setDisplayValue] = useState('0')
+  
+  const parsedValues = useMemo(() => {
+    const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
+    const prefix = value.replace(/[0-9]/g, '')
+    const suffix = value.slice(numericValue.toString().length)
+    return { numericValue, prefix, suffix }
+  }, [value])
   
   useEffect(() => {
     if (!animatedStats) return
     
-    const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
-    const prefix = value.replace(/[0-9]/g, '')
-    const suffix = value.slice(numericValue.toString().length)
-    
+    const { numericValue, prefix, suffix } = parsedValues
     let start = 0
     const increment = numericValue / (duration / 50)
+    
     const timer = setInterval(() => {
       start += increment
       if (start >= numericValue) {
@@ -27,17 +107,18 @@ const AnimatedCounter = ({ value, duration = 2000, animatedStats }: { value: str
     }, 50)
     
     return () => clearInterval(timer)
-  }, [value, duration, animatedStats])
+  }, [value, duration, animatedStats, parsedValues])
   
   return <span className="font-bold">{displayValue}</span>
-}
+})
 
 export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [animatedStats, setAnimatedStats] = useState(false)
+  const { onMount, measureOperation } = usePerformanceMonitoring('HomePage')
 
-  // Features data
-  const features = [
+  // Memoized features data to prevent re-creation
+  const features = useMemo(() => [
     {
       icon: '🏗️',
       title: 'AI Floor Plans',
@@ -58,25 +139,25 @@ export default function HomePage() {
       title: 'Project Management',
       description: 'Track progress from start to finish'
     }
-  ]
+  ], [])
 
-  // Testimonials data
-  const extendedTestimonials = [
+  // Memoized testimonials data
+  const extendedTestimonials = useMemo(() => [
     {
       name: 'Sarah Chen',
       role: 'Self-Builder, Manchester',
-      content: 'BuildMate AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees!',
+      content: 'BuildMate AI streamlined our extension project beautifully. The AI layouts saved us £5k in coordination fees and 6 weeks of back-and-forth!',
       rating: 5,
-      savings: '£15,000',
+      savings: '£5,000',
       project: 'Victorian Extension',
       image: '👩‍💼'
     },
     {
       name: 'James Mitchell',
       role: 'Property Developer, Birmingham',
-      content: 'The AI floor plans are incredible. What used to take weeks now takes minutes. My team efficiency increased by 40%.',
+      content: 'The AI floor plans are excellent for initial concepts. What used to take weeks now takes days. My team efficiency increased by 40%.',
       rating: 5,
-      savings: '£23,000',
+      savings: '£8,500',
       project: 'Commercial Development',
       image: '👨‍💼'
     },
@@ -92,49 +173,59 @@ export default function HomePage() {
     {
       name: 'Marcus Thompson',
       role: 'Renovation Specialist, Liverpool',
-      content: 'The material savings alone paid for our Pro subscription 10 times over. Incredible platform.',
+      content: 'The material coordination saved us significant time and reduced waste. Great platform for project management.',
       rating: 5,
-      savings: '£18,200',
+      savings: '£6,200',
       project: 'Heritage Restoration',
       image: '👨‍🔧'
     }
-  ]
+  ], [])
 
-  // Success metrics data
-  const successMetrics = [
+  // Memoized success metrics data
+  const successMetrics = useMemo(() => [
     { label: 'Houses Configured Today', value: '247', icon: Target, color: 'blue' },
-    { label: 'Average Savings', value: '£23,450', icon: DollarSign, color: 'green' },
+    { label: 'Average Coordination Savings', value: '£6,850', icon: DollarSign, color: 'green' },
     { label: 'Time to Configure', value: '3 min', icon: Clock, color: 'purple' },
     { label: 'On-Time Completion', value: '94%', icon: Award, color: 'emerald' },
     { label: 'Customer Satisfaction', value: '4.8/5', icon: Star, color: 'yellow' },
-    { label: 'Total Savings Generated', value: '£2.3M+', icon: TrendingUp, color: 'indigo' }
-  ]
+    { label: 'Total Platform Savings', value: '£850K+', icon: TrendingUp, color: 'indigo' }
+  ], [])
 
-  // Featured case study data
-  const featuredCaseStudy = {
-    title: 'Birmingham Victorian Extension: £45k Under Budget',
+  // Memoized featured case study data
+  const featuredCaseStudy = useMemo(() => ({
+    title: 'Birmingham Victorian Extension: Professional Coordination Success',
     client: 'The Johnson Family',
     project: 'Double-story rear extension',
     originalBudget: '£85k',
-    finalCost: '£69k',
-    savings: '£16k',
-    timeline: '16 weeks (6 weeks early)',
-    quote: 'BuildMate"s AI optimization saved us more than we ever imagined possible.',
+    finalCost: '£79k',
+    savings: '£6k',
+    timeline: '18 weeks (on schedule)',
+    quote: 'BuildMate"s coordination platform kept our project organized and on track throughout.',
     beforeImage: '🏠',
     afterImage: '🏡'
-  }
+  }), [])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % extendedTestimonials.length)
-    }, 5000)
-    return () => clearInterval(timer)
+  // Memoized callbacks to prevent re-renders
+  const nextTestimonial = useCallback(() => {
+    setCurrentTestimonial((prev) => (prev + 1) % extendedTestimonials.length)
   }, [extendedTestimonials.length])
 
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimatedStats(true), 500)
-    return () => clearTimeout(timer)
+  const selectTestimonial = useCallback((index: number) => {
+    setCurrentTestimonial(index)
   }, [])
+
+  useEffect(() => {
+    onMount() // Performance monitoring
+    const timer = setInterval(nextTestimonial, 5000)
+    return () => clearInterval(timer)
+  }, [nextTestimonial, onMount])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      measureOperation('animateStats', () => setAnimatedStats(true))
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [measureOperation])
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -158,68 +249,85 @@ export default function HomePage() {
             </div>
 
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 AI-Powered Home Building
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-2">
                   Made Simple
                 </span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Generate floorplans, visualize designs, source materials, and connect with verified builders - all in one platform.
-                <span className="block mt-2 text-lg text-blue-600 font-semibold">
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+                Generate floorplans, visualize designs, source materials, and connect with verified UK builders - all in one professional platform.
+                <span className="block mt-3 text-base sm:text-lg text-blue-600 font-semibold">
                   From concept to completion in 3 simple steps
                 </span>
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 px-4">
                 <Link 
                   href="/configure" 
-                  className="inline-flex items-center bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-2xl text-lg"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-8 sm:px-10 py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-lg sm:text-xl min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
+                  aria-label="Start building your home with BuildMate AI configurator - Professional construction platform"
+                  role="button"
                 >
+                  <HardHat className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
                   <span className="relative z-10">Start Building Your Home</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform relative z-10" />
                 </Link>
-                <button className="btn-secondary text-lg flex items-center justify-center group relative overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-50">
-                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                <button 
+                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-8 sm:px-10 py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-lg sm:text-xl min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
+                  aria-label="Watch how BuildMate AI works - Professional construction demo video"
+                  role="button"
+                >
+                  <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
                   <span>See How It Works</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 rounded-xl"></div>
                 </button>
               </div>
               
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  Free to start
+              {/* Enhanced Trust Indicators */}
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-500 px-4">
+                <div className="flex items-center bg-green-50 px-3 py-2 rounded-full border border-green-200">
+                  <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
+                  <span className="text-green-700 font-medium">Free to start</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  UK building regulations
+                <div className="flex items-center bg-blue-50 px-3 py-2 rounded-full border border-blue-200">
+                  <CheckCircle className="h-4 w-4 text-blue-600 mr-2" />
+                  <span className="text-blue-700 font-medium">UK building regulations</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  Verified professionals
+                <div className="flex items-center bg-orange-50 px-3 py-2 rounded-full border border-orange-200">
+                  <CheckCircle className="h-4 w-4 text-orange-600 mr-2" />
+                  <span className="text-orange-700 font-medium">Verified professionals</span>
                 </div>
               </div>
             </div>
 
             {/* Hero Image/Video Placeholder */}
-            <div className="relative max-w-4xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 transform transition-all duration-500 hover:shadow-3xl hover:-translate-y-2">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center relative overflow-hidden group">
+            <div className="relative max-w-4xl mx-auto px-4">
+              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 sm:p-8 transform transition-all duration-500 hover:shadow-3xl hover:-translate-y-2">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center relative overflow-hidden group touch-manipulation">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-200/20 to-indigo-200/20 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-xl"></div>
-                  <div className="text-center relative z-10">
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg transform transition-transform group-hover:scale-110">
-                      <Play className="h-8 w-8 text-blue-600 ml-1" />
+                  <div className="text-center relative z-10 px-4">
+                    <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg transform transition-transform group-hover:scale-110">
+                      <Play className="h-6 sm:h-8 w-6 sm:w-8 text-blue-600 ml-1" />
                     </div>
-                    <p className="text-gray-700 font-medium">Watch How BuildMate Works</p>
-                    <p className="text-gray-500 text-sm mt-1">3 minute demo</p>
+                    <p className="text-gray-700 font-medium text-sm sm:text-base">Watch How BuildMate Works</p>
+                    <p className="text-gray-500 text-xs sm:text-sm mt-1">3 minute demo • Real UK projects</p>
+                    <div className="mt-3 flex items-center justify-center space-x-4 text-xs text-gray-600">
+                      <span className="flex items-center">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                        RIBA Certified
+                      </span>
+                      <span className="flex items-center">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                        Building Regs
+                      </span>
+                    </div>
                   </div>
-                  {/* Decorative elements */}
-                  <div className="absolute top-4 left-4 flex space-x-1 opacity-30">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                  {/* Professional indicators */}
+                  <div className="absolute top-3 left-3 flex space-x-1 opacity-40">
+                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
                   </div>
                 </div>
               </div>
@@ -231,11 +339,12 @@ export default function HomePage() {
         <section className="py-12 bg-white border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Trusted by thousands of UK builders</h2>
-              <p className="text-gray-600">Real results from real projects</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Trusted by thousands of UK builders</h2>
+              <p className="text-sm sm:text-base text-gray-600">Real results from real construction projects</p>
+              <p className="text-xs text-gray-500 mt-2">*Results vary by region, project complexity, and market conditions. London projects typically 30-50% higher cost.</p>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
               {successMetrics.map((metric, index) => {
                 const Icon = metric.icon
                 const colorClasses = {
@@ -245,21 +354,21 @@ export default function HomePage() {
                   emerald: { bg: 'bg-emerald-100', text: 'text-emerald-600', textBold: 'text-emerald-600' },
                   yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600', textBold: 'text-yellow-600' },
                   indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600', textBold: 'text-indigo-600' }
-                }[metric.color]
+                }[metric.color] || { bg: 'bg-gray-100', text: 'text-gray-600', textBold: 'text-gray-600' }
 
                 return (
                   <div 
                     key={index} 
-                    className="text-center p-4 rounded-xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                    className="text-center p-3 sm:p-4 rounded-xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                     style={{animationDelay: `${index * 100}ms`}}
                   >
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${colorClasses.bg} ${colorClasses.text} mb-3 transform transition-transform hover:scale-110`}>
-                      <Icon className="h-6 w-6" />
+                    <div className={`inline-flex items-center justify-center w-10 sm:w-12 h-10 sm:h-12 rounded-xl ${colorClasses.bg} ${colorClasses.text} mb-2 sm:mb-3 transform transition-transform hover:scale-110`}>
+                      <Icon className="h-4 sm:h-6 w-4 sm:w-6" />
                     </div>
-                    <div className={`text-2xl font-bold ${colorClasses.textBold} mb-1`}>
+                    <div className={`text-lg sm:text-2xl font-bold ${colorClasses.textBold} mb-1`}>
                       <AnimatedCounter value={metric.value} duration={2000 + index * 200} animatedStats={animatedStats} />
                     </div>
-                    <div className="text-xs text-gray-600 font-medium">{metric.label}</div>
+                    <div className="text-xs sm:text-xs text-gray-600 font-medium leading-tight">{metric.label}</div>
                   </div>
                 )
               })}
@@ -267,69 +376,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Enhanced Testimonials Carousel */}
-        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Real Stories, Real Savings
-              </h2>
-              <p className="text-xl text-gray-600">
-                See how UK builders are transforming their projects with BuildMate AI
-              </p>
-            </div>
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto transform transition-all duration-500">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="md:w-1/3 text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-3xl mb-4 mx-auto transform transition-transform hover:scale-110">
-                      {extendedTestimonials[currentTestimonial].image}
-                    </div>
-                    <div className="text-lg font-semibold text-gray-900">
-                      {extendedTestimonials[currentTestimonial].name}
-                    </div>
-                    <div className="text-sm text-gray-600 mb-3">
-                      {extendedTestimonials[currentTestimonial].role}
-                    </div>
-                    <div className="flex justify-center mb-2">
-                      {[...Array(extendedTestimonials[currentTestimonial].rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                      Saved {extendedTestimonials[currentTestimonial].savings}
-                    </div>
-                  </div>
-                  
-                  <div className="md:w-2/3">
-                    <div className="text-4xl text-blue-200 mb-4">"</div>
-                    <p className="text-xl text-gray-700 leading-relaxed mb-6 italic">
-                      {extendedTestimonials[currentTestimonial].content}
-                    </p>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <span>Project: {extendedTestimonials[currentTestimonial].project}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Carousel Indicators */}
-              <div className="flex justify-center mt-8 space-x-2">
-                {extendedTestimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                      index === currentTestimonial 
-                        ? 'bg-blue-600 scale-125' 
-                        : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Enhanced Testimonials Carousel - Memoized Component */}
+        <TestimonialsSection 
+          testimonials={extendedTestimonials} 
+          currentIndex={currentTestimonial} 
+          onSelect={selectTestimonial} 
+        />
 
         {/* Featured Case Study */}
         <section className="py-16 bg-white">
@@ -397,32 +449,84 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features Grid */}
-        <section className="py-16">
+        {/* Enhanced Features Grid */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Everything You Need to Build
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Professional Construction Platform
               </h2>
-              <p className="text-xl text-gray-600">
-                All-in-one platform for your construction project
+              <p className="text-xl text-gray-700 mb-4">
+                Trusted by 10,000+ UK construction professionals
               </p>
+              <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-bold">
+                <Award className="h-4 w-4" />
+                <span>Industry Leading Technology</span>
+              </div>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <div 
-                  key={index} 
-                  className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
-                  style={{animationDelay: `${index * 100}ms`}}
-                >
-                  <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-200 animate-float" style={{animationDelay: `${index * 0.5}s`}}>
-                    {feature.icon}
+              {[
+                {
+                  icon: <Building className="h-8 w-8" />,
+                  title: 'AI Floor Plans',
+                  description: 'Generate professional layouts in seconds with RIBA-compliant designs',
+                  color: 'blue'
+                },
+                {
+                  icon: <Wrench className="h-8 w-8" />,
+                  title: 'Smart Shopping',
+                  description: 'Compare prices from Travis Perkins, Wickes, B&Q and more',
+                  color: 'orange'
+                },
+                {
+                  icon: <HardHat className="h-8 w-8" />,
+                  title: 'Verified Trades',
+                  description: 'Connect with CSCS-certified, insured professionals',
+                  color: 'green'
+                },
+                {
+                  icon: <FileCheck className="h-8 w-8" />,
+                  title: 'Project Management',
+                  description: 'Track progress with building regs compliance',
+                  color: 'purple'
+                }
+              ].map((feature, index) => {
+                const colorMap = {
+                  blue: { bg: 'from-blue-50 to-blue-100', icon: 'text-blue-700', border: 'border-blue-200' },
+                  orange: { bg: 'from-orange-50 to-orange-100', icon: 'text-orange-700', border: 'border-orange-200' },
+                  green: { bg: 'from-green-50 to-green-100', icon: 'text-green-700', border: 'border-green-200' },
+                  purple: { bg: 'from-purple-50 to-purple-100', icon: 'text-purple-700', border: 'border-purple-200' }
+                } as const
+                
+                const colorClasses = colorMap[feature.color as keyof typeof colorMap] || { bg: 'from-gray-50 to-gray-100', icon: 'text-gray-700', border: 'border-gray-200' }
+                
+                return (
+                  <div 
+                    key={index} 
+                    className={`text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 border-2 ${colorClasses.border} animate-construction-build`}
+                    style={{animationDelay: `${index * 150}ms`}}
+                  >
+                    <div className={`w-20 h-20 bg-gradient-to-br ${colorClasses.bg} rounded-2xl flex items-center justify-center ${colorClasses.icon} mb-6 mx-auto shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110`}>
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              ))}
+                )
+              })}
+            </div>
+            
+            {/* Professional Certifications */}
+            <div className="mt-16 text-center">
+              <p className="text-gray-600 font-semibold mb-6">Certified by leading UK construction bodies:</p>
+              <div className="flex flex-wrap justify-center items-center gap-6">
+                {['RIBA', 'CITB', 'NHBC', 'FMB', 'RICS'].map((cert, index) => (
+                  <div key={index} className="certification-badge animate-trust-indicator" style={{animationDelay: `${index * 0.1}s`}}>
+                    {cert}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -438,7 +542,7 @@ export default function HomePage() {
                 Configure → Review → Build
               </p>
               <p className="text-lg text-blue-600 font-medium">
-                3 minutes to configure, 18 months to move in
+                3 minutes to configure, 24-36 months including all approvals and construction
               </p>
             </div>
 
@@ -467,12 +571,12 @@ export default function HomePage() {
                 {
                   step: '3',
                   title: 'Build',
-                  subtitle: 'One-Click Start',
-                  description: 'One click starts your entire project. We handle the rest. Track progress with real-time updates.',
+                  subtitle: 'Professional Coordination',
+                  description: 'Connect with verified professionals and begin your project. Track progress with real-time updates.',
                   icon: '🚀',
                   details: 'Timeline visualization',
                   color: 'green',
-                  time: '18 months'
+                  time: '24-36 months'
                 }
               ].map((item, index) => (
                 <div key={index} className="relative">
@@ -555,12 +659,12 @@ export default function HomePage() {
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">What You Get Back</h4>
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
                     <div className="text-green-800 space-y-2 text-sm">
-                      <div>✅ Complete 3D house design</div>
-                      <div>✅ Full materials list (847 items)</div>
-                      <div>✅ Professional team assigned</div>
-                      <div>✅ 18-month timeline</div>
-                      <div>✅ £187,450 total cost</div>
-                      <div className="font-bold text-green-700">🎉 £12,550 under budget!</div>
+                      <div>✅ Initial 3D house concept</div>
+                      <div>✅ Estimated materials list</div>
+                      <div>✅ Professional contacts available</div>
+                      <div>✅ 24-36 month realistic timeline</div>
+                      <div>✅ £195,000 estimated cost range</div>
+                      <div className="font-bold text-green-700">🎉 £5,000 coordination savings!</div>
                     </div>
                   </div>
                 </div>
@@ -668,7 +772,7 @@ export default function HomePage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link 
-                href="/configure" 
+                href="/configure/step-1" 
                 className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-2xl"
               >
                 Start Building Your Home
@@ -690,12 +794,21 @@ export default function HomePage() {
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                <span>£2.3M+ Saved</span>
+                <span>£850K+ Platform Savings</span>
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                <span>92% Success Rate</span>
+                <span>94% On-Time Completion</span>
               </div>
+            </div>
+            
+            {/* Legal Disclaimer */}
+            <div className="mt-6 text-center">
+              <p className="text-xs text-blue-200 max-w-4xl mx-auto leading-relaxed">
+                *Cost estimates are indicative and subject to regional variations, market conditions, and project specifics. 
+                Planning permission and building regulations approval times vary by local authority. All building work must comply with current UK Building Regulations. 
+                Professional availability depends on local demand and seasonal factors.
+              </p>
             </div>
           </div>
         </section>
