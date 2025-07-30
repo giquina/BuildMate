@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, DollarSign, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck } from 'lucide-react'
+import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, PoundSterling, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck } from 'lucide-react'
 import { useState, useEffect, memo, useMemo, useCallback } from 'react'
 import { usePerformanceMonitoring } from '@/lib/performance'
 
@@ -184,7 +184,7 @@ export default function HomePage() {
   // Memoized success metrics data
   const successMetrics = useMemo(() => [
     { label: 'Houses Configured Today', value: '247', icon: Target, color: 'blue' },
-    { label: 'Average Coordination Savings', value: '£6,850', icon: DollarSign, color: 'green' },
+    { label: 'Average Coordination Savings', value: '£6,850', icon: PoundSterling, color: 'green' },
     { label: 'Time to Configure', value: '3 min', icon: Clock, color: 'purple' },
     { label: 'On-Time Completion', value: '94%', icon: Award, color: 'emerald' },
     { label: 'Customer Satisfaction', value: '4.8/5', icon: Star, color: 'yellow' },

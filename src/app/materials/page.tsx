@@ -18,7 +18,7 @@ import {
   Package,
   MapPin,
   Calendar,
-  DollarSign,
+  PoundSterling,
   Award,
   Users,
   Settings,
@@ -486,7 +486,7 @@ export default function MaterialsPage() {
               </Card>
               <Card className="bg-white/10 backdrop-blur border-white/20">
                 <CardContent className="p-6 text-center">
-                  <DollarSign className="h-8 w-8 mx-auto mb-3 text-blue-200" />
+                  <PoundSterling className="h-8 w-8 mx-auto mb-3 text-blue-200" />
                   <div className="text-2xl font-bold">{formatCurrency(totalCost)}</div>
                   <div className="text-blue-100">Total Investment</div>
                 </CardContent>

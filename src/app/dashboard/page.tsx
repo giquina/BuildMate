@@ -35,7 +35,7 @@ import {
   Zap,
   Activity,
   Timer,
-  DollarSign,
+  PoundSterling,
   Shield,
   Heart,
   Send,

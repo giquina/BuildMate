@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight, ArrowLeft, Check, Users, Package, Calendar, DollarSign, MapPin, Home, Star, Clock, Truck, Phone, MessageCircle, Download, Share2, CreditCard, Save, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Check, Users, Package, Calendar, PoundSterling, MapPin, Home, Star, Clock, Truck, Phone, MessageCircle, Download, Share2, CreditCard, Save, Sparkles } from 'lucide-react'
 
 export default function ReviewPage() {
   const [isLoading, setIsLoading] = useState(true)
@@ -414,7 +414,7 @@ export default function ReviewPage() {
           <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <DollarSign className="h-8 w-8 mr-3" />
+                <PoundSterling className="h-8 w-8 mr-3" />
                 <div>
                   <h3 className="text-2xl font-bold">Your Investment</h3>
                   <p className="text-indigo-100">Clear cost breakdown</p>

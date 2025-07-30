@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, Eye, DollarSign, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2 } from 'lucide-react'
+import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2 } from 'lucide-react'
 import { useState } from 'react'
 
 export function Navigation() {
@@ -60,7 +60,7 @@ export function Navigation() {
                 Examples
               </Link>
               <Link href="/pricing" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <DollarSign className="h-4 w-4 mr-2" />
+                <PoundSterling className="h-4 w-4 mr-2" />
                 Pricing
               </Link>
               
@@ -129,7 +129,7 @@ export function Navigation() {
                   className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <DollarSign className="h-5 w-5 mr-3" />
+                  <PoundSterling className="h-5 w-5 mr-3" />
                   Pricing
                 </Link>
                 <div className="border-t border-gray-200 pt-3 mt-3">
