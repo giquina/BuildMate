@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { formatCurrency, calculateRegionalCost, CONSTRUCTION_DISCLAIMER } from '@/lib/uk-utils'
-import { usePerformanceMonitoring } from '@/lib/performance'
+// import { usePerformanceMonitoring } from '@/lib/performance'
 import { 
   ChevronDown,
   ChevronRight,
@@ -408,7 +408,7 @@ export default function MaterialsPage() {
   const [selectedPhase, setSelectedPhase] = useState('all')
   const [showAlternatives, setShowAlternatives] = useState<string | null>(null)
   const [expandedMaterial, setExpandedMaterial] = useState<string | null>(null)
-  const { onMount, measureOperation } = usePerformanceMonitoring('MaterialsPage')
+  // const { onMount, measureOperation } = usePerformanceMonitoring('MaterialsPage')
 
   // Memoized calculations for better performance
   const totalCost = useMemo(() => 
@@ -450,8 +450,9 @@ export default function MaterialsPage() {
 
   // Memoized event handlers
   const handlePhaseChange = useCallback((phase: string) => {
-    measureOperation('phaseFilter', () => setSelectedPhase(phase))
-  }, [measureOperation])
+    // measureOperation('phaseFilter', () => setSelectedPhase(phase)) // DISABLED
+    setSelectedPhase(phase)
+  }, [])
 
   const handleShowAlternatives = useCallback((materialId: string | null) => {
     setShowAlternatives(prev => prev === materialId ? null : materialId)
@@ -463,8 +464,8 @@ export default function MaterialsPage() {
 
   // Performance monitoring on mount
   useEffect(() => {
-    onMount()
-  }, [onMount])
+    // onMount() // DISABLED
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">

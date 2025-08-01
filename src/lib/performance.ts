@@ -1,52 +1,15 @@
-// Performance monitoring and optimization utilities for BuildMate AI
+// Performance monitoring and optimization utilities for BuildMate
 import { useCallback, useRef } from 'react'
 
-// Dynamic import of web-vitals to handle build issues
-type Metric = {
+// Simplified performance metrics interface
+interface PerformanceMetric {
   name: string;
   value: number;
-  delta: number;
-  id: string;
-  rating: 'good' | 'needs-improvement' | 'poor';
-}
-
-// Mock web-vitals functions for development
-const mockWebVitals = {
-  getCLS: (callback: (metric: Metric) => void) => {
-    callback({ name: 'CLS', value: 0, delta: 0, id: 'mock', rating: 'good' })
-  },
-  getFID: (callback: (metric: Metric) => void) => {
-    callback({ name: 'FID', value: 0, delta: 0, id: 'mock', rating: 'good' })
-  },
-  getFCP: (callback: (metric: Metric) => void) => {
-    callback({ name: 'FCP', value: 0, delta: 0, id: 'mock', rating: 'good' })
-  },
-  getLCP: (callback: (metric: Metric) => void) => {
-    callback({ name: 'LCP', value: 0, delta: 0, id: 'mock', rating: 'good' })
-  },
-  getTTFB: (callback: (metric: Metric) => void) => {
-    callback({ name: 'TTFB', value: 0, delta: 0, id: 'mock', rating: 'good' })
-  }
-}
-
-// Lazy loading web-vitals with fallback
-const getWebVitals = async () => {
-  if (typeof window === 'undefined') {
-    return mockWebVitals
-  }
-
-  try {
-    // Use eval to prevent TypeScript from checking the import at compile time
-    const webVitalsModule = await eval('import("web-vitals")')
-    return webVitalsModule
-  } catch (error) {
-    console.warn('🏗️ BuildMate Performance: web-vitals not available, using fallback')
-    return mockWebVitals
-  }
+  timestamp: number;
 }
 
 // Web Vitals reporting for construction industry performance monitoring
-export const reportWebVitals = (metric: any) => {
+export const reportWebVitals = (metric: PerformanceMetric) => {
   // In production, send to analytics service
   if (process.env.NODE_ENV === 'production') {
     console.log(metric)
@@ -57,26 +20,32 @@ export const reportWebVitals = (metric: any) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(`🏗️ BuildMate Performance: ${metric.name}`, {
       value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-      id: metric.id,
+      timestamp: metric.timestamp,
     })
   }
 }
 
-// Initialize Web Vitals monitoring
-export const initPerformanceMonitoring = async () => {
+// Simplified performance monitoring initialization
+export const initPerformanceMonitoring = () => {
   if (typeof window !== 'undefined') {
-    const webVitals = await getWebVitals()
-    if (webVitals) {
-      webVitals.getCLS(reportWebVitals)
-      webVitals.getFID(reportWebVitals)
-      webVitals.getFCP(reportWebVitals)
-      webVitals.getLCP(reportWebVitals)
-      webVitals.getTTFB(reportWebVitals)
-      console.log('🏗️ BuildMate Performance: Web Vitals monitoring initialized')
-    } else {
-      console.log('🏗️ BuildMate Performance: Fallback monitoring active')
+    // Basic performance monitoring without external dependencies
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        if (entry.entryType === 'navigation' || entry.entryType === 'paint') {
+          reportWebVitals({
+            name: entry.name || entry.entryType,
+            value: entry.duration || entry.startTime,
+            timestamp: Date.now()
+          })
+        }
+      })
+    })
+    
+    try {
+      observer.observe({ entryTypes: ['navigation', 'paint'] })
+      console.log('🏗️ BuildMate Performance: Basic monitoring initialized')
+    } catch (error) {
+      console.warn('🏗️ BuildMate Performance: Observer not supported')
     }
   }
 }
@@ -215,13 +184,16 @@ export const performanceBudgets = {
 export const usePerformanceMonitoring = (componentName: string) => {
   const mountTimeRef = useRef<number>()
   
-  if (typeof window !== 'undefined' && !mountTimeRef.current) {
-    mountTimeRef.current = performance.now()
-  }
-  
   const onMount = useCallback(() => {
-    if (process.env.NODE_ENV === 'development' && mountTimeRef.current) {
-      console.log(`🏗️ ${componentName} mounted in ${performance.now() - mountTimeRef.current}ms`)
+    if (process.env.NODE_ENV === 'development') {
+      // Initialize mount time if not set
+      if (!mountTimeRef.current && typeof window !== 'undefined') {
+        mountTimeRef.current = performance.now()
+      }
+      
+      if (mountTimeRef.current) {
+        console.log(`🏗️ ${componentName} mounted in ${performance.now() - mountTimeRef.current}ms`)
+      }
     }
   }, [componentName])
   

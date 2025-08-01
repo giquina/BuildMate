@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, PoundSterling, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck, Home, Shield, Eye, X, Linkedin, Github } from 'lucide-react'
 import { useState, useEffect, memo, useMemo, useCallback } from 'react'
-import { usePerformanceMonitoring } from '@/lib/performance'
+// import { usePerformanceMonitoring } from '@/lib/performance'
 
 // Memoized Components for Performance
 const TestimonialsSection = memo(({ 
@@ -116,7 +116,7 @@ export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [animatedStats, setAnimatedStats] = useState(false)
   const [showVideoModal, setShowVideoModal] = useState(false)
-  const { onMount, measureOperation } = usePerformanceMonitoring('HomePage')
+  // const { onMount, measureOperation } = usePerformanceMonitoring('HomePage')
 
   // Memoized features data to prevent re-creation
   const features = useMemo(() => [
@@ -224,17 +224,18 @@ export default function HomePage() {
   }, [])
 
   useEffect(() => {
-    onMount() // Performance monitoring
+    // onMount() // Performance monitoring - DISABLED
     const timer = setInterval(nextTestimonial, 5000)
     return () => clearInterval(timer)
-  }, [nextTestimonial, onMount])
+  }, [nextTestimonial])
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      measureOperation('animateStats', () => setAnimatedStats(true))
+      // measureOperation('animateStats', () => setAnimatedStats(true)) // DISABLED
+      setAnimatedStats(true)
     }, 500)
     return () => clearTimeout(timer)
-  }, [measureOperation])
+  }, [])
 
   return (
     <div className="min-h-screen relative overflow-hidden">

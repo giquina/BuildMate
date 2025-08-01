@@ -84,23 +84,23 @@ export default function RootLayout({
                 });
               }
 
-              // Initialize performance monitoring safely
-              if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-                window.requestIdleCallback(function() {
-                  // Safely load performance monitoring
-                  try {
-                    import('@/lib/performance').then(({ initPerformanceMonitoring }) => {
-                      if (initPerformanceMonitoring && typeof initPerformanceMonitoring === 'function') {
-                        initPerformanceMonitoring();
-                      }
-                    }).catch(function(err) {
-                      console.warn('Performance monitoring failed to load:', err);
-                    });
-                  } catch (err) {
-                    console.warn('Performance monitoring initialization failed:', err);
-                  }
-                });
-              }
+              // Initialize performance monitoring safely - DISABLED for debugging
+              // if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+              //   window.requestIdleCallback(function() {
+              //     // Safely load performance monitoring
+              //     try {
+              //       import('@/lib/performance').then(({ initPerformanceMonitoring }) => {
+              //         if (initPerformanceMonitoring && typeof initPerformanceMonitoring === 'function') {
+              //           initPerformanceMonitoring();
+              //         }
+              //       }).catch(function(err) {
+              //         console.warn('Performance monitoring failed to load:', err);
+              //       });
+              //     } catch (err) {
+              //       console.warn('Performance monitoring initialization failed:', err);
+              //     }
+              //   });
+              // }
 
               // Construction site connection monitoring
               if ('connection' in navigator) {
