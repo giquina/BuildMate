@@ -6,6 +6,8 @@ export interface PreGeneratedImageVariant {
   url: string
   bedrooms?: number  // Best fit for X bedroom homes
   budgetRange?: 'low' | 'mid' | 'high'  // Budget category
+  location?: 'urban' | 'suburban' | 'rural'  // Location type
+  lighting?: 'morning' | 'afternoon' | 'evening'  // Time of day
   description: string
   tags: string[]  // e.g., ['family', 'urban', 'garden', 'compact']
 }
@@ -30,6 +32,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/modern-family-house.jpg',
         bedrooms: 4,
         budgetRange: 'high',
+        location: 'suburban',
+        lighting: 'afternoon',
         description: 'Spacious modern family home with garden',
         tags: ['family', 'spacious', 'garden', 'garage']
       },
@@ -38,6 +42,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/modern-urban-house.jpg',
         bedrooms: 3,
         budgetRange: 'mid',
+        location: 'urban',
+        lighting: 'morning',
         description: 'Contemporary urban house with smart design',
         tags: ['urban', 'compact', 'smart-home', 'efficient']
       },
@@ -46,8 +52,30 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/modern-starter-house.jpg', 
         bedrooms: 2,
         budgetRange: 'low',
+        location: 'suburban',
+        lighting: 'evening',
         description: 'Modern starter home with clean aesthetics',
         tags: ['starter', 'minimalist', 'efficient', 'affordable']
+      },
+      {
+        id: 'modern-4',
+        url: '/images/architecture/modern-minimalist-urban.jpg',
+        bedrooms: 3,
+        budgetRange: 'high',
+        location: 'urban',
+        lighting: 'afternoon',
+        description: 'Minimalist urban house with floor-to-ceiling windows',
+        tags: ['minimalist', 'urban', 'glass', 'sophisticated']
+      },
+      {
+        id: 'modern-5',
+        url: '/images/architecture/modern-rural-retreat.jpg',
+        bedrooms: 4,
+        budgetRange: 'high',
+        location: 'rural',
+        lighting: 'morning',
+        description: 'Modern rural retreat with natural materials',
+        tags: ['rural', 'retreat', 'natural-materials', 'views']
       }
     ]
   },
@@ -61,7 +89,9 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         id: 'traditional-1',
         url: '/images/architecture/traditional-country-house.jpg',
         bedrooms: 4,
-        budgetRange: 'high', 
+        budgetRange: 'high',
+        location: 'rural',
+        lighting: 'afternoon',
         description: 'Traditional country house with period charm',
         tags: ['country', 'period', 'garden', 'character']
       },
@@ -70,6 +100,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/traditional-semi-detached.jpg',
         bedrooms: 3,
         budgetRange: 'mid',
+        location: 'suburban',
+        lighting: 'morning',
         description: 'Classic semi-detached with modern updates',
         tags: ['semi-detached', 'family', 'updated', 'practical']
       },
@@ -78,8 +110,30 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/traditional-cottage.jpg',
         bedrooms: 2, 
         budgetRange: 'mid',
+        location: 'rural',
+        lighting: 'evening',
         description: 'Charming traditional cottage style',
         tags: ['cottage', 'cozy', 'character', 'intimate']
+      },
+      {
+        id: 'traditional-4',
+        url: '/images/architecture/traditional-london-terrace.jpg',
+        bedrooms: 3,
+        budgetRange: 'high',
+        location: 'urban',
+        lighting: 'afternoon',
+        description: 'London Georgian terrace house',
+        tags: ['georgian', 'terrace', 'period-features', 'urban']
+      },
+      {
+        id: 'traditional-5',
+        url: '/images/architecture/traditional-manor-style.jpg',
+        bedrooms: 5,
+        budgetRange: 'high',
+        location: 'rural',
+        lighting: 'morning',
+        description: 'Traditional manor house with extensive grounds',
+        tags: ['manor', 'grand', 'estate', 'heritage']
       }
     ]
   },
@@ -94,6 +148,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/contemporary-eco-house.jpg',
         bedrooms: 4,
         budgetRange: 'high',
+        location: 'suburban',
+        lighting: 'morning',
         description: 'Eco-friendly contemporary with solar panels',
         tags: ['eco-friendly', 'sustainable', 'solar', 'innovative']
       },
@@ -102,6 +158,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/contemporary-mixed-materials.jpg', 
         bedrooms: 3,
         budgetRange: 'mid',
+        location: 'urban',
+        lighting: 'afternoon',
         description: 'Mixed materials with glass and steel accents',
         tags: ['mixed-materials', 'glass', 'steel', 'architectural']
       },
@@ -110,6 +168,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/contemporary-compact.jpg',
         bedrooms: 2,
         budgetRange: 'low',
+        location: 'urban',
+        lighting: 'evening',
         description: 'Compact contemporary with clever space use',
         tags: ['compact', 'clever-design', 'space-efficient', 'modern']
       }
@@ -126,6 +186,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/victorian-mansion.jpg',
         bedrooms: 5,
         budgetRange: 'high',
+        location: 'rural',
+        lighting: 'afternoon',
         description: 'Grand Victorian mansion with original features',
         tags: ['mansion', 'grand', 'original-features', 'period']
       },
@@ -134,6 +196,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/victorian-terrace.jpg',
         bedrooms: 3, 
         budgetRange: 'mid',
+        location: 'urban',
+        lighting: 'morning',
         description: 'Restored Victorian terrace with modern comfort',
         tags: ['terrace', 'restored', 'period-features', 'urban']
       },
@@ -142,6 +206,8 @@ export const architecturalStyles: Record<string, ArchitecturalStyle> = {
         url: '/images/architecture/victorian-conversion.jpg',
         bedrooms: 2,
         budgetRange: 'mid',
+        location: 'urban',
+        lighting: 'evening',
         description: 'Victorian conversion with period charm',
         tags: ['conversion', 'period-charm', 'character', 'updated']
       }
