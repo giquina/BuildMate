@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
-import { Suspense } from 'react'
 import { Navigation } from '@/components/ui/Navigation'
 
 const inter = Inter({ 
@@ -58,13 +57,7 @@ export default function RootLayout({
         <Navigation />
 
         <main id="main-content" className="pt-28 md:pt-24 pb-24 md:pb-0 min-h-screen bg-gray-50">
-          <Suspense fallback={
-            <div className="flex items-center justify-center min-h-[400px]">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
-          }>
-            {children}
-          </Suspense>
+          {children}
         </main>
 
         {/* Performance Monitoring & Service Worker Registration */}
@@ -87,15 +80,21 @@ export default function RootLayout({
                 });
               }
 
-              // Initialize performance monitoring
+              // Initialize performance monitoring safely
               if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
                 window.requestIdleCallback(function() {
-                  // Load web vitals when browser is idle
-                  import('@/lib/performance').then(({ initPerformanceMonitoring }) => {
-                    if (initPerformanceMonitoring) {
-                      initPerformanceMonitoring();
-                    }
-                  }).catch(console.error);
+                  // Safely load performance monitoring
+                  try {
+                    import('@/lib/performance').then(({ initPerformanceMonitoring }) => {
+                      if (initPerformanceMonitoring && typeof initPerformanceMonitoring === 'function') {
+                        initPerformanceMonitoring();
+                      }
+                    }).catch(function(err) {
+                      console.warn('Performance monitoring failed to load:', err);
+                    });
+                  } catch (err) {
+                    console.warn('Performance monitoring initialization failed:', err);
+                  }
                 });
               }
 
