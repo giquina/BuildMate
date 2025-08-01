@@ -12,14 +12,87 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'BuildMate - Complete Home Building Platform | Design, Build, Manage',
+  metadataBase: new URL('https://build-mate-mu.vercel.app'),
+  title: {
+    default: 'BuildMate - Complete Home Building Platform | Design, Build, Manage',
+    template: '%s | BuildMate - UK Home Building Platform'
+  },
   description: 'All-in-one UK home building platform. Generate smart floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders. From design to completion.',
-  keywords: 'UK home building, smart floorplans, home design, construction materials, verified builders, home renovation, property development, building platform',
+  keywords: [
+    'UK home building',
+    'smart floorplans', 
+    'home design',
+    'construction materials',
+    'verified builders',
+    'home renovation',
+    'property development',
+    'building platform',
+    'UK construction',
+    'home extension',
+    'loft conversion',
+    'planning permission',
+    'building regulations',
+    'construction professionals',
+    'materials marketplace',
+    'BuildMate'
+  ],
+  authors: [{ name: 'BuildMate Team' }],
+  creator: 'BuildMate',
+  publisher: 'BuildMate',
+  category: 'Construction & Home Building',
+  classification: 'Business',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://build-mate-mu.vercel.app',
+    siteName: 'BuildMate',
+    title: 'BuildMate - Complete Home Building Platform | Design, Build, Manage',
+    description: 'All-in-one UK home building platform. Generate smart floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'BuildMate - UK Home Building Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@buildmate_uk',
+    creator: '@buildmate_uk',
+    title: 'BuildMate - Complete Home Building Platform',
+    description: 'All-in-one UK home building platform. Generate smart floorplans, source materials, and connect with verified builders.',
+    images: ['/twitter-image.jpg'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'BuildMate'
+    title: 'BuildMate',
+    startupImage: '/apple-startup-image.png',
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: {
+      'msvalidate.01': process.env.BING_SITE_VERIFICATION || '',
+    },
   },
 }
 
@@ -67,6 +140,103 @@ export default function RootLayout({
 
         {/* Live Activity Notifications */}
         <LiveNotifications />
+
+        {/* Structured Data - JSON-LD for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "BuildMate",
+              "description": "UK's complete home building platform connecting homeowners with verified professionals and smart materials sourcing.",
+              "url": "https://build-mate-mu.vercel.app",
+              "logo": "https://build-mate-mu.vercel.app/logo.png",
+              "foundingDate": "2024",
+              "founders": [
+                {
+                  "@type": "Person",
+                  "name": "BuildMate Team"
+                }
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+44-800-123-4567",
+                "contactType": "customer service",
+                "availableLanguage": "English",
+                "areaServed": "GB"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "GB",
+                "addressRegion": "United Kingdom"
+              },
+              "sameAs": [
+                "https://twitter.com/buildmate_uk",
+                "https://linkedin.com/company/buildmate-uk",
+                "https://github.com/giquina/BuildMate"
+              ],
+              "serviceType": "Construction Platform",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Kingdom"
+              },
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "BuildMate Services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Smart Floorplan Generation",
+                      "description": "AI-powered floorplan generation for UK homes"
+                    }
+                  },
+                  {
+                    "@type": "Offer", 
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Materials Marketplace",
+                      "description": "Source construction materials from verified UK suppliers"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service", 
+                      "name": "Professional Network",
+                      "description": "Connect with verified UK construction professionals"
+                    }
+                  }
+                ]
+              }
+            })
+          }}
+        />
+
+        {/* Website Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "BuildMate",
+              "url": "https://build-mate-mu.vercel.app",
+              "description": "UK's complete home building platform",
+              "publisher": {
+                "@type": "Organization",
+                "name": "BuildMate"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://build-mate-mu.vercel.app/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
 
         {/* Performance Monitoring & Service Worker Registration */}
         <script
