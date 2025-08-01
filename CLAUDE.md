@@ -27,6 +27,7 @@ BuildMate is a UK-focused construction platform built with Next.js 14, TypeScrip
 - **Styling**: Tailwind CSS with custom design system
 - **UI Components**: Custom component library in `src/components/ui/`
 - **API**: Next.js API routes for backend functionality
+- **Authentication**: Mock authentication system with UserContext provider
 - **Integration**: OpenAI (mocked), Supabase, Stripe, Replicate (active)
 - **Performance**: Custom React hooks with stable references to prevent re-renders
 
@@ -34,49 +35,70 @@ BuildMate is a UK-focused construction platform built with Next.js 14, TypeScrip
 ```
 src/
 ├── app/                          # Next.js App Router
-│   ├── layout.tsx               # Root layout with Navigation component
+│   ├── layout.tsx               # Root layout with Navigation + UserProvider
 │   ├── page.tsx                 # Homepage with testimonials/stats
 │   ├── globals.css              # Global styles + animations
 │   ├── pricing/page.tsx         # Pricing plans (force-static)
 │   ├── configure/page.tsx       # Smart image generation & style selection
 │   ├── materials/page.tsx       # Materials marketplace with UK suppliers
 │   ├── professionals/page.tsx   # Verified UK professionals network
-│   ├── dashboard/page.tsx       # Project management dashboard
+│   ├── dashboard/page.tsx       # User-specific project management dashboard
 │   ├── review/page.tsx          # Project review and assembly
+│   ├── wishlist/page.tsx        # User wishlist with authentication integration
+│   ├── account/                 # User account management
+│   │   ├── settings/page.tsx    # Account settings, notifications, privacy
+│   │   └── profile/page.tsx     # User profile with project activity
 │   └── api/                     # API routes (see API Architecture section)
 ├── components/ui/               # Reusable component library
-│   ├── Navigation.tsx           # Main navigation with mobile menu
+│   ├── Navigation.tsx           # Main navigation with UserMenu integration
+│   ├── AuthModal.tsx            # Login/register modal with demo credentials
+│   ├── UserMenu.tsx             # User profile dropdown and account management
 │   ├── Button.tsx               # Primary button component with variants
 │   ├── Card.tsx                 # Card components for content layout
 │   └── index.ts                 # Centralized component exports
+├── contexts/                    # React Context providers
+│   └── UserContext.tsx          # Authentication state management
 ├── lib/                         # Utilities and configurations
 │   ├── uk-utils.ts              # UK-specific functions (postcodes, pricing)
 │   ├── performance.ts           # Performance monitoring hooks with stable references
 │   └── utils.ts                 # General utilities
 ├── types/                       # TypeScript type definitions
-│   └── index.ts                 # Core domain types (Project, Material, Professional)
+│   ├── index.ts                 # Core domain types (Project, Material, Professional)
+│   └── user.ts                  # User authentication and profile types
 ```
 
 ### Key Page Flows
 1. **Homepage (`/`)** → User education and trust building
-2. **Configure (`/configure`)** → Smart image generation + style selection
-3. **Materials (`/materials`)** → UK supplier integration and shopping
-4. **Professionals (`/professionals`)** → Verified professional matching
-5. **Review (`/review`)** → Project assembly and final confirmation
-6. **Dashboard (`/dashboard`)** → Active project management
+2. **Authentication Flow** → Login/register via AuthModal with demo credentials
+3. **Configure (`/configure`)** → Smart image generation + style selection
+4. **Materials (`/materials`)** → UK supplier integration and shopping
+5. **Professionals (`/professionals`)** → Verified professional matching
+6. **Review (`/review`)** → Project assembly and final confirmation
+7. **Dashboard (`/dashboard`)** → User-specific project management and activity
+8. **Account Management** → Profile settings, notifications, and privacy controls
+9. **Wishlist (`/wishlist`)** → Saved materials and professionals with authentication
 
 ### Key Architectural Patterns
 
 1. **Component System**: Centralized UI components with variants (Button, Card, Badge, etc.)
-2. **Type Safety**: Comprehensive TypeScript interfaces for all data structures
-3. **UK Market Focus**: Specialized utilities in `uk-utils.ts` for postcodes, pricing, regulations
-4. **Construction Domain**: Strong typing for projects, materials, professionals, quotes
-5. **API Architecture**: RESTful endpoints with proper error handling and mock data
+2. **Authentication System**: Context-based user state management with mock backend
+3. **Type Safety**: Comprehensive TypeScript interfaces for all data structures
+4. **UK Market Focus**: Specialized utilities in `uk-utils.ts` for postcodes, pricing, regulations
+5. **Construction Domain**: Strong typing for projects, materials, professionals, quotes
+6. **API Architecture**: RESTful endpoints with proper error handling and mock data
 
 ### Data Models
 
-Core entities are defined in `src/types/index.ts`:
-- **User**: Subscription tiers (free/pro/enterprise), UK postcode integration
+Core entities are defined in `src/types/index.ts` and `src/types/user.ts`:
+
+**Authentication & User Types (`src/types/user.ts`)**:
+- **User**: Profile data, subscription tiers (free/pro/enterprise), preferences
+- **UserSession**: Authentication state and methods (login, register, logout)
+- **UserPreferences**: Project types, suppliers, budget ranges, notifications, privacy
+- **SavedProject**: User-specific projects with status tracking and progress
+- **WishlistItem**: Saved materials and professionals with metadata
+
+**Core Business Types (`src/types/index.ts`)**:
 - **Project**: Construction types (new_build/renovation/extension), status tracking
 - **Floorplan**: Smart-generated SVG data with specifications
 - **Material**: UK supplier integration, categories, pricing
@@ -129,6 +151,9 @@ npm run perf:budget        # Check bundle size limits
 2. Use `npm run lint` to maintain code quality standards
 3. Test UI changes across mobile/desktop breakpoints
 4. Verify construction industry context in all features
+5. Test authentication flows with demo credentials (`demo@buildmate.co.uk` / `demo123`)
+6. Verify user-specific features work correctly (dashboard, projects, wishlist)
+7. Test protected routes and authentication guards
 
 ## Construction Industry Context
 
@@ -145,6 +170,14 @@ npm run perf:budget        # Check bundle size limits
 - **Property Developers**: Commercial and residential developers
 - **Professionals**: Architects, builders, tradespeople
 
+### Authentication Integration
+All user personas now benefit from:
+- **Personalized Experience**: Custom dashboards and project management
+- **Subscription Tiers**: Free, Pro (£29/month), Enterprise (£99/month)
+- **Saved Projects**: Persistent project data and progress tracking
+- **Wishlist Functionality**: Save materials and professionals across sessions
+- **Account Management**: Profile, settings, and privacy controls
+
 ### Industry Standards
 - **Typical Costs**: Extensions £1,200-£2,500/m², new builds £1,500-£3,000/m²
 - **Timeline Expectations**: Extensions 12-20 weeks, new builds 12-24+ months
@@ -158,6 +191,14 @@ npm run perf:budget        # Check bundle size limits
 - Include proper TypeScript interfaces for props
 - Implement accessibility features (ARIA, keyboard navigation)
 - Follow naming convention: `ComponentName`, `ComponentVariant`
+
+### Authentication Components
+- **AuthModal**: Modal component for login/register with tab-based interface
+- **UserMenu**: Dropdown menu with user profile, settings, and logout functionality
+- **UserProvider**: Context provider wrapping the entire application in `layout.tsx`
+- **useUser Hook**: Access authentication state and methods throughout the app
+- **useUserProjects Hook**: Manage user-specific projects with CRUD operations
+- **useWishlist Hook**: Handle user wishlist for materials and professionals
 
 ### Animation Standards
 - Use CSS transforms for performance
@@ -257,12 +298,154 @@ const architecturalStyles = [
 4. User selects preferred architectural style
 5. Selection saved and passed to materials page
 
+## User Authentication System
+
+### Architecture Overview
+BuildMate implements a comprehensive mock authentication system using React Context for state management. The system is designed to simulate a full authentication flow while maintaining type safety and user experience standards.
+
+### Core Components
+
+**UserContext Provider (`src/contexts/UserContext.tsx`)**:
+- Centralized authentication state management
+- Mock backend simulation with localStorage session persistence
+- Custom hooks for user projects and wishlist management
+- Type-safe authentication methods with proper error handling
+
+**AuthModal Component (`src/components/ui/AuthModal.tsx`)**:
+- Unified login/register modal with tab-based interface
+- Form validation and error handling
+- Demo credentials prominently displayed for development
+- Responsive design optimized for mobile and desktop
+
+**UserMenu Component (`src/components/ui/UserMenu.tsx`)**:
+- User profile dropdown with subscription tier display
+- Quick access to account management and projects
+- Contextual actions based on subscription level
+- Graceful loading states and error handling
+
+### Demo Credentials
+For development and testing, the system includes built-in demo credentials:
+- **Email**: `demo@buildmate.co.uk`
+- **Password**: `demo123`
+- **Mock User**: John Smith with Pro subscription and sample project data
+
+### User Account Management
+
+**Account Settings (`/account/settings`)**:
+- Profile information (name, email, phone, postcode)
+- Notification preferences (email, SMS, browser)
+- Privacy controls (public profile, data sharing)
+- Real-time form validation with success/error feedback
+
+**User Profile (`/account/profile`)**:
+- Comprehensive profile overview with activity statistics
+- Editable contact information with inline editing
+- Project activity summary and recent project highlights
+- Subscription tier display with upgrade prompts for free users
+
+**Wishlist Integration (`/wishlist`)**:
+- Authentication-gated wishlist functionality
+- Support for both materials and professionals
+- User-specific wishlist management with persistence
+- Integration with materials and professionals pages
+
+### Dashboard Integration
+
+**User-Specific Projects**:
+- `useUserProjects` hook provides user-scoped project management
+- Multiple project support with status tracking and progress indicators
+- Project switching interface in dashboard
+- Sample projects automatically created for demo user
+
+**Authentication Guards**:
+- Protected routes automatically redirect unauthenticated users
+- Graceful loading states during authentication checks
+- Clear access denied messages with login prompts
+
+### Authentication Flow
+
+**Registration Process**:
+1. User opens AuthModal via "Sign In" button or protected route
+2. Switches to "Create Account" tab
+3. Fills form with validation (name, email, password, optional details)
+4. Selects subscription tier (Free/Pro/Enterprise)
+5. Agrees to terms and conditions
+6. Account created with session persistence
+
+**Login Process**:
+1. User enters credentials in AuthModal
+2. System validates against demo credentials or mock database
+3. Success creates session token and user context
+4. User redirected to intended page or dashboard
+
+**Session Management**:
+- localStorage-based session persistence
+- Automatic session restoration on page reload
+- Graceful session expiration handling
+- Secure logout with complete session cleanup
+
+### Navigation Integration
+
+**Navigation Component Updates**:
+- UserMenu integrated into main navigation
+- AuthModal triggered from navigation buttons
+- Responsive user state display (signed in/out)
+- Mobile-optimized user interface
+
+### Development Features
+
+**Mock Data Architecture**:
+- Realistic user profiles with UK-specific data (postcode, phone format)
+- Sample projects with construction industry context
+- Professional preferences and notification settings
+- Subscription tiers with appropriate feature access
+
+**Type Safety**:
+- Comprehensive TypeScript interfaces in `src/types/user.ts`
+- Full type coverage for authentication methods and user data
+- Type-safe form handling and validation
+- Runtime type checking for API responses
+
+**Error Handling**:
+- Detailed error messages for authentication failures
+- Form validation with real-time feedback
+- Network error handling with retry mechanisms
+- Graceful degradation for authentication system failures
+
+### User Experience Features
+
+**Subscription Tiers**:
+- Free: Basic features with upgrade prompts
+- Pro: Enhanced features with blue badge display
+- Enterprise: Full features with crown icon and purple badge
+
+**Personalization**:
+- User greeting in dashboard and navigation
+- Subscription-specific feature access
+- Personalized project recommendations
+- Custom notification preferences
+
+**Accessibility**:
+- ARIA labels for all authentication forms
+- Keyboard navigation support
+- Screen reader compatibility
+- High contrast mode support
+
+### Future Authentication Enhancements
+- Real backend API integration (Supabase Auth)
+- Social login providers (Google, Apple)
+- Multi-factor authentication
+- Password reset functionality
+- Email verification system
+- Role-based access control for professionals
+
 ## Key Implementation Notes
 
 ### Mock Data Strategy
 - Smart generation uses mock SVG and data structures for floorplans
 - Professional and material data includes realistic UK market information
 - Case studies and testimonials reflect authentic UK construction scenarios
+- **Authentication is MOCK** - uses localStorage with demo credentials for development
 - **Image generation is LIVE** - uses real Replicate API for architectural renders
 
 ### Performance Considerations
@@ -274,6 +457,9 @@ const architecturalStyles = [
 - No API keys in client-side code
 - Proper input validation for all construction project data
 - Secure handling of professional credentials and certifications
+- Authentication data handled securely with session management
+- Form validation prevents XSS and injection attacks
+- Protected routes implement proper authentication guards
 
 ## Deployment & Production
 
@@ -349,6 +535,9 @@ src/app/api/
 - Mock external APIs (suppliers, OpenAI, payment systems)
 - Test construction project workflows end-to-end
 - Validate UK-specific business logic and calculations
+- Test authentication flows with demo credentials
+- Verify user-specific data persistence and retrieval
+- Test protected route access and authentication guards
 
 ## Critical Development Notes
 
@@ -365,10 +554,26 @@ const { onMount, measureOperation } = usePerformanceMonitoring('ComponentName')
 - **Function names**: `generateSmartSuggestions`, `smartInsights`, `smartSuggestion`
 - **Branding**: "BuildMate" (not "BuildMate AI")
 
+### Authentication Hook Usage
+The authentication system uses custom hooks with proper dependency management:
+```typescript
+const { user, isAuthenticated, login, logout } = useUser()
+const { projects, saveProject, updateProject } = useUserProjects()
+const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
+// All hooks return stable references - safe for useEffect dependencies
+```
+
+### Mock Authentication Development
+- Use demo credentials: `demo@buildmate.co.uk` / `demo123`
+- Session persisted in localStorage for development convenience
+- All user data is mock data for development/testing
+- Forms validate UK-specific formats (postcodes, phone numbers)
+
 ### Stability Considerations
 - Avoid complex webpack optimizations that can cause module loading errors
 - Use minimal Next.js experimental features to prevent runtime issues
 - Ensure all React hooks have stable dependencies to prevent Fast Refresh errors
 - Test development server stability after major changes
+- Authentication context should be wrapped at root level in layout.tsx
 
-When working on this codebase, always consider the construction industry context, UK market requirements, and the needs of professional users who rely on the platform for significant financial decisions.
+When working on this codebase, always consider the construction industry context, UK market requirements, user authentication requirements, and the needs of professional users who rely on the platform for significant financial decisions.
