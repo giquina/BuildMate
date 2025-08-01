@@ -19,6 +19,9 @@ export * from './AchievementBadge'
 // Live Components
 export * from './LiveNotifications'
 
+// Layout Components
+export * from './Footer'
+
 // Re-export commonly used component combinations
 export {
   // Button variants
@@ -99,3 +102,8 @@ export {
   // Live Components
   LiveNotifications
 } from './LiveNotifications'
+
+export {
+  // Layout Components
+  Footer
+} from './Footer'

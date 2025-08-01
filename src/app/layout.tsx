@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Navigation } from '@/components/ui/Navigation'
 import { LiveNotifications } from '@/components/ui/LiveNotifications'
+import { Footer } from '@/components/ui/Footer'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -57,9 +58,12 @@ export default function RootLayout({
         
         <Navigation />
 
-        <main id="main-content" className="pt-28 md:pt-24 pb-24 md:pb-0 min-h-screen bg-gray-50">
+        <main id="main-content" className="pt-28 md:pt-24 pb-0 min-h-screen bg-gray-50">
           {children}
         </main>
+
+        {/* Footer */}
+        <Footer />
 
         {/* Live Activity Notifications */}
         <LiveNotifications />
