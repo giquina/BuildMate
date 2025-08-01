@@ -37,10 +37,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Plausible Analytics - Privacy-friendly analytics */}
+        <script 
+          defer 
+          data-domain="buildmate-ai.vercel.app" 
+          src="https://plausible.io/js/script.js"
+        />
+      </head>
       <body className={inter.className}>
+        {/* Skip Link for accessibility */}
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50 focus:z-[100]"
+        >
+          Skip to main content
+        </a>
+        
         <Navigation />
 
-        <main className="pt-28 md:pt-24 pb-24 md:pb-0 min-h-screen bg-gray-50">
+        <main id="main-content" className="pt-28 md:pt-24 pb-24 md:pb-0 min-h-screen bg-gray-50">
           <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>

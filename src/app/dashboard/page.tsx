@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { AnimatedProgressBar } from '@/components/ui/AnimatedProgressBar'
+import { AchievementBadge, defaultAchievements, type Achievement } from '@/components/ui/AchievementBadge'
 import { formatCurrency } from '@/lib/uk-utils'
 import { 
   Plus, 
@@ -114,15 +116,6 @@ interface Celebration {
   timestamp: string
 }
 
-interface Achievement {
-  id: string
-  title: string
-  description: string
-  icon: string
-  earned: boolean
-  earnedDate?: string
-  category: 'milestone' | 'budget' | 'timeline' | 'collaboration' | 'streak'
-}
 
 interface SuccessMetric {
   id: string
@@ -196,13 +189,14 @@ const mockCelebrations: Celebration[] = [
   }
 ]
 
+// Achievement state with some earned achievements
 const mockAchievements: Achievement[] = [
-  { id: '1', title: 'Foundation Master', description: 'Complete foundation phase ahead of schedule', icon: 'trophy', earned: true, earnedDate: '2024-07-23', category: 'milestone' },
-  { id: '2', title: 'Budget Ninja', description: 'Stay under budget for 4 consecutive weeks', icon: 'target', earned: true, earnedDate: '2024-07-20', category: 'budget' },
-  { id: '3', title: 'Communication Pro', description: 'Exchange 50+ messages with your team', icon: 'message-circle', earned: true, earnedDate: '2024-07-18', category: 'collaboration' },
-  { id: '4', title: 'Early Bird', description: 'Complete 3 milestones ahead of schedule', icon: 'clock', earned: false, category: 'timeline' },
-  { id: '5', title: 'Streak Master', description: 'Check dashboard for 30 consecutive days', icon: 'flame', earned: false, category: 'streak' },
-  { id: '6', title: 'Photo Enthusiast', description: 'Share 100 project photos', icon: 'camera', earned: false, category: 'collaboration' }
+  { ...defaultAchievements[0], earned: true, earnedDate: new Date('2024-07-23') }, // First Project
+  { ...defaultAchievements[1], earned: true, earnedDate: new Date('2024-07-20') }, // AI Architect
+  { ...defaultAchievements[2], earned: true, earnedDate: new Date('2024-07-18') }, // Professional Network
+  { ...defaultAchievements[3], earned: false }, // Budget Master
+  { ...defaultAchievements[4], earned: false }, // Project Complete
+  { ...defaultAchievements[5], earned: true, earnedDate: new Date('2024-01-15') } // Early Adopter
 ]
 
 const mockSuccessMetrics: SuccessMetric[] = [
@@ -363,22 +357,24 @@ export default function DashboardPage() {
             <Card className="overflow-hidden">
               <CardContent className="p-6">
                 <div className="space-y-6">
-                  {/* Main Progress Bar */}
-                  <div>
-                    <div className="flex justify-between items-end mb-2">
-                      <h2 className="text-xl font-bold text-gray-900">
-                        Week {project.currentWeek} of {project.totalWeeks}
-                      </h2>
-                      <span className="text-sm text-gray-600">{project.progress}% Complete</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-                      <div 
-                        className="bg-blue-600 h-3 rounded-full transition-all duration-500 relative"
-                        style={{ width: `${(project.currentWeek / project.totalWeeks) * 100}%` }}
-                      >
-                        <div className="absolute right-0 top-0 w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-                      </div>
-                    </div>
+                  {/* Project Progress */}
+                  <div className="space-y-4">
+                    <AnimatedProgressBar
+                      value={(project.currentWeek / project.totalWeeks) * 100}
+                      label={`Week ${project.currentWeek} of ${project.totalWeeks}`}
+                      description="Overall project timeline progress"
+                      color="blue"
+                      size="lg"
+                      animationDuration={1500}
+                    />
+                    <AnimatedProgressBar
+                      value={project.progress}
+                      label="Phase Completion"
+                      description={`${project.currentPhase} progress`}
+                      color="green"
+                      size="md"
+                      animationDuration={1200}
+                    />
                   </div>
 
                   {/* Current Phase Status */}
@@ -401,13 +397,21 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  {/* Budget Status - Uber Style */}
-                  <div className="bg-gray-50 rounded-lg p-4">
+                  {/* Budget Tracking */}
+                  <div className="bg-gray-50 rounded-lg p-4 space-y-4">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="font-semibold text-gray-900">Budget Tracking</h3>
                       <span className="text-sm font-medium text-green-600">On Budget</span>
                     </div>
-                    <div className="grid grid-cols-3 gap-4 text-center">
+                    <AnimatedProgressBar
+                      value={(project.spent / project.budget) * 100}
+                      label="Budget Usage"
+                      description={`${formatCurrency(project.spent)} of ${formatCurrency(project.budget)} spent`}
+                      color="orange"
+                      size="md"
+                      animationDuration={1800}
+                    />
+                    <div className="grid grid-cols-3 gap-4 text-center mt-4">
                       <div>
                         <p className="text-sm text-gray-600">Total Budget</p>
                         <p className="font-bold text-gray-900">{formatCurrency(project.budget)}</p>
@@ -648,7 +652,34 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Project Insights */}
+            {/* Achievements Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Trophy className="h-5 w-5" />
+                  <span>Achievements</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  {mockAchievements.slice(0, 4).map((achievement) => (
+                    <AchievementBadge
+                      key={achievement.id}
+                      achievement={achievement}
+                      variant="minimal"
+                      size="sm"
+                      showPoints
+                    />
+                  ))}
+                </div>
+                <Button variant="outline" className="w-full" size="sm">
+                  <Award className="h-4 w-4 mr-2" />
+                  View All Achievements
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Project Health */}
             <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
               <CardContent className="p-4">
                 <div className="flex items-start space-x-3">
@@ -658,6 +689,13 @@ export default function DashboardPage() {
                     <p className="text-sm text-green-800 mb-2">
                       Your project is on track and within budget. Great progress!
                     </p>
+                    <AnimatedProgressBar
+                      value={87}
+                      label="Health Score"
+                      color="green"
+                      size="sm"
+                      className="mb-2"
+                    />
                     <div className="flex items-center space-x-1">
                       <CheckCircle className="h-3 w-3 text-green-600" />
                       <span className="text-xs text-green-700">All systems go</span>

@@ -4,11 +4,60 @@
 
 Transform your home building dreams into reality with AI-generated floorplans, smart material sourcing, and verified professional networks - all designed specifically for the UK market.
 
+## 🚀 Contributor Quickstart
+
+**Get up and running in 5 minutes:**
+
+```bash
+# 1. Clone and enter the project
+git clone https://github.com/giquina/BuildMate.git
+cd BuildMate
+
+# 2. Install dependencies
+npm install
+
+# 3. Set up environment
+cp .env.example .env.local
+# Add your API keys to .env.local (optional for basic development)
+
+# 4. Start development server
+npm run dev
+
+# 5. Open http://localhost:3000 and start building! 🎉
+```
+
+**Essential Commands:**
+```bash
+npm run dev         # Start development server
+npm run build       # Build for production
+npm run lint        # Check code quality
+npm run type-check  # Validate TypeScript
+npm run test        # Run tests (when added)
+```
+
+**Contributing Workflow:**
+1. Fork the repository (external contributors) or create a branch (team members)
+2. Make your changes following our [code conventions](#code-conventions)
+3. Run `npm run type-check && npm run lint` before committing
+4. Submit a PR with a clear description
+5. Get help in our [discussions](https://github.com/giquina/BuildMate/discussions)
+
+**Code Style:**
+- TypeScript with strict typing (no `any` types)
+- React functional components with hooks
+- Tailwind CSS for styling
+- Mobile-first responsive design
+- Accessible components (WCAG 2.1 AA)
+
+**Need Help?** Check our [Contributing Guide](#contributing) or [join discussions](https://github.com/giquina/BuildMate/discussions)!
+
 ## 📋 Table of Contents
+- [Contributor Quickstart](#contributor-quickstart)
 - [Prerequisites](#prerequisites)
 - [Installation & Setup](#installation--setup)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
+- [Code Conventions](#code-conventions)
 - [Development Workflow](#development-workflow)
 - [Git Commands Reference](#git-commands-reference)
 - [Troubleshooting](#troubleshooting)
@@ -164,13 +213,50 @@ BuildMate/
 └── [Future files will be added here]
 ```
 
-### File Naming Conventions
+## 📝 Code Conventions
 
-Follow these patterns for consistency:
-
-- **Folders**: `snake_case` or `kebab-case`
-- **Files**: `camelCase.js`, `PascalCase.tsx`, `kebab-case.md`
+### File Naming
+- **Components**: `PascalCase.tsx` (e.g., `AnimatedProgressBar.tsx`)
+- **Pages**: `kebab-case` folders with `page.tsx` (e.g., `dashboard/page.tsx`)
+- **Utilities**: `camelCase.ts` (e.g., `ukUtils.ts`)
+- **Types**: `camelCase.ts` (e.g., `index.ts`)
 - **Branches**: `feature/description`, `fix/issue-name`, `docs/update-readme`
+
+### TypeScript Standards
+- Use strict TypeScript - no `any` types
+- Define interfaces for all props and data structures
+- Use utility types (`Partial`, `Pick`, `Omit`) where appropriate
+- Export types with components for reusability
+
+### Component Architecture
+- Use functional components with hooks
+- Implement proper prop interfaces with optional/required fields
+- Include accessibility features (ARIA labels, keyboard navigation)
+- Support multiple variants/sizes where appropriate
+- Follow single responsibility principle
+
+### Styling Guidelines
+- Use Tailwind CSS with utility classes
+- Create responsive designs (mobile-first)
+- Maintain 4.5:1 color contrast ratio (WCAG AA)
+- Use semantic HTML elements
+- Implement smooth transitions (200-300ms duration)
+
+### Import Organization
+```typescript
+// 1. React/Next.js imports
+import React from 'react'
+import { useState } from 'react'
+
+// 2. Third-party libraries
+import { cn } from '@/lib/utils'
+
+// 3. Internal components
+import { Button } from '@/components/ui/Button'
+
+// 4. Types and utilities
+import type { Project } from '@/types'
+```
 
 ## 🔄 Development Workflow
 

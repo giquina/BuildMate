@@ -88,9 +88,13 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
+              id="mobile-menu-button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors"
-              aria-label="Toggle menu"
+              className="md:hidden p-2 rounded-lg text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors min-h-[44px] min-w-[44px]"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-haspopup="true"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -98,38 +102,47 @@ export function Navigation() {
 
           {/* Mobile Menu Dropdown */}
           {mobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4 bg-white/95 backdrop-blur-md">
-              <div className="flex flex-col space-y-3">
+            <div 
+              id="mobile-menu"
+              className="md:hidden border-t border-gray-200 py-4 bg-white/95 backdrop-blur-md"
+              role="menu"
+              aria-labelledby="mobile-menu-button"
+            >
+              <div className="flex flex-col space-y-3" role="none">
                 <Link 
                   href="/materials" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
                 >
-                  <Hammer className="h-5 w-5 mr-3" />
+                  <Hammer className="h-5 w-5 mr-3" aria-hidden="true" />
                   Materials
                 </Link>
                 <Link 
                   href="/professionals" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
                 >
-                  <User className="h-5 w-5 mr-3" />
+                  <User className="h-5 w-5 mr-3" aria-hidden="true" />
                   Professionals
                 </Link>
                 <Link 
                   href="/examples" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
                 >
-                  <Eye className="h-5 w-5 mr-3" />
+                  <Eye className="h-5 w-5 mr-3" aria-hidden="true" />
                   Examples
                 </Link>
                 <Link 
                   href="/pricing" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
                 >
-                  <PoundSterling className="h-5 w-5 mr-3" />
+                  <PoundSterling className="h-5 w-5 mr-3" aria-hidden="true" />
                   Pricing
                 </Link>
                 <div className="border-t border-gray-200 pt-3 mt-3">

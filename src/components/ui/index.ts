@@ -12,6 +12,10 @@ export * from './Progress'
 export * from './Skeleton'
 export * from './Tooltip'
 
+// Dashboard Components
+export * from './AnimatedProgressBar'
+export * from './AchievementBadge'
+
 // Re-export commonly used component combinations
 export {
   // Button variants
@@ -75,3 +79,15 @@ export {
   KeyboardTooltip,
   HoverCard
 } from './Tooltip'
+
+export {
+  // Dashboard Components
+  AnimatedProgressBar
+} from './AnimatedProgressBar'
+
+export {
+  // Achievement Components
+  AchievementBadge,
+  defaultAchievements,
+  type Achievement
+} from './AchievementBadge'
