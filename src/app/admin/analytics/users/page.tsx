@@ -21,8 +21,6 @@ import {
 import { Card } from '../../../../components/ui/Card'
 import { Button } from '../../../../components/ui/Button'
 import UserAnalyticsCharts from '../../../../components/ui/UserAnalyticsCharts'
-import GeographicDistribution from '../../../../components/ui/GeographicDistribution'
-import EngagementFunnels from '../../../../components/ui/EngagementFunnels'
 
 interface UserMetric {
   id: string
@@ -178,7 +176,7 @@ export default function UserAnalyticsDashboard() {
           </Button>
           <div className="flex border border-slate-300 rounded-lg">
             <Button
-              variant={timeRange === '7d' ? 'default' : 'ghost'}
+              variant={timeRange === '7d' ? 'primary' : 'ghost'}
               size="sm"
               className="rounded-r-none border-0"
               onClick={() => setTimeRange('7d')}
@@ -186,7 +184,7 @@ export default function UserAnalyticsDashboard() {
               7D
             </Button>
             <Button
-              variant={timeRange === '30d' ? 'default' : 'ghost'}
+              variant={timeRange === '30d' ? 'primary' : 'ghost'}
               size="sm"
               className="rounded-none border-0"
               onClick={() => setTimeRange('30d')}
@@ -194,7 +192,7 @@ export default function UserAnalyticsDashboard() {
               30D
             </Button>
             <Button
-              variant={timeRange === '90d' ? 'default' : 'ghost'}
+              variant={timeRange === '90d' ? 'primary' : 'ghost'}
               size="sm"
               className="rounded-l-none border-0"
               onClick={() => setTimeRange('90d')}
@@ -244,7 +242,10 @@ export default function UserAnalyticsDashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <UserAnalyticsCharts timeRange={timeRange} />
-        <GeographicDistribution />
+        {/* GeographicDistribution component - to be implemented */}
+        <div className="flex items-center justify-center h-48 bg-gray-100 rounded-lg">
+          <p className="text-gray-500">Geographic Distribution Chart - Coming Soon</p>
+        </div>
       </div>
 
       {/* User Segments & Device Stats */}
@@ -402,7 +403,10 @@ export default function UserAnalyticsDashboard() {
       </div>
 
       {/* Engagement Funnels */}
-      <EngagementFunnels />
+      {/* EngagementFunnels component - to be implemented */}
+      <div className="flex items-center justify-center h-64 bg-gray-100 rounded-lg">
+        <p className="text-gray-500">Engagement Funnels Chart - Coming Soon</p>
+      </div>
     </div>
   )
 }

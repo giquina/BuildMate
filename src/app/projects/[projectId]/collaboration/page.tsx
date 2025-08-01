@@ -794,7 +794,7 @@ export default function ProjectCollaborationPage() {
                     </div>
                     <AnimatedProgressBar 
                       value={mockComplianceStatus.health_safety} 
-                      color="yellow" 
+                      color="orange" 
                       size="sm" 
                     />
                   </div>

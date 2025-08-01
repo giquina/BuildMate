@@ -190,7 +190,7 @@ export default function UserAnalyticsCharts({ timeRange }: UserAnalyticsChartsPr
           </div>
           <div className="flex space-x-2">
             <Button
-              variant={activeChart === 'registrations' ? 'default' : 'ghost'}
+              variant={activeChart === 'registrations' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setActiveChart('registrations')}
             >
@@ -198,7 +198,7 @@ export default function UserAnalyticsCharts({ timeRange }: UserAnalyticsChartsPr
               Bars
             </Button>
             <Button
-              variant={activeChart === 'activity' ? 'default' : 'ghost'}
+              variant={activeChart === 'activity' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setActiveChart('activity')}
             >

@@ -128,21 +128,21 @@ export default function AdminDashboardCharts() {
           </div>
           <div className="flex space-x-2">
             <Button
-              variant={revenueTimeframe === '7d' ? 'default' : 'ghost'}
+              variant={revenueTimeframe === '7d' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setRevenueTimeframe('7d')}
             >
               7D
             </Button>
             <Button
-              variant={revenueTimeframe === '30d' ? 'default' : 'ghost'}
+              variant={revenueTimeframe === '30d' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setRevenueTimeframe('30d')}
             >
               30D
             </Button>
             <Button
-              variant={revenueTimeframe === '90d' ? 'default' : 'ghost'}
+              variant={revenueTimeframe === '90d' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setRevenueTimeframe('90d')}
             >
@@ -172,14 +172,14 @@ export default function AdminDashboardCharts() {
           </div>
           <div className="flex space-x-2">
             <Button
-              variant={userTimeframe === '7d' ? 'default' : 'ghost'}
+              variant={userTimeframe === '7d' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setUserTimeframe('7d')}
             >
               7D
             </Button>
             <Button
-              variant={userTimeframe === '30d' ? 'default' : 'ghost'}
+              variant={userTimeframe === '30d' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setUserTimeframe('30d')}
             >

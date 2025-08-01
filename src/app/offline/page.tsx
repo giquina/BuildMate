@@ -26,7 +26,6 @@ import {
   Clock,
   FileText,
   Image as ImageIcon,
-  Voice,
   Navigation,
   Battery,
   Signal
@@ -141,14 +140,16 @@ export default function OfflinePage() {
       if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
         const registration = await navigator.serviceWorker.ready
         
-        // Register all sync events
-        await Promise.all([
-          registration.sync.register('photo-upload-sync'),
-          registration.sync.register('voice-notes-sync'),
-          registration.sync.register('location-sync'),
-          registration.sync.register('task-updates-sync'),
-          registration.sync.register('construction-data-sync')
-        ])
+        // Register all sync events (if supported)
+        if ('sync' in registration && registration.sync) {
+          await Promise.all([
+            (registration as any).sync.register('photo-upload-sync'),
+            (registration as any).sync.register('voice-notes-sync'),
+            (registration as any).sync.register('location-sync'),
+            (registration as any).sync.register('task-updates-sync'),
+            (registration as any).sync.register('construction-data-sync')
+          ])
+        }
         
         // Update last sync time
         localStorage.setItem('last_sync_timestamp', new Date().toISOString())

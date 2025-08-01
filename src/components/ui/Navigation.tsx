@@ -211,7 +211,79 @@ export function Navigation() {
               <Shield className="h-4 w-4 text-blue-600" />
               <span className="text-blue-800 font-medium">Install for offline construction site use</span>
             </div>
-            <button \n              id="pwa-install-btn"\n              className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"\n            >\n              Install\n            </button>\n          </div>\n        </div>\n      </div>\n      \n      {/* PWA Install Script */}\n      <script\n        dangerouslySetInnerHTML={{\n          __html: `\n            // PWA Install Prompt for Construction Sites\n            let deferredPrompt;\n            \n            window.addEventListener('beforeinstallprompt', (e) => {\n              console.log('🏗️ PWA: Install prompt triggered');\n              e.preventDefault();\n              deferredPrompt = e;\n              \n              // Show custom install prompt for construction sites\n              const installPrompt = document.getElementById('pwa-install-prompt');\n              const installBtn = document.getElementById('pwa-install-btn');\n              \n              if (installPrompt && installBtn) {\n                installPrompt.classList.remove('hidden');\n                \n                installBtn.addEventListener('click', async () => {\n                  console.log('🏗️ PWA: User clicked install');\n                  deferredPrompt.prompt();\n                  \n                  const { outcome } = await deferredPrompt.userChoice;\n                  console.log('🏗️ PWA: User choice:', outcome);\n                  \n                  if (outcome === 'accepted') {\n                    console.log('🏗️ PWA: Installation accepted');\n                  }\n                  \n                  installPrompt.classList.add('hidden');\n                  deferredPrompt = null;\n                });\n              }\n            });\n            \n            window.addEventListener('appinstalled', () => {\n              console.log('🏗️ PWA: App installed successfully');\n              const installPrompt = document.getElementById('pwa-install-prompt');\n              if (installPrompt) {\n                installPrompt.classList.add('hidden');\n              }\n            });\n            \n            // Construction site optimization: Register for background sync\n            if ('serviceWorker' in navigator) {\n              navigator.serviceWorker.ready.then(registration => {\n                console.log('🏗️ PWA: Service Worker ready for construction site usage');\n                \n                // Enable background sync for construction data\n                if ('sync' in window.ServiceWorkerRegistration.prototype) {\n                  console.log('🏗️ PWA: Background sync supported for construction sites');\n                }\n                \n                // Enable push notifications for construction updates\n                if ('Notification' in window && 'PushManager' in window) {\n                  console.log('🏗️ PWA: Push notifications supported for construction updates');\n                }\n              });\n            }\n          `\n        }}\n      />"
+            <button 
+              id="pwa-install-btn"
+              className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+            >
+              Install
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* PWA Install Script */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            // PWA Install Prompt for Construction Sites
+            let deferredPrompt;
+            
+            window.addEventListener('beforeinstallprompt', (e) => {
+              console.log('🏗️ PWA: Install prompt triggered');
+              e.preventDefault();
+              deferredPrompt = e;
+              
+              // Show custom install prompt for construction sites
+              const installPrompt = document.getElementById('pwa-install-prompt');
+              const installBtn = document.getElementById('pwa-install-btn');
+              
+              if (installPrompt && installBtn) {
+                installPrompt.classList.remove('hidden');
+                
+                installBtn.addEventListener('click', async () => {
+                  console.log('🏗️ PWA: User clicked install');
+                  deferredPrompt.prompt();
+                  
+                  const { outcome } = await deferredPrompt.userChoice;
+                  console.log('🏗️ PWA: User choice:', outcome);
+                  
+                  if (outcome === 'accepted') {
+                    console.log('🏗️ PWA: Installation accepted');
+                  }
+                  
+                  installPrompt.classList.add('hidden');
+                  deferredPrompt = null;
+                });
+              }
+            });
+            
+            window.addEventListener('appinstalled', () => {
+              console.log('🏗️ PWA: App installed successfully');
+              const installPrompt = document.getElementById('pwa-install-prompt');
+              if (installPrompt) {
+                installPrompt.classList.add('hidden');
+              }
+            });
+            
+            // Construction site optimization: Register for background sync
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.ready.then(registration => {
+                console.log('🏗️ PWA: Service Worker ready for construction site usage');
+                
+                // Enable background sync for construction data
+                if ('sync' in window.ServiceWorkerRegistration.prototype) {
+                  console.log('🏗️ PWA: Background sync supported for construction sites');
+                }
+                
+                // Enable push notifications for construction updates
+                if ('Notification' in window && 'PushManager' in window) {
+                  console.log('🏗️ PWA: Push notifications supported for construction updates');
+                }
+              });
+            }
+          `
+        }}
+      />"
     </>
   )
 }

@@ -491,7 +491,7 @@ export default function FileUploadSystem({
     return sortOrder === 'asc' ? comparison : -comparison
   })
 
-  const handleFileSelection = useCallback((fileId: string) => {
+  const handleFileToggle = useCallback((fileId: string) => {
     setSelectedFileIds(prev => {
       const newSelection = prev.includes(fileId) 
         ? prev.filter(id => id !== fileId)
@@ -858,7 +858,7 @@ export default function FileUploadSystem({
                     className={`border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer ${
                       isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                     }`}
-                    onClick={() => handleFileSelection(file.id)}
+                    onClick={() => handleFileToggle(file.id)}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center space-x-2">
@@ -878,7 +878,7 @@ export default function FileUploadSystem({
                         <input 
                           type="checkbox" 
                           checked={isSelected}
-                          onChange={() => handleFileSelection(file.id)}
+                          onChange={() => handleFileToggle(file.id)}
                           className="rounded"
                         />
                       </div>
@@ -941,12 +941,12 @@ export default function FileUploadSystem({
                     className={`flex items-center space-x-4 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer ${
                       isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                     }`}
-                    onClick={() => handleFileSelection(file.id)}
+                    onClick={() => handleFileToggle(file.id)}
                   >
                     <input 
                       type="checkbox" 
                       checked={isSelected}
-                      onChange={() => handleFileSelection(file.id)}
+                      onChange={() => handleFileToggle(file.id)}
                       className="rounded"
                     />
                     <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
