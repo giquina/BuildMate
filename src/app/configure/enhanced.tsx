@@ -24,7 +24,7 @@ import {
 
 import { 
   configurationSteps, 
-  generateAISuggestions, 
+  generateSmartSuggestions, 
   type Question 
 } from '@/lib/intelligentQuestions'
 
@@ -48,7 +48,7 @@ export default function EnhancedConfigurePage() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, any>>({})
   const [isGenerating, setIsGenerating] = useState(false)
-  const [aiSuggestions, setAISuggestions] = useState<Array<any>>([])
+  const [smartSuggestions, setSmartSuggestions] = useState<Array<any>>([])
   
   const currentStep = configurationSteps[currentStepIndex]
   const isLastStep = currentStepIndex === configurationSteps.length - 1
@@ -61,9 +61,9 @@ export default function EnhancedConfigurePage() {
     const newAnswers = { ...answers, [questionId]: value }
     setAnswers(newAnswers)
     
-    // Generate AI suggestions based on current answers
-    const suggestions = generateAISuggestions(newAnswers)
-    setAISuggestions(suggestions)
+    // Generate smart suggestions based on current answers
+    const suggestions = generateSmartSuggestions(newAnswers)
+    setSmartSuggestions(suggestions)
   }
   
   const nextStep = () => {
@@ -89,9 +89,9 @@ export default function EnhancedConfigurePage() {
   }
 
   useEffect(() => {
-    // Generate initial AI suggestions
-    const suggestions = generateAISuggestions(answers)
-    setAISuggestions(suggestions)
+    // Generate initial smart suggestions
+    const suggestions = generateSmartSuggestions(answers)
+    setSmartSuggestions(suggestions)
   }, [])
 
   const renderQuestion = (question: Question) => {
@@ -126,11 +126,11 @@ export default function EnhancedConfigurePage() {
                 </button>
               ))}
             </div>
-            {question.aiSuggestion && answers[question.id] && (
+            {question.smartSuggestion && answers[question.id] && (
               <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start">
                 <Lightbulb className="h-4 w-4 text-amber-600 mr-2 mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-amber-800">
-                  {question.aiSuggestion(answers)}
+                  {question.smartSuggestion(answers)}
                 </p>
               </div>
             )}
@@ -295,14 +295,14 @@ export default function EnhancedConfigurePage() {
             {/* AI Insights Sidebar */}
             <div className="space-y-6">
               {/* AI Insights */}
-              {currentStep.aiInsights && (
+              {currentStep.smartInsights && (
                 <Card className="p-4">
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                     <Lightbulb className="h-4 w-4 mr-2 text-amber-500" />
                     AI Insights
                   </h3>
                   <div className="space-y-3">
-                    {currentStep.aiInsights(answers).map((insight, index) => (
+                    {currentStep.smartInsights(answers).map((insight, index) => (
                       <div key={index} className="text-sm text-gray-700 p-3 bg-amber-50 rounded-lg">
                         {insight}
                       </div>
@@ -312,14 +312,14 @@ export default function EnhancedConfigurePage() {
               )}
 
               {/* AI Suggestions */}
-              {aiSuggestions.length > 0 && (
+              {smartSuggestions.length > 0 && (
                 <Card className="p-4">
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                     <TrendingUp className="h-4 w-4 mr-2 text-green-500" />
                     Smart Suggestions
                   </h3>
                   <div className="space-y-3">
-                    {aiSuggestions.map((suggestion, index) => (
+                    {smartSuggestions.map((suggestion, index) => (
                       <div key={index} className="p-3 bg-green-50 rounded-lg">
                         <div className="font-medium text-green-900 text-sm mb-1">
                           {suggestion.title}

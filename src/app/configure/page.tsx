@@ -25,7 +25,7 @@ import {
 
 import { 
   configurationSteps, 
-  generateAISuggestions, 
+  generateSmartSuggestions, 
   type Question 
 } from '@/lib/intelligentQuestions'
 import { getAllArchitecturalStyles, selectBestImageForStyle, getRandomImageForStyle } from '@/lib/pregenerated-images'

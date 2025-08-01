@@ -22,7 +22,7 @@ const TestimonialsSection = memo(({
           Real Stories, Real Results
         </h2>
         <p className="text-xl text-gray-600">
-          See how UK builders are succeeding with BuildMate AI coordination
+          See how UK builders are succeeding with BuildMate coordination
         </p>
       </div>
       <div className="relative">
@@ -122,7 +122,7 @@ export default function HomePage() {
   const features = useMemo(() => [
     {
       icon: '🏗️',
-      title: 'AI Floor Plans',
+      title: 'Smart Floor Plans',
       description: 'Generate professional layouts in seconds'
     },
     {
@@ -147,7 +147,7 @@ export default function HomePage() {
     {
       name: 'Sarah Chen',
       role: 'Self-Builder, Manchester',
-      content: 'BuildMate AI streamlined our extension project beautifully. The AI layouts saved us £5k in coordination fees and 6 weeks of back-and-forth!',
+      content: 'BuildMate streamlined our extension project beautifully. The smart layouts saved us £5k in coordination fees and 6 weeks of back-and-forth!',
       rating: 5,
       savings: '£5,000',
       project: 'Victorian Extension',
@@ -156,7 +156,7 @@ export default function HomePage() {
     {
       name: 'James Mitchell',
       role: 'Property Developer, Birmingham',
-      content: 'The AI floor plans are excellent for initial concepts. What used to take weeks now takes days. My team efficiency increased by 40%.',
+      content: 'The smart floor plans are excellent for initial concepts. What used to take weeks now takes days. My team efficiency increased by 40%.',
       rating: 5,
       savings: '£8,500',
       project: 'Commercial Development',
@@ -259,7 +259,7 @@ export default function HomePage() {
 
             <div className="text-center mb-8 sm:mb-12">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
-                AI-Powered Home Building
+                Smart Home Building
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-2">
                   Made Simple
                 </span>
@@ -275,7 +275,7 @@ export default function HomePage() {
                 <Link 
                   href="/configure" 
                   className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
-                  aria-label="Start building your home with BuildMate AI configurator - Professional construction platform"
+                  aria-label="Start building your home with BuildMate configurator - Professional construction platform"
                   role="button"
                 >
                   <HardHat className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
@@ -285,7 +285,7 @@ export default function HomePage() {
                 <button 
                   onClick={handleShowDemo}
                   className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
-                  aria-label="Watch how BuildMate AI works - Professional construction demo video"
+                  aria-label="Watch how BuildMate works - Professional construction demo video"
                   role="button"
                 >
                   <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
@@ -479,7 +479,7 @@ export default function HomePage() {
               {[
                 {
                   icon: <Building className="h-8 w-8" />,
-                  title: 'AI Floor Plans',
+                  title: 'Smart Floor Plans',
                   description: 'Generate professional layouts in seconds with RIBA-compliant designs',
                   color: 'blue'
                 },
@@ -571,8 +571,8 @@ export default function HomePage() {
                 {
                   step: '2', 
                   title: 'Review',
-                  subtitle: 'AI Magic',
-                  description: 'AI assembles everything: team, materials, timeline, price. Get your complete project breakdown instantly.',
+                  subtitle: 'Smart Assembly',
+                  description: 'Our system assembles everything: team, materials, timeline, price. Get your complete project breakdown instantly.',
                   icon: '🤖',
                   details: 'Mock project dashboard',
                   color: 'purple',
@@ -691,7 +691,7 @@ export default function HomePage() {
                 More Success Stories
               </h2>
               <p className="text-xl text-gray-600">
-                Join thousands who have built smarter with BuildMate AI
+                Join thousands who have built smarter with BuildMate
               </p>
             </div>
 
@@ -834,10 +834,10 @@ export default function HomePage() {
                   <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                     <Home className="h-5 w-5 text-white" />
                   </div>
-                  <span className="ml-2 text-lg font-bold text-white">BuildMate AI</span>
+                  <span className="ml-2 text-lg font-bold text-white">BuildMate</span>
                 </div>
                 <p className="text-gray-400 text-sm">
-                  UK's first AI-powered home building platform. From design to completion, we connect homeowners with verified professionals and smart materials sourcing.
+                  UK's first smart home building platform. From design to completion, we connect homeowners with verified professionals and intelligent materials sourcing.
                 </p>
                 <div className="flex space-x-4">
                   <a href="https://twitter.com/buildmate_ai" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Twitter">
@@ -856,7 +856,7 @@ export default function HomePage() {
               <div>
                 <h3 className="text-white font-semibold mb-4">Platform</h3>
                 <ul className="space-y-3 text-sm">
-                  <li><Link href="/configure" className="hover:text-white transition-colors">AI Floorplan Generator</Link></li>
+                  <li><Link href="/configure" className="hover:text-white transition-colors">Smart Floorplan Generator</Link></li>
                   <li><Link href="/materials" className="hover:text-white transition-colors">Materials Marketplace</Link></li>
                   <li><Link href="/professionals" className="hover:text-white transition-colors">Verified Professionals</Link></li>
                   <li><Link href="/dashboard" className="hover:text-white transition-colors">Project Dashboard</Link></li>
@@ -893,7 +893,7 @@ export default function HomePage() {
             <div className="border-t border-gray-800 py-6">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
-                  <p>© 2025 BuildMate AI. All rights reserved.</p>
+                  <p>© 2025 BuildMate. All rights reserved.</p>
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center text-green-400">
                       <Shield className="h-3 w-3 mr-1" />
@@ -937,7 +937,7 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">How BuildMate AI Works</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">How BuildMate Works</h3>
                   <p className="text-gray-600 mt-1">3 minute demo • Real UK construction projects</p>
                 </div>
                 <button 
@@ -956,12 +956,12 @@ export default function HomePage() {
                       <Play className="h-8 w-8 text-blue-600 ml-1" />
                     </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-2">Demo Video Coming Soon</h4>
-                    <p className="text-gray-600 mb-6">We're preparing a comprehensive 3-minute demo showing real UK construction projects built with BuildMate AI.</p>
+                    <p className="text-gray-600 mb-6">We're preparing a comprehensive 3-minute demo showing real UK construction projects built with BuildMate.</p>
                     
                     <div className="grid md:grid-cols-3 gap-4 text-sm">
                       <div className="bg-white/50 rounded-lg p-4">
                         <div className="text-blue-600 font-semibold mb-1">Step 1: Configure</div>
-                        <div className="text-gray-700">AI-powered design tools</div>
+                        <div className="text-gray-700">Smart design tools</div>
                       </div>
                       <div className="bg-white/50 rounded-lg p-4">
                         <div className="text-purple-600 font-semibold mb-1">Step 2: Review</div>

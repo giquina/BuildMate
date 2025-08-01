@@ -11,14 +11,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'BuildMate AI - Complete Home Building Platform | Design, Build, Manage',
-  description: 'All-in-one UK home building platform. Generate AI floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders. From design to completion.',
-  keywords: 'UK home building, AI floorplans, home design, construction materials, verified builders, home renovation, property development, building platform',
+  title: 'BuildMate - Complete Home Building Platform | Design, Build, Manage',
+  description: 'All-in-one UK home building platform. Generate smart floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders. From design to completion.',
+  keywords: 'UK home building, smart floorplans, home design, construction materials, verified builders, home renovation, property development, building platform',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'BuildMate AI'
+    title: 'BuildMate'
   },
 }
 

@@ -27,7 +27,8 @@ export function Input({
   value,
   ...props 
 }: InputProps) {
-  const inputId = id || React.useId()
+  const generatedId = React.useId()
+  const inputId = id || generatedId
   const [focused, setFocused] = React.useState(false)
   const [hasValue, setHasValue] = React.useState(!!value || !!props.defaultValue)
 
@@ -328,7 +329,8 @@ export function Textarea({
   id, 
   ...props 
 }: TextareaProps) {
-  const textareaId = id || React.useId()
+  const generatedTextareaId = React.useId()
+  const textareaId = id || generatedTextareaId
   const actualState = error ? 'error' : state
 
   const stateStyles = {

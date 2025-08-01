@@ -1,6 +1,6 @@
 {
-  "name": "BuildMate AI - UK Construction Platform",
-  "short_name": "BuildMate AI",
+  "name": "BuildMate - UK Construction Platform",
+  "short_name": "BuildMate",
   "description": "Professional construction platform for UK builders, architects, and property developers",
   "start_url": "/",
   "display": "standalone",
@@ -10,104 +10,35 @@
   "scope": "/",
   "lang": "en-GB",
   "categories": ["construction", "productivity", "business"],
-  "icons": [
-    {
-      "src": "/icons/buildmate-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/buildmate-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
+  "icons": [],
   "shortcuts": [
     {
       "name": "Materials Catalog",
       "short_name": "Materials",
       "description": "Browse construction materials",
       "url": "/materials",
-      "icons": [
-        {
-          "src": "/icons/materials-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": []
     },
     {
       "name": "Professional Directory",
       "short_name": "Professionals",
       "description": "Find construction professionals",
       "url": "/professionals",
-      "icons": [
-        {
-          "src": "/icons/professionals-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": []
     },
     {
       "name": "Project Dashboard",
       "short_name": "Dashboard",
       "description": "Manage your projects",
       "url": "/dashboard",
-      "icons": [
-        {
-          "src": "/icons/dashboard-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": []
     },
     {
-      "name": "AI Configuration",
+      "name": "Smart Configuration",
       "short_name": "Configure",
-      "description": "AI-powered project setup",
+      "description": "Smart project setup",
       "url": "/configure",
-      "icons": [
-        {
-          "src": "/icons/configure-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": []
     }
   ],
   "related_applications": [
@@ -133,12 +64,7 @@
         "text/csv": [".csv"],
         "application/vnd.ms-excel": [".xlsx"]
       },
-      "icons": [
-        {
-          "src": "/icons/file-handler-96x96.png",
-          "sizes": "96x96"
-        }
-      ],
+      "icons": [],
       "launch_type": "single-client"
     }
   ],

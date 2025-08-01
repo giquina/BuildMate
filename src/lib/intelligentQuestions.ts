@@ -10,7 +10,7 @@ export interface Question {
   required: boolean
   dependsOn?: { questionId: string; values: string[] }
   hint?: string
-  aiSuggestion?: (answers: Record<string, any>) => string
+  smartSuggestion?: (answers: Record<string, any>) => string
 }
 
 export interface ConfigurationStep {
@@ -18,7 +18,7 @@ export interface ConfigurationStep {
   title: string
   description: string
   questions: Question[]
-  aiInsights?: (answers: Record<string, any>) => string[]
+  smartInsights?: (answers: Record<string, any>) => string[]
 }
 
 // UK-specific property types with regional considerations
@@ -106,7 +106,7 @@ export const configurationSteps: ConfigurationStep[] = [
           description: `${style.era} - ${style.description}`
         })),
         required: true,
-        aiSuggestion: (answers) => {
+        smartSuggestion: (answers) => {
           const property = answers.propertyType
           if (property === 'terraced') return 'Most terraced houses are Victorian or Edwardian - check for original features'
           if (property === 'detached') return 'Detached properties offer more flexibility for extensions'
@@ -121,7 +121,7 @@ export const configurationSteps: ConfigurationStep[] = [
         hint: 'We use this for local building regulations, costs, and finding nearby professionals'
       }
     ],
-    aiInsights: (answers) => {
+    smartInsights: (answers) => {
       const insights = []
       if (answers.propertyType === 'flat') {
         insights.push('💡 Flats may have leasehold restrictions - check with your freeholder before major works')
@@ -160,7 +160,7 @@ export const configurationSteps: ConfigurationStep[] = [
         question: 'What\'s your budget range?',
         options: budgetRanges,
         required: true,
-        aiSuggestion: (answers) => {
+        smartSuggestion: (answers) => {
           const goal = answers.primaryGoal
           if (goal === 'more-space') return 'Extensions typically cost £1,200-£2,500 per sqm depending on specification'
           if (goal === 'modernize') return 'Kitchen renovations average £15,000-£40,000, bathrooms £8,000-£25,000'
@@ -182,7 +182,7 @@ export const configurationSteps: ConfigurationStep[] = [
         hint: 'Starting in spring/summer often works better for extensions and external work'
       }
     ],
-    aiInsights: (answers) => {
+    smartInsights: (answers) => {
       const insights = []
       const budget = answers.budget?.split('-')[0]?.replace('£', '').replace(',', '')
       const goal = answers.primaryGoal
@@ -240,7 +240,7 @@ export const configurationSteps: ConfigurationStep[] = [
         required: false
       }
     ],
-    aiInsights: (answers) => {
+    smartInsights: (answers) => {
       const insights = []
       const rooms = answers.rooms || []
       
@@ -259,8 +259,8 @@ export const configurationSteps: ConfigurationStep[] = [
   }
 ]
 
-// AI-powered suggestions based on configuration
-export const generateAISuggestions = (answers: Record<string, any>) => {
+// Smart suggestions based on configuration
+export const generateSmartSuggestions = (answers: Record<string, any>) => {
   const suggestions = []
   
   // Budget optimization suggestions

@@ -192,7 +192,7 @@ const mockCelebrations: Celebration[] = [
 // Achievement state with some earned achievements
 const mockAchievements: Achievement[] = [
   { ...defaultAchievements[0], earned: true, earnedDate: new Date('2024-07-23') }, // First Project
-  { ...defaultAchievements[1], earned: true, earnedDate: new Date('2024-07-20') }, // AI Architect
+  { ...defaultAchievements[1], earned: true, earnedDate: new Date('2024-07-20') }, // Smart Architect
   { ...defaultAchievements[2], earned: true, earnedDate: new Date('2024-07-18') }, // Professional Network
   { ...defaultAchievements[3], earned: false }, // Budget Master
   { ...defaultAchievements[4], earned: false }, // Project Complete

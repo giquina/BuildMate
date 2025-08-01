@@ -19,7 +19,7 @@ export interface Achievement {
   title: string
   description: string
   icon: keyof typeof iconMap
-  category: 'project' | 'ai' | 'professional' | 'budget' | 'milestone'
+  category: 'project' | 'smart' | 'professional' | 'budget' | 'milestone'
   earned: boolean
   earnedDate?: Date
   points?: number
@@ -51,7 +51,7 @@ const iconMap = {
 
 const categoryColors = {
   project: 'from-blue-500 to-blue-600',
-  ai: 'from-purple-500 to-purple-600',
+  smart: 'from-purple-500 to-purple-600',
   professional: 'from-green-500 to-green-600',
   budget: 'from-orange-500 to-orange-600',
   milestone: 'from-pink-500 to-pink-600'
@@ -280,10 +280,10 @@ export const defaultAchievements: Achievement[] = [
   },
   {
     id: 'ai-floorplan',
-    title: 'AI Architect',
-    description: 'Generated your first AI floorplan',
+    title: 'Smart Architect',
+    description: 'Generated your first smart floorplan',
     icon: 'sparkles',
-    category: 'ai',
+    category: 'smart',
     earned: false,
     points: 15
   },
