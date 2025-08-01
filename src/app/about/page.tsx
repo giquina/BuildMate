@@ -2,8 +2,8 @@ import { ArrowLeft, Users, Award, Target, Heart, Building, CheckCircle } from 'l
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'About Us - BuildMate AI',
-  description: 'Learn about BuildMate AI, the UK\'s leading construction platform for homeowners and professionals.',
+  title: 'About Us - BuildMate',
+  description: 'Learn about BuildMate, the UK\'s leading construction platform for homeowners and professionals.',
 }
 
 export default function AboutPage() {
@@ -20,9 +20,9 @@ export default function AboutPage() {
           </div>
           
           <div className="text-center py-12">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4">About BuildMate AI</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">About BuildMate</h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Revolutionizing the UK construction industry with AI-powered tools, professional networking, 
+              Revolutionizing the UK construction industry with smart tools, professional networking, 
               and comprehensive project management solutions.
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Ensure Quality</h3>
               <p className="text-gray-600">
-                Maintain the highest standards through AI-powered quality checks and professional verification.
+                Maintain the highest standards through smart quality checks and professional verification.
               </p>
             </div>
           </div>

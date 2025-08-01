@@ -1,10 +1,10 @@
-# BuildMate AI
+# BuildMate
 
-**🏗️ UK's First AI-Powered Home Building & Renovation Platform**
+**🏗️ UK's First Smart Home Building & Renovation Platform**
 
-Transform your home building dreams into reality with AI-generated floorplans, smart material sourcing, and verified professional networks - all designed specifically for the UK market.
+Transform your home building dreams into reality with smart floorplan generation, intelligent material sourcing, and verified professional networks - all designed specifically for the UK market.
 
-## 🚀 Contributor Quickstart
+## 🚀 Quick Start
 
 **Get up and running in 5 minutes:**
 
@@ -16,9 +16,9 @@ cd BuildMate
 # 2. Install dependencies
 npm install
 
-# 3. Set up environment
+# 3. Set up environment (optional for basic development)
 cp .env.example .env.local
-# Add your API keys to .env.local (optional for basic development)
+# Add your API keys to .env.local if needed
 
 # 4. Start development server
 npm run dev
@@ -26,91 +26,41 @@ npm run dev
 # 5. Open http://localhost:3000 and start building! 🎉
 ```
 
-**Essential Commands:**
-```bash
-npm run dev         # Start development server
-npm run build       # Build for production
-npm run lint        # Check code quality
-npm run type-check  # Validate TypeScript
-npm run test        # Run tests (when added)
-```
+## 🏗️ What is BuildMate?
 
-**Contributing Workflow:**
-1. Fork the repository (external contributors) or create a branch (team members)
-2. Make your changes following our [code conventions](#code-conventions)
-3. Run `npm run type-check && npm run lint` before committing
-4. Submit a PR with a clear description
-5. Get help in our [discussions](https://github.com/giquina/BuildMate/discussions)
+BuildMate is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
 
-**Code Style:**
-- TypeScript with strict typing (no `any` types)
-- React functional components with hooks
-- Tailwind CSS for styling
-- Mobile-first responsive design
-- Accessible components (WCAG 2.1 AA)
-
-**Need Help?** Check our [Contributing Guide](#contributing) or [join discussions](https://github.com/giquina/BuildMate/discussions)!
-
-## 📋 Table of Contents
-- [Contributor Quickstart](#contributor-quickstart)
-- [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Code Conventions](#code-conventions)
-- [Development Workflow](#development-workflow)
-- [Git Commands Reference](#git-commands-reference)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-
-## 🔧 Prerequisites
-
-Before you begin, ensure you have the following installed on your system:
-
-- **Git** (version 2.0 or higher)
-  - Check: `git --version`
-  - Install: [Download Git](https://git-scm.com/downloads)
-
-- **Node.js** (if this becomes a JavaScript project)
-  - Check: `node --version`
-  - Install: [Download Node.js](https://nodejs.org/)
-
-- **Code Editor** (recommended)
-  - [VS Code](https://code.visualstudio.com/)
-  - [Cursor](https://cursor.sh/)
-
-## 🚀 Installation & Setup
-
-## 🚀 Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/giquina/BuildMate.git
-cd BuildMate
-
-# Install dependencies
-npm install
-
-# Copy environment variables
-cp .env.example .env.local
-# Edit .env.local with your API keys
-
-# Start development server
-npm run dev
-
-# Open http://localhost:3000
-```
-
-## 🏗️ What is BuildMate AI?
-
-BuildMate AI is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
-
-- **🧠 AI Floorplan Generation**: Describe your dream home and get professional-grade layouts
-- **🏠 AI Image Generation**: Create realistic home renders powered by Replicate + SDXL
+- **🧠 Smart Floorplan Generation**: Describe your dream home and get professional-grade layouts
+- **🏠 Intelligent Image Generation**: Create realistic home renders powered by Replicate + SDXL
 - **🛒 Materials Marketplace**: Shop from Travis Perkins, Wickes, B&Q - all in one cart
 - **👷 Verified Professionals**: Connect with rated builders, architects, and tradespeople
 - **📋 Planning Assistance**: Navigate UK building regulations and planning permission
-- **💰 Smart Budgeting**: Optimize costs with bulk purchasing and affiliate partnerships
+- **💰 Smart Budgeting**: Optimize costs with bulk purchasing and regional pricing
+
+## 🛠️ Development Commands
+
+### Essential Commands
+```bash
+npm run dev          # Start development server (http://localhost:3000)
+npm run build        # Production build with static generation
+npm run lint         # ESLint code quality check
+npm run type-check   # TypeScript compilation check
+npm run start        # Start production server
+```
+
+### Performance Analysis
+```bash
+npm run build:analyze      # Build with bundle analyzer
+npm run perf:audit         # Full performance audit (type-check + lint + build)
+npm run perf:lighthouse    # Run Lighthouse performance test
+npm run perf:budget        # Check bundle size limits
+```
+
+### Pre-deployment Checklist
+Always run before committing:
+```bash
+npm run type-check && npm run lint && npm run build
+```
 
 ## 📁 Project Structure
 
@@ -119,348 +69,176 @@ BuildMate/
 ├── src/
 │   ├── app/                 # Next.js App Router pages
 │   │   ├── layout.tsx       # Root layout with navigation
-│   │   ├── page.tsx         # Homepage component
-│   │   └── globals.css      # Global styles with Tailwind
-│   ├── components/          # Reusable React components
+│   │   ├── page.tsx         # Homepage with testimonials/stats
+│   │   ├── globals.css      # Global styles + animations
+│   │   ├── configure/       # Smart image generation & style selection
+│   │   ├── materials/       # Materials marketplace with UK suppliers
+│   │   ├── professionals/   # Verified UK professionals network
+│   │   ├── dashboard/       # Project management dashboard
+│   │   └── api/             # API routes for backend functionality
+│   ├── components/ui/       # Reusable component library
+│   │   ├── Navigation.tsx   # Main navigation with mobile menu
+│   │   ├── Button.tsx       # Primary button component with variants
+│   │   ├── Card.tsx         # Card components for content layout
+│   │   └── index.ts         # Centralized component exports
 │   ├── lib/                 # Utilities and configurations
-│   │   ├── uk-utils.ts      # UK-specific functions
+│   │   ├── uk-utils.ts      # UK-specific functions (postcodes, pricing)
+│   │   ├── performance.ts   # Performance monitoring hooks
 │   │   └── utils.ts         # General utilities
 │   └── types/
 │       └── index.ts         # TypeScript definitions
 ├── public/                  # Static assets
-├── package.json             # Dependencies and scripts
-├── DEVELOPMENT.md           # Development roadmap
-└── .env.example            # Environment variables template
+├── CLAUDE.md               # Claude Code guidance
+├── package.json            # Dependencies and scripts
+└── .env.example           # Environment variables template
 ```
 
-### Step 2: Verify Setup
+## 🎯 Key Features
 
-```bash
-# Check Git status
-git status
+### Smart Configuration System
+- **Intelligent Questionnaire**: Dynamically adapts based on user responses
+- **UK Property Types**: Detached, semi-detached, terraced, bungalow, flat, cottage
+- **Architectural Styles**: Victorian, Edwardian, Georgian, Modern, Contemporary
+- **Regional Pricing**: London vs. regional cost variations
 
-# Check current branch
-git branch
+### Live Image Generation
+- **Replicate + SDXL Integration**: Professional architectural rendering
+- **Cost**: ~£0.002 per image (very affordable)
+- **Quality**: Professional photography quality, 1024x768px
+- **Real-time Generation**: 4 style options generated in parallel
 
-# View commit history
-git log --oneline -10
-```
+### UK Construction Focus
+- **Building Regulations**: Current UK compliance requirements
+- **Planning Permission**: Permitted development vs. full applications
+- **Professional Standards**: RIBA, NHBC, FMB certifications
+- **VAT Handling**: Zero-rated new builds vs. standard-rated renovations
 
-### Step 3: Create Your Development Branch
+## 🔧 Technology Stack
 
-```bash
-# Create and switch to a new branch for your work
-git checkout -b feature/your-feature-name
-
-# Or for bug fixes
-git checkout -b fix/bug-description
-```
-
-## 🏃‍♂️ Getting Started
-
-### First Time Setup
-
-1. **Explore the project structure**
-   ```bash
-   # List all files and folders
-   ls -la    # On Mac/Linux
-   dir       # On Windows
-   ```
-
-2. **Read the documentation**
-   - Check `README.md` (this file)
-   - Review `NOTES.md` for project-specific notes
-
-3. **Set up your development environment**
-   - Configure your code editor
-   - Install any required dependencies (when added)
-
-### Daily Workflow
-
-1. **Start your work session**
-   ```bash
-   # Pull latest changes
-   git pull origin main
-   
-   # Switch to your branch
-   git checkout your-branch-name
-   ```
-
-2. **Make your changes**
-   - Edit files as needed
-   - Test your changes
-   - Document what you've done
-
-3. **Save your work**
-   ```bash
-   # Check what changed
-   git status
-   
-   # Add your changes
-   git add .
-   
-   # Commit with a clear message
-   git commit -m "Add: describe your changes clearly"
-   ```
-
-## 📁 Project Structure
-
-```
-BuildMate/
-├── .git/                 # Git version control (don't modify)
-├── README.md            # This file - project documentation
-├── NOTES.md             # Personal project notes and todos
-└── [Future files will be added here]
-```
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript with strict typing
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Custom component library
+- **API**: Next.js API routes for backend functionality
+- **Integration**: Replicate (active), Supabase, Stripe, OpenAI (mocked)
+- **Performance**: Custom React hooks with stable references
 
 ## 📝 Code Conventions
+
+### Terminology Guidelines
+- **Never use**: "AI", "ai-powered", "ai-generated", "artificial intelligence"
+- **Always use**: "smart", "intelligent", "automated", "advanced"
+- **Function names**: `generateSmartSuggestions`, `smartInsights`, `smartSuggestion`
+- **Branding**: "BuildMate" (not "BuildMate AI")
 
 ### File Naming
 - **Components**: `PascalCase.tsx` (e.g., `AnimatedProgressBar.tsx`)
 - **Pages**: `kebab-case` folders with `page.tsx` (e.g., `dashboard/page.tsx`)
 - **Utilities**: `camelCase.ts` (e.g., `ukUtils.ts`)
-- **Types**: `camelCase.ts` (e.g., `index.ts`)
 - **Branches**: `feature/description`, `fix/issue-name`, `docs/update-readme`
 
 ### TypeScript Standards
 - Use strict TypeScript - no `any` types
 - Define interfaces for all props and data structures
-- Use utility types (`Partial`, `Pick`, `Omit`) where appropriate
 - Export types with components for reusability
+- Implement type guards for runtime validation
 
-### Component Architecture
-- Use functional components with hooks
-- Implement proper prop interfaces with optional/required fields
-- Include accessibility features (ARIA labels, keyboard navigation)
-- Support multiple variants/sizes where appropriate
-- Follow single responsibility principle
+### Performance Considerations
+- Use `useCallback` and `useRef` in performance hooks to prevent re-renders
+- Avoid complex webpack optimizations that can cause module loading errors
+- Test development server stability after major changes
+- Ensure all React hooks have stable dependencies
 
-### Styling Guidelines
-- Use Tailwind CSS with utility classes
-- Create responsive designs (mobile-first)
-- Maintain 4.5:1 color contrast ratio (WCAG AA)
-- Use semantic HTML elements
-- Implement smooth transitions (200-300ms duration)
+## 🌐 Deployment
 
-### Import Organization
-```typescript
-// 1. React/Next.js imports
-import React from 'react'
-import { useState } from 'react'
+### Vercel Deployment
+- **Production URL**: https://buildmate-ai.vercel.app
+- **Repository**: https://github.com/giquina/BuildMate
+- **Auto-deployment**: Enabled from `main` branch
 
-// 2. Third-party libraries
-import { cn } from '@/lib/utils'
-
-// 3. Internal components
-import { Button } from '@/components/ui/Button'
-
-// 4. Types and utilities
-import type { Project } from '@/types'
-```
-
-## 🔄 Development Workflow
-
-### Branch Strategy
-
+### Environment Variables
 ```bash
-main                 # Main production branch
-├── feature/login    # New feature branches  
-├── fix/button-bug   # Bug fix branches
-└── docs/readme      # Documentation updates
-```
-
-### Making Changes
-
-1. **Always start from main**
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b feature/new-feature
-   ```
-
-2. **Work in small commits**
-   ```bash
-   # Make a small change
-   git add specific-file.js
-   git commit -m "Add user authentication function"
-   
-   # Make another small change  
-   git add another-file.css
-   git commit -m "Style login form buttons"
-   ```
-
-3. **Push your branch**
-   ```bash
-   git push origin feature/new-feature
-   ```
-
-## 📚 Git Commands Reference
-
-### Daily Commands
-
-```bash
-# Check status of your files
-git status
-
-# See what you've changed
-git diff
-
-# Add files to staging
-git add filename.js          # Add specific file
-git add .                    # Add all changes
-
-# Commit your changes
-git commit -m "Your message here"
-
-# Push to remote repository  
-git push origin branch-name
-```
-
-### Syncing Commands
-
-```bash
-# Get latest changes from remote
-git pull origin main
-
-# See commit history
-git log --oneline -10
-
-# See all branches
-git branch -a
-
-# Switch branches
-git checkout branch-name
-```
-
-### Advanced Commands
-
-```bash
-# Create new branch and switch to it
-git checkout -b new-branch-name
-
-# Merge changes from another branch
-git merge branch-name
-
-# Reset to last commit (careful!)
-git reset --hard HEAD
-
-# View remote repositories
-git remote -v
-```
-
-## 🛠️ Troubleshooting
-
-### Common Issues
-
-**Problem**: "Permission denied" when pushing
-```bash
-# Solution: Check your Git credentials
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-```
-
-**Problem**: "Branch diverged" error
-```bash
-# Solution: Pull latest changes first
-git pull origin main
-```
-
-**Problem**: Accidentally committed wrong files
-```bash
-# Solution: Undo last commit (keeps changes)
-git reset HEAD~1
-```
-
-**Problem**: Want to discard all local changes
-```bash
-# Solution: Reset to remote state (CAREFUL - loses work!)
-git reset --hard origin/main
-```
-
-### Getting Help
-
-```bash
-# Get help for any Git command
-git help status
-git help commit
-git help push
-
-# Quick help
-git status --help
+# Required for full functionality
+REPLICATE_API_TOKEN=r8_xxx...        # Smart image generation (ACTIVE)
+NEXT_PUBLIC_SUPABASE_URL=xxx         # Database connection
+SUPABASE_SERVICE_ROLE_KEY=xxx        # Server-side database access
+OPENAI_API_KEY=xxx                   # Smart floorplan generation
+STRIPE_SECRET_KEY=xxx                # Payment processing
 ```
 
 ## 🤝 Contributing
 
-### Before You Start
+### Development Workflow
+1. **Fork the repository** (external contributors) or create a branch (team members)
+2. **Follow our code conventions** (see above)
+3. **Run pre-deployment checks**: `npm run type-check && npm run lint && npm run build`
+4. **Submit a PR** with clear description
+5. **Address feedback** from code review
 
-1. **Create an issue** describing what you want to work on
-2. **Fork the repository** (if you're not a collaborator)
-3. **Create a feature branch** from main
+### Branch Strategy
+```bash
+main                    # Main production branch
+├── feature/smart-ui    # New feature branches  
+├── fix/performance     # Bug fix branches
+└── docs/readme         # Documentation updates
+```
 
 ### Making Good Commits
-
 **Good commit messages:**
 ```
-Add user login functionality
-Fix button alignment on mobile
-Update README with installation steps
-Remove unused CSS classes
+feat: Add smart material recommendation system
+fix: Resolve Fast Refresh runtime errors in performance hook
+docs: Update README with current terminology guidelines
+perf: Optimize bundle size with simplified webpack config
 ```
 
-**Bad commit messages:**
-```
-Fixed stuff
-WIP
-asdfgh
-Update
-```
+## 🛠️ Troubleshooting
 
-### Pull Request Process
+### Common Development Issues
 
-1. **Push your branch**
-   ```bash
-   git push origin feature/your-feature
-   ```
+**Fast Refresh Warnings:**
+- Ensure performance hooks use stable references (`useCallback`, `useRef`)
+- Check useEffect dependencies for changing function references
 
-2. **Create Pull Request** on GitHub
-3. **Write clear description** of what you changed and why
-4. **Wait for review** and address any feedback
+**Build Failures:**
+- Run `npm run type-check` to identify TypeScript errors
+- Ensure all imports are correctly typed
+- Check for circular dependencies
 
-## 📝 Development Notes
+**Module Loading Errors:**
+- Simplify Next.js experimental features
+- Avoid aggressive webpack optimizations
+- Clear `.next` cache: `rm -rf .next`
 
-### Project Status
-- **Current Version**: Initial setup
-- **Last Updated**: July 22, 2025
-- **Active Branches**: main
-- **Contributors**: giquina
+### Getting Help
+- Check [CLAUDE.md](./CLAUDE.md) for comprehensive development guidance
+- Review [GitHub Issues](https://github.com/giquina/BuildMate/issues)
+- Join [GitHub Discussions](https://github.com/giquina/BuildMate/discussions)
 
-### Future Enhancements
-- [ ] Add project dependencies and build system
-- [ ] Implement core functionality
-- [ ] Add automated testing
-- [ ] Set up continuous integration
-- [ ] Create deployment pipeline
+## 📊 Project Status
 
-### Resources
-- **Repository**: https://github.com/giquina/BuildMate
-- **Issues**: https://github.com/giquina/BuildMate/issues
-- **Discussions**: https://github.com/giquina/BuildMate/discussions
+- **Current Version**: 0.1.0
+- **Framework**: Next.js 14.2.30
+- **Node Version**: 20+
+- **Build Status**: ✅ Stable
+- **Deployment**: ✅ Auto-deployed to Vercel
+- **Performance**: ✅ Optimized (bundle size < 200kb)
+
+## 🎯 Industry Focus
+
+### User Personas
+- **Homeowners**: First-time builders, extension planners
+- **Self-Builders**: Experienced DIY enthusiasts  
+- **Property Developers**: Commercial and residential developers
+- **Professionals**: Architects, builders, tradespeople
+
+### UK Market Standards
+- **Typical Costs**: Extensions £1,200-£2,500/m², new builds £1,500-£3,000/m²
+- **Timeline Expectations**: Extensions 12-20 weeks, new builds 12-24+ months
+- **Compliance**: Building regs, planning permission, professional certifications
 
 ---
 
-## 💡 Tips for Beginners
+**Built with ❤️ for the UK construction industry**
 
-1. **Always pull before you push** - prevents conflicts
-2. **Commit small changes often** - easier to track and fix issues
-3. **Use clear, descriptive commit messages** - your future self will thank you
-4. **Keep your NOTES.md updated** - document what you learn
-5. **Don't be afraid to experiment** - Git makes it safe to try things
-
-## 🆘 Need Help?
-
-- Check the [NOTES.md](./NOTES.md) file for project-specific information
-- Look at existing issues on GitHub
-- Ask questions in the repository discussions
-- Review Git documentation: https://git-scm.com/docs
-
-Remember: Every expert was once a beginner! 🚀
+For detailed development guidance, see [CLAUDE.md](./CLAUDE.md)

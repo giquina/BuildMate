@@ -15,7 +15,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 9. **Minimize the code impact of every change**. Simplicity always wins.
 
 ## Project Overview
-BuildMate AI is a UK-focused construction platform built with Next.js 14, TypeScript, and Tailwind CSS. It provides AI-powered floorplan generation, materials marketplace, and professional networking for homeowners, self-builders, and property developers.
+BuildMate is a UK-focused construction platform built with Next.js 14, TypeScript, and Tailwind CSS. It provides smart floorplan generation, materials marketplace, and professional networking for homeowners, self-builders, and property developers.
+
+**IMPORTANT**: All "AI" terminology has been removed from the platform. Use "smart", "intelligent", or "automated" instead to make the platform accessible to general users unfamiliar with AI terminology.
 
 ## Core Architecture
 
@@ -25,7 +27,8 @@ BuildMate AI is a UK-focused construction platform built with Next.js 14, TypeSc
 - **Styling**: Tailwind CSS with custom design system
 - **UI Components**: Custom component library in `src/components/ui/`
 - **API**: Next.js API routes for backend functionality
-- **Integration**: OpenAI (mocked), Supabase, Stripe
+- **Integration**: OpenAI (mocked), Supabase, Stripe, Replicate (active)
+- **Performance**: Custom React hooks with stable references to prevent re-renders
 
 ### Project Structure
 ```
@@ -35,7 +38,7 @@ src/
 │   ├── page.tsx                 # Homepage with testimonials/stats
 │   ├── globals.css              # Global styles + animations
 │   ├── pricing/page.tsx         # Pricing plans (force-static)
-│   ├── configure/page.tsx       # AI image generation & style selection
+│   ├── configure/page.tsx       # Smart image generation & style selection
 │   ├── materials/page.tsx       # Materials marketplace with UK suppliers
 │   ├── professionals/page.tsx   # Verified UK professionals network
 │   ├── dashboard/page.tsx       # Project management dashboard
@@ -48,7 +51,7 @@ src/
 │   └── index.ts                 # Centralized component exports
 ├── lib/                         # Utilities and configurations
 │   ├── uk-utils.ts              # UK-specific functions (postcodes, pricing)
-│   ├── performance.tsx          # Performance monitoring hooks
+│   ├── performance.ts           # Performance monitoring hooks with stable references
 │   └── utils.ts                 # General utilities
 ├── types/                       # TypeScript type definitions
 │   └── index.ts                 # Core domain types (Project, Material, Professional)
@@ -56,7 +59,7 @@ src/
 
 ### Key Page Flows
 1. **Homepage (`/`)** → User education and trust building
-2. **Configure (`/configure`)** → AI image generation + style selection
+2. **Configure (`/configure`)** → Smart image generation + style selection
 3. **Materials (`/materials`)** → UK supplier integration and shopping
 4. **Professionals (`/professionals`)** → Verified professional matching
 5. **Review (`/review`)** → Project assembly and final confirmation
@@ -75,7 +78,7 @@ src/
 Core entities are defined in `src/types/index.ts`:
 - **User**: Subscription tiers (free/pro/enterprise), UK postcode integration
 - **Project**: Construction types (new_build/renovation/extension), status tracking
-- **Floorplan**: AI-generated SVG data with specifications
+- **Floorplan**: Smart-generated SVG data with specifications
 - **Material**: UK supplier integration, categories, pricing
 - **Professional**: UK trades with certifications, insurance verification
 - **Quote**: Professional estimates with timeline and status
@@ -112,6 +115,13 @@ npm run perf:lighthouse    # Run Lighthouse performance test
 Always run before committing or deploying:
 ```bash
 npm run type-check && npm run lint && npm run build
+```
+
+### Performance Commands
+```bash
+npm run perf:audit         # Full performance audit (type-check + lint + build)
+npm run perf:lighthouse    # Run Lighthouse performance test
+npm run perf:budget        # Check bundle size limits
 ```
 
 ### Development Workflow
@@ -213,7 +223,7 @@ Auto-commit hook is configured to:
 - Automatically commit if no errors found
 - Skip commit if type errors or linting issues exist
 
-## AI Image Generation System
+## Smart Image Generation System
 
 ### Replicate Integration (ACTIVE)
 The platform uses Replicate + SDXL for professional architectural rendering:
@@ -242,7 +252,7 @@ const architecturalStyles = [
 
 ### User Experience Flow
 1. User visits `/configure` page
-2. Shows "AI Images: 1/4 generating..." with loading spinners
+2. Shows "Images: 1/4 generating..." with loading spinners
 3. Images generate in parallel (15-30 seconds each)
 4. User selects preferred architectural style
 5. Selection saved and passed to materials page
@@ -250,7 +260,7 @@ const architecturalStyles = [
 ## Key Implementation Notes
 
 ### Mock Data Strategy
-- AI generation uses mock SVG and data structures for floorplans
+- Smart generation uses mock SVG and data structures for floorplans
 - Professional and material data includes realistic UK market information
 - Case studies and testimonials reflect authentic UK construction scenarios
 - **Image generation is LIVE** - uses real Replicate API for architectural renders
@@ -276,10 +286,10 @@ const architecturalStyles = [
 ### Critical Environment Variables
 ```bash
 # Required for production
-REPLICATE_API_TOKEN=r8_xxx...        # AI image generation (ACTIVE)
+REPLICATE_API_TOKEN=r8_xxx...        # Smart image generation (ACTIVE)
 NEXT_PUBLIC_SUPABASE_URL=xxx         # Database connection
 SUPABASE_SERVICE_ROLE_KEY=xxx        # Server-side database access
-OPENAI_API_KEY=xxx                   # AI floorplan generation
+OPENAI_API_KEY=xxx                   # Smart floorplan generation
 STRIPE_SECRET_KEY=xxx                # Payment processing
 ```
 
@@ -298,8 +308,8 @@ STRIPE_SECRET_KEY=xxx                # Payment processing
 ### Core API Routes
 ```
 src/app/api/
-├── ai/generate/              # AI floorplan generation (OpenAI integration)
-├── generate-image/           # AI image generation (Replicate/SDXL - ACTIVE)
+├── ai/generate/              # Smart floorplan generation (OpenAI integration)
+├── generate-image/           # Smart image generation (Replicate/SDXL - ACTIVE)
 ├── algorithms/
 │   ├── optimize-timeline/    # Construction timeline optimization
 │   ├── match-professionals/  # Professional matching algorithm
@@ -323,7 +333,7 @@ src/app/api/
 - Professional verification system integration
 
 ### Feature Roadmap
-- Advanced AI features for project optimization
+- Advanced smart features for project optimization
 - Real-time collaboration tools for project teams
 - Mobile app development for on-site usage
 - Integration with UK planning permission systems
@@ -339,5 +349,26 @@ src/app/api/
 - Mock external APIs (suppliers, OpenAI, payment systems)
 - Test construction project workflows end-to-end
 - Validate UK-specific business logic and calculations
+
+## Critical Development Notes
+
+### Performance Hook Usage
+The `usePerformanceMonitoring` hook uses `useCallback` and `useRef` to prevent re-renders:
+```typescript
+const { onMount, measureOperation } = usePerformanceMonitoring('ComponentName')
+// Functions are stable - safe to use in useEffect dependencies
+```
+
+### Terminology Guidelines
+- **Never use**: "AI", "ai-powered", "ai-generated", "artificial intelligence"
+- **Always use**: "smart", "intelligent", "automated", "advanced"
+- **Function names**: `generateSmartSuggestions`, `smartInsights`, `smartSuggestion`
+- **Branding**: "BuildMate" (not "BuildMate AI")
+
+### Stability Considerations
+- Avoid complex webpack optimizations that can cause module loading errors
+- Use minimal Next.js experimental features to prevent runtime issues
+- Ensure all React hooks have stable dependencies to prevent Fast Refresh errors
+- Test development server stability after major changes
 
 When working on this codebase, always consider the construction industry context, UK market requirements, and the needs of professional users who rely on the platform for significant financial decisions.
