@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Navigation } from '@/components/ui/Navigation'
+import { LiveNotifications } from '@/components/ui/LiveNotifications'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -59,6 +60,9 @@ export default function RootLayout({
         <main id="main-content" className="pt-28 md:pt-24 pb-24 md:pb-0 min-h-screen bg-gray-50">
           {children}
         </main>
+
+        {/* Live Activity Notifications */}
+        <LiveNotifications />
 
         {/* Performance Monitoring & Service Worker Registration */}
         <script

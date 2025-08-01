@@ -16,6 +16,9 @@ export * from './Tooltip'
 export * from './AnimatedProgressBar'
 export * from './AchievementBadge'
 
+// Live Components
+export * from './LiveNotifications'
+
 // Re-export commonly used component combinations
 export {
   // Button variants
@@ -91,3 +94,8 @@ export {
   defaultAchievements,
   type Achievement
 } from './AchievementBadge'
+
+export {
+  // Live Components
+  LiveNotifications
+} from './LiveNotifications'
