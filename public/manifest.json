@@ -4,41 +4,115 @@
   "description": "Professional construction platform for UK builders, architects, and property developers",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "fullscreen"],
   "background_color": "#1e40af",
   "theme_color": "#1e40af",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en-GB",
   "categories": ["construction", "productivity", "business"],
-  "icons": [],
+  "icons": [
+    {
+      "src": "/icons/buildmate-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-96x96.png", 
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-128x128.png",
+      "sizes": "128x128", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png", 
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/buildmate-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/buildmate-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Materials Catalog",
       "short_name": "Materials",
       "description": "Browse construction materials",
       "url": "/materials",
-      "icons": []
+      "icons": [
+        {
+          "src": "/icons/materials-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Professional Directory",
       "short_name": "Professionals",
       "description": "Find construction professionals",
       "url": "/professionals",
-      "icons": []
+      "icons": [
+        {
+          "src": "/icons/materials-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Project Dashboard",
       "short_name": "Dashboard",
       "description": "Manage your projects",
       "url": "/dashboard",
-      "icons": []
+      "icons": [
+        {
+          "src": "/icons/materials-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Smart Configuration",
       "short_name": "Configure",
       "description": "Smart project setup",
       "url": "/configure",
-      "icons": []
+      "icons": [
+        {
+          "src": "/icons/materials-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ],
   "related_applications": [
@@ -64,7 +138,13 @@
         "text/csv": [".csv"],
         "application/vnd.ms-excel": [".xlsx"]
       },
-      "icons": [],
+      "icons": [
+        {
+          "src": "/icons/materials-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ],
       "launch_type": "single-client"
     }
   ],
@@ -72,6 +152,28 @@
     {
       "protocol": "buildmate",
       "url": "/configure?data=%s"
+    }
+  ],
+  "capture_links": "new-client",
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "construction_images",
+          "accept": ["image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "scope_extensions": [
+    {
+      "origin": "*.buildmate-cdn.com"
     }
   ]
 }

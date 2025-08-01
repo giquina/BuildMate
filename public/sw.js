@@ -1,8 +1,10 @@
-// BuildMate AI Service Worker - Optimized for Construction Industry Usage
-const CACHE_NAME = 'buildmate-v1.0.0'
-const CONSTRUCTION_CACHE = 'buildmate-construction-v1.0.0'
-const API_CACHE = 'buildmate-api-v1.0.0'
-const IMAGE_CACHE = 'buildmate-images-v1.0.0'
+// BuildMate Service Worker - Optimized for Construction Industry Usage
+const CACHE_NAME = 'buildmate-v1.1.0'
+const CONSTRUCTION_CACHE = 'buildmate-construction-v1.1.0'
+const API_CACHE = 'buildmate-api-v1.1.0'
+const IMAGE_CACHE = 'buildmate-images-v1.1.0'
+const PHOTO_CACHE = 'buildmate-photos-v1.1.0'
+const OFFLINE_DATA_CACHE = 'buildmate-offline-v1.1.0'
 
 // Critical resources for construction professionals
 const CRITICAL_RESOURCES = [
@@ -11,9 +13,11 @@ const CRITICAL_RESOURCES = [
   '/professionals',
   '/configure',
   '/dashboard',
+  '/dashboard/mobile',
   '/_next/static/css/',
   '/_next/static/js/',
-  '/offline'
+  '/offline',
+  '/manifest.json'
 ]
 
 // Construction-specific data to cache
@@ -27,7 +31,7 @@ const CONSTRUCTION_DATA_URLS = [
 
 // Install event - cache critical resources
 self.addEventListener('install', event => {
-  console.log('<� BuildMate SW: Installing service worker for construction site usage')
+  console.log('<� BuildMate SW: Installing service worker for construction site usage')
   
   event.waitUntil(
     Promise.all([
@@ -46,13 +50,13 @@ self.addEventListener('install', event => {
               }
             }).catch(() => {
               // Fail silently for unavailable endpoints
-              console.log(`<� BuildMate SW: Could not pre-cache ${url}`)
+              console.log(`<� BuildMate SW: Could not pre-cache ${url}`)
             })
           )
         )
       })
     ]).then(() => {
-      console.log('<� BuildMate SW: Installation complete - ready for construction sites')
+      console.log('<� BuildMate SW: Installation complete - ready for construction sites')
       self.skipWaiting()
     })
   )
@@ -60,20 +64,20 @@ self.addEventListener('install', event => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {
-  console.log('<� BuildMate SW: Activating for construction professional usage')
+  console.log('<� BuildMate SW: Activating for construction professional usage')
   
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (!cacheName.includes('buildmate-v1.0.0')) {
-            console.log('<� BuildMate SW: Deleting old cache:', cacheName)
+            console.log('<� BuildMate SW: Deleting old cache:', cacheName)
             return caches.delete(cacheName)
           }
         })
       )
     }).then(() => {
-      console.log('<� BuildMate SW: Activated - construction data cached and ready')
+      console.log('<� BuildMate SW: Activated - construction data cached and ready')
       return self.clients.claim()
     })
   )
@@ -117,7 +121,7 @@ async function handleGetRequest(request, url) {
     // Default: try network first
     return fetch(request)
   } catch (error) {
-    console.log('<� BuildMate SW: Fetch error:', error)
+    console.log('<� BuildMate SW: Fetch error:', error)
     return handleOfflineRequest(request)
   }
 }
@@ -240,7 +244,7 @@ async function handlePageRequest(request) {
         </head>
         <body>
           <div class="offline">
-            <div class="icon"><�</div>
+            <div class="icon"><�</div>
             <h1>BuildMate AI - Offline Mode</h1>
             <p>You're currently offline, but your construction data is cached and available.</p>
             <p>Reconnect to sync your latest project updates.</p>
@@ -288,7 +292,7 @@ async function handleOfflineRequest(request) {
 // Background sync for construction data when connection restored
 self.addEventListener('sync', event => {
   if (event.tag === 'construction-data-sync') {
-    console.log('<� BuildMate SW: Syncing construction data after reconnection')
+    console.log('<� BuildMate SW: Syncing construction data after reconnection')
     event.waitUntil(syncConstructionData())
   }
 })
@@ -309,15 +313,15 @@ async function syncConstructionData() {
           if (response.ok) {
             const cache = await caches.open(API_CACHE)
             await cache.put(endpoint, response.clone())
-            console.log(`<� BuildMate SW: Synced ${endpoint}`)
+            console.log(`<� BuildMate SW: Synced ${endpoint}`)
           }
         } catch (error) {
-          console.log(`<� BuildMate SW: Failed to sync ${endpoint}`)
+          console.log(`<� BuildMate SW: Failed to sync ${endpoint}`)
         }
       })
     )
   } catch (error) {
-    console.log('<� BuildMate SW: Background sync failed:', error)
+    console.log('<� BuildMate SW: Background sync failed:', error)
   }
 }
 
@@ -362,5 +366,300 @@ self.addEventListener('notificationclick', event => {
     event.waitUntil(
       clients.openWindow('/dashboard')
     )
+  }
+})
+
+// Advanced sync functions for construction site data
+async function syncPhotos() {
+  try {
+    console.log('🏗️ BuildMate SW: Syncing construction site photos')
+    
+    // Get photos from IndexedDB (stored offline)
+    const photosToSync = await getOfflinePhotos()
+    
+    for (const photo of photosToSync) {
+      try {
+        const formData = new FormData()
+        formData.append('photo', photo.blob)
+        formData.append('projectId', photo.projectId)
+        formData.append('location', JSON.stringify(photo.location))
+        formData.append('timestamp', photo.timestamp)
+        formData.append('phase', photo.phase)
+        
+        const response = await fetch('/api/photos/upload', {
+          method: 'POST',
+          body: formData
+        })
+        
+        if (response.ok) {
+          await removeOfflinePhoto(photo.id)
+          console.log('🏗️ BuildMate SW: Photo synced successfully')
+        }
+      } catch (error) {
+        console.log('🏗️ BuildMate SW: Failed to sync photo:', error)
+      }
+    }
+  } catch (error) {
+    console.log('🏗️ BuildMate SW: Photo sync failed:', error)
+  }
+}
+
+async function syncVoiceNotes() {
+  try {
+    console.log('🏗️ BuildMate SW: Syncing voice notes')
+    
+    const voiceNotes = await getOfflineVoiceNotes()
+    
+    for (const note of voiceNotes) {
+      try {
+        const response = await fetch('/api/voice-notes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            projectId: note.projectId,
+            transcript: note.transcript,
+            audio: note.audioBlob,
+            timestamp: note.timestamp,
+            location: note.location
+          })
+        })
+        
+        if (response.ok) {
+          await removeOfflineVoiceNote(note.id)
+          console.log('🏗️ BuildMate SW: Voice note synced successfully')
+        }
+      } catch (error) {
+        console.log('🏗️ BuildMate SW: Failed to sync voice note:', error)
+      }
+    }
+  } catch (error) {
+    console.log('🏗️ BuildMate SW: Voice notes sync failed:', error)
+  }
+}
+
+async function syncLocationData() {
+  try {
+    console.log('🏗️ BuildMate SW: Syncing GPS location data')
+    
+    const locations = JSON.parse(localStorage.getItem('construction_locations') || '[]')
+    
+    if (locations.length > 0) {
+      const response = await fetch('/api/locations/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ locations })
+      })
+      
+      if (response.ok) {
+        localStorage.removeItem('construction_locations')
+        console.log('🏗️ BuildMate SW: Location data synced successfully')
+      }
+    }
+  } catch (error) {
+    console.log('🏗️ BuildMate SW: Location sync failed:', error)
+  }
+}
+
+async function syncTaskUpdates() {
+  try {
+    console.log('🏗️ BuildMate SW: Syncing task updates')
+    
+    const taskUpdates = JSON.parse(localStorage.getItem('offline_task_updates') || '[]')
+    
+    for (const update of taskUpdates) {
+      try {
+        const response = await fetch('/api/tasks/update', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(update)
+        })
+        
+        if (response.ok) {
+          // Remove from offline storage
+          const updatedTasks = taskUpdates.filter(t => t.id !== update.id)
+          localStorage.setItem('offline_task_updates', JSON.stringify(updatedTasks))
+          console.log('🏗️ BuildMate SW: Task update synced successfully')
+        }
+      } catch (error) {
+        console.log('🏗️ BuildMate SW: Failed to sync task update:', error)
+      }
+    }
+  } catch (error) {
+    console.log('🏗️ BuildMate SW: Task updates sync failed:', error)
+  }
+}
+
+// IndexedDB helpers for offline photo storage
+async function getOfflinePhotos() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('BuildMateOffline', 1)
+    
+    request.onerror = () => reject(request.error)
+    request.onsuccess = () => {
+      const db = request.result
+      const transaction = db.transaction(['photos'], 'readonly')
+      const store = transaction.objectStore('photos')
+      const getAllRequest = store.getAll()
+      
+      getAllRequest.onsuccess = () => resolve(getAllRequest.result)
+      getAllRequest.onerror = () => reject(getAllRequest.error)
+    }
+    
+    request.onupgradeneeded = () => {
+      const db = request.result
+      if (!db.objectStoreNames.contains('photos')) {
+        db.createObjectStore('photos', { keyPath: 'id' })
+      }
+      if (!db.objectStoreNames.contains('voiceNotes')) {
+        db.createObjectStore('voiceNotes', { keyPath: 'id' })
+      }
+    }
+  })
+}
+
+async function getOfflineVoiceNotes() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('BuildMateOffline', 1)
+    
+    request.onerror = () => reject(request.error)
+    request.onsuccess = () => {
+      const db = request.result
+      const transaction = db.transaction(['voiceNotes'], 'readonly')
+      const store = transaction.objectStore('voiceNotes')
+      const getAllRequest = store.getAll()
+      
+      getAllRequest.onsuccess = () => resolve(getAllRequest.result)
+      getAllRequest.onerror = () => reject(getAllRequest.error)
+    }
+  })
+}
+
+async function removeOfflinePhoto(photoId) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('BuildMateOffline', 1)
+    
+    request.onerror = () => reject(request.error)
+    request.onsuccess = () => {
+      const db = request.result
+      const transaction = db.transaction(['photos'], 'readwrite')
+      const store = transaction.objectStore('photos')
+      const deleteRequest = store.delete(photoId)
+      
+      deleteRequest.onsuccess = () => resolve()
+      deleteRequest.onerror = () => reject(deleteRequest.error)
+    }
+  })
+}
+
+async function removeOfflineVoiceNote(noteId) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('BuildMateOffline', 1)
+    
+    request.onerror = () => reject(request.error)
+    request.onsuccess = () => {
+      const db = request.result
+      const transaction = db.transaction(['voiceNotes'], 'readwrite')
+      const store = transaction.objectStore('voiceNotes')
+      const deleteRequest = store.delete(noteId)
+      
+      deleteRequest.onsuccess = () => resolve()
+      deleteRequest.onerror = () => reject(deleteRequest.error)
+    }
+  })
+}
+
+// Enhanced push notification handling for construction updates
+self.addEventListener('push', event => {
+  console.log('🏗️ BuildMate SW: Push notification received')
+  
+  let options = {
+    body: 'Your construction project has updates available',
+    icon: '/icons/buildmate-192x192.png',
+    badge: '/icons/buildmate-72x72.png',
+    tag: 'construction-update',
+    requireInteraction: true,
+    vibrate: [200, 100, 200, 100, 200],
+    actions: [
+      {
+        action: 'view-project',
+        title: 'View Project',
+        icon: '/icons/view.png'
+      },
+      {
+        action: 'call-team',
+        title: 'Call Team',
+        icon: '/icons/phone.png'
+      },
+      {
+        action: 'dismiss',
+        title: 'Dismiss',
+        icon: '/icons/dismiss.png'
+      }
+    ],
+    data: {
+      url: '/dashboard',
+      timestamp: Date.now()
+    }
+  }
+
+  if (event.data) {
+    try {
+      const data = event.data.json()
+      options = {
+        ...options,
+        body: data.message || options.body,
+        tag: data.tag || options.tag,
+        data: { ...options.data, ...data }
+      }
+      
+      // Construction-specific notification types
+      if (data.type === 'milestone') {
+        options.body = `🎉 Milestone completed: ${data.milestone}`
+        options.vibrate = [100, 50, 100, 50, 100, 50, 200]
+      } else if (data.type === 'delivery') {
+        options.body = `📦 Material delivery: ${data.material}`
+        options.vibrate = [200, 100, 200]
+      } else if (data.type === 'weather_alert') {
+        options.body = `⚠️ Weather alert: ${data.condition}`
+        options.requireInteraction = true
+        options.vibrate = [300, 100, 300]
+      } else if (data.type === 'team_update') {
+        options.body = `👷 Team update: ${data.message}`
+        options.vibrate = [100, 100, 100]
+      }
+    } catch (error) {
+      console.log('🏗️ BuildMate SW: Failed to parse push data:', error)
+    }
+  }
+
+  event.waitUntil(
+    self.registration.showNotification('BuildMate Construction', options)
+  )
+})
+
+// Enhanced notification click handling
+self.addEventListener('notificationclick', event => {
+  console.log('🏗️ BuildMate SW: Notification clicked:', event.action)
+  
+  event.notification.close()
+
+  switch (event.action) {
+    case 'view-project':
+      event.waitUntil(
+        clients.openWindow(event.notification.data?.url || '/dashboard')
+      )
+      break
+    case 'call-team':
+      event.waitUntil(
+        clients.openWindow('tel:+44800123456') // Emergency construction line
+      )
+      break
+    case 'dismiss':
+      // Just close the notification
+      break
+    default:
+      event.waitUntil(
+        clients.openWindow('/dashboard')
+      )
   }
 })

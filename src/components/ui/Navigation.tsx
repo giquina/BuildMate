@@ -175,35 +175,43 @@ export function Navigation() {
         initialTab={authModalTab}
       />
 
-      {/* Enhanced Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-300 z-50 shadow-2xl">
-        <div className="flex justify-around py-2 px-2">
-          <Link href="/" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[60px] touch-manipulation flex-1">
-            <Home className="h-5 w-5 mb-1" />
-            <span className="text-xs font-semibold">Home</span>
+      {/* Enhanced Mobile Bottom Navigation - Construction Optimized */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-300 z-50 shadow-2xl safe-area-inset-bottom">
+        <div className="flex justify-around py-3 px-2">
+          <Link href="/dashboard" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[64px] touch-manipulation flex-1 active:scale-95">
+            <Home className="h-6 w-6 mb-1" />
+            <span className="text-xs font-semibold">Dashboard</span>
           </Link>
-          <Link href="/materials" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[60px] touch-manipulation flex-1">
-            <Hammer className="h-5 w-5 mb-1" />
+          <Link href="/materials" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[64px] touch-manipulation flex-1 active:scale-95">
+            <Hammer className="h-6 w-6 mb-1" />
             <span className="text-xs font-semibold">Materials</span>
           </Link>
-          <Link href="/professionals" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[60px] touch-manipulation flex-1">
-            <User className="h-5 w-5 mb-1" />
-            <span className="text-xs font-semibold">Pros</span>
+          <Link href="/professionals" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[64px] touch-manipulation flex-1 active:scale-95">
+            <User className="h-6 w-6 mb-1" />
+            <span className="text-xs font-semibold">Team</span>
           </Link>
-          <Link href="/cart" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[60px] touch-manipulation relative flex-1">
-            <ShoppingCart className="h-5 w-5 mb-1" />
+          <Link href="/cart" className="flex flex-col items-center py-2 px-2 text-gray-600 hover:text-blue-700 transition-all duration-200 rounded-xl hover:bg-blue-50 min-h-[64px] touch-manipulation relative flex-1 active:scale-95">
+            <ShoppingCart className="h-6 w-6 mb-1" />
             <span className="text-xs font-semibold">Cart</span>
-            {/* Cart badge */}
-            <div className="absolute top-1 right-2 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
+            {/* Cart badge - larger for construction sites */}
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center border-2 border-white">
               <span className="text-xs font-bold text-white">3</span>
             </div>
           </Link>
-          <Link href="/configure" className="flex flex-col items-center py-2 px-3 bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-xl hover:from-blue-800 hover:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl min-h-[60px] touch-manipulation flex-1 mx-1">
-            <Settings className="h-5 w-5 mb-1" />
-            <span className="text-xs font-bold">Configure</span>
+          <Link href="/configure" className="flex flex-col items-center py-2 px-3 bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-xl hover:from-blue-800 hover:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl min-h-[64px] touch-manipulation flex-1 mx-1 active:scale-95">
+            <Building2 className="h-6 w-6 mb-1" />
+            <span className="text-xs font-bold">Build</span>
           </Link>
         </div>
-      </div>
+        
+        {/* PWA Install Prompt - Construction Sites */}
+        <div className="border-t border-gray-200 bg-blue-50 px-4 py-2 hidden" id="pwa-install-prompt">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-2">
+              <Shield className="h-4 w-4 text-blue-600" />
+              <span className="text-blue-800 font-medium">Install for offline construction site use</span>
+            </div>
+            <button \n              id="pwa-install-btn"\n              className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"\n            >\n              Install\n            </button>\n          </div>\n        </div>\n      </div>\n      \n      {/* PWA Install Script */}\n      <script\n        dangerouslySetInnerHTML={{\n          __html: `\n            // PWA Install Prompt for Construction Sites\n            let deferredPrompt;\n            \n            window.addEventListener('beforeinstallprompt', (e) => {\n              console.log('🏗️ PWA: Install prompt triggered');\n              e.preventDefault();\n              deferredPrompt = e;\n              \n              // Show custom install prompt for construction sites\n              const installPrompt = document.getElementById('pwa-install-prompt');\n              const installBtn = document.getElementById('pwa-install-btn');\n              \n              if (installPrompt && installBtn) {\n                installPrompt.classList.remove('hidden');\n                \n                installBtn.addEventListener('click', async () => {\n                  console.log('🏗️ PWA: User clicked install');\n                  deferredPrompt.prompt();\n                  \n                  const { outcome } = await deferredPrompt.userChoice;\n                  console.log('🏗️ PWA: User choice:', outcome);\n                  \n                  if (outcome === 'accepted') {\n                    console.log('🏗️ PWA: Installation accepted');\n                  }\n                  \n                  installPrompt.classList.add('hidden');\n                  deferredPrompt = null;\n                });\n              }\n            });\n            \n            window.addEventListener('appinstalled', () => {\n              console.log('🏗️ PWA: App installed successfully');\n              const installPrompt = document.getElementById('pwa-install-prompt');\n              if (installPrompt) {\n                installPrompt.classList.add('hidden');\n              }\n            });\n            \n            // Construction site optimization: Register for background sync\n            if ('serviceWorker' in navigator) {\n              navigator.serviceWorker.ready.then(registration => {\n                console.log('🏗️ PWA: Service Worker ready for construction site usage');\n                \n                // Enable background sync for construction data\n                if ('sync' in window.ServiceWorkerRegistration.prototype) {\n                  console.log('🏗️ PWA: Background sync supported for construction sites');\n                }\n                \n                // Enable push notifications for construction updates\n                if ('Notification' in window && 'PushManager' in window) {\n                  console.log('🏗️ PWA: Push notifications supported for construction updates');\n                }\n              });\n            }\n          `\n        }}\n      />"
     </>
   )
 }

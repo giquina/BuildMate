@@ -1,5 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { CheckCircle, Shield, Star, Award, Clock, MapPin } from 'lucide-react'
+import { VerificationBadge, BadgeType, UKCertification } from '@/types'
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'secondary' | 'outline' | 'tesla' | 'success' | 'warning' | 'error' | 'info'
@@ -343,5 +345,144 @@ export function InteractiveBadge({
       variant={variant}
       {...props}
     />
+  )
+}
+
+// Professional Verification Badge Components
+interface VerificationBadgeProps {
+  badge: VerificationBadge
+  size?: 'sm' | 'md' | 'lg'
+  showTooltip?: boolean
+}
+
+const badgeIcons: Record<BadgeType, React.ComponentType<any>> = {
+  verified_professional: CheckCircle,
+  top_rated: Star,
+  safety_certified: Shield,
+  insurance_verified: Shield,
+  fast_responder: Clock,
+  local_expert: MapPin,
+  eco_specialist: Award,
+  premium_member: Award
+}
+
+const badgeColors: Record<BadgeType, string> = {
+  verified_professional: 'bg-blue-100 text-blue-800 border-blue-200',
+  top_rated: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  safety_certified: 'bg-green-100 text-green-800 border-green-200',
+  insurance_verified: 'bg-purple-100 text-purple-800 border-purple-200',
+  fast_responder: 'bg-orange-100 text-orange-800 border-orange-200',
+  local_expert: 'bg-teal-100 text-teal-800 border-teal-200',
+  eco_specialist: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  premium_member: 'bg-indigo-100 text-indigo-800 border-indigo-200'
+}
+
+export function VerificationBadgeComponent({ badge, size = 'md', showTooltip = true }: VerificationBadgeProps) {
+  const Icon = badgeIcons[badge.type]
+  const colorClass = badgeColors[badge.type]
+  
+  const sizeClasses = {
+    sm: 'px-2 py-1 text-xs',
+    md: 'px-3 py-1.5 text-sm',
+    lg: 'px-4 py-2 text-base'
+  }
+  
+  const iconSizes = {
+    sm: 'h-3 w-3',
+    md: 'h-4 w-4',
+    lg: 'h-5 w-5'
+  }
+
+  return (
+    <div className={cn(
+      'inline-flex items-center rounded-full border font-medium',
+      colorClass,
+      sizeClasses[size]
+    )}>
+      <Icon className={cn('mr-1', iconSizes[size])} />
+      {badge.name}
+      {badge.level && (
+        <span className="ml-1 capitalize text-xs opacity-75">
+          {badge.level}
+        </span>
+      )}
+    </div>
+  )
+}
+
+interface CertificationBadgeProps {
+  certification: UKCertification
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export function CertificationBadge({ 
+  certification, 
+  size = 'md' 
+}: CertificationBadgeProps) {
+  const isExpiring = certification.expiryDate && 
+    new Date(certification.expiryDate) < new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+  const isExpired = certification.expiryDate && 
+    new Date(certification.expiryDate) < new Date()
+  
+  let colorClass = 'bg-gray-100 text-gray-800 border-gray-200'
+  if (certification.isActive && !isExpired) {
+    colorClass = 'bg-green-100 text-green-800 border-green-200'
+  } else if (isExpiring) {
+    colorClass = 'bg-amber-100 text-amber-800 border-amber-200'
+  } else if (isExpired) {
+    colorClass = 'bg-red-100 text-red-800 border-red-200'
+  }
+  
+  const sizeClasses = {
+    sm: 'px-2 py-1 text-xs',
+    md: 'px-3 py-1.5 text-sm',
+    lg: 'px-4 py-2 text-base'
+  }
+
+  return (
+    <div className={cn(
+      'inline-flex items-center rounded-full border font-medium',
+      colorClass,
+      sizeClasses[size]
+    )}>
+      {certification.isActive && !isExpired && (
+        <CheckCircle className="h-3 w-3 mr-1" />
+      )}
+      {isExpiring && !isExpired && (
+        <Clock className="h-3 w-3 mr-1" />
+      )}
+      {certification.name}
+    </div>
+  )
+}
+
+interface VerificationScoreBadgeProps {
+  score: number
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export function VerificationScoreBadge({ score, size = 'md' }: VerificationScoreBadgeProps) {
+  let variant: 'error' | 'warning' | 'info' | 'success' = 'error'
+  let label = 'Unverified'
+  
+  if (score >= 90) {
+    variant = 'success'
+    label = 'Highly Verified'
+  } else if (score >= 70) {
+    variant = 'success'  
+    label = 'Verified'
+  } else if (score >= 50) {
+    variant = 'info'
+    label = 'Partially Verified'
+  } else if (score >= 25) {
+    variant = 'warning'
+    label = 'Basic Verification'
+  }
+
+  return (
+    <Badge variant={variant} size={size}>
+      <Shield className="w-3 h-3 mr-1" />
+      {label} ({score}%)
+    </Badge>
   )
 }

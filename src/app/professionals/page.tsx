@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { VerificationBadgeComponent, CertificationBadge, VerificationScoreBadge } from '@/components/ui/Badge'
 import { 
   MessageCircle, 
   Phone, 
@@ -46,8 +47,15 @@ import {
   ChevronDown,
   ChevronUp,
   Plus,
-  Minus
+  Minus,
+  Search,
+  Filter,
+  SlidersHorizontal,
+  BookOpen,
+  Globe
 } from 'lucide-react'
+import { Professional, ProfessionalType, UKCertification, VerificationBadge } from '@/types'
+import { calculateVerificationScore, formatCurrency, calculateDistance } from '@/lib/uk-utils'
 
 interface Review {
   id: string
@@ -132,6 +140,253 @@ interface TeamMember {
   recentFeedback: Review[]
   industryRecognition: string[]
 }
+
+// Mock Professional Data with Full UK Professional Structure
+const mockProfessionals: Professional[] = [
+  {
+    id: '1',
+    name: 'James Mitchell',
+    company: 'Mitchell Construction Ltd',
+    specialties: ['builder', 'structural_engineer'],
+    location: 'Birmingham, West Midlands',
+    postcode: 'B15 2TT',
+    radius: 25,
+    rating: 4.8,
+    reviewCount: 127,
+    verified: true,
+    insurance: true,
+    contactInfo: {
+      phone: '0121 555 0123',
+      email: 'james@mitchellconstruction.co.uk',
+      website: 'www.mitchellconstruction.co.uk'
+    },
+    certifications: [
+      {
+        id: '1',
+        name: 'CSCS Gold Card',
+        issuer: 'CITB',
+        category: 'safety_certification',
+        registrationNumber: 'CSCS123456789',
+        issuedDate: '2020-01-15',
+        expiryDate: '2025-01-15',
+        isActive: true,
+        description: 'Construction Skills Certification Scheme Gold Card'
+      },
+      {
+        id: '2', 
+        name: 'FMB Member',
+        issuer: 'Federation of Master Builders',
+        category: 'professional_membership',
+        registrationNumber: 'FMB987654321',
+        issuedDate: '2018-03-01',
+        isActive: true,
+        description: 'Full member of Federation of Master Builders'
+      }
+    ],
+    verification: {
+      status: 'verified',
+      verifiedAt: '2023-12-01T10:00:00Z',
+      documents: [],
+      verificationBadges: [
+        {
+          id: '1',
+          type: 'verified_professional',
+          name: 'Verified Professional',
+          description: 'Fully verified professional with current certifications',
+          iconUrl: '',
+          earnedAt: '2023-12-01T10:00:00Z',
+          level: 'gold'
+        }
+      ]
+    },
+    profile: {
+      bio: 'Leading construction professional with 15+ years experience in residential projects.',
+      yearsExperience: 15,
+      projectsCompleted: 89,
+      profileImage: '/api/placeholder/200/200',
+      portfolio: [],
+      awards: [],
+      qualifications: ['NVQ Level 3 Construction', 'NEBOSH General Certificate']
+    },
+    business: {
+      registrationNumber: 'CB123456789',
+      insuranceDetails: {
+        provider: 'Zurich Insurance',
+        policyNumber: 'ZUR123456789',
+        expiryDate: '2024-12-31',
+        coverageAmount: 2000000,
+        documentUrl: '',
+        verified: true
+      },
+      publicLiabilityInsurance: 2000000,
+      employersLiabilityInsurance: 10000000
+    },
+    availability: {
+      workingHours: {
+        monday: { isAvailable: true, startTime: '08:00', endTime: '17:00', breaks: [] },
+        tuesday: { isAvailable: true, startTime: '08:00', endTime: '17:00', breaks: [] },
+        wednesday: { isAvailable: true, startTime: '08:00', endTime: '17:00', breaks: [] },
+        thursday: { isAvailable: true, startTime: '08:00', endTime: '17:00', breaks: [] },
+        friday: { isAvailable: true, startTime: '08:00', endTime: '17:00', breaks: [] },
+        saturday: { isAvailable: true, startTime: '09:00', endTime: '13:00', breaks: [] },
+        sunday: { isAvailable: false, breaks: [] }
+      },
+      bookingSettings: {
+        minimumNotice: 48,
+        maximumAdvanceBooking: 90,
+        allowWeekendBookings: true,
+        allowEveningBookings: false,
+        bookingTypes: ['consultation', 'site_visit', 'quotation'],
+        requiresApproval: true,
+        cancellationPolicy: '48 hours notice required'
+      },
+      calendar: [],
+      responseTime: 4,
+      nextAvailable: '2024-02-15'
+    },
+    performance: {
+      onTimeCompletion: 95,
+      budgetAdherence: 92,
+      clientSatisfaction: 98,
+      repeatClientRate: 78,
+      recommendationRate: 85
+    },
+    communication: {
+      preferredMethods: ['phone', 'email', 'whatsapp'],
+      languages: ['English'],
+      responseTime: 'same-day'
+    },
+    serviceAreas: [
+      { postcode: 'B', town: 'Birmingham', radius: 15, travelTime: 30 },
+      { postcode: 'CV', town: 'Coventry', radius: 20, travelTime: 45 }
+    ],
+    travelRadius: 25,
+    subscriptionTier: 'premium',
+    status: 'active',
+    joinedAt: '2020-01-15T09:00:00Z',
+    lastActive: '2024-01-15T14:30:00Z'
+  },
+  {
+    id: '2',
+    name: 'Sarah Thompson',
+    company: 'Elite Electrical Services',
+    specialties: ['electrician'],
+    location: 'Birmingham, West Midlands',
+    postcode: 'B20 3HH',
+    radius: 30,
+    rating: 4.9,
+    reviewCount: 203,
+    verified: true,
+    insurance: true,
+    contactInfo: {
+      phone: '0121 555 0456',
+      email: 'sarah@eliteelectrical.co.uk'
+    },
+    certifications: [
+      {
+        id: '3',
+        name: 'NICEIC Approved',
+        issuer: 'NICEIC',
+        category: 'electrical_qualification',
+        registrationNumber: 'NIC123456',
+        issuedDate: '2019-06-01',
+        expiryDate: '2024-06-01',
+        isActive: true,
+        description: 'NICEIC Approved Contractor'
+      },
+      {
+        id: '4',
+        name: '18th Edition',
+        issuer: 'City & Guilds',
+        category: 'electrical_qualification', 
+        registrationNumber: 'CG987654',
+        issuedDate: '2018-09-15',
+        isActive: true,
+        description: '18th Edition Wiring Regulations'
+      }
+    ],
+    verification: {
+      status: 'verified',
+      verifiedAt: '2023-11-15T09:00:00Z',
+      documents: [],
+      verificationBadges: [
+        {
+          id: '2',
+          type: 'safety_certified',
+          name: 'Safety Certified',
+          description: 'Certified for electrical safety standards',
+          iconUrl: '',
+          earnedAt: '2023-11-15T09:00:00Z',
+          level: 'gold'
+        }
+      ]
+    },
+    profile: {
+      bio: 'NICEIC approved electrician specializing in domestic and commercial installations.',
+      yearsExperience: 12,
+      projectsCompleted: 156,
+      profileImage: '/api/placeholder/200/200',
+      portfolio: [],
+      awards: [],
+      qualifications: ['18th Edition', 'Level 3 Electrical Installation']
+    },
+    business: {
+      insuranceDetails: {
+        provider: 'AXA Insurance',
+        policyNumber: 'AXA987654321',
+        expiryDate: '2024-11-30',
+        coverageAmount: 2000000,
+        documentUrl: '',
+        verified: true
+      },
+      publicLiabilityInsurance: 2000000,
+      employersLiabilityInsurance: 10000000
+    },
+    availability: {
+      workingHours: {
+        monday: { isAvailable: true, startTime: '07:30', endTime: '17:30', breaks: [] },
+        tuesday: { isAvailable: true, startTime: '07:30', endTime: '17:30', breaks: [] },
+        wednesday: { isAvailable: true, startTime: '07:30', endTime: '17:30', breaks: [] },
+        thursday: { isAvailable: true, startTime: '07:30', endTime: '17:30', breaks: [] },
+        friday: { isAvailable: true, startTime: '07:30', endTime: '17:30', breaks: [] },
+        saturday: { isAvailable: false, breaks: [] },
+        sunday: { isAvailable: false, breaks: [] }
+      },
+      bookingSettings: {
+        minimumNotice: 24,
+        maximumAdvanceBooking: 60,
+        allowWeekendBookings: false,
+        allowEveningBookings: true,
+        bookingTypes: ['consultation', 'emergency'],
+        requiresApproval: false,
+        cancellationPolicy: '24 hours notice required'
+      },
+      calendar: [],
+      responseTime: 2,
+      nextAvailable: '2024-02-12'
+    },
+    performance: {
+      onTimeCompletion: 92,
+      budgetAdherence: 94,
+      clientSatisfaction: 96,
+      repeatClientRate: 88,
+      recommendationRate: 92
+    },
+    communication: {
+      preferredMethods: ['phone', 'email'],
+      languages: ['English'],
+      responseTime: 'same-day'
+    },
+    serviceAreas: [
+      { postcode: 'B', town: 'Birmingham', radius: 20, travelTime: 35 }
+    ],
+    travelRadius: 30,
+    subscriptionTier: 'premium',
+    status: 'active',
+    joinedAt: '2019-03-20T10:00:00Z',
+    lastActive: '2024-01-15T16:45:00Z'
+  }
+];
 
 const assignedTeam: TeamMember[] = [
   {
@@ -290,8 +545,57 @@ const assignedTeam: TeamMember[] = [
 ]
 
 export default function ProfessionalsPage() {
-  const [selectedTab, setSelectedTab] = useState('team')
+  const [selectedTab, setSelectedTab] = useState('search')
   const [selectedMember, setSelectedMember] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedSpecialty, setSelectedSpecialty] = useState<ProfessionalType | 'all'>('all')
+  const [postcode, setPostcode] = useState('B15 2TT')
+  const [radius, setRadius] = useState(25)
+  const [minRating, setMinRating] = useState(0)
+  const [showFilters, setShowFilters] = useState(false)
+  const [sortBy, setSortBy] = useState<'rating' | 'distance' | 'verification' | 'availability'>('rating')
+  
+  // Filter and search logic
+  const filteredProfessionals = mockProfessionals.filter(prof => {
+    // Search query filter
+    if (searchQuery && !prof.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
+        !prof.company.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false
+    }
+    
+    // Specialty filter
+    if (selectedSpecialty !== 'all' && !prof.specialties.includes(selectedSpecialty)) {
+      return false
+    }
+    
+    // Rating filter
+    if (prof.rating < minRating) {
+      return false
+    }
+    
+    // Distance filter (simplified)
+    const distance = calculateDistance(postcode, prof.postcode)
+    if (distance > radius) {
+      return false
+    }
+    
+    return true
+  }).sort((a, b) => {
+    switch (sortBy) {
+      case 'rating':
+        return b.rating - a.rating
+      case 'distance':
+        return calculateDistance(postcode, a.postcode) - calculateDistance(postcode, b.postcode)
+      case 'verification':
+        const scoreA = calculateVerificationScore(a.certifications, a.business.insuranceDetails, [])
+        const scoreB = calculateVerificationScore(b.certifications, b.business.insuranceDetails, [])
+        return scoreB - scoreA
+      case 'availability':
+        return new Date(a.availability.nextAvailable).getTime() - new Date(b.availability.nextAvailable).getTime()
+      default:
+        return 0
+    }
+  })
 
   const getAvailabilityColor = (availability: string) => {
     switch (availability) {
@@ -320,11 +624,11 @@ export default function ProfessionalsPage() {
             <div className="flex items-center justify-center mb-4">
               <Users className="h-12 w-12 mr-4" />
               <h1 className="text-4xl font-bold">
-                Meet Your Dream Team
+                Find Verified UK Professionals
               </h1>
             </div>
             <p className="text-xl text-blue-100 mb-6">
-              Connect with verified UK professionals for your construction project
+              Connect with verified construction professionals in your area
             </p>
             <div className="flex items-center justify-center space-x-8 text-blue-100">
               <div className="flex items-center">
@@ -349,10 +653,10 @@ export default function ProfessionalsPage() {
         <div className="bg-white rounded-lg shadow-sm mb-6">
           <nav className="flex space-x-8 px-6">
             {[
+              { id: 'search', label: 'Find Professionals', icon: Search },
               { id: 'team', label: 'Your Team', icon: Users },
               { id: 'calendar', label: 'Schedule', icon: CalendarDays },
-              { id: 'performance', label: 'Performance', icon: BarChart3 },
-              { id: 'communication', label: 'Messages', icon: MessageSquare }
+              { id: 'messages', label: 'Messages', icon: MessageSquare }
             ].map((tab) => {
               const Icon = tab.icon
               return (
@@ -372,6 +676,289 @@ export default function ProfessionalsPage() {
             })}
           </nav>
         </div>
+
+        {/* Professional Search Tab */}
+        {selectedTab === 'search' && (
+          <div className="space-y-6">
+            {/* Search and Filter Controls */}
+            <Card>
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  {/* Main Search Bar */}
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                        <Input
+                          placeholder="Search professionals by name or company..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      onClick={() => setShowFilters(!showFilters)}
+                      className="flex items-center"
+                    >
+                      <SlidersHorizontal className="h-4 w-4 mr-2" />
+                      Filters
+                    </Button>
+                  </div>
+
+                  {/* Location and Specialty Quick Filters */}
+                  <div className="flex flex-wrap gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Your Postcode</label>
+                      <Input
+                        placeholder="B15 2TT"
+                        value={postcode}
+                        onChange={(e) => setPostcode(e.target.value)}
+                        className="w-32"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Specialty</label>
+                      <select
+                        value={selectedSpecialty}
+                        onChange={(e) => setSelectedSpecialty(e.target.value as ProfessionalType | 'all')}
+                        className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+                      >
+                        <option value="all">All Specialties</option>
+                        <option value="builder">Builder</option>
+                        <option value="electrician">Electrician</option>
+                        <option value="plumber">Plumber</option>
+                        <option value="architect">Architect</option>
+                        <option value="heating_engineer">Heating Engineer</option>
+                        <option value="roofer">Roofer</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Sort By</label>
+                      <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as any)}
+                        className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+                      >
+                        <option value="rating">Highest Rated</option>
+                        <option value="distance">Nearest</option>
+                        <option value="verification">Most Verified</option>
+                        <option value="availability">Earliest Available</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Advanced Filters (Collapsible) */}
+                  {showFilters && (
+                    <div className="border-t pt-4 space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Travel Radius: {radius} miles
+                          </label>
+                          <input
+                            type="range"
+                            min="5"
+                            max="50"
+                            value={radius}
+                            onChange={(e) => setRadius(Number(e.target.value))}
+                            className="w-full"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Minimum Rating: {minRating > 0 ? minRating : 'Any'}
+                          </label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="5"
+                            step="0.5"
+                            value={minRating}
+                            onChange={(e) => setMinRating(Number(e.target.value))}
+                            className="w-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Results Summary */}
+            <div className="flex justify-between items-center">
+              <p className="text-gray-600">
+                Found {filteredProfessionals.length} professionals in your area
+              </p>
+              <div className="text-sm text-gray-500">
+                Sorted by {sortBy.replace('_', ' ')}
+              </div>
+            </div>
+
+            {/* Professional Listings */}
+            <div className="space-y-4">
+              {filteredProfessionals.map((professional) => {
+                const verificationScore = calculateVerificationScore(
+                  professional.certifications, 
+                  professional.business.insuranceDetails, 
+                  []
+                )
+                const distance = calculateDistance(postcode, professional.postcode)
+
+                return (
+                  <Card key={professional.id} className="hover:shadow-lg transition-all duration-200">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col lg:flex-row gap-6">
+                        {/* Professional Info */}
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-start space-x-4">
+                              <img 
+                                src={professional.profile.profileImage} 
+                                alt={professional.name}
+                                className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
+                              />
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="text-xl font-bold text-gray-900">
+                                    {professional.name}
+                                  </h3>
+                                  {professional.verified && (
+                                    <CheckCircle className="h-5 w-5 text-blue-600" />
+                                  )}
+                                </div>
+                                <p className="text-lg font-semibold text-blue-700">{professional.company}</p>
+                                <p className="text-gray-600 mb-2">{professional.location}</p>
+                                <div className="flex items-center gap-1 mb-2">
+                                  <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                                  <span className="font-semibold">{professional.rating}</span>
+                                  <span className="text-gray-500">({professional.reviewCount} reviews)</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="text-right">
+                              <div className="text-sm text-gray-500 mb-1">
+                                {distance.toFixed(1)} miles away
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                Available: {new Date(professional.availability.nextAvailable).toLocaleDateString()}
+                              </div>
+                            </div>
+                          </div>
+
+                          <p className="text-gray-700 mb-4">{professional.profile.bio}</p>
+
+                          {/* Specialties */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {professional.specialties.map((specialty) => (
+                              <span key={specialty} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium capitalize">
+                                {specialty.replace('_', ' ')}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Verification Badges */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            <VerificationScoreBadge score={verificationScore} size="sm" />
+                            {professional.verification.verificationBadges.map((badge) => (
+                              <VerificationBadgeComponent key={badge.id} badge={badge} size="sm" />
+                            ))}
+                          </div>
+
+                          {/* Certifications */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {professional.certifications.slice(0, 3).map((cert) => (
+                              <CertificationBadge key={cert.id} certification={cert} size="sm" />
+                            ))}
+                            {professional.certifications.length > 3 && (
+                              <span className="text-sm text-gray-500 px-2 py-1">
+                                +{professional.certifications.length - 3} more
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Performance Metrics */}
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-lg p-4">
+                            <div className="text-center">
+                              <div className="text-lg font-bold text-green-600">
+                                {professional.performance.onTimeCompletion}%
+                              </div>
+                              <div className="text-xs text-gray-600">On-Time</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-lg font-bold text-blue-600">
+                                {professional.profile.projectsCompleted}
+                              </div>
+                              <div className="text-xs text-gray-600">Projects</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-lg font-bold text-purple-600">
+                                {professional.performance.clientSatisfaction}%
+                              </div>
+                              <div className="text-xs text-gray-600">Satisfaction</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-lg font-bold text-orange-600">
+                                {professional.availability.responseTime}h
+                              </div>
+                              <div className="text-xs text-gray-600">Response</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="lg:w-48 flex lg:flex-col gap-2">
+                          <Button className="bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center">
+                            <MessageCircle className="h-4 w-4 mr-2" />
+                            Message
+                          </Button>
+                          <Button variant="outline" className="border-blue-700 text-blue-700 hover:bg-blue-50 flex items-center justify-center">
+                            <Phone className="h-4 w-4 mr-2" />
+                            Call
+                          </Button>
+                          <Button variant="outline" className="border-blue-700 text-blue-700 hover:bg-blue-50 flex items-center justify-center">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            Book Visit
+                          </Button>
+                          <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 flex items-center justify-center">
+                            <Quote className="h-4 w-4 mr-2" />
+                            Get Quote
+                          </Button>
+                          <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 flex items-center justify-center">
+                            <Eye className="h-4 w-4 mr-2" />
+                            View Profile
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+
+            {/* Professional Requirements Notice */}
+            <Card className="bg-amber-50 border border-amber-200">
+              <CardContent className="p-6">
+                <div className="flex items-start">
+                  <AlertCircle className="h-6 w-6 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">UK Professional Standards</h4>
+                    <div className="text-sm text-gray-700 space-y-1">
+                      <p>• All professionals must have valid certifications and insurance coverage</p>
+                      <p>• Gas work must only be carried out by Gas Safe registered engineers</p>
+                      <p>• Electrical work may require Building Control notification under Part P</p>
+                      <p>• CSCS cards from Northern Ireland expire 31 December 2024</p>
+                      <p>• Professional availability varies by region and seasonal demand</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Team Tab Content */}
         {selectedTab === 'team' && (

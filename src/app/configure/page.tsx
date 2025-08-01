@@ -136,6 +136,45 @@ export default function ConfigurePage() {
     setSelectedStyle(styleId)
   }
 
+  const [generateFloorplan, setGenerateFloorplan] = useState(false)
+  const [floorplanLoading, setFloorplanLoading] = useState(false)
+  const [generatedFloorplan, setGeneratedFloorplan] = useState<any>(null)
+
+  const handleGenerateSmartFloorplan = async () => {
+    if (!selectedStyle) return
+    
+    setFloorplanLoading(true)
+    try {
+      const response = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectData: {
+            style: selectedStyle,
+            bedrooms,
+            bathrooms,
+            propertyType: 'house',
+            budget: 250000, // Default budget - could be from earlier step
+            specialRequirements: []
+          }
+        })
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        setGeneratedFloorplan(data.floorplan)
+        setGenerateFloorplan(true)
+      } else {
+        console.error('Smart floorplan generation failed:', data.error)
+      }
+    } catch (error) {
+      console.error('Error generating smart floorplan:', error)
+    } finally {
+      setFloorplanLoading(false)
+    }
+  }
+
   const handleContinue = () => {
     if (selectedStyle) {
       const selectedStyleData = architecturalStyles.find(s => s.id === selectedStyle)
@@ -145,7 +184,9 @@ export default function ConfigurePage() {
         bedrooms,
         bathrooms,
         // Use custom image if generated, otherwise use pre-generated image
-        generatedImage: customImages[selectedStyle]?.url || selectedStyleData?.imageUrl
+        generatedImage: customImages[selectedStyle]?.url || selectedStyleData?.imageUrl,
+        // Include smart floorplan data if generated
+        smartFloorplan: generatedFloorplan
       }))
       router.push('/materials')
     }
@@ -385,6 +426,134 @@ export default function ConfigurePage() {
           </Card>
         </div>
 
+        {/* Smart Floorplan Generation */}
+        {selectedStyle && !generateFloorplan && (
+          <Card className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+            <CardContent className="p-6">
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-blue-100 rounded-full p-3">
+                    <Lightbulb className="h-8 w-8 text-blue-600" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Generate Smart Floorplan
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Create an intelligent layout optimized for UK building regulations and your specific requirements
+                </p>
+                <Button
+                  onClick={handleGenerateSmartFloorplan}
+                  disabled={floorplanLoading}
+                  size="lg"
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
+                  {floorplanLoading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      Generating Smart Layout...
+                    </>
+                  ) : (
+                    <>
+                      <Wand2 className="h-5 w-5 mr-2" />
+                      Generate Smart Floorplan
+                    </>
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Generated Floorplan Display */}
+        {generatedFloorplan && (
+          <Card className="mb-8 bg-green-50 border-green-200">
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-2 mb-4">
+                <CheckCircle className="h-6 w-6 text-green-600" />
+                <h3 className="text-xl font-semibold text-green-900">
+                  Smart Floorplan Generated
+                </h3>
+              </div>
+              
+              <div className="grid lg:grid-cols-2 gap-6">
+                {/* Floorplan Visualization */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">{generatedFloorplan.name}</h4>
+                  <div className="bg-white rounded-lg p-4 border">
+                    <div 
+                      dangerouslySetInnerHTML={{ __html: generatedFloorplan.svgData }}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-600">Total Area:</span>{' '}
+                      <span className="font-medium text-gray-900">{generatedFloorplan.totalArea}m²</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Estimated Cost:</span>{' '}
+                      <span className="font-medium text-gray-900">£{generatedFloorplan.estimatedCost.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Smart Insights */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">Smart Insights</h4>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h5 className="font-medium text-gray-800 mb-2">Design Rationale</h5>
+                      <p className="text-sm text-gray-600">{generatedFloorplan.smartInsights.designRationale}</p>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-medium text-gray-800 mb-2">UK Building Regulations</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {generatedFloorplan.smartInsights.ukBuildingRegulations.map((reg: string, index: number) => (
+                          <li key={index} className="flex items-start">
+                            <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+                            {reg}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-medium text-gray-800 mb-2">Cost Optimizations</h5>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {generatedFloorplan.smartInsights.costOptimizations.map((opt: string, index: number) => (
+                          <li key={index} className="flex items-start">
+                            <Target className="h-3 w-3 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
+                            {opt}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-medium text-gray-800 mb-2">Spatial Efficiency</h5>
+                      <div className="flex items-center space-x-2">
+                        <div className="flex-1 bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-green-500 h-2 rounded-full transition-all"
+                            style={{ width: `${generatedFloorplan.smartInsights.spatialEfficiency}%` }}
+                          />
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">
+                          {generatedFloorplan.smartInsights.spatialEfficiency}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Configuration Summary */}
         {selectedStyle && (
           <Card className="mb-8 bg-blue-50 border-blue-200">
@@ -408,6 +577,15 @@ export default function ConfigurePage() {
                   <span className="font-medium text-blue-900">{bathrooms}</span>
                 </div>
               </div>
+              
+              {generatedFloorplan && (
+                <div className="mt-4 pt-4 border-t border-blue-200">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <Wand2 className="h-4 w-4 text-blue-600" />
+                    <span className="text-blue-700">Smart floorplan generated with UK construction optimization</span>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         )}

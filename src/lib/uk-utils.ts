@@ -225,6 +225,263 @@ export function getPlanningTimeline(postcode: string): typeof REGIONAL_PLANNING_
   return REGIONAL_PLANNING_TIMES[region as keyof typeof REGIONAL_PLANNING_TIMES] || REGIONAL_PLANNING_TIMES['UK Average']
 }
 
+// UK Professional Certifications and Standards
+export const UK_CERTIFICATIONS = {
+  // Gas Safety
+  GAS_SAFE: {
+    name: 'Gas Safe Registered',
+    issuer: 'Gas Safe Register',
+    description: 'Legal requirement for all gas work in Great Britain',
+    verificationUrl: 'https://www.gassaferegister.co.uk/find-an-engineer/',
+    renewalPeriod: 12, // months
+    mandatory: true,
+    categories: ['gas_safety', 'trade_qualification']
+  },
+  
+  // Electrical Qualifications
+  NICEIC: {
+    name: 'NICEIC Approved Contractor',
+    issuer: 'NICEIC',
+    description: 'Electrical safety and quality assurance',
+    verificationUrl: 'https://www.niceic.com/find-a-contractor',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['electrical_qualification', 'safety_certification']
+  },
+  
+  NAPIT: {
+    name: 'NAPIT Registered',
+    issuer: 'NAPIT',
+    description: 'Building compliance and electrical safety',
+    verificationUrl: 'https://www.napit.org.uk/find-an-installer',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['electrical_qualification', 'building_control']
+  },
+  
+  PART_P: {
+    name: 'Part P Certified',
+    issuer: 'Various Competent Person Schemes',
+    description: 'Building Regulations Part P electrical work',
+    verificationUrl: null,
+    renewalPeriod: 60, // 5 years
+    mandatory: true,
+    categories: ['electrical_qualification', 'building_control']
+  },
+  
+  // Construction Skills Certification
+  CSCS: {
+    name: 'CSCS Card',
+    issuer: 'Construction Skills Certification Scheme',
+    description: 'Construction site safety and skills verification',
+    verificationUrl: 'https://www.cscs.uk.com/checking-a-cscs-card/',
+    renewalPeriod: 60, // 5 years
+    mandatory: true,
+    categories: ['safety_certification', 'trade_qualification']
+  },
+  
+  // Professional Memberships
+  RIBA: {
+    name: 'RIBA Chartered Architect',
+    issuer: 'Royal Institute of British Architects',
+    description: 'Professional architectural qualification',
+    verificationUrl: 'https://www.architecture.com/architect-search',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['professional_membership', 'trade_qualification']
+  },
+  
+  FMB: {
+    name: 'FMB Member',
+    issuer: 'Federation of Master Builders',
+    description: 'Quality building and construction work',
+    verificationUrl: 'https://www.fmb.org.uk/find-a-builder/',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['professional_membership', 'trade_qualification']
+  },
+  
+  NHBC: {
+    name: 'NHBC Registered',
+    issuer: 'National House Building Council',
+    description: 'New home warranty and standards',
+    verificationUrl: 'https://www.nhbc.co.uk/builders/findabuilder/',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['professional_membership', 'trade_qualification']
+  },
+  
+  // Plumbing and Heating
+  CIPHE: {
+    name: 'CIPHE Member',
+    issuer: 'Chartered Institute of Plumbing and Heating Engineering',
+    description: 'Professional plumbing and heating qualification',
+    verificationUrl: 'https://www.ciphe.org.uk/find-a-professional',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['professional_membership', 'trade_qualification']
+  },
+  
+  OFTEC: {
+    name: 'OFTEC Registered',
+    issuer: 'Oil Firing Technical Association',
+    description: 'Oil heating systems installation and maintenance',
+    verificationUrl: 'https://www.oftec.org/find-a-technician',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['trade_qualification', 'safety_certification']
+  },
+  
+  // Roofing
+  NFRC: {
+    name: 'NFRC Member',
+    issuer: 'National Federation of Roofing Contractors',
+    description: 'Professional roofing standards',
+    verificationUrl: 'https://www.nfrc.co.uk/find-contractor/',
+    renewalPeriod: 12,
+    mandatory: false,
+    categories: ['professional_membership', 'trade_qualification']
+  },
+  
+  // Health and Safety
+  IOSH: {
+    name: 'IOSH Certified',
+    issuer: 'Institution of Occupational Safety and Health',
+    description: 'Health and safety management',
+    verificationUrl: null,
+    renewalPeriod: 36,
+    mandatory: false,
+    categories: ['health_safety', 'professional_membership']
+  },
+  
+  SMSTS: {
+    name: 'SMSTS Certificate',
+    issuer: 'CITB',
+    description: 'Site Management Safety Training Scheme',
+    verificationUrl: null,
+    renewalPeriod: 60, // 5 years
+    mandatory: false,
+    categories: ['health_safety', 'safety_certification']
+  }
+} as const
+
+// Insurance requirements by trade type
+export const INSURANCE_REQUIREMENTS = {
+  architect: {
+    publicLiability: 2000000, // £2M minimum
+    professionalIndemnity: 1000000, // £1M minimum
+    employersLiability: 10000000 // £10M minimum
+  },
+  builder: {
+    publicLiability: 2000000,
+    professionalIndemnity: 500000,
+    employersLiability: 10000000
+  },
+  electrician: {
+    publicLiability: 2000000,
+    professionalIndemnity: 500000,
+    employersLiability: 10000000
+  },
+  plumber: {
+    publicLiability: 2000000,
+    professionalIndemnity: 250000,
+    employersLiability: 10000000
+  },
+  heating_engineer: {
+    publicLiability: 2000000,
+    professionalIndemnity: 500000,
+    employersLiability: 10000000
+  },
+  roofer: {
+    publicLiability: 2000000,
+    professionalIndemnity: 250000,
+    employersLiability: 10000000
+  }
+} as const
+
+// Validate UK professional certification
+export function validateCertification(certificationId: string, registrationNumber: string): boolean {
+  // This would integrate with actual verification APIs in production
+  // For now, return basic validation
+  return certificationId.length > 0 && registrationNumber.length >= 6
+}
+
+// Get required certifications for a professional type
+export function getRequiredCertifications(professionalType: string): string[] {
+  const requirements: Record<string, string[]> = {
+    electrician: ['NICEIC', 'PART_P', 'CSCS'],
+    plumber: ['GAS_SAFE', 'CSCS'],
+    heating_engineer: ['GAS_SAFE', 'OFTEC', 'CSCS'],
+    builder: ['CSCS', 'FMB'],
+    architect: ['RIBA'],
+    gas_engineer: ['GAS_SAFE', 'CSCS'],
+    roofer: ['CSCS', 'NFRC']
+  }
+  
+  return requirements[professionalType] || ['CSCS']
+}
+
+// Calculate professional verification score
+export function calculateVerificationScore(certifications: any[], insurance: any, reviews: any[]): number {
+  let score = 0
+  
+  // Base certifications (40 points)
+  const requiredCerts = certifications.filter(cert => UK_CERTIFICATIONS[cert.name as keyof typeof UK_CERTIFICATIONS]?.mandatory)
+  score += requiredCerts.length * 10
+  
+  // Additional certifications (20 points)
+  const additionalCerts = certifications.filter(cert => !UK_CERTIFICATIONS[cert.name as keyof typeof UK_CERTIFICATIONS]?.mandatory)
+  score += Math.min(additionalCerts.length * 5, 20)
+  
+  // Insurance verification (20 points)
+  if (insurance?.verified) score += 20
+  
+  // Review score (20 points)
+  const avgRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  score += Math.round((avgRating / 5) * 20)
+  
+  return Math.min(score, 100)
+}
+
+// Professional search and matching utilities
+export function calculateDistance(postcode1: string, postcode2: string): number {
+  // Simplified distance calculation - in production would use actual postcode coordinates
+  if (getPostcodeArea(postcode1) === getPostcodeArea(postcode2)) return 5
+  return Math.random() * 50 + 10 // Mock distance for now
+}
+
+export function matchProfessionals(requirements: any, professionals: any[]): any[] {
+  return professionals
+    .filter(prof => {
+      // Check if professional serves the area
+      const distance = calculateDistance(requirements.postcode, prof.postcode)
+      if (distance > prof.travelRadius) return false
+      
+      // Check if they have required specialties
+      const hasRequiredSpecialty = requirements.workType.some((type: string) => 
+        prof.specialties.includes(type)
+      )
+      if (!hasRequiredSpecialty) return false
+      
+      // Check availability
+      if (prof.status !== 'active') return false
+      
+      return true
+    })
+    .sort((a, b) => {
+      // Sort by verification score, rating, and distance
+      const scoreA = calculateVerificationScore(a.certifications, a.business.insuranceDetails, a.reviews || [])
+      const scoreB = calculateVerificationScore(b.certifications, b.business.insuranceDetails, b.reviews || [])
+      
+      if (scoreA !== scoreB) return scoreB - scoreA
+      if (a.rating !== b.rating) return b.rating - a.rating
+      
+      const distanceA = calculateDistance(requirements.postcode, a.postcode)
+      const distanceB = calculateDistance(requirements.postcode, b.postcode)
+      return distanceA - distanceB
+    })
+}
+
 // Construction industry disclaimer for legal protection
 export const CONSTRUCTION_DISCLAIMER = `
 Cost estimates are indicative and subject to regional variations, market conditions, and project specifics.
@@ -234,4 +491,7 @@ All building work must comply with current UK Building Regulations.
 Seek professional advice for specific project requirements.
 Prices shown exclude VAT where applicable.
 Material costs subject to market volatility and supplier availability.
+All professionals must have valid certifications and insurance coverage.
+Gas work must only be carried out by Gas Safe registered engineers.
+Electrical work may require Building Control notification under Part P.
 `
