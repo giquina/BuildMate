@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, PoundSterling, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck } from 'lucide-react'
+import { ArrowRight, Sparkles, CheckCircle, Star, Play, TrendingUp, Users, Award, Target, Clock, PoundSterling, ChevronLeft, ChevronRight, HardHat, Building, Wrench, FileCheck, Home, Shield, Eye, X, Linkedin, Github } from 'lucide-react'
 import { useState, useEffect, memo, useMemo, useCallback } from 'react'
 import { usePerformanceMonitoring } from '@/lib/performance'
 
@@ -115,6 +115,7 @@ const AnimatedCounter = memo(({ value, duration = 2000, animatedStats }: { value
 export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [animatedStats, setAnimatedStats] = useState(false)
+  const [showVideoModal, setShowVideoModal] = useState(false)
   const { onMount, measureOperation } = usePerformanceMonitoring('HomePage')
 
   // Memoized features data to prevent re-creation
@@ -214,6 +215,14 @@ export default function HomePage() {
     setCurrentTestimonial(index)
   }, [])
 
+  const handleShowDemo = useCallback(() => {
+    setShowVideoModal(true)
+  }, [])
+
+  const handleCloseDemo = useCallback(() => {
+    setShowVideoModal(false)
+  }, [])
+
   useEffect(() => {
     onMount() // Performance monitoring
     const timer = setInterval(nextTestimonial, 5000)
@@ -274,6 +283,7 @@ export default function HomePage() {
                   <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform relative z-10" />
                 </Link>
                 <button 
+                  onClick={handleShowDemo}
                   className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
                   aria-label="Watch how BuildMate AI works - Professional construction demo video"
                   role="button"
@@ -348,27 +358,27 @@ export default function HomePage() {
               {successMetrics.map((metric, index) => {
                 const Icon = metric.icon
                 const colorClasses = {
-                  blue: { bg: 'bg-blue-100', text: 'text-blue-600', textBold: 'text-blue-600' },
-                  green: { bg: 'bg-green-100', text: 'text-green-600', textBold: 'text-green-600' },
-                  purple: { bg: 'bg-purple-100', text: 'text-purple-600', textBold: 'text-purple-600' },
-                  emerald: { bg: 'bg-emerald-100', text: 'text-emerald-600', textBold: 'text-emerald-600' },
-                  yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600', textBold: 'text-yellow-600' },
-                  indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600', textBold: 'text-indigo-600' }
-                }[metric.color] || { bg: 'bg-gray-100', text: 'text-gray-600', textBold: 'text-gray-600' }
+                  blue: { bg: 'from-blue-600 to-blue-700', text: 'text-blue-600', textBold: 'text-blue-600', border: 'border-blue-500' },
+                  green: { bg: 'from-green-600 to-green-700', text: 'text-green-600', textBold: 'text-green-600', border: 'border-green-500' },
+                  purple: { bg: 'from-purple-600 to-purple-700', text: 'text-purple-600', textBold: 'text-purple-600', border: 'border-purple-500' },
+                  emerald: { bg: 'from-emerald-600 to-emerald-700', text: 'text-emerald-600', textBold: 'text-emerald-600', border: 'border-emerald-500' },
+                  yellow: { bg: 'from-yellow-600 to-yellow-700', text: 'text-yellow-600', textBold: 'text-yellow-600', border: 'border-yellow-500' },
+                  indigo: { bg: 'from-indigo-600 to-indigo-700', text: 'text-indigo-600', textBold: 'text-indigo-600', border: 'border-indigo-500' }
+                }[metric.color] || { bg: 'from-gray-600 to-gray-700', text: 'text-gray-600', textBold: 'text-gray-600', border: 'border-gray-500' }
 
                 return (
                   <div 
                     key={index} 
-                    className="text-center p-3 sm:p-4 rounded-xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                    className={`text-center p-3 sm:p-4 rounded-xl bg-gradient-to-br ${colorClasses.bg} border ${colorClasses.border} hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
                     style={{animationDelay: `${index * 100}ms`}}
                   >
                     <div className={`inline-flex items-center justify-center w-10 sm:w-12 h-10 sm:h-12 rounded-xl ${colorClasses.bg} ${colorClasses.text} mb-2 sm:mb-3 transform transition-transform hover:scale-110`}>
                       <Icon className="h-4 sm:h-6 w-4 sm:w-6" />
                     </div>
-                    <div className={`text-lg sm:text-2xl font-bold ${colorClasses.textBold} mb-1`}>
+                    <div className="text-lg sm:text-2xl font-bold text-white mb-1">
                       <AnimatedCounter value={metric.value} duration={2000 + index * 200} animatedStats={animatedStats} />
                     </div>
-                    <div className="text-xs sm:text-xs text-gray-600 font-medium leading-tight">{metric.label}</div>
+                    <div className="text-xs sm:text-xs text-white/90 font-medium leading-tight">{metric.label}</div>
                   </div>
                 )
               })}
@@ -812,6 +822,173 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Enhanced Footer */}
+        <footer className="bg-gray-900 text-gray-300">
+          <div className="max-w-7xl mx-auto px-4">
+            {/* Main Footer Content */}
+            <div className="py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+              {/* Company Info */}
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <Home className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="ml-2 text-lg font-bold text-white">BuildMate AI</span>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  UK's first AI-powered home building platform. From design to completion, we connect homeowners with verified professionals and smart materials sourcing.
+                </p>
+                <div className="flex space-x-4">
+                  <a href="https://twitter.com/buildmate_ai" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Twitter">
+                    <X className="h-5 w-5" />
+                  </a>
+                  <a href="https://linkedin.com/company/buildmate-ai" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="LinkedIn">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a href="https://github.com/giquina/BuildMate" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="GitHub">
+                    <Github className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Platform Links */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Platform</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="/configure" className="hover:text-white transition-colors">AI Floorplan Generator</Link></li>
+                  <li><Link href="/materials" className="hover:text-white transition-colors">Materials Marketplace</Link></li>
+                  <li><Link href="/professionals" className="hover:text-white transition-colors">Verified Professionals</Link></li>
+                  <li><Link href="/dashboard" className="hover:text-white transition-colors">Project Dashboard</Link></li>
+                  <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing Plans</Link></li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Resources</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="/testimonials" className="hover:text-white transition-colors">Customer Stories</Link></li>
+                  <li><Link href="/examples" className="hover:text-white transition-colors">Design Examples</Link></li>
+                  <li><Link href="/uk-building-regs" className="hover:text-white transition-colors">UK Building Regulations</Link></li>
+                  <li><Link href="/help" className="hover:text-white transition-colors">Help Center</Link></li>
+                  <li><Link href="/api-docs" className="hover:text-white transition-colors">API Documentation</Link></li>
+                </ul>
+              </div>
+
+              {/* Legal & Support */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Legal & Support</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                  <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+                  <li><Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link></li>
+                  <li><Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom Footer */}
+            <div className="border-t border-gray-800 py-6">
+              <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
+                  <p>© 2025 BuildMate AI. All rights reserved.</p>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center text-green-400">
+                      <Shield className="h-3 w-3 mr-1" />
+                      <span className="text-xs">GDPR Compliant</span>
+                    </div>
+                    <div className="flex items-center text-blue-400">
+                      <Award className="h-3 w-3 mr-1" />
+                      <span className="text-xs">ISO 27001</span>
+                    </div>
+                    <div className="flex items-center text-orange-400">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      <span className="text-xs">UK Registered</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Privacy-first badges */}
+                <div className="flex items-center space-x-4 text-xs">
+                  <div className="flex items-center bg-green-900/30 text-green-300 px-2 py-1 rounded">
+                    <Eye className="h-3 w-3 mr-1" />
+                    Cookie-free analytics
+                  </div>
+                  <a 
+                    href="https://plausible.io/buildmate-ai.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="flex items-center bg-blue-900/30 text-blue-300 px-2 py-1 rounded hover:bg-blue-900/50 transition-colors"
+                  >
+                    <TrendingUp className="h-3 w-3 mr-1" />
+                    Public Analytics
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        {/* Video Demo Modal */}
+        {showVideoModal && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={handleCloseDemo}>
+            <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900">How BuildMate AI Works</h3>
+                  <p className="text-gray-600 mt-1">3 minute demo • Real UK construction projects</p>
+                </div>
+                <button 
+                  onClick={handleCloseDemo}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  aria-label="Close video modal"
+                >
+                  <X className="h-6 w-6 text-gray-500" />
+                </button>
+              </div>
+              
+              <div className="p-6">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center relative overflow-hidden">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <Play className="h-8 w-8 text-blue-600 ml-1" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Demo Video Coming Soon</h4>
+                    <p className="text-gray-600 mb-6">We're preparing a comprehensive 3-minute demo showing real UK construction projects built with BuildMate AI.</p>
+                    
+                    <div className="grid md:grid-cols-3 gap-4 text-sm">
+                      <div className="bg-white/50 rounded-lg p-4">
+                        <div className="text-blue-600 font-semibold mb-1">Step 1: Configure</div>
+                        <div className="text-gray-700">AI-powered design tools</div>
+                      </div>
+                      <div className="bg-white/50 rounded-lg p-4">
+                        <div className="text-purple-600 font-semibold mb-1">Step 2: Review</div>
+                        <div className="text-gray-700">Smart project assembly</div>
+                      </div>
+                      <div className="bg-white/50 rounded-lg p-4">
+                        <div className="text-green-600 font-semibold mb-1">Step 3: Build</div>
+                        <div className="text-gray-700">Professional coordination</div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <Link
+                        href="/configure"
+                        onClick={handleCloseDemo}
+                        className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                      >
+                        Try BuildMate Now
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
