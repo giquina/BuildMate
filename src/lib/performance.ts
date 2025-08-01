@@ -54,7 +54,7 @@ export const reportWebVitals = (metric: any) => {
   
   // Development logging with construction context
   if (process.env.NODE_ENV === 'development') {
-    console.log(`<� BuildMate Performance: ${metric.name}`, {
+    console.log(`🏗️ BuildMate Performance: ${metric.name}`, {
       value: metric.value,
       rating: metric.rating,
       delta: metric.delta,
@@ -87,7 +87,7 @@ export const performanceUtils = {
     const start = performance.now()
     fn()
     const end = performance.now()
-    console.log(`<� Render time for ${name}: ${end - start}ms`)
+    console.log(`🏗️ Render time for ${name}: ${end - start}ms`)
   },
 
   // Measure async operations (e.g., API calls, image loading)
@@ -96,11 +96,11 @@ export const performanceUtils = {
     try {
       const result = await promise
       const end = performance.now()
-      console.log(`<� Async operation ${name}: ${end - start}ms`)
+      console.log(`🏗️ Async operation ${name}: ${end - start}ms`)
       return result
     } catch (error) {
       const end = performance.now()
-      console.error(`<� Failed async operation ${name}: ${end - start}ms`, error)
+      console.error(`🏗️ Failed async operation ${name}: ${end - start}ms`, error)
       throw error
     }
   },
@@ -217,7 +217,7 @@ export const usePerformanceMonitoring = (componentName: string) => {
     
     return {
       onMount: () => {
-        console.log(`<� ${componentName} mounted in ${performance.now() - mountTime}ms`)
+        console.log(`🏗️ ${componentName} mounted in ${performance.now() - mountTime}ms`)
       },
       measureOperation: (operationName: string, operation: () => void) => {
         performanceUtils.measureRender(`${componentName}.${operationName}`, operation)
