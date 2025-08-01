@@ -1,4 +1,5 @@
 // Performance monitoring and optimization utilities for BuildMate AI
+import { useCallback, useRef } from 'react'
 
 // Dynamic import of web-vitals to handle build issues
 type Metric = {
@@ -212,21 +213,28 @@ export const performanceBudgets = {
 
 // Performance monitoring hook for React components
 export const usePerformanceMonitoring = (componentName: string) => {
-  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-    const mountTime = performance.now()
-    
-    return {
-      onMount: () => {
-        console.log(`🏗️ ${componentName} mounted in ${performance.now() - mountTime}ms`)
-      },
-      measureOperation: (operationName: string, operation: () => void) => {
-        performanceUtils.measureRender(`${componentName}.${operationName}`, operation)
-      },
-    }
+  const mountTimeRef = useRef<number>()
+  
+  if (typeof window !== 'undefined' && !mountTimeRef.current) {
+    mountTimeRef.current = performance.now()
   }
   
+  const onMount = useCallback(() => {
+    if (process.env.NODE_ENV === 'development' && mountTimeRef.current) {
+      console.log(`🏗️ ${componentName} mounted in ${performance.now() - mountTimeRef.current}ms`)
+    }
+  }, [componentName])
+  
+  const measureOperation = useCallback((operationName: string, operation: () => void) => {
+    if (process.env.NODE_ENV === 'development') {
+      performanceUtils.measureRender(`${componentName}.${operationName}`, operation)
+    } else {
+      operation()
+    }
+  }, [componentName])
+  
   return {
-    onMount: () => {},
-    measureOperation: (_: string, operation: () => void) => operation(),
+    onMount,
+    measureOperation,
   }
 }
