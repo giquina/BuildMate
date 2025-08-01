@@ -1,5 +1,5 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
 import { Navigation } from '@/components/ui/Navigation'
@@ -15,19 +15,20 @@ export const metadata: Metadata = {
   description: 'All-in-one UK home building platform. Generate AI floorplans, create realistic renders, source materials from major suppliers, and connect with verified builders. From design to completion.',
   keywords: 'UK home building, AI floorplans, home design, construction materials, verified builders, home renovation, property development, building platform',
   manifest: '/manifest.json',
-  themeColor: '#1e40af',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover'
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: 'BuildMate AI'
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#1e40af',
 }
 
 export default function RootLayout({
@@ -90,8 +91,10 @@ export default function RootLayout({
               if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
                 window.requestIdleCallback(function() {
                   // Load web vitals when browser is idle
-                  import('/src/lib/performance.js').then(({ initPerformanceMonitoring }) => {
-                    initPerformanceMonitoring();
+                  import('@/lib/performance').then(({ initPerformanceMonitoring }) => {
+                    if (initPerformanceMonitoring) {
+                      initPerformanceMonitoring();
+                    }
                   }).catch(console.error);
                 });
               }
