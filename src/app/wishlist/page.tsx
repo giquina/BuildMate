@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { formatCurrency } from '@/lib/uk-utils'
+import { useUser, useWishlist } from '@/contexts/UserContext'
 import { 
   Heart, 
   ShoppingCart, 
@@ -89,11 +90,34 @@ const mockWishlistItems: WishlistItem[] = [
 
 export default function WishlistPage() {
   const router = useRouter()
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>(mockWishlistItems)
-  const [isLoggedIn, setIsLoggedIn] = useState(false) // Mock login state
+  const { user, isAuthenticated } = useUser()
+  const { wishlist, removeFromWishlist: removeWishlistItem, isLoading } = useWishlist()
+  
+  // Convert wishlist items to match the existing interface
+  const wishlistItems = wishlist.map(item => {
+    const isMaterial = item.type === 'material'
+    const data = item.itemData as any // Type assertion for flexibility
+    
+    return {
+      id: item.id,
+      name: data.name || 'Unknown Item',
+      description: data.description || 'No description available',
+      category: isMaterial ? data.category : data.trade || item.type,
+      price: isMaterial ? (data.price || 0) : 0,
+      unit: isMaterial ? (data.unit || 'each') : 'service',
+      supplier: {
+        name: isMaterial ? (data.supplier || 'Unknown Supplier') : (data.company || 'Unknown Company'),
+        deliveryDays: 3
+      },
+      rating: data.rating || 4.5,
+      reviewCount: 100,
+      inStock: true,
+      savedDate: item.addedAt.toISOString().split('T')[0]
+    }
+  })
 
   const removeFromWishlist = (id: string) => {
-    setWishlistItems(prev => prev.filter(item => item.id !== id))
+    removeWishlistItem(id)
   }
 
   const addToCart = (item: WishlistItem) => {
@@ -108,7 +132,7 @@ export default function WishlistPage() {
   }
 
   // Show login prompt if not logged in
-  if (!isLoggedIn) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
@@ -127,7 +151,7 @@ export default function WishlistPage() {
                 <div className="space-y-3">
                   <Button 
                     className="w-full" 
-                    onClick={() => setIsLoggedIn(true)} // Mock login
+                    onClick={() => router.push('/')} // Redirect to home where they can sign in
                   >
                     <User className="h-4 w-4 mr-2" />
                     Sign In / Create Account
@@ -143,6 +167,18 @@ export default function WishlistPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your wishlist...</p>
         </div>
       </div>
     )

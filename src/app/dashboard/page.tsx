@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { AnimatedProgressBar } from '@/components/ui/AnimatedProgressBar'
 import { AchievementBadge, defaultAchievements, type Achievement } from '@/components/ui/AchievementBadge'
 import { formatCurrency } from '@/lib/uk-utils'
+import { useUser, useUserProjects } from '@/contexts/UserContext'
 import { 
   Plus, 
   TrendingUp, 
@@ -292,12 +293,14 @@ const getUpdateIcon = (type: string) => {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const [project] = useState<Project>(mockProject)
+  const { user, isAuthenticated } = useUser()
+  const { projects, isLoading } = useUserProjects()
+  
   const [teamUpdates] = useState<TeamUpdate[]>(mockTeamUpdates)
   const [deliveries] = useState<Delivery[]>(mockDeliveries)
   const [showNotifications, setShowNotifications] = useState(false)
 
-  // Real-time effects
+  // Real-time effects - must be called before any early returns
   useEffect(() => {
     const interval = setInterval(() => {
       // Simulate real-time updates - in production this would be WebSocket/SSE
@@ -307,6 +310,67 @@ export default function DashboardPage() {
 
     return () => clearInterval(interval)
   }, [])
+  
+  // Use first project if available, otherwise fallback to mock
+  const project = projects.length > 0 ? {
+    ...mockProject,
+    id: projects[0].id,
+    name: projects[0].name,
+    type: projects[0].type,
+    location: projects[0].location,
+    status: projects[0].status,
+    progress: projects[0].progress,
+    budget: projects[0].budget,
+    currentPhase: projects[0].status === 'completed' ? 'Project Complete' : 
+                  projects[0].status === 'in_progress' ? 'Construction Phase' : 'Planning Phase',
+    nextMilestone: projects[0].status === 'completed' ? 'Complete' : 'Next Phase',
+    spent: Math.floor(projects[0].budget * (projects[0].progress / 100)),
+    remaining: projects[0].budget - Math.floor(projects[0].budget * (projects[0].progress / 100))
+  } : mockProject
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
+          <p className="text-gray-600 mb-6">Please log in to access your dashboard.</p>
+          <Button onClick={() => router.push('/')}>
+            Go to Home
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your projects...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show empty state if no projects
+  if (projects.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <Home className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">No Projects Yet</h1>
+          <p className="text-gray-600 mb-6">Start your home building journey by creating your first project.</p>
+          <Button onClick={() => router.push('/configure')}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Your First Project
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   const builderStatus = getBuilderStatusDisplay(project.builderStatus)
 
@@ -317,6 +381,12 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div>
+              <div className="mb-2">
+                <p className="text-sm text-gray-600">Welcome back, {user?.name}!</p>
+                {projects.length > 1 && (
+                  <p className="text-xs text-gray-500">Managing {projects.length} projects</p>
+                )}
+              </div>
               <h1 className="text-2xl font-bold text-gray-900">{project.name}</h1>
               <div className="flex items-center space-x-4 mt-1">
                 <p className="text-gray-600">{project.location}</p>
@@ -350,6 +420,63 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
+        {projects.length > 1 && (
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Home className="h-5 w-5" />
+                <span>All Projects</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {projects.map((proj) => (
+                  <div 
+                    key={proj.id} 
+                    className={`p-4 border rounded-lg cursor-pointer transition-all hover:shadow-md ${
+                      proj.id === project.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                    onClick={() => {
+                      // In a real app, you'd update the selected project
+                      console.log('Switch to project:', proj.name)
+                    }}
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-semibold text-gray-900">{proj.name}</h3>
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        proj.status === 'completed' ? 'bg-green-100 text-green-800' :
+                        proj.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                        proj.status === 'on_hold' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-gray-100 text-gray-800'
+                      }`}>
+                        {proj.status.replace('_', ' ')}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{proj.type.replace('_', ' ').toUpperCase()}</p>
+                    <p className="text-sm text-gray-600 mb-3">{proj.location}</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Progress:</span>
+                        <span className="font-medium">{proj.progress}%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-blue-600 h-2 rounded-full transition-all" 
+                          style={{ width: `${proj.progress}%` }}
+                        ></div>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Budget:</span>
+                        <span className="font-medium">{formatCurrency(proj.budget)}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Project Tracking */}
           <div className="lg:col-span-2 space-y-6">

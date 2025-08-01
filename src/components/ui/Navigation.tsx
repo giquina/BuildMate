@@ -3,9 +3,13 @@
 import Link from 'next/link'
 import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2 } from 'lucide-react'
 import { useState } from 'react'
+import { UserMenu } from './UserMenu'
+import { AuthModal } from './AuthModal'
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [authModalOpen, setAuthModalOpen] = useState(false)
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login')
 
   return (
     <>
@@ -79,6 +83,9 @@ export function Navigation() {
                   </div>
                 </Link>
               </div>
+
+              {/* User Menu */}
+              <UserMenu onOpenAuth={() => setAuthModalOpen(true)} />
               
               <Link href="/configure" className="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-6 py-3 rounded-xl font-bold flex items-center transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] ml-4">
                 Configure Now
@@ -160,6 +167,13 @@ export function Navigation() {
           )}
         </div>
       </nav>
+
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialTab={authModalTab}
+      />
 
       {/* Enhanced Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-300 z-50 shadow-2xl">
