@@ -97,6 +97,7 @@ export interface UserSession {
   register: (userData: RegisterData) => Promise<void>
   logout: () => Promise<void>
   updateProfile: (updates: Partial<User>) => Promise<void>
+  updatePreferences: (preferences: Partial<UserPreferences>) => Promise<void>
 }
 
 export interface RegisterData {

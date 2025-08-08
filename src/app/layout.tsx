@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { Navigation } from '@/components/ui/Navigation'
 import { LiveNotifications } from '@/components/ui/LiveNotifications'
 import { Footer } from '@/components/ui/Footer'
+import { ToastProvider } from '@/components/ui/Toast'
 import { UserProvider } from '@/contexts/UserContext'
 
 const inter = Inter({ 
@@ -122,27 +123,29 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <UserProvider>
-          {/* Skip Link for accessibility */}
-          <a 
-            href="#main-content" 
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50 focus:z-[100]"
-          >
-            Skip to main content
-          </a>
-          
-          <Navigation />
+        <ToastProvider>
+          <UserProvider>
+            {/* Skip Link for accessibility */}
+            <a 
+              href="#main-content" 
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50 focus:z-[100]"
+            >
+              Skip to main content
+            </a>
+            
+            <Navigation />
 
-          <main id="main-content" className="pt-28 md:pt-24 pb-0 min-h-screen bg-gray-50">
-            {children}
-          </main>
+            <main id="main-content" className="pt-28 md:pt-24 pb-0 min-h-screen bg-gray-50">
+              {children}
+            </main>
 
-          {/* Footer */}
-          <Footer />
+            {/* Footer */}
+            <Footer />
 
-          {/* Live Activity Notifications */}
-          <LiveNotifications />
-        </UserProvider>
+            {/* Live Activity Notifications */}
+            <LiveNotifications />
+          </UserProvider>
+        </ToastProvider>
 
         {/* Structured Data - JSON-LD for SEO */}
         <script
@@ -154,7 +157,7 @@ export default function RootLayout({
               "name": "BuildMate AI",
               "description": "UK's complete home building platform connecting homeowners with verified professionals and smart materials sourcing.",
               "url": "https://build-mate-mu.vercel.app",
-              "logo": "https://build-mate-mu.vercel.app/logo.png",
+              "logo": "/logo.png",
               "foundingDate": "2024",
               "founders": [
                 {

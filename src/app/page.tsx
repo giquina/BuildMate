@@ -15,62 +15,66 @@ const TestimonialsSection = memo(({
   currentIndex: number, 
   onSelect: (index: number) => void 
 }) => (
-  <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+  <section className="py-12 sm:py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="max-w-4xl mx-auto px-4">
+      <div className="text-center mb-8 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 sm:mb-4">
           Success Stories
         </h2>
-        <p className="text-lg text-gray-600">
+        <p className="text-base sm:text-lg text-gray-600">
           Real UK builders, real results
         </p>
       </div>
       <div className="relative">
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto transform transition-all duration-500">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/3 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-3xl mb-4 mx-auto transform transition-transform hover:scale-110">
-                {testimonials[currentIndex].image}
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-6 sm:p-8 md:p-12 transform transition-all duration-500">
+          <div className="text-center sm:text-left">
+            {/* Mobile-first layout */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+              <div className="sm:w-1/3 text-center">
+                <div className="w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center text-2xl sm:text-3xl mb-3 sm:mb-4 mx-auto">
+                  {testimonials[currentIndex].image}
+                </div>
+                <div className="text-base sm:text-lg font-semibold text-gray-900">
+                  {testimonials[currentIndex].name}
+                </div>
+                <div className="text-sm text-gray-600 mb-2 sm:mb-3">
+                  {testimonials[currentIndex].role}
+                </div>
+                <div className="flex justify-center mb-2">
+                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                  Saved {testimonials[currentIndex].savings}
+                </div>
               </div>
-              <div className="text-lg font-semibold text-gray-900">
-                {testimonials[currentIndex].name}
-              </div>
-              <div className="text-sm text-gray-600 mb-3">
-                {testimonials[currentIndex].role}
-              </div>
-              <div className="flex justify-center mb-2">
-                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                Saved {testimonials[currentIndex].savings}
-              </div>
-            </div>
-            
-            <div className="md:w-2/3">
-              <div className="text-4xl text-blue-200 mb-4">"</div>
-              <p className="text-xl text-gray-700 leading-relaxed mb-6 italic">
-                {testimonials[currentIndex].content}
-              </p>
-              <div className="flex items-center text-sm text-gray-500">
-                <span>Project: {testimonials[currentIndex].project}</span>
+              
+              <div className="sm:w-2/3 mt-4 sm:mt-0">
+                <div className="text-2xl sm:text-4xl text-blue-200 mb-2 sm:mb-4 text-center sm:text-left">"</div>
+                <p className="text-base sm:text-xl text-gray-700 leading-relaxed mb-4 sm:mb-6 italic">
+                  {testimonials[currentIndex].content}
+                </p>
+                <div className="flex items-center text-sm text-gray-500 justify-center sm:justify-start">
+                  <span>Project: {testimonials[currentIndex].project}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Carousel Indicators */}
-        <div className="flex justify-center mt-8 space-x-2">
+        {/* Simplified Carousel Indicators */}
+        <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => onSelect(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
                 index === currentIndex 
                   ? 'bg-blue-600 scale-125' 
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
+              aria-label={`View testimonial ${index + 1}`}
             />
           ))}
         </div>
@@ -281,65 +285,62 @@ export default function HomePage() {
             </div>
 
             <div className="text-center mb-8">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Build Smarter
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight px-2">
+                Build Your
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block">
-                  Build Faster
+                  Dream Home
                 </span>
               </h1>
-              <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
-                Professional building platform for UK homeowners and developers. Generate plans, find materials, connect with trades.
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 max-w-xl mx-auto px-4 leading-relaxed">
+                UK's complete building platform. Design, price, and connect with professionals in minutes.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6 px-4">
                 <Link 
                   href="/configure" 
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg group min-h-[48px]"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[52px] text-base sm:text-lg"
                 >
                   <HardHat className="mr-2 h-5 w-5" />
-                  Start Building
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  Start Building Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
                 <button 
                   onClick={handleShowDemo}
-                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-semibold px-6 py-3 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-200 shadow-sm min-h-[48px]"
+                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-700 font-medium px-6 py-3 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition-all duration-200 min-h-[52px]"
                 >
-                  <Play className="mr-2 h-5 w-5" />
-                  Watch Demo
+                  <Play className="mr-2 h-4 w-4" />
+                  See How It Works
                 </button>
               </div>
               
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-500">
-                <div className="flex items-center">
+              {/* Trust Indicators - Simplified for Mobile */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-600 px-4">
+                <div className="flex items-center bg-green-50 px-3 py-1 rounded-full">
                   <CheckCircle className="h-4 w-4 text-green-600 mr-1" />
-                  <span>Free to start</span>
+                  <span className="font-medium">Free to start</span>
                 </div>
-                <span className="text-gray-300">•</span>
-                <div className="flex items-center">
+                <div className="flex items-center bg-blue-50 px-3 py-1 rounded-full">
                   <CheckCircle className="h-4 w-4 text-blue-600 mr-1" />
-                  <span>UK compliant</span>
+                  <span className="font-medium">UK compliant</span>
                 </div>
-                <span className="text-gray-300">•</span>
-                <div className="flex items-center">
+                <div className="flex items-center bg-orange-50 px-3 py-1 rounded-full">
                   <CheckCircle className="h-4 w-4 text-orange-600 mr-1" />
-                  <span>Verified trades</span>
+                  <span className="font-medium">Verified trades</span>
                 </div>
               </div>
             </div>
 
-            {/* Hero Image/Video Placeholder */}
-            <div className="relative max-w-4xl mx-auto px-4">
-              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 sm:p-8 transform transition-all duration-500 hover:shadow-3xl hover:-translate-y-2">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center relative overflow-hidden group touch-manipulation">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-200/20 to-indigo-200/20 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-xl"></div>
-                  <div className="text-center relative z-10 px-4">
-                    <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg transform transition-transform group-hover:scale-110">
-                      <Play className="h-6 sm:h-8 w-6 sm:w-8 text-blue-600 ml-1" />
+            {/* Simplified Hero Visual - Mobile-First */}
+            <div className="relative max-w-3xl mx-auto px-4 mt-4">
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl border border-gray-200 p-3 sm:p-6">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg sm:rounded-xl flex items-center justify-center relative overflow-hidden group cursor-pointer" onClick={handleShowDemo}>
+                  <div className="text-center relative z-10 px-3 sm:px-4">
+                    <div className="w-12 sm:w-16 h-12 sm:h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-md group-hover:shadow-lg transition-shadow">
+                      <Play className="h-5 sm:h-6 w-5 sm:w-6 text-blue-600 ml-0.5" />
                     </div>
-                    <p className="text-gray-700 font-medium text-sm sm:text-base">Watch How BuildMate AI Works</p>
-                    <p className="text-gray-500 text-xs sm:text-sm mt-1">3 minute demo • Real UK projects</p>
-                    <div className="mt-3 flex items-center justify-center space-x-4 text-xs text-gray-600">
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base mb-1">See BuildMate in Action</p>
+                    <p className="text-gray-600 text-xs sm:text-sm">3 min demo • Real UK builds</p>
+                    <div className="hidden sm:flex items-center justify-center space-x-4 text-xs text-gray-600 mt-3">
                       <span className="flex items-center">
                         <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
                         RIBA Certified
@@ -350,52 +351,78 @@ export default function HomePage() {
                       </span>
                     </div>
                   </div>
-                  {/* Professional indicators */}
-                  <div className="absolute top-3 left-3 flex space-x-1 opacity-40">
-                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Success Metrics */}
-        <section className="py-12 bg-white border-b border-gray-100">
-          <div className="max-w-6xl mx-auto px-4">
+        {/* Success Metrics - Simplified Mobile-First */}
+        <section className="py-8 sm:py-12 bg-white border-b border-gray-100">
+          <div className="max-w-5xl mx-auto px-4">
             <div className="text-center mb-6 sm:mb-8">
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2">Trusted by thousands of UK builders</h2>
-              <p className="text-sm sm:text-base text-gray-600">Real results from real construction projects</p>
-              <p className="text-xs text-gray-500 mt-2 px-2">*Results vary by region, project complexity, and market conditions. London projects typically 30-50% higher cost.</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Trusted by UK builders</h2>
+              <p className="text-sm sm:text-base text-gray-600">Real results from construction projects</p>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
-              {successMetrics.map((metric, index) => {
+            {/* Show top 3 metrics on mobile, all on desktop */}
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
+              {successMetrics.slice(0, 3).map((metric, index) => {
                 const Icon = metric.icon
                 const colorClasses = {
-                  blue: { bg: 'from-blue-600 to-blue-700', text: 'text-blue-600', textBold: 'text-blue-600', border: 'border-blue-500' },
-                  green: { bg: 'from-green-600 to-green-700', text: 'text-green-600', textBold: 'text-green-600', border: 'border-green-500' },
-                  purple: { bg: 'from-purple-600 to-purple-700', text: 'text-purple-600', textBold: 'text-purple-600', border: 'border-purple-500' },
-                  emerald: { bg: 'from-emerald-600 to-emerald-700', text: 'text-emerald-600', textBold: 'text-emerald-600', border: 'border-emerald-500' },
-                  yellow: { bg: 'from-yellow-600 to-yellow-700', text: 'text-yellow-600', textBold: 'text-yellow-600', border: 'border-yellow-500' },
-                  indigo: { bg: 'from-indigo-600 to-indigo-700', text: 'text-indigo-600', textBold: 'text-indigo-600', border: 'border-indigo-500' }
-                }[metric.color] || { bg: 'from-gray-600 to-gray-700', text: 'text-gray-600', textBold: 'text-gray-600', border: 'border-gray-500' }
+                  blue: { bg: 'bg-blue-600', text: 'text-blue-600' },
+                  green: { bg: 'bg-green-600', text: 'text-green-600' },
+                  purple: { bg: 'bg-purple-600', text: 'text-purple-600' },
+                  emerald: { bg: 'bg-emerald-600', text: 'text-emerald-600' },
+                  yellow: { bg: 'bg-yellow-600', text: 'text-yellow-600' },
+                  indigo: { bg: 'bg-indigo-600', text: 'text-indigo-600' }
+                }[metric.color] || { bg: 'bg-gray-600', text: 'text-gray-600' }
 
                 return (
                   <div 
                     key={index} 
-                    className={`text-center p-3 sm:p-4 rounded-xl bg-gradient-to-br ${colorClasses.bg} border ${colorClasses.border} hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
+                    className={`text-center p-3 sm:p-4 rounded-xl ${colorClasses.bg} shadow-md hover:shadow-lg transition-all duration-300`}
                     style={{animationDelay: `${index * 100}ms`}}
                   >
-                    <div className={`inline-flex items-center justify-center w-10 sm:w-12 h-10 sm:h-12 rounded-xl ${colorClasses.bg} ${colorClasses.text} mb-2 sm:mb-3 transform transition-transform hover:scale-110`}>
-                      <Icon className="h-4 sm:h-6 w-4 sm:w-6" />
+                    <div className="flex items-center justify-center w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-white/20 mx-auto mb-2">
+                      <Icon className="h-4 sm:h-5 w-4 sm:w-5 text-white" />
                     </div>
-                    <div className="text-lg sm:text-2xl font-bold text-white mb-1">
+                    <div className="text-lg sm:text-xl font-bold text-white mb-1">
                       <AnimatedCounter value={metric.value} duration={2000 + index * 200} animatedStats={animatedStats} />
                     </div>
-                    <div className="text-xs sm:text-xs text-white/90 font-medium leading-tight">{metric.label}</div>
+                    <div className="text-xs text-white/90 font-medium leading-tight">{metric.label}</div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Show remaining metrics on larger screens */}
+            <div className="hidden lg:grid lg:grid-cols-3 gap-4 lg:gap-6 mt-4">
+              {successMetrics.slice(3).map((metric, index) => {
+                const Icon = metric.icon
+                const realIndex = index + 3
+                const colorClasses = {
+                  blue: { bg: 'bg-blue-600', text: 'text-blue-600' },
+                  green: { bg: 'bg-green-600', text: 'text-green-600' },
+                  purple: { bg: 'bg-purple-600', text: 'text-purple-600' },
+                  emerald: { bg: 'bg-emerald-600', text: 'text-emerald-600' },
+                  yellow: { bg: 'bg-yellow-600', text: 'text-yellow-600' },
+                  indigo: { bg: 'bg-indigo-600', text: 'text-indigo-600' }
+                }[metric.color] || { bg: 'bg-gray-600', text: 'text-gray-600' }
+
+                return (
+                  <div 
+                    key={realIndex} 
+                    className={`text-center p-4 rounded-xl ${colorClasses.bg} shadow-md hover:shadow-lg transition-all duration-300`}
+                    style={{animationDelay: `${realIndex * 100}ms`}}
+                  >
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/20 mx-auto mb-2">
+                      <Icon className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="text-xl font-bold text-white mb-1">
+                      <AnimatedCounter value={metric.value} duration={2000 + realIndex * 200} animatedStats={animatedStats} />
+                    </div>
+                    <div className="text-xs text-white/90 font-medium leading-tight">{metric.label}</div>
                   </div>
                 )
               })}
@@ -476,23 +503,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Enhanced Features Grid */}
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Professional Construction Platform
+        {/* Simplified Features Section - Mobile-First */}
+        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+                Everything You Need to Build
               </h2>
-              <p className="text-xl text-gray-700 mb-4">
-                Trusted by 10,000+ UK construction professionals
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-3 sm:mb-4">
+                Complete UK construction platform
               </p>
-              <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-bold">
+              <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-3 py-2 rounded-full text-sm font-semibold">
                 <Award className="h-4 w-4" />
-                <span>Industry Leading Technology</span>
+                <span>Trusted by 10,000+ builders</span>
               </div>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {[
                 {
                   icon: <Building className="h-8 w-8" />,
@@ -531,14 +558,14 @@ export default function HomePage() {
                 return (
                   <div 
                     key={index} 
-                    className={`text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 border-2 ${colorClasses.border} animate-construction-build`}
+                    className={`text-center p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border-2 ${colorClasses.border}`}
                     style={{animationDelay: `${index * 150}ms`}}
                   >
-                    <div className={`w-20 h-20 bg-gradient-to-br ${colorClasses.bg} rounded-2xl flex items-center justify-center ${colorClasses.icon} mb-6 mx-auto shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110`}>
+                    <div className={`w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br ${colorClasses.bg} rounded-xl sm:rounded-2xl flex items-center justify-center ${colorClasses.icon} mb-4 sm:mb-6 mx-auto shadow-md transition-all duration-200 hover:scale-105`}>
                       {feature.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{feature.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
                 )
               })}
@@ -558,22 +585,22 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Smart 3-Step Process */}
-        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Build Your Perfect Home in 3 Steps
+        {/* Simplified 3-Step Process - Mobile-First */}
+        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+                How It Works
               </h2>
-              <p className="text-2xl text-gray-600 mb-4">
-                Configure → Review → Build
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-2 sm:mb-4">
+                <span className="font-semibold">Configure → Review → Build</span>
               </p>
-              <p className="text-lg text-blue-600 font-medium">
-                3 minutes to configure, 24-36 months including all approvals and construction
+              <p className="text-sm sm:text-base text-blue-600 font-medium">
+                3 minutes to start, professional results
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-8">
               {[
                 {
                   step: '1',
@@ -607,9 +634,9 @@ export default function HomePage() {
                 }
               ].map((item, index) => (
                 <div key={index} className="relative">
-                  <div className="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-shadow duration-300">
                     <div className="text-center">
-                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center font-bold text-2xl mb-6 mx-auto transform transition-transform hover:scale-110 ${
+                      <div className={`w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl mb-4 sm:mb-6 mx-auto ${
                         item.color === 'blue' ? 'bg-blue-100 text-blue-600' :
                         item.color === 'purple' ? 'bg-purple-100 text-purple-600' :
                         'bg-green-100 text-green-600'
@@ -617,32 +644,19 @@ export default function HomePage() {
                         {item.step}
                       </div>
                       
-                      <div className="text-4xl mb-4 animate-bounce">
+                      <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">
                         {item.icon}
                       </div>
                       
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                      <p className={`font-semibold mb-4 ${
+                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">{item.title}</h3>
+                      <p className={`font-semibold mb-3 sm:mb-4 text-sm sm:text-base ${
                         item.color === 'blue' ? 'text-blue-600' :
                         item.color === 'purple' ? 'text-purple-600' :
                         'text-green-600'
                       }`}>{item.subtitle}</p>
-                      <p className="text-gray-600 leading-relaxed mb-6">{item.description}</p>
+                      <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{item.description}</p>
                       
-                      <div className={`border rounded-xl p-4 mb-4 ${
-                        item.color === 'blue' ? 'bg-blue-50 border-blue-200' :
-                        item.color === 'purple' ? 'bg-purple-50 border-purple-200' :
-                        'bg-green-50 border-green-200'
-                      }`}>
-                        <div className="text-sm text-gray-600 mb-1">Preview:</div>
-                        <div className={`font-medium ${
-                          item.color === 'blue' ? 'text-blue-800' :
-                          item.color === 'purple' ? 'text-purple-800' :
-                          'text-green-800'
-                        }`}>{item.details}</div>
-                      </div>
-                      
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
                         item.color === 'blue' ? 'bg-blue-100 text-blue-800' :
                         item.color === 'purple' ? 'bg-purple-100 text-purple-800' :
                         'bg-green-100 text-green-800'
@@ -652,11 +666,10 @@ export default function HomePage() {
                     </div>
                   </div>
                   
+                  {/* Connect arrow - show only on larger screens */}
                   {index < 2 && (
-                    <div className="hidden md:block absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
-                      <div className="bg-white rounded-full p-2 shadow-lg">
-                        <ArrowRight className="h-6 w-6 text-gray-400" />
-                      </div>
+                    <div className="hidden sm:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                      <ArrowRight className="h-5 w-5 text-gray-400" />
                     </div>
                   )}
                 </div>
@@ -786,46 +799,46 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-20"></div>
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to Start Building Your Home?
+        {/* Simplified CTA Section - Mobile-First */}
+        <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-indigo-600 relative overflow-hidden">
+          <div className="absolute inset-0 bg-black opacity-10"></div>
+          <div className="relative z-10 max-w-3xl mx-auto text-center px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
+              Ready to Start Building?
             </h2>
-            <p className="text-blue-100 text-xl mb-8 leading-relaxed">
-              <AnimatedCounter value="247" animatedStats={animatedStats} /> houses designed today. Start your home building journey.
+            <p className="text-blue-100 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed">
+              Join <AnimatedCounter value="247" animatedStats={animatedStats} /> builders who started today.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 max-w-lg mx-auto">
               <Link 
-                href="/configure/step-1" 
-                className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-2xl"
+                href="/configure" 
+                className="inline-flex items-center justify-center bg-white text-blue-600 font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg text-base sm:text-lg min-h-[52px]"
               >
-                Start Building Your Home
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                Start Building Now
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link 
-                href="/case-studies" 
-                className="inline-flex items-center bg-transparent text-white font-semibold px-8 py-4 rounded-xl border-2 border-white hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105"
+                href="/materials" 
+                className="inline-flex items-center justify-center bg-transparent text-white font-medium px-6 py-3 rounded-xl border-2 border-white hover:bg-white hover:text-blue-600 transition-all duration-300 text-base min-h-[52px]"
               >
-                View Examples
+                See Examples
               </Link>
             </div>
             
-            {/* Trust indicators */}
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-blue-100">
+            {/* Trust indicators - Mobile-friendly */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm text-blue-100">
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                <span>4.8/5 Rating</span>
+                <span>4.8★ Rating</span>
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                <span>£850K+ Platform Savings</span>
+                <span>£850K+ Saved</span>
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                <span>94% On-Time Completion</span>
+                <span>94% On-Time</span>
               </div>
             </div>
             

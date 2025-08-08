@@ -5,6 +5,7 @@
 export * from './Button'
 export * from './Card'
 export * from './Input'
+export * from './AuthModal'
 
 // Utility Components
 export * from './Badge'
@@ -26,6 +27,13 @@ export * from './Footer'
 export * from './LoadingSpinner'
 export * from './ErrorBoundary'
 export * from './ROICalculator'
+
+// New UX Enhancement Components
+export * from './WelcomeFlow'
+export * from './SkeletonLoader'
+export * from './Breadcrumbs'
+export * from './EmptyState'
+export * from './Toast'
 
 // Re-export commonly used component combinations
 export {
@@ -71,8 +79,8 @@ export {
 } from './Progress'
 
 export {
-  // Skeleton variants
-  Skeleton,
+  // Legacy Skeleton variants
+  Skeleton as LegacySkeleton,
   TextSkeleton,
   AvatarSkeleton,
   CardSkeleton,
@@ -112,3 +120,31 @@ export {
   // Layout Components
   Footer
 } from './Footer'
+
+// New UX Enhancement Components
+export {
+  WelcomeFlow
+} from './WelcomeFlow'
+
+export {
+  Skeleton,
+  SkeletonText,
+  SkeletonCard,
+  SkeletonProject,
+  SkeletonDashboard
+} from './SkeletonLoader'
+
+export {
+  Breadcrumbs,
+  useBreadcrumbs,
+  type BreadcrumbItem
+} from './Breadcrumbs'
+
+export {
+  EmptyState
+} from './EmptyState'
+
+export {
+  ToastProvider,
+  useToast
+} from './Toast'

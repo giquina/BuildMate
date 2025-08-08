@@ -1,11 +1,15 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { AnimatedProgressBar } from '@/components/ui/AnimatedProgressBar'
 import { AchievementBadge, defaultAchievements, type Achievement } from '@/components/ui/AchievementBadge'
+import { SkeletonDashboard } from '@/components/ui/SkeletonLoader'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { Breadcrumbs, useBreadcrumbs } from '@/components/ui/Breadcrumbs'
+import { WelcomeFlow } from '@/components/ui/WelcomeFlow'
 import { formatCurrency } from '@/lib/uk-utils'
 import { useUser, useUserProjects } from '@/contexts/UserContext'
 import { 
@@ -293,12 +297,17 @@ const getUpdateIcon = (type: string) => {
 
 export default function DashboardPage() {
   const router = useRouter()
+  const pathname = usePathname()
   const { user, isAuthenticated } = useUser()
   const { projects, isLoading } = useUserProjects()
   
   const [teamUpdates] = useState<TeamUpdate[]>(mockTeamUpdates)
   const [deliveries] = useState<Delivery[]>(mockDeliveries)
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(false)
+  const [isFirstVisit, setIsFirstVisit] = useState(false)
+  
+  const breadcrumbs = useBreadcrumbs(pathname)
 
   // Real-time effects - must be called before any early returns
   useEffect(() => {
@@ -310,6 +319,19 @@ export default function DashboardPage() {
 
     return () => clearInterval(interval)
   }, [])
+  
+  // Check if user is new and should see welcome flow
+  useEffect(() => {
+    if (user && projects) {
+      const hasSeenWelcome = localStorage.getItem(`welcome-seen-${user.id}`)
+      const isNewUser = projects.length === 0 && !hasSeenWelcome
+      
+      if (isNewUser) {
+        setIsFirstVisit(true)
+        setShowWelcome(true)
+      }
+    }
+  }, [user, projects])
   
   // Use first project if available, otherwise fallback to mock
   const project = projects.length > 0 ? {
@@ -343,31 +365,70 @@ export default function DashboardPage() {
     )
   }
 
-  // Show loading state
+  // Show loading state with skeleton
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your projects...</p>
-        </div>
-      </div>
-    )
+    return <SkeletonDashboard />
   }
 
+  const handleWelcomeComplete = () => {
+    setShowWelcome(false)
+    if (user) {
+      localStorage.setItem(`welcome-seen-${user.id}`, 'true')
+    }
+    // Redirect to configure page to start first project
+    router.push('/configure')
+  }
+  
+  const handleWelcomeClose = () => {
+    setShowWelcome(false)
+    if (user) {
+      localStorage.setItem(`welcome-seen-${user.id}`, 'true')
+    }
+  }
+  
   // Show empty state if no projects
-  if (projects.length === 0) {
+  if (projects.length === 0 && !isFirstVisit) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <Home className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">No Projects Yet</h1>
-          <p className="text-gray-600 mb-6">Start your home building journey by creating your first project.</p>
-          <Button onClick={() => router.push('/configure')}>
-            <Plus className="h-4 w-4 mr-2" />
-            Create Your First Project
-          </Button>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <Breadcrumbs items={breadcrumbs} className="mb-6" />
+          
+          <div className="flex items-center justify-center min-h-[calc(100vh-12rem)]">
+            <EmptyState
+              icon={Home}
+              title="Welcome to BuildMate!"
+              description="You don't have any projects yet. Let's start by creating your first project and begin your building journey."
+              actionLabel="Create Your First Project"
+              onAction={() => router.push('/configure')}
+              secondaryActionLabel="Browse Materials"
+              onSecondaryAction={() => router.push('/materials')}
+            >
+              <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
+                <div className="text-center p-4 bg-blue-50 rounded-lg">
+                  <div className="text-2xl mb-2">🏠</div>
+                  <div className="text-sm font-medium text-blue-900">Design</div>
+                  <div className="text-xs text-blue-700">Smart layouts</div>
+                </div>
+                <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <div className="text-2xl mb-2">🛒</div>
+                  <div className="text-sm font-medium text-green-900">Shop</div>
+                  <div className="text-xs text-green-700">Compare prices</div>
+                </div>
+                <div className="text-center p-4 bg-orange-50 rounded-lg">
+                  <div className="text-2xl mb-2">👷</div>
+                  <div className="text-sm font-medium text-orange-900">Build</div>
+                  <div className="text-xs text-orange-700">Find pros</div>
+                </div>
+              </div>
+            </EmptyState>
+          </div>
         </div>
+        
+        <WelcomeFlow 
+          isOpen={showWelcome}
+          onClose={handleWelcomeClose}
+          onComplete={handleWelcomeComplete}
+        />
       </div>
     )
   }
@@ -378,6 +439,9 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header with Real-time Status */}
       <div className="bg-white border-b shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-2">
+          <Breadcrumbs items={breadcrumbs} />
+        </div>
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div>
@@ -420,6 +484,37 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Welcome message for returning users */}
+        {user && projects.length > 0 && (
+          <div className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-blue-900">
+                  Welcome back, {user.name?.split(' ')[0]}! 👋
+                </h2>
+                <p className="text-blue-700 text-sm">
+                  You have {projects.length} active project{projects.length !== 1 ? 's' : ''} in progress.
+                </p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="text-right">
+                  <div className="text-sm font-medium text-blue-900">
+                    {user.subscription === 'free' ? 'Free Plan' : 
+                     user.subscription === 'pro' ? 'Pro Plan' : 'Enterprise Plan'}
+                  </div>
+                  <div className="text-xs text-blue-600">
+                    {user.subscription === 'free' ? 'Upgrade for more features' : 'All features unlocked'}
+                  </div>
+                </div>
+                {user.subscription === 'free' && (
+                  <Button size="sm" onClick={() => router.push('/pricing')}>
+                    Upgrade
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         {projects.length > 1 && (
           <Card className="mb-6">
             <CardHeader>
@@ -833,6 +928,12 @@ export default function DashboardPage() {
             </Card>
           </div>
         </div>
+        
+        <WelcomeFlow 
+          isOpen={showWelcome}
+          onClose={handleWelcomeClose}
+          onComplete={handleWelcomeComplete}
+        />
       </div>
     </div>
   )

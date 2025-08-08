@@ -1,4 +1,4 @@
-# BuildMate AI Development Plan
+# BuildMate AI Development Guide
 
 ## 🚀 Quick Start Development Commands
 

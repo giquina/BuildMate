@@ -17,7 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 BuildMate is a UK-focused construction platform built with Next.js 14, TypeScript, and Tailwind CSS. It provides smart floorplan generation, materials marketplace, and professional networking for both residential and commercial markets. The platform serves homeowners, self-builders, property developers, and now business property owners seeking commercial property optimization.
 
-**IMPORTANT**: All "AI" terminology has been removed from the platform. Use "smart", "intelligent", or "automated" instead to make the platform accessible to general users unfamiliar with AI terminology.
+**IMPORTANT**: The platform officially uses "BuildMate AI" branding to emphasize intelligent automation capabilities. However, user-facing copy should emphasize "smart" and "intelligent" features to make the platform accessible to general users unfamiliar with AI terminology.
 
 ## Commercial B2B Platform Extension
 
@@ -379,62 +379,96 @@ All user personas now benefit from:
 
 ## Comprehensive Agent Hierarchy System
 
-BuildMate now includes a sophisticated 17-agent hierarchy system for enhanced development efficiency (located in `.claude/agents/`):
+BuildMate now includes a sophisticated **72-agent hierarchy system** with 18 parent agents and 54 specialized sub-agents for enhanced development efficiency (located in `.claude/agents/`):
 
 ### Executive Leadership (Tier 1)
 - **product-manager**: Senior Product Manager with oversight of all BuildMate development. Coordinates and delegates to specialized agents to ensure efficient, high-quality delivery of commercial B2B features while maintaining platform integrity.
+  - `stakeholder-liaison`: Stakeholder communication and requirement gathering specialist
+  - `feature-prioritization`: Feature analysis and prioritization specialist
+  - `market-research`: UK commercial real estate market research specialist
 
 ### Strategic Leadership (Tier 2)
 - **system-architecture**: Senior System Architecture agent responsible for technical architecture decisions. Reports to Product Manager and coordinates backend/frontend implementation strategies.
+  - `database-design`: Supabase schema optimization specialist
+  - `api-design`: REST API architecture and integration specialist
+  - `scalability-planning`: System scalability and performance architecture specialist
+
 - **ux-ui-designer**: Senior UX/UI Designer responsible for user experience design leadership, commercial B2B interface design, and conversion optimization.
+  - `user-research`: Construction industry user behavior analysis specialist
+  - `design-systems`: UI component design and brand consistency specialist
+  - `conversion-optimization`: A/B testing and user journey optimization specialist
 
 ### Implementation Teams (Tier 3)
 - **frontend-engineering**: Senior Frontend Engineer specializing in React/Next.js implementation, component architecture, and responsive design.
+  - `component-architecture`: React component systems and reusability specialist
+  - `state-management`: React state, context, and hooks optimization specialist
+  - `responsive-design`: Mobile-first design and cross-device compatibility specialist
+
 - **backend-engineering**: Senior Backend Engineer responsible for API development, database architecture, and server-side functionality.
+  - `api-implementation`: Next.js API routes and backend logic specialist
+  - `database-optimization`: PostgreSQL/Supabase query performance specialist
+  - `third-party-integration`: External API integration and data synchronization specialist
+
 - **security-analyst**: Senior Security Analyst focusing on enterprise-grade security, UK GDPR compliance, and vulnerability assessment.
+  - `authentication-security`: User authentication and access control specialist
+  - `data-protection`: UK GDPR compliance and data encryption specialist
+  - `vulnerability-assessment`: Security testing and penetration analysis specialist
 
 ### Quality & Deployment (Tier 4)
 - **qa-testing**: Senior QA Engineer responsible for comprehensive testing strategies, quality assurance, and validation.
+  - `test-automation`: Automated testing framework and CI/CD testing specialist
+  - `user-acceptance`: Manual testing and user acceptance validation specialist
+  - `performance-testing`: Load testing and performance validation specialist
+
 - **devops**: Senior DevOps Engineer handling deployment automation, CI/CD pipelines, and production environment management.
+  - `ci-cd-automation`: GitHub Actions and deployment automation specialist
+  - `infrastructure-management`: Vercel configuration and environment management specialist
+  - `monitoring-alerts`: Application monitoring and alerting systems specialist
 
-### Specialized Support Agents
-- **ui-specialist**: Visual design expert focusing on Tailwind CSS, component styling, and construction industry aesthetics
-- **ux-specialist**: User experience specialist optimizing user flows, interaction design, and journey optimization
-- **construction-expert**: UK building regulations specialist and industry validation expert
-- **react-code-reviewer**: TypeScript/React code quality reviewer and best practices enforcer
-- **docs-maintainer**: Technical documentation specialist maintaining comprehensive project documentation
-- **performance-optimizer**: Next.js performance optimization expert and bundle analysis specialist
-- **api-validator**: API endpoint validation expert with construction industry business logic expertise
-- **type-checker**: TypeScript type validation specialist and error resolution expert
-- **vercel-deployment-specialist**: Vercel deployment expert ensuring smooth production deployments
+### Specialized Support Agents (18 Total)
+Each specialized support agent now has 3 sub-agents for enhanced delegation:
 
-### Agent Coordination Protocol
+- **ui-specialist**: Visual design expert (3 sub-agents: `tailwind-optimization`, `design-tokens`, `accessibility-compliance`)
+- **ux-specialist**: User experience specialist (3 sub-agents: `user-journey-mapping`, `interaction-design`, `usability-testing`)
+- **construction-expert**: UK building regulations specialist (3 sub-agents: `uk-building-regulations`, `materials-expertise`, `professional-network`)
+- **react-code-reviewer**: TypeScript/React code quality reviewer (3 sub-agents: `code-quality`, `best-practices`, `refactoring-optimization`)
+- **docs-maintainer**: Technical documentation specialist (3 sub-agents: `technical-writing`, `api-documentation`, `user-guides`)
+- **performance-optimizer**: Next.js performance optimization expert (3 sub-agents: `bundle-optimization`, `loading-performance`, `runtime-optimization`)
+- **api-validator**: API endpoint validation expert (3 sub-agents: `endpoint-testing`, `data-validation`, `integration-testing`)
+- **type-checker**: TypeScript type validation specialist (3 sub-agents: `type-definitions`, `error-resolution`, `domain-modeling`)
+- **vercel-deployment-specialist**: Vercel deployment expert (3 sub-agents: `deployment-automation`, `environment-configuration`, `build-optimization`)
+- **ui-ux-specialist**: Deprecated UI/UX specialist (3 sub-agents for completeness)
 
-#### Hierarchical Delegation
+### Advanced Agent Coordination Protocol
+
+#### Hierarchical Delegation with Sub-Agent Support
 1. **Product Manager** provides strategic oversight and delegates to Tier 2 agents
-2. **System Architecture** and **UX/UI Designer** coordinate Tier 3 implementation teams
-3. **Implementation Teams** execute development tasks under strategic guidance
-4. **Quality & Deployment** teams validate and deploy completed work
-5. **Specialized Support** agents provide domain expertise as needed
+2. **Parent Agents** can delegate specialized tasks to their 3 sub-agents for expert-level execution
+3. **Sub-Agents** handle narrow-focus tasks without requiring broad oversight
+4. **Cross-Agent Coordination** enables complex features requiring multiple specializations
+5. **Quality Assurance Flow** includes sub-agent validation and parent agent review
 
-#### Task Assignment Strategy
-- **Complex Features**: Product Manager delegates to System Architecture for technical planning
-- **User Experience**: UX/UI Designer leads interface and journey optimization
-- **Implementation**: Frontend/Backend Engineering execute under architectural guidance
-- **Security Requirements**: Security Analyst provides ongoing validation and compliance
-- **Specialized Needs**: Support agents provide targeted expertise (UI design, performance, etc.)
+#### Enhanced Task Assignment Strategy
+- **Complex Features**: Product Manager → System Architecture → Database Design + API Design + Scalability Planning
+- **User Experience**: UX/UI Designer → User Research + Design Systems + Conversion Optimization
+- **Implementation**: Engineering teams delegate to component, state, and responsive design specialists
+- **Quality Assurance**: QA delegates to automation, acceptance, and performance testing specialists
+- **Specialized Tasks**: Each parent agent leverages 3 sub-agents for expert-level execution
 
-#### Quality Assurance Flow
-1. All implementations reviewed by appropriate Tier 3 agents
-2. QA Testing validates functionality and integration
-3. Security Analyst ensures enterprise-grade protection
-4. DevOps handles deployment and monitoring
-5. Product Manager provides final approval
+#### Sub-Agent Specialization Benefits
+- **54 Domain Experts** available for immediate delegation
+- **Parallel Task Processing** through specialized sub-agent assignment
+- **Higher Quality Outputs** from narrow-focus domain expertise
+- **Efficient Resource Allocation** through hierarchical task distribution
+- **Construction Industry Expertise** built into every sub-agent
 
 ### Agent Activation Status
-**Status**: All 17 agents are active and available for immediate delegation
-**Coordination**: Hierarchical system ensures efficient task distribution and quality delivery
-**Specialization**: Each agent has clearly defined expertise and responsibilities
+**Total System**: 72 agents (18 parent + 54 sub-agents) active and operational
+**Parent Agents**: 18 strategic and specialized agents for high-level coordination
+**Sub-Agents**: 54 highly specialized experts for focused task execution
+**Coordination**: Multi-tier hierarchical system with efficient delegation patterns
+**Specialization**: Construction industry and UK market expertise across all agents
+**Documentation**: Comprehensive sub-agent system documentation in `.claude/agents/sub-agents/README.md`
 
 ## Slash Commands Available
 
@@ -649,7 +683,7 @@ For development and testing, the system includes built-in demo credentials:
 ## Deployment & Production
 
 ### Vercel Deployment
-- **Production URL**: https://buildmate-ai.vercel.app
+- **Production URL**: https://build-mate-mu.vercel.app
 - **Repository**: https://github.com/giquina/BuildMate
 - **Auto-deployment**: Enabled from `main` branch
 - **Environment Variables**: Configured for all environments
@@ -687,6 +721,11 @@ src/app/api/
 │   ├── budget-optimize/      # Cost optimization algorithms
 │   ├── recommend-materials/  # Material recommendation engine
 │   └── predict-costs/        # UK construction cost prediction
+├── commercial/               # Commercial B2B platform APIs
+│   ├── property-assessment/  # Business property evaluation
+│   ├── roi-calculation/      # ROI and energy savings calculations
+│   ├── solutions/           # Commercial optimization recommendations
+│   └── pricing/             # Commercial subscription tiers
 ```
 
 ### API Design Patterns
@@ -694,6 +733,18 @@ src/app/api/
 - UK construction industry specific algorithms and data
 - Proper error handling with construction context
 - Mock data for development, real APIs for production integration
+
+### Commercial B2B API Endpoints
+- **`POST /api/commercial/property-assessment`**: Evaluate business property energy efficiency and optimization potential
+- **`POST /api/commercial/roi-calculation`**: Calculate ROI projections for commercial property improvements
+- **`GET /api/commercial/solutions`**: Fetch optimization recommendations by property type and goals
+- **`GET /api/commercial/pricing`**: Retrieve commercial subscription tiers and pricing
+
+### Active API Integrations
+- **Replicate SDXL**: Live image generation for architectural renders (~£0.002 per image)
+- **Supabase**: Database integration (configured but using mock data for development)
+- **Stripe**: Payment processing (configured but not active)
+- **OpenAI**: Smart floorplan generation (mocked for development)
 
 ## Future Development Areas
 
@@ -734,10 +785,11 @@ const { onMount, measureOperation } = usePerformanceMonitoring('ComponentName')
 ```
 
 ### Terminology Guidelines
-- **Never use**: "AI", "ai-powered", "ai-generated", "artificial intelligence"
-- **Always use**: "smart", "intelligent", "automated", "advanced"
-- **Function names**: `generateSmartSuggestions`, `smartInsights`, `smartSuggestion`
-- **Branding**: "BuildMate" (not "BuildMate AI")
+- **Platform Branding**: "BuildMate AI" (official brand name)
+- **User-Facing Features**: Emphasize "smart", "intelligent", "automated", "advanced"
+- **Marketing Copy**: "AI-powered", "AI-generated", "AI insights" for technical accuracy
+- **Function Names**: `generateAISuggestions`, `aiInsights`, `aiRecommendation` (technical precision)
+- **Navigation & Headers**: "BuildMate AI" for brand consistency
 
 ### Authentication Hook Usage
 The authentication system uses custom hooks with proper dependency management:

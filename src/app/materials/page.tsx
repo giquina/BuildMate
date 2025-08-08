@@ -809,11 +809,9 @@ export default function MaterialsPage() {
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <img 
-                        src={`https://via.placeholder.com/24x24?text=${material.supplier.name[0]}`}
-                        alt={material.supplier.name}
-                        className="w-6 h-6 rounded"
-                      />
+                      <div className="w-6 h-6 rounded bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-blue-700 font-semibold text-xs">
+                        {material.supplier.name[0]}
+                      </div>
                       <span className="font-medium text-gray-900">{material.supplier.name}</span>
                       <div className="flex items-center gap-1">
                         <Star className="h-3 w-3 text-yellow-400" />

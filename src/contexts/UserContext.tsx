@@ -152,6 +152,26 @@ export function UserProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  const updatePreferences = async (preferences: Partial<User['preferences']>) => {
+    if (!user) throw new Error('No user logged in')
+    
+    setIsLoading(true)
+    
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setUser({ 
+          ...user, 
+          preferences: { 
+            ...user.preferences, 
+            ...preferences 
+          }
+        })
+        setIsLoading(false)
+        resolve()
+      }, 300)
+    })
+  }
+
   const value: UserSession = {
     user,
     isLoading,
@@ -159,7 +179,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
     login,
     register,
     logout,
-    updateProfile
+    updateProfile,
+    updatePreferences
   }
 
   return (

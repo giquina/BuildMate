@@ -10,8 +10,8 @@ Transform your home building dreams into reality with AI-powered floorplan gener
 
 ```bash
 # 1. Clone and enter the project
-git clone https://github.com/giquina/BuildMate-AI.git
-cd BuildMate-AI
+git clone https://github.com/giquina/BuildMate.git
+cd BuildMate
 
 # 2. Install dependencies
 npm install
@@ -26,15 +26,15 @@ npm run dev
 # 5. Open http://localhost:3000 and start building! 🎉
 ```
 
-## 🏗️ What is BuildMate?
+## 🏗️ What is BuildMate AI?
 
 BuildMate AI is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
 
-- **🧠 AI Floorplan Generation**: Describe your dream home and get professional-grade layouts
-- **🏠 AI Image Generation**: Create realistic home renders powered by Replicate + SDXL
+- **🧠 Smart Floorplan Generation**: Describe your dream home and get professional-grade layouts
+- **🏠 Smart Image Generation**: Create realistic home renders powered by Replicate + SDXL
 - **🛒 Materials Marketplace**: Shop from Travis Perkins, Wickes, B&Q - all in one cart
 - **👷 Verified Professionals**: Connect with rated builders, architects, and tradespeople
-- **📋 AI Planning Assistance**: Navigate UK building regulations and planning permission
+- **📋 Smart Planning Assistance**: Navigate UK building regulations and planning permission
 - **💰 Smart Budgeting**: Optimize costs with bulk purchasing and regional pricing
 
 ## 🛠️ Development Commands
@@ -65,7 +65,7 @@ npm run type-check && npm run lint && npm run build
 ## 📁 Project Structure
 
 ```
-BuildMate-AI/
+BuildMate/
 ├── src/
 │   ├── app/                 # Next.js App Router pages
 │   │   ├── layout.tsx       # Root layout with navigation
@@ -95,17 +95,24 @@ BuildMate-AI/
 
 ## 🎯 Key Features
 
-### AI Configuration System
-- **AI-Powered Questionnaire**: Dynamically adapts based on user responses
+### Smart Configuration System
+- **Smart Questionnaire**: Dynamically adapts based on user responses
 - **UK Property Types**: Detached, semi-detached, terraced, bungalow, flat, cottage
 - **Architectural Styles**: Victorian, Edwardian, Georgian, Modern, Contemporary
 - **Regional Pricing**: London vs. regional cost variations
 
-### Live AI Image Generation
+### Live Smart Image Generation
 - **Replicate + SDXL Integration**: Professional architectural rendering
 - **Cost**: ~£0.002 per image (very affordable)
 - **Quality**: Professional photography quality, 1024x768px
 - **Real-time Generation**: 4 style options generated in parallel
+
+### User Authentication System
+- **Mock Authentication**: Full user system with demo credentials (`demo@buildmate.co.uk` / `demo123`)
+- **User Accounts**: Profile management, settings, and preferences
+- **Project Management**: User-specific projects with progress tracking
+- **Wishlist**: Save materials and professionals across sessions
+- **Subscription Tiers**: Free, Pro, and Enterprise with feature differentiation
 
 ### UK Construction Focus
 - **Building Regulations**: Current UK compliance requirements
@@ -120,16 +127,17 @@ BuildMate-AI/
 - **Styling**: Tailwind CSS with custom design system
 - **UI Components**: Custom component library
 - **API**: Next.js API routes for backend functionality
-- **AI Integration**: Replicate (active), OpenAI (mocked), Supabase, Stripe
+- **Smart Integration**: Replicate (active), OpenAI (mocked), Supabase, Stripe
 - **Performance**: Custom React hooks with stable references
 
 ## 📝 Code Conventions
 
 ### Terminology Guidelines
 - **Platform Branding**: "BuildMate AI" (official platform name)
-- **Feature Naming**: "AI-powered", "AI-generated", "AI insights"
-- **Function names**: `generateAISuggestions`, `aiInsights`, `aiRecommendation`
-- **Marketing Copy**: Emphasize AI capabilities and intelligent automation
+- **Feature Naming**: "AI-powered", "AI-generated", "AI insights" (technical accuracy)
+- **User-Facing Copy**: Emphasize "smart", "intelligent", "automated" for accessibility
+- **Function Names**: `generateAISuggestions`, `aiInsights`, `aiRecommendation`
+- **Marketing Copy**: Balance AI capabilities with user-friendly smart terminology
 
 ### File Naming
 - **Components**: `PascalCase.tsx` (e.g., `AnimatedProgressBar.tsx`)
@@ -152,8 +160,8 @@ BuildMate-AI/
 ## 🌐 Deployment
 
 ### Vercel Deployment
-- **Production URL**: https://buildmate-ai.vercel.app
-- **Repository**: https://github.com/giquina/BuildMate-AI
+- **Production URL**: https://build-mate-mu.vercel.app
+- **Repository**: https://github.com/giquina/BuildMate
 - **Auto-deployment**: Enabled from `main` branch
 
 ### Environment Variables
@@ -212,17 +220,19 @@ perf: Optimize bundle size with simplified webpack config
 
 ### Getting Help
 - Check [CLAUDE.md](./CLAUDE.md) for comprehensive development guidance
-- Review [GitHub Issues](https://github.com/giquina/BuildMate-AI/issues)
-- Join [GitHub Discussions](https://github.com/giquina/BuildMate-AI/discussions)
+- Review [GitHub Issues](https://github.com/giquina/BuildMate/issues)
+- Join [GitHub Discussions](https://github.com/giquina/BuildMate/discussions)
 
 ## 📊 Project Status
 
 - **Current Version**: 0.1.0
-- **Framework**: Next.js 14.2.30
+- **Framework**: Next.js 14+ with App Router
 - **Node Version**: 20+
 - **Build Status**: ✅ Stable
 - **Deployment**: ✅ Auto-deployed to Vercel
 - **Performance**: ✅ Optimized (bundle size < 200kb)
+- **API Status**: ✅ Replicate image generation active, other APIs mocked
+- **Authentication**: ✅ Mock authentication with demo credentials
 
 ## 🎯 Industry Focus
 
@@ -263,7 +273,7 @@ Users can seamlessly switch between:
 ## 🤖 AI-Powered Development
 
 ### 17-Agent Development Hierarchy
-BuildMate AI utilizes a sophisticated 17-agent AI system for enhanced development:
+BuildMate AI utilizes a sophisticated 17-agent smart development system for enhanced project management:
 
 #### Executive & Strategic (Tiers 1-2)
 - **product-manager**: Executive oversight and coordination
