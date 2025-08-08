@@ -1205,18 +1205,93 @@ export default function ProfessionalsPage() {
           </div>
         )}
 
-        {/* Other Tab Placeholders */}
-        {selectedTab !== 'team' && (
+        {/* Calendar Tab - Professional Booking System */}
+        {selectedTab === 'calendar' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <CalendarDays className="h-6 w-6 mr-2" />
+                  Professional Scheduling & Booking
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {assignedTeam.map((member) => (
+                    <div key={member.id} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center mb-3">
+                        <img 
+                          src={member.profileImage} 
+                          alt={member.name}
+                          className="w-12 h-12 rounded-full object-cover mr-3"
+                        />
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{member.name}</h4>
+                          <p className="text-sm text-gray-600">{member.role}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">Next Available:</span>
+                          <span className="font-medium">Feb 15, 2024</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">Response Time:</span>
+                          <span className="font-medium">2-4 hours</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">Working Hours:</span>
+                          <span className="font-medium">8AM - 5PM</span>
+                        </div>
+                        
+                        <div className="space-y-2 pt-2">
+                          <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white text-sm py-2">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            Book Site Visit
+                          </Button>
+                          <Button variant="outline" className="w-full text-sm py-2">
+                            <Clock className="h-4 w-4 mr-2" />
+                            Schedule Call
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Booking Calendar Widget */}
+                <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+                  <h4 className="font-semibold text-gray-900 mb-4">Team Availability This Week</h4>
+                  <div className="grid grid-cols-7 gap-2">
+                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+                      <div key={day} className="text-center">
+                        <div className="text-sm font-medium text-gray-700 mb-2">{day}</div>
+                        <div className={`p-2 rounded ${index < 5 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                          <div className="text-xs">
+                            {index < 5 ? 'Available' : 'Weekend'}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Messages Tab */}
+        {selectedTab === 'messages' && (
           <Card>
             <CardContent className="p-8 text-center">
               <div className="text-gray-500">
-                <Calendar className="h-16 w-16 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">
-                  {selectedTab === 'calendar' && 'Team Calendar & Scheduling'}
-                  {selectedTab === 'performance' && 'Performance Analytics'}
-                  {selectedTab === 'communication' && 'Team Communication Hub'}
-                </h3>
-                <p>This feature is coming soon. Your team coordination tools will be available here.</p>
+                <MessageSquare className="h-16 w-16 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Team Communication Hub</h3>
+                <p className="mb-4">Direct messaging with your professional team</p>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white">
+                  Start Group Chat
+                </Button>
               </div>
             </CardContent>
           </Card>

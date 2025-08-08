@@ -126,6 +126,21 @@ interface ProjectMaterial {
   professionalEndorsements: ProfessionalEndorsement[]
   projectShowcases: ProjectShowcase[]
   recommendedWith: string[]
+  // UK-specific properties
+  vatRate: number
+  regionalPricing: {
+    london: number
+    southeast: number
+    midlands: number
+    north: number
+    scotland: number
+    wales: number
+  }
+  tradeDiscount: {
+    available: boolean
+    percentage: number
+    minOrderValue: number
+  }
 }
 
 interface DeliveryPhase {
@@ -139,13 +154,13 @@ interface DeliveryPhase {
 const projectMaterials: ProjectMaterial[] = [
   {
     id: '1',
-    name: 'Premium Softwood Frame Kit',
-    description: 'Complete structural framing package - C24 grade kiln dried timber',
+    name: 'Premium Softwood Frame Kit - C24 Grade',
+    description: 'Complete structural framing package - C24 grade kiln dried timber, FSC certified',
     room: 'Structural',
     phase: 'Foundation & Frame',
     quantity: 45,
-    unitPrice: 6.99,
-    totalPrice: 314.55,
+    unitPrice: 8.99, // Realistic 2024 UK timber prices
+    totalPrice: 404.55,
     unit: 'pieces',
     supplier: {
       name: 'Travis Perkins',
@@ -155,18 +170,18 @@ const projectMaterials: ProjectMaterial[] = [
     },
     delivery: {
       scheduledDate: '2024-02-15',
-      window: '8:00-12:00',
+      window: '7:00-16:00', // Full day delivery for timber
       status: 'scheduled',
       trackingNumber: 'TP2024021501'
     },
     quality: {
-      certification: 'FSC Certified',
+      certification: 'FSC Certified • CE Marked • BS EN 14081-1',
       sustainabilityRating: 'A+',
-      warranty: '10 year structural'
+      warranty: '10 year structural guarantee'
     },
     imageUrl: '/materials/premium-timber.jpg',
     alternatives: 3,
-    savings: 85.50,
+    savings: 125.50,
     usedInProjects: 847,
     customerSatisfaction: 95,
     successRate: 98,
@@ -176,17 +191,31 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: ['Structural Adhesive', 'Galvanised Brackets', 'Building Paper'],
+    vatRate: 0.20, // 20% VAT on materials
+    regionalPricing: {
+      london: 1.35, // +35% for London
+      southeast: 1.15, // +15% for South East
+      midlands: 1.0, // Baseline
+      north: 0.9, // -10% for North
+      scotland: 0.85, // -15% for Scotland
+      wales: 0.88 // -12% for Wales
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 12,
+      minOrderValue: 500
+    }
   },
   {
     id: '2',
-    name: 'Ibstock Heritage Brick Collection',
-    description: 'Handmade traditional red multi - selected for character match',
+    name: 'Ibstock Heritage Brick Collection - Red Multi',
+    description: 'Handmade traditional red multi brick, 215x102.5x65mm, Class A engineering brick',
     room: 'Exterior',
     phase: 'Foundation & Frame',
     quantity: 2400,
-    unitPrice: 0.92,
-    totalPrice: 2208.00,
+    unitPrice: 1.25, // Realistic 2024 brick prices
+    totalPrice: 3000.00,
     unit: 'bricks',
     supplier: {
       name: 'Wickes',
@@ -197,16 +226,18 @@ const projectMaterials: ProjectMaterial[] = [
     delivery: {
       scheduledDate: '2024-02-18',
       window: '7:00-16:00',
-      status: 'scheduled'
+      status: 'scheduled',
+      trackingNumber: 'WX2024021802'
     },
     quality: {
-      certification: 'Made in Britain',
+      certification: 'Made in Britain • BS EN 771-1 • CE Marked',
       sustainabilityRating: 'A',
-      warranty: '50 year frost resistance'
+      warranty: '50 year frost resistance guarantee'
     },
     imageUrl: '/materials/heritage-brick.jpg',
     alternatives: 5,
     upgradePrice: 145.00,
+    savings: 240.00,
     usedInProjects: 234,
     customerSatisfaction: 92,
     successRate: 96,
@@ -216,7 +247,21 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: ['Mortar Mix', 'DPC Course', 'Wall Ties'],
+    vatRate: 0.20,
+    regionalPricing: {
+      london: 1.42, // +42% for London (higher for specialist bricks)
+      southeast: 1.18,
+      midlands: 1.0,
+      north: 0.88,
+      scotland: 0.82,
+      wales: 0.85
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 8,
+      minOrderValue: 1000
+    }
   },
   {
     id: '3',
@@ -255,7 +300,21 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: ['Vapour Barrier', 'Thermal Bridge Tape', 'Wall Ties'],
+    vatRate: 0.20,
+    regionalPricing: {
+      london: 1.28,
+      southeast: 1.12,
+      midlands: 1.0,
+      north: 0.92,
+      scotland: 0.88,
+      wales: 0.90
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 15,
+      minOrderValue: 750
+    }
   },
   {
     id: '4',
@@ -408,12 +467,30 @@ export default function MaterialsPage() {
   const [selectedPhase, setSelectedPhase] = useState('all')
   const [showAlternatives, setShowAlternatives] = useState<string | null>(null)
   const [expandedMaterial, setExpandedMaterial] = useState<string | null>(null)
+  const [selectedRegion, setSelectedRegion] = useState<'london' | 'southeast' | 'midlands' | 'north' | 'scotland' | 'wales'>('midlands')
+  const [showVatInclusive, setShowVatInclusive] = useState(true)
   // const { onMount, measureOperation } = usePerformanceMonitoring('MaterialsPage')
+
+  // Calculate regional and VAT-adjusted pricing
+  const calculateAdjustedPrice = useCallback((material: ProjectMaterial) => {
+    const regionalMultiplier = material.regionalPricing[selectedRegion]
+    const basePrice = material.totalPrice * regionalMultiplier
+    const vatAmount = basePrice * material.vatRate
+    return {
+      basePrice,
+      vatAmount,
+      totalPrice: showVatInclusive ? basePrice + vatAmount : basePrice,
+      tradeDiscountAmount: material.tradeDiscount.available ? basePrice * (material.tradeDiscount.percentage / 100) : 0
+    }
+  }, [selectedRegion, showVatInclusive])
 
   // Memoized calculations for better performance
   const totalCost = useMemo(() => 
-    projectMaterials.reduce((sum, material) => sum + material.totalPrice, 0), 
-    [projectMaterials]
+    projectMaterials.reduce((sum, material) => {
+      const adjusted = calculateAdjustedPrice(material)
+      return sum + adjusted.totalPrice
+    }, 0), 
+    [projectMaterials, calculateAdjustedPrice]
   )
   
   const totalSavings = useMemo(() => 
@@ -549,16 +626,48 @@ export default function MaterialsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
           <h2 className="text-2xl font-bold text-gray-900">Materials Selected for Your Project</h2>
-          <Button 
-            variant="outline" 
-            onClick={() => handleRouterPush('/configure')}
-            className="border-blue-600 text-blue-600 hover:bg-blue-50"
-          >
-            <Settings className="h-4 w-4 mr-2" />
-            Modify Project
-          </Button>
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Regional Pricing Selector */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">Region:</label>
+              <select
+                value={selectedRegion}
+                onChange={(e) => setSelectedRegion(e.target.value as any)}
+                className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+              >
+                <option value="london">London (+35%)</option>
+                <option value="southeast">South East (+15%)</option>
+                <option value="midlands">Midlands (baseline)</option>
+                <option value="north">North (-10%)</option>
+                <option value="scotland">Scotland (-15%)</option>
+                <option value="wales">Wales (-12%)</option>
+              </select>
+            </div>
+
+            {/* VAT Toggle */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={showVatInclusive}
+                  onChange={(e) => setShowVatInclusive(e.target.checked)}
+                  className="mr-2"
+                />
+                Include VAT (20%)
+              </label>
+            </div>
+
+            <Button 
+              variant="outline" 
+              onClick={() => handleRouterPush('/configure')}
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Modify Project
+            </Button>
+          </div>
         </div>
 
         {/* Phase Filter */}
@@ -582,26 +691,61 @@ export default function MaterialsPage() {
 
         {/* Materials Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          {filteredMaterials.map((material) => (
-            <Card key={material.id} className="hover:shadow-lg transition-all duration-200">
-              <CardContent className="p-4 sm:p-6">
-                {/* Material Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3 sm:gap-0">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-gray-900">{material.name}</h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(material.supplier.status)}`}>
-                        {material.supplier.status}
-                      </span>
+          {filteredMaterials.map((material) => {
+            const adjustedPricing = calculateAdjustedPrice(material)
+            
+            return (
+              <Card key={material.id} className="hover:shadow-lg transition-all duration-200">
+                <CardContent className="p-4 sm:p-6">
+                  {/* Material Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3 sm:gap-0">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-gray-900">{material.name}</h3>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(material.supplier.status)}`}>
+                          {material.supplier.status}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-2">{material.description}</p>
+                      <div className="text-xs text-gray-500">{material.room} • {material.phase}</div>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{material.description}</p>
-                    <div className="text-xs text-gray-500">{material.room} • {material.phase}</div>
+                    <div className="text-left sm:text-right">
+                      <div className="space-y-1">
+                        <div className="font-bold text-lg text-gray-900">
+                          {formatCurrency(adjustedPricing.totalPrice)}
+                        </div>
+                        {showVatInclusive && adjustedPricing.vatAmount > 0 && (
+                          <div className="text-xs text-gray-500">
+                            (inc. £{adjustedPricing.vatAmount.toFixed(2)} VAT)
+                          </div>
+                        )}
+                        <div className="text-xs text-gray-500">{material.quantity} {material.unit}</div>
+                        {selectedRegion !== 'midlands' && (
+                          <div className="text-xs text-blue-600 font-medium">
+                            {selectedRegion.charAt(0).toUpperCase() + selectedRegion.slice(1)} pricing
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-left sm:text-right">
-                    <div className="font-bold text-lg text-gray-900">{formatCurrency(material.totalPrice)}</div>
-                    <div className="text-xs text-gray-500">{material.quantity} {material.unit}</div>
-                  </div>
-                </div>
+
+                  {/* Regional & Trade Pricing Info */}
+                  {(material.tradeDiscount.available || selectedRegion !== 'midlands') && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                      <div className="flex items-center justify-between text-sm">
+                        {selectedRegion !== 'midlands' && (
+                          <div className="text-blue-800">
+                            Regional adjustment: {((material.regionalPricing[selectedRegion] - 1) * 100).toFixed(0)}%
+                          </div>
+                        )}
+                        {material.tradeDiscount.available && (
+                          <div className="text-green-700">
+                            Trade discount: -{material.tradeDiscount.percentage}% available
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                 {/* Quality & Sustainability Badges */}
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight, ArrowLeft, Check, Users, Package, Calendar, PoundSterling, MapPin, Home, Star, Clock, Truck, Phone, MessageCircle, Download, Share2, CreditCard, Save, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Check, Users, Package, Calendar, PoundSterling, MapPin, Home, Star, Clock, Truck, Phone, MessageCircle, Download, Share2, CreditCard, Save, Sparkles, FileText, AlertTriangle, Shield, Award, Zap, Scale, Calculator, TrendingUp, BadgeCheck } from 'lucide-react'
 
 export default function ReviewPage() {
   const [isLoading, setIsLoading] = useState(true)
@@ -34,41 +34,72 @@ export default function ReviewPage() {
     house: {
       title: 'Your 3-Bedroom Modern Home',
       location: 'Birmingham, UK',
+      postcode: 'B15 2TT',
       bedrooms: 3,
       bathrooms: 2,
       style: 'Modern Contemporary',
-      features: ['Home Office', 'Garage', 'Smart Home Integration']
+      floorArea: 135, // m²
+      plotSize: 250, // m²
+      features: ['Home Office', 'Garage', 'Smart Home Integration'],
+      planning: {
+        required: true,
+        type: 'Full Application',
+        estimatedTime: '8-12 weeks',
+        cost: 462 // Planning application fee
+      },
+      buildingRegs: {
+        required: true,
+        type: 'Full Plans Application',
+        estimatedTime: '5-8 weeks',
+        cost: 1200
+      }
     },
     team: [
       {
         name: 'James Mitchell',
-        role: 'Lead Builder',
+        role: 'Lead Builder & Project Manager',
         rating: 4.9,
         reviews: 127,
         image: '👷‍♂️',
         specialty: 'New Build Construction',
         experience: '12 years',
-        message: 'Excited to build your dream home!'
+        message: 'Excited to build your dream home!',
+        certifications: ['CITB Site Management Safety Training', 'CSCS Gold Card', 'FMB Member'],
+        insurance: '£2M Public Liability',
+        nextAvailable: '2024-03-15',
+        phone: '0121 555 0123',
+        verified: true
       },
       {
-        name: 'Sarah Cooper',
-        role: 'Project Manager',
+        name: 'Sarah Thompson',
+        role: 'NICEIC Approved Electrician',
         rating: 5.0,
-        reviews: 89,
-        image: '👩‍💼',
-        specialty: 'Project Coordination',
-        experience: '8 years',
-        message: 'I\'ll handle all permits and coordination'
+        reviews: 203,
+        image: '⚡',
+        specialty: 'Electrical Installation & Smart Home',
+        experience: '10 years',
+        message: 'I\'ll handle all electrical work and smart systems',
+        certifications: ['NICEIC Approved Contractor', '18th Edition', 'Part P Qualified'],
+        insurance: '£2M Public Liability + £10M Employers Liability',
+        nextAvailable: '2024-03-20',
+        phone: '0121 555 0456',
+        verified: true
       },
       {
-        name: 'David Park',
-        role: 'Architect',
+        name: 'Michael Chen',
+        role: 'Gas Safe Heating Engineer',
         rating: 4.8,
         reviews: 156,
-        image: '👨‍💼',
-        specialty: 'Modern Design',
-        experience: '15 years',
-        message: 'Your design is exceptional!'
+        image: '🔥',
+        specialty: 'Central Heating & Boiler Installation',
+        experience: '8 years',
+        message: 'Modern heating system with 10-year warranty!',
+        certifications: ['Gas Safe Registered', 'OFTEC Registered', 'Unvented Systems'],
+        insurance: '£2M Public Liability',
+        nextAvailable: '2024-04-01',
+        phone: '0121 555 0789',
+        verified: true,
+        gaseSafeNumber: '123456'
       }
     ],
     materials: {
@@ -88,24 +119,87 @@ export default function ReviewPage() {
       totalWeeks: 78,
       moveInDate: 'March 15, 2026',
       phases: [
-        { name: 'Planning & Permits', weeks: 8, status: 'upcoming' },
-        { name: 'Foundation', weeks: 12, status: 'upcoming' },
-        { name: 'Structure & Roofing', weeks: 16, status: 'upcoming' },
-        { name: 'Electrical & Plumbing', weeks: 14, status: 'upcoming' },
-        { name: 'Interior & Finishes', weeks: 20, status: 'upcoming' },
-        { name: 'Final Inspection', weeks: 8, status: 'upcoming' }
+        { 
+          name: 'Planning Permission & Building Regs', 
+          weeks: 12, 
+          status: 'upcoming',
+          details: ['Submit planning application', 'Building regulations approval', 'Structural calculations'],
+          cost: 1662,
+          weatherDependent: false
+        },
+        { 
+          name: 'Site Preparation & Foundation', 
+          weeks: 8, 
+          status: 'upcoming',
+          details: ['Site survey', 'Excavation', 'Concrete foundation', 'DPC installation'],
+          cost: 28500,
+          weatherDependent: true
+        },
+        { 
+          name: 'Structure & Roofing', 
+          weeks: 12, 
+          status: 'upcoming',
+          details: ['Timber frame', 'First fix roof', 'Wall construction', 'Roof covering'],
+          cost: 45200,
+          weatherDependent: true
+        },
+        { 
+          name: 'First Fix Services', 
+          weeks: 6, 
+          status: 'upcoming',
+          details: ['Electrical first fix', 'Plumbing first fix', 'Central heating', 'Insulation'],
+          cost: 18750,
+          weatherDependent: false
+        },
+        { 
+          name: 'Plastering & Dry Lining', 
+          weeks: 4, 
+          status: 'upcoming',
+          details: ['Internal walls', 'Ceiling finish', 'Skim coat', 'Drying time'],
+          cost: 8900,
+          weatherDependent: false
+        },
+        { 
+          name: 'Second Fix & Finishes', 
+          weeks: 10, 
+          status: 'upcoming',
+          details: ['Kitchen installation', 'Bathroom fit-out', 'Flooring', 'Decorating'],
+          cost: 32400,
+          weatherDependent: false
+        },
+        { 
+          name: 'Final Fix & Commissioning', 
+          weeks: 3, 
+          status: 'upcoming',
+          details: ['Final electrical tests', 'Boiler commissioning', 'Building control final inspection', 'Snagging'],
+          cost: 2500,
+          weatherDependent: false
+        }
       ]
     },
     investment: {
-      totalCost: 187450,
-      originalBudget: 200000,
-      savings: 12550,
+      totalCost: 283912, // Realistic UK new build cost (135m² × £2,100/m²)
+      originalBudget: 300000,
+      savings: 16088,
+      costPerSqM: 2103, // £/m²
       breakdown: [
-        { item: 'Materials', cost: 166000 },
-        { item: 'Labour', cost: 15450 },
-        { item: 'Permits & Fees', cost: 4200 },
-        { item: 'Project Management', cost: 1800 }
-      ]
+        { item: 'Materials & Supplies', cost: 136512, vat: 27302, description: 'Standard VAT rate 20%' },
+        { item: 'Labour Costs', cost: 89250, vat: 0, description: 'Zero-rated for new build' },
+        { item: 'Professional Services', cost: 15450, vat: 3090, description: 'Architects, engineers, surveys' },
+        { item: 'Planning & Building Control', cost: 4200, vat: 0, description: 'Local authority fees' },
+        { item: 'Project Management', cost: 8500, vat: 1700, description: 'Site supervision & coordination' },
+        { item: 'Contingency Fund', cost: 12000, vat: 0, description: '5% contingency for variations' }
+      ],
+      vatSummary: {
+        zeroRated: 113950, // New build elements
+        standardRated: 137862, // Materials and services
+        totalVAT: 27572
+      },
+      regionalAdjustment: {
+        location: 'Birmingham',
+        multiplier: 0.95, // 5% below national average
+        note: 'London typically 30-50% higher, Scotland/Wales 10-20% lower'
+      }
     }
   }
 
@@ -280,16 +374,36 @@ export default function ReviewPage() {
                     <p className="text-blue-600 font-medium">{member.role}</p>
                   </div>
                   
-                  {/* Rating like ride-sharing */}
+                  {/* Rating with verification */}
                   <div className="flex items-center justify-center mb-3">
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
                     <span className="ml-1 font-semibold">{member.rating}</span>
                     <span className="text-gray-500 text-sm ml-1">({member.reviews} reviews)</span>
+                    {member.verified && (
+                      <BadgeCheck className="h-4 w-4 text-blue-600 ml-2" />
+                    )}
                   </div>
                   
                   <div className="text-center space-y-2 mb-4">
                     <div className="text-sm text-gray-600">{member.specialty}</div>
                     <div className="text-sm text-gray-600">{member.experience} experience</div>
+                    <div className="text-xs text-green-600 font-medium">{member.insurance}</div>
+                  </div>
+
+                  {/* UK Certifications */}
+                  <div className="space-y-1 mb-4">
+                    {member.certifications.map((cert, certIndex) => (
+                      <div key={certIndex} className="flex items-center text-xs text-blue-700">
+                        <Shield className="h-3 w-3 mr-1" />
+                        {cert}
+                      </div>
+                    ))}
+                    {member.gaseSafeNumber && (
+                      <div className="flex items-center text-xs text-orange-600 font-medium">
+                        <Zap className="h-3 w-3 mr-1" />
+                        Gas Safe: {member.gaseSafeNumber}
+                      </div>
+                    )}
                   </div>
                   
                   {/* Message from team member */}
@@ -388,15 +502,37 @@ export default function ReviewPage() {
               
               <div className="space-y-4">
                 {projectData.timeline.phases.map((phase, index) => (
-                  <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center font-bold text-sm mr-4">
-                      {index + 1}
+                  <div key={index} className={`border rounded-lg p-4 ${phase.weatherDependent ? 'border-orange-200 bg-orange-50' : 'border-gray-200 bg-gray-50'}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center font-bold text-sm mr-4">
+                          {index + 1}
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">{phase.name}</div>
+                          <div className="text-sm text-gray-600">{phase.weeks} weeks</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold text-gray-900">£{phase.cost.toLocaleString()}</div>
+                        {phase.weatherDependent && (
+                          <div className="text-xs text-orange-600 flex items-center">
+                            <AlertTriangle className="h-3 w-3 mr-1" />
+                            Weather dependent
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-gray-900">{phase.name}</div>
-                      <div className="text-sm text-gray-600">{phase.weeks} weeks</div>
+                    
+                    {/* Phase details */}
+                    <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                      {phase.details.map((detail, detailIndex) => (
+                        <div key={detailIndex} className="flex items-center">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                          {detail}
+                        </div>
+                      ))}
                     </div>
-                    <Clock className="h-4 w-4 text-gray-400" />
                   </div>
                 ))}
               </div>
@@ -422,7 +558,7 @@ export default function ReviewPage() {
               </div>
               <div className="text-right">
                 <div className="text-3xl font-bold">£{projectData.investment.totalCost.toLocaleString()}</div>
-                <div className="text-green-200 font-medium">Under budget!</div>
+                <div className="text-green-200 font-medium">£{projectData.investment.costPerSqM}/m² • Under budget!</div>
               </div>
             </div>
           </div>
@@ -430,17 +566,50 @@ export default function ReviewPage() {
           <div className="p-8">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Cost Breakdown</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">Cost Breakdown with VAT</h4>
                 <div className="space-y-3">
                   {projectData.investment.breakdown.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                      <span className="text-gray-600">{item.item}</span>
-                      <span className="font-semibold text-gray-900">£{item.cost.toLocaleString()}</span>
+                    <div key={index} className="p-4 bg-gray-50 rounded-xl">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-gray-900 font-medium">{item.item}</span>
+                        <span className="font-semibold text-gray-900">£{item.cost.toLocaleString()}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">{item.description}</span>
+                        {item.vat > 0 ? (
+                          <span className="text-red-600">+£{item.vat.toLocaleString()} VAT</span>
+                        ) : (
+                          <span className="text-green-600">VAT exempt</span>
+                        )}
+                      </div>
                     </div>
                   ))}
-                  <div className="border-t pt-3">
+                  
+                  {/* VAT Summary */}
+                  <div className="border-t pt-4">
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-3">
+                      <h5 className="font-semibold text-gray-900 mb-2 flex items-center">
+                        <Scale className="h-4 w-4 mr-2" />
+                        UK VAT Summary
+                      </h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Zero-rated (new build elements):</span>
+                          <span>£{projectData.investment.vatSummary.zeroRated.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Standard-rated (materials & services):</span>
+                          <span>£{projectData.investment.vatSummary.standardRated.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between font-semibold border-t pt-2">
+                          <span>Total VAT (20%):</span>
+                          <span>£{projectData.investment.vatSummary.totalVAT.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <div className="flex items-center justify-between p-4 bg-indigo-50 rounded-xl">
-                      <span className="font-semibold text-indigo-900">Total Project Cost</span>
+                      <span className="font-semibold text-indigo-900">Total Project Cost (inc. VAT)</span>
                       <span className="text-2xl font-bold text-indigo-600">
                         £{projectData.investment.totalCost.toLocaleString()}
                       </span>
@@ -463,6 +632,23 @@ export default function ReviewPage() {
                     </div>
                   </div>
                   
+                  {/* Regional Cost Context */}
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl mb-4">
+                    <div className="flex items-center mb-2">
+                      <MapPin className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="font-semibold text-blue-900">Regional Adjustment</span>
+                    </div>
+                    <div className="text-sm text-blue-800">
+                      <div className="flex justify-between mb-1">
+                        <span>Location: {projectData.investment.regionalAdjustment.location}</span>
+                        <span>{projectData.investment.regionalAdjustment.multiplier === 0.95 ? '-5%' : `${(projectData.investment.regionalAdjustment.multiplier - 1) * 100}%`}</span>
+                      </div>
+                      <div className="text-xs text-blue-600">
+                        {projectData.investment.regionalAdjustment.note}
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl">
                     <div className="text-center">
                       <div className="text-4xl font-bold text-green-600 mb-2">
@@ -470,7 +656,10 @@ export default function ReviewPage() {
                       </div>
                       <div className="text-green-800 font-medium">Total Savings</div>
                       <div className="text-green-600 text-sm mt-1">
-                        You're under budget! 🎉
+                        Under budget by {((projectData.investment.originalBudget - projectData.investment.totalCost) / projectData.investment.originalBudget * 100).toFixed(1)}% 🎉
+                      </div>
+                      <div className="text-xs text-green-600 mt-2">
+                        Cost: £{projectData.investment.costPerSqM}/m² • Floor area: {projectData.house.floorArea}m²
                       </div>
                     </div>
                   </div>
@@ -551,6 +740,155 @@ export default function ReviewPage() {
                 Share with Family
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* UK Building Regulations & Compliance */}
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-slide-up" style={{animationDelay: '0.6s'}}>
+          <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6">
+            <div className="flex items-center">
+              <FileText className="h-8 w-8 mr-3" />
+              <div>
+                <h3 className="text-2xl font-bold">Planning & Building Control</h3>
+                <p className="text-amber-100">UK compliance requirements</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Planning Permission */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                  <FileText className="h-5 w-5 mr-2 text-blue-600" />
+                  Planning Permission
+                </h4>
+                <div className="space-y-3">
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                    <div className="font-semibold text-blue-900 mb-2">{projectData.house.planning.type}</div>
+                    <div className="text-sm text-blue-800">
+                      <div className="flex justify-between mb-1">
+                        <span>Application fee:</span>
+                        <span>£{projectData.house.planning.cost}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Processing time:</span>
+                        <span>{projectData.house.planning.estimatedTime}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <div>• New build requires full planning application</div>
+                    <div>• Neighbour consultation period: 21 days</div>
+                    <div>• Planning committee decision if objections received</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Building Regulations */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                  <Shield className="h-5 w-5 mr-2 text-green-600" />
+                  Building Regulations
+                </h4>
+                <div className="space-y-3">
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+                    <div className="font-semibold text-green-900 mb-2">{projectData.house.buildingRegs.type}</div>
+                    <div className="text-sm text-green-800">
+                      <div className="flex justify-between mb-1">
+                        <span>Application fee:</span>
+                        <span>£{projectData.house.buildingRegs.cost}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Approval time:</span>
+                        <span>{projectData.house.buildingRegs.estimatedTime}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <div>• Structural calculations required</div>
+                    <div>• Site inspections at key stages</div>
+                    <div>• Completion certificate issued</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Professional Requirements */}
+            <div className="mt-8 p-6 bg-gray-50 rounded-xl">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <Award className="h-5 w-5 mr-2 text-purple-600" />
+                Professional Requirements
+              </h4>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <div className="text-sm font-medium text-gray-900 mb-2">General Construction</div>
+                  <div className="space-y-1 text-xs text-gray-600">
+                    <div>• CSCS card required for all site workers</div>
+                    <div>• Site manager with SMSTS qualification</div>
+                    <div>• Public liability insurance minimum £2M</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-900 mb-2">Electrical Work</div>
+                  <div className="space-y-1 text-xs text-gray-600">
+                    <div>• NICEIC or equivalent approved contractor</div>
+                    <div>• 18th Edition Wiring Regulations</div>
+                    <div>• Part P notification required</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-900 mb-2">Gas/Heating Work</div>
+                  <div className="space-y-1 text-xs text-gray-600">
+                    <div>• Gas Safe registered engineer only</div>
+                    <div>• Annual gas safety check required</div>
+                    <div>• Boiler warranty registration</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* UK Construction Market Context */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-8 text-center">
+          <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+            <TrendingUp className="h-6 w-6 mr-2 text-amber-600" />
+            UK Construction Market Context
+          </h3>
+          <div className="grid md:grid-cols-3 gap-6 text-sm">
+            <div className="bg-white rounded-lg p-4">
+              <div className="font-semibold text-gray-900 mb-2">Regional Cost Variations</div>
+              <div className="text-gray-600 space-y-1">
+                <div>London: +30-50% above national average</div>
+                <div>South East: +10-20% above average</div>
+                <div>Midlands: National average baseline</div>
+                <div>North/Scotland/Wales: -10-20% below</div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-4">
+              <div className="font-semibold text-gray-900 mb-2">Current Market Factors</div>
+              <div className="text-gray-600 space-y-1">
+                <div>Material costs +15% since 2023</div>
+                <div>Labor shortage in skilled trades</div>
+                <div>Planning delays: 12-16 weeks typical</div>
+                <div>Quality professionals booked 6-8 weeks ahead</div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-4">
+              <div className="font-semibold text-gray-900 mb-2">Quality Standards</div>
+              <div className="text-gray-600 space-y-1">
+                <div>NHBC warranty for new builds</div>
+                <div>10-year structural guarantee</div>
+                <div>Professional indemnity insurance</div>
+                <div>Regular quality inspections</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 text-xs text-gray-500 max-w-4xl mx-auto leading-relaxed">
+            *All costs are estimates based on current UK market conditions and may vary by location, material availability, 
+            and project complexity. VAT rates shown are current as of 2024. Professional availability varies by region and season.
+            Weather-dependent phases may extend during winter months (November-February).
           </div>
         </div>
       </div>
