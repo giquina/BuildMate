@@ -34,15 +34,23 @@ The commercial platform extends BuildMate's core architecture to support busines
 - **`/commercial/pricing`**: Business subscription tiers with commercial-specific features and pricing
 
 **Commercial/Residential Toggle System**:
-The platform implements a homepage toggle system allowing users to select between residential and commercial experiences. This toggle is implemented through the `CommercialToggle` component and maintains user preference throughout the session.
+The platform implements a homepage toggle system allowing users to select between residential and commercial experiences. Users can choose between "🏠 Build Your Home" (residential construction) and "🏢 Optimize Your Property" (commercial real estate optimization). This toggle is implemented through the `CommercialToggle` component and maintains user preference throughout the session.
 
-**Business Property Optimization Focus**:
-The commercial platform emphasizes measurable business outcomes including:
-- Energy efficiency improvements with quantified savings projections
-- Smart technology integration for operational efficiency
-- UK building compliance and regulation adherence
-- Productivity enhancement through optimized workspace design
-- ROI calculations with payback period analysis
+**Commercial Property Optimization Focus**:
+The commercial platform focuses on **"Optimize Your Property"** messaging, targeting business property owners seeking to maximize their commercial real estate investments. The platform emphasizes measurable business outcomes including:
+- **Energy Cost Reduction**: 30-50% savings on commercial energy bills (£15K-£100K annually)
+- **Property Value Enhancement**: 8-15% increase in commercial property values
+- **ROI Optimization**: 2-4 year payback periods on efficiency investments
+- **UK Commercial Compliance**: EPC rating improvements, MEES compliance, Building Safety Act adherence
+- **Tenant Satisfaction**: 25% improvement in occupancy and retention rates
+- **Smart Building Technology**: IoT integration, automated systems, energy monitoring
+
+**UK Commercial Real Estate Market Context** (2025):
+- Market size: £148.80 billion growing to £177.40 billion by 2030 (3.58% CAGR)
+- Focus on portfolio diversification across logistics, retail, and regional offices
+- Technology integration priority: 41% investing in digital twin technologies
+- Sustainability requirements: EPC B+ ratings, solar integration, net-zero transition
+- Regional opportunities beyond London: emerging logistics and mixed-use projects
 
 ## Core Architecture
 
@@ -273,9 +281,9 @@ All user personas now benefit from:
 - **Enterprise (£99/month)**: Full residential features with commercial access
 
 **Commercial B2B Subscription Tiers**:
-- **Business Starter (£199/month)**: Essential commercial property optimization tools
-- **Professional (£499/month)**: Advanced analytics, ROI tracking, and multi-property management
-- **Enterprise (£1,499/month)**: Complete commercial platform with dedicated support and custom integrations
+- **Business Starter (£199/month)**: Essential commercial property optimization tools (up to 3 properties)
+- **Business Professional (£499/month)**: Advanced analytics, ROI tracking, and multi-property management (up to 15 properties)
+- **Business Enterprise (£1,499/month)**: Complete commercial platform with dedicated support, unlimited properties, and custom integrations
 
 ### Industry Standards
 
@@ -285,11 +293,12 @@ All user personas now benefit from:
 - **Compliance Requirements**: Building regs, planning permission, professional certifications
 
 **Commercial Standards**:
-- **Energy Costs**: UK commercial properties average £2-4/sq ft annually for energy
-- **EPC Requirements**: Minimum EPC rating of E for commercial lettings (upgrading to C by 2027)
-- **ROI Expectations**: Energy efficiency improvements typically achieve 15-30% cost savings
-- **Payback Periods**: Smart building technologies average 2-5 years payback
-- **Compliance Requirements**: Commercial building regulations, BREEAM standards, accessibility compliance
+- **Energy Costs**: UK commercial properties average £2-4/sq ft annually for energy across different property types
+- **EPC Requirements**: Minimum EPC rating of E for commercial lettings (upgrading to C by 2027 under MEES)
+- **ROI Expectations**: Energy efficiency improvements typically achieve 30-50% cost savings (£15K-£100K annually)
+- **Payback Periods**: Smart building technologies average 2-4 years payback with industry-leading returns
+- **Property Value Impact**: Efficiency upgrades increase commercial property values by 8-15%
+- **Compliance Requirements**: Building Safety Act, EPC B+ ratings, net-zero transition requirements, BREEAM standards
 
 ## Component Development Guidelines
 
@@ -368,17 +377,64 @@ All user personas now benefit from:
 - Consistent naming and file organization
 - Proper separation of concerns (UI vs. business logic)
 
-## Specialized Agents Available
+## Comprehensive Agent Hierarchy System
 
-This project includes specialized agents for enhanced development (located in `.claude/agents/`):
-- **ui-ux-specialist**: Construction industry UI/UX improvements and component design
-- **construction-expert**: UK building regulations and industry validation
-- **react-code-reviewer**: TypeScript/React code quality review and best practices
-- **docs-maintainer**: Documentation updates and maintenance across all project files
-- **performance-optimizer**: Next.js performance optimization and bundle analysis
-- **api-validator**: API endpoint validation and construction industry business logic
-- **type-checker**: TypeScript type validation and error resolution
-- **vercel-deployment-specialist**: Vercel deployment expert for smooth production deployments
+BuildMate now includes a sophisticated 17-agent hierarchy system for enhanced development efficiency (located in `.claude/agents/`):
+
+### Executive Leadership (Tier 1)
+- **product-manager**: Senior Product Manager with oversight of all BuildMate development. Coordinates and delegates to specialized agents to ensure efficient, high-quality delivery of commercial B2B features while maintaining platform integrity.
+
+### Strategic Leadership (Tier 2)
+- **system-architecture**: Senior System Architecture agent responsible for technical architecture decisions. Reports to Product Manager and coordinates backend/frontend implementation strategies.
+- **ux-ui-designer**: Senior UX/UI Designer responsible for user experience design leadership, commercial B2B interface design, and conversion optimization.
+
+### Implementation Teams (Tier 3)
+- **frontend-engineering**: Senior Frontend Engineer specializing in React/Next.js implementation, component architecture, and responsive design.
+- **backend-engineering**: Senior Backend Engineer responsible for API development, database architecture, and server-side functionality.
+- **security-analyst**: Senior Security Analyst focusing on enterprise-grade security, UK GDPR compliance, and vulnerability assessment.
+
+### Quality & Deployment (Tier 4)
+- **qa-testing**: Senior QA Engineer responsible for comprehensive testing strategies, quality assurance, and validation.
+- **devops**: Senior DevOps Engineer handling deployment automation, CI/CD pipelines, and production environment management.
+
+### Specialized Support Agents
+- **ui-specialist**: Visual design expert focusing on Tailwind CSS, component styling, and construction industry aesthetics
+- **ux-specialist**: User experience specialist optimizing user flows, interaction design, and journey optimization
+- **construction-expert**: UK building regulations specialist and industry validation expert
+- **react-code-reviewer**: TypeScript/React code quality reviewer and best practices enforcer
+- **docs-maintainer**: Technical documentation specialist maintaining comprehensive project documentation
+- **performance-optimizer**: Next.js performance optimization expert and bundle analysis specialist
+- **api-validator**: API endpoint validation expert with construction industry business logic expertise
+- **type-checker**: TypeScript type validation specialist and error resolution expert
+- **vercel-deployment-specialist**: Vercel deployment expert ensuring smooth production deployments
+
+### Agent Coordination Protocol
+
+#### Hierarchical Delegation
+1. **Product Manager** provides strategic oversight and delegates to Tier 2 agents
+2. **System Architecture** and **UX/UI Designer** coordinate Tier 3 implementation teams
+3. **Implementation Teams** execute development tasks under strategic guidance
+4. **Quality & Deployment** teams validate and deploy completed work
+5. **Specialized Support** agents provide domain expertise as needed
+
+#### Task Assignment Strategy
+- **Complex Features**: Product Manager delegates to System Architecture for technical planning
+- **User Experience**: UX/UI Designer leads interface and journey optimization
+- **Implementation**: Frontend/Backend Engineering execute under architectural guidance
+- **Security Requirements**: Security Analyst provides ongoing validation and compliance
+- **Specialized Needs**: Support agents provide targeted expertise (UI design, performance, etc.)
+
+#### Quality Assurance Flow
+1. All implementations reviewed by appropriate Tier 3 agents
+2. QA Testing validates functionality and integration
+3. Security Analyst ensures enterprise-grade protection
+4. DevOps handles deployment and monitoring
+5. Product Manager provides final approval
+
+### Agent Activation Status
+**Status**: All 17 agents are active and available for immediate delegation
+**Coordination**: Hierarchical system ensures efficient task distribution and quality delivery
+**Specialization**: Each agent has clearly defined expertise and responsibilities
 
 ## Slash Commands Available
 

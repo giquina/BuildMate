@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/Button'
 import { CheckCircle, ArrowLeft, Building2, Users, BarChart3, Phone, Crown, Shield, Zap, Award } from 'lucide-react'
 
 export const metadata = {
-  title: 'Commercial Pricing | BuildMate Business Plans',
-  description: 'Professional building optimization plans for UK commercial properties. From property analysis to enterprise solutions.',
+  title: 'Commercial Pricing | BuildMate Property Investment Plans',
+  description: 'Professional property investment optimization plans for UK commercial real estate. From single properties to portfolio management.',
 }
 
 export const dynamic = 'force-static'
@@ -225,12 +225,12 @@ export default function CommercialPricingPage() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Business Plans Built for
+            Property Investment Plans Built for
             <span className="block text-blue-700">Commercial Success</span>
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            From single properties to enterprise portfolios, choose the plan that matches your commercial optimization needs. 
+            From individual properties to investment portfolios, choose the plan that matches your property optimization needs. 
             All plans include UK compliance support and verified ROI projections.
           </p>
 
@@ -478,7 +478,7 @@ export default function CommercialPricingPage() {
               Ready to Optimize Your Commercial Property?
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join 2,400+ successful businesses reducing costs and increasing property value with BuildMate
+              Join 2,400+ property investors reducing costs and maximizing asset value with BuildMate
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

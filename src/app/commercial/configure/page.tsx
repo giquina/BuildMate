@@ -46,26 +46,26 @@ export default function CommercialConfigurePage() {
 
   const totalSteps = 4
 
-  // Property type options with specific descriptions
+  // UK commercial real estate investment property types
   const propertyTypes = useMemo(() => [
-    { id: 'office_building' as CommercialPropertyType, name: 'Office Building', icon: '🏢', description: 'Corporate offices, co-working spaces, business centers' },
-    { id: 'retail_space' as CommercialPropertyType, name: 'Retail Space', icon: '🏪', description: 'Shops, showrooms, restaurants, cafes' },
-    { id: 'warehouse' as CommercialPropertyType, name: 'Warehouse', icon: '🏭', description: 'Storage, distribution, logistics facilities' },
-    { id: 'manufacturing' as CommercialPropertyType, name: 'Manufacturing', icon: '🏭', description: 'Production facilities, workshops, factories' },
-    { id: 'hospitality' as CommercialPropertyType, name: 'Hospitality', icon: '🏨', description: 'Hotels, B&Bs, venues, leisure facilities' },
-    { id: 'healthcare' as CommercialPropertyType, name: 'Healthcare', icon: '🏥', description: 'Clinics, surgeries, care homes, dental practices' },
-    { id: 'education' as CommercialPropertyType, name: 'Education', icon: '🏫', description: 'Schools, training centers, nurseries' },
-    { id: 'mixed_use' as CommercialPropertyType, name: 'Mixed Use', icon: '🏬', description: 'Multiple business types in one building' }
+    { id: 'office_building' as CommercialPropertyType, name: 'Office Investment', icon: '🏢', description: 'Grade A/B offices, business parks, corporate spaces' },
+    { id: 'retail_space' as CommercialPropertyType, name: 'Retail Property', icon: '🏪', description: 'High street shops, retail parks, shopping centers' },
+    { id: 'warehouse' as CommercialPropertyType, name: 'Industrial Asset', icon: '🏭', description: 'Warehouses, distribution centers, logistics facilities' },
+    { id: 'manufacturing' as CommercialPropertyType, name: 'Industrial Estate', icon: '🏭', description: 'Manufacturing units, industrial estates, workshops' },
+    { id: 'hospitality' as CommercialPropertyType, name: 'Hospitality Asset', icon: '🏨', description: 'Hotels, pubs, restaurants, leisure investments' },
+    { id: 'healthcare' as CommercialPropertyType, name: 'Healthcare Property', icon: '🏥', description: 'Medical centers, care homes, specialist facilities' },
+    { id: 'education' as CommercialPropertyType, name: 'Student Housing', icon: '🏫', description: 'PBSA, HMOs, educational facilities' },
+    { id: 'mixed_use' as CommercialPropertyType, name: 'Mixed-Use Investment', icon: '🏬', description: 'Retail-residential, commercial-residential developments' }
   ], [])
 
-  // Primary goals options
+  // Property investment goals
   const goalOptions = useMemo(() => [
-    { id: 'cost_savings', name: 'Reduce Energy Costs', icon: '💰', description: 'Lower monthly energy bills' },
-    { id: 'carbon_reduction', name: 'Carbon Footprint', icon: '🌱', description: 'Environmental sustainability' },
-    { id: 'comfort', name: 'Comfort & Productivity', icon: '😊', description: 'Better working environment' },
-    { id: 'compliance', name: 'Regulatory Compliance', icon: '✅', description: 'Meet building standards' },
-    { id: 'property_value', name: 'Property Value', icon: '📈', description: 'Increase asset value' },
-    { id: 'maintenance', name: 'Lower Maintenance', icon: '🔧', description: 'Reduce ongoing costs' }
+    { id: 'rental_yield', name: 'Maximize Rental Yields', icon: '💰', description: 'Increase rental income and profitability' },
+    { id: 'asset_value', name: 'Enhance Asset Value', icon: '📈', description: 'Capital appreciation and market value' },
+    { id: 'tenant_retention', name: 'Improve Tenant Retention', icon: '😊', description: 'Reduce void periods and turnover' },
+    { id: 'compliance', name: 'EPC Compliance', icon: '✅', description: 'Meet MEES requirements and avoid restrictions' },
+    { id: 'operational_efficiency', name: 'Reduce Operating Costs', icon: '🔧', description: 'Lower maintenance and running costs' },
+    { id: 'sustainability', name: 'ESG Credentials', icon: '🌱', description: 'Environmental and sustainability goals' }
   ], [])
 
   // Budget ranges
@@ -168,10 +168,10 @@ export default function CommercialConfigurePage() {
             </Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Business Property Optimization
+            Commercial Real Estate Assessment
           </h1>
           <p className="text-lg text-gray-600">
-            Tell us about your property to get personalized energy efficiency recommendations
+            Tell us about your investment property to get personalized optimization recommendations
           </p>
         </div>
 
@@ -344,9 +344,9 @@ export default function CommercialConfigurePage() {
                 <p className="text-gray-500 text-sm mt-2">Don't know your EPC rating? We can arrange an assessment.</p>
               </div>
 
-              {/* Business Industry */}
+              {/* Property Investment Focus */}
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-4">Business Industry *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-4">Property Investment Focus *</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {([
                     'technology', 'finance', 'healthcare', 'retail', 'manufacturing',
@@ -362,11 +362,12 @@ export default function CommercialConfigurePage() {
                           : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                       }`}
                     >
-                      {industry.replace('_', ' ')}
+                      {industry.replace('_', ' ')} properties
                     </button>
                   ))}
                 </div>
                 {errors.industry && <p className="text-red-500 text-sm mt-2">{errors.industry}</p>}
+                <p className="text-gray-500 text-sm mt-2">What sector does your property serve or target?</p>
               </div>
 
               {/* Operating Hours */}

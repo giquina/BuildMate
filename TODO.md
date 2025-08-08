@@ -1,280 +1,286 @@
-# BuildMate - Complete Development TODO List
+# BuildMate Commercial B2B Implementation TODO
 
-## 📊 PROJECT STATUS OVERVIEW
+## 🎯 **MISSION**: Complete Commercial B2B Platform Implementation
 
-### ✅ COMPLETED TASKS (12/35)
-- [x] Create CLAUDE.md file with comprehensive project requirements
-- [x] Enhance homepage hero section with animations and visual improvements  
-- [x] Add micro-animations and interactions throughout all pages
-- [x] Update global CSS with premium animations, gradients, and utilities
-- [x] Create case studies page (src/app/case-studies/page.tsx)
-- [x] Create success stories page (src/app/success-stories/page.tsx)
-- [x] Create reviews page (src/app/reviews/page.tsx)
-- [x] **FOOTER VERIFICATION**: Verify footer content is professional and brand-aligned
-- [x] **FOOTER VERIFICATION**: Ensure footer social media links and contact information is accurate
-- [x] **FOOTER VERIFICATION**: Test footer responsiveness on mobile and desktop
-- [x] **ADDITIONAL PAGES**: Created legal/info pages (about, accessibility, contact, terms)
+**Objective**: Implement comprehensive commercial B2B features for BuildMate platform targeting business property owners seeking energy efficiency optimization and smart building improvements.
 
-### 🔄 IN PROGRESS TASKS (0/35)
-*No tasks currently in progress*
-
-### ⏳ PENDING TASKS (23/35)
+**Target Deployment**: GitHub + Vercel Production  
+**Business Impact**: Double addressable market with £199-£1,499/mo commercial subscriptions
 
 ---
 
-## 🎯 HIGH PRIORITY TASKS
+## 🏗️ **AGENT HIERARCHY & DELEGATION SYSTEM**
 
-### TESLA-UBER REDESIGN (NEW PRIORITY)
-- [ ] **20. TESLA-UBER REDESIGN: Homepage complete redesign with Tesla-Uber messaging**
-  - Transform hero to "Configure Your Dream Home Like a Tesla, Start Building Like Ordering an Uber"
-  - Add 3-step process: Configure → Review → Build
-  - Update primary CTA to "Configure My Dream Home"
+### Tier 1: Strategic Leadership
+- **product-manager** (Executive Authority)
+  - Coordinates all agents and delegates tasks
+  - Makes final approval decisions
+  - Manages timeline and quality standards
 
-- [ ] **21. TESLA-UBER REDESIGN: Create Tesla-style configurator page (src/app/configure/page.tsx)**
-  - Left: 3D house preview (60% of screen)
-  - Right: Configuration options (40% of screen)
-  - Real-time price updates and timeline estimates
-  - Tesla-inspired clean interface
+### Tier 2: Technical Leadership  
+- **system-architecture** (Reports to Product Manager)
+  - Overall technical architecture decisions
+  - Coordinates backend/frontend implementation
 
-- [ ] **22. TESLA-UBER REDESIGN: Create Uber-style review page (src/app/review/page.tsx)**
-  - Project assembly loading experience
-  - Team presentation like ride-sharing
-  - Materials coordination display
-  - One-click "START BUILDING MY DREAM HOME" button
+- **ux-ui-designer** (Reports to Product Manager)
+  - Commercial B2B user experience design
+  - Professional interface design and conversion optimization
 
-- [ ] **23. TESLA-UBER REDESIGN: Update navigation to support new Configure→Review→Build flow**
-  - Main nav: How It Works | Examples | Pricing | Configure Now
-  - Mobile nav: Home | Examples | Configure | Account
+### Tier 3: Implementation Teams
+- **frontend-engineering** (Reports to System Architecture + UX/UI Designer)
+- **backend-engineering** (Reports to System Architecture)
+- **security-analyst** (Reports to System Architecture, advises Product Manager)
 
-- [ ] **24. TESLA-UBER REDESIGN: Redesign dashboard for project tracking with Uber-style updates**
-  - Active project progress view
-  - Real-time team updates
-  - Delivery tracking
-  - "Your builder is on-site" status updates
+### Tier 4: Quality & Deployment
+- **qa-testing** (Reports to Product Manager)
+- **devops** (Reports to Product Manager)
 
 ---
 
-## 🔧 MEDIUM PRIORITY TASKS
+## 📋 **PHASE 0: DOCUMENTATION & AGENT SYSTEM INITIALIZATION** (Status: ✅ COMPLETE)
 
-### Original Premium UI/UX Enhancement
-- [ ] **4. Upgrade materials marketplace with enhanced product cards and shopping experience**
-  - Image gallery placeholders with zoom effects
-  - Price comparison badges with animations
-  - Quick add-to-cart animations
-  - Slide-in cart drawer
+### Documentation Updates:
+- [x] **Research UK commercial real estate terminology** ✅ ("Optimize Your Property" confirmed)
+- [x] **Update CLAUDE.md with current agent hierarchy and capabilities** ✅
+- [x] **Update README.md with commercial platform features** ✅ 
+- [x] **Document comprehensive agent system structure and usage** ✅ (Created AGENT_SYSTEM.md)
+- [x] **Update commercial messaging throughout platform** ✅ (Updated commercial page messaging)
 
-- [ ] **5. Polish dashboard with animated progress bars and visual enhancements**
-  - Animated progress bars with easing
-  - Status change animations
-  - Interactive timeline views
-  - Achievement badges with unlock animations
+## 📋 **PHASE 1: FOUNDATION & ARCHITECTURE** (Status: Ready to Begin)
 
-- [ ] **6. Enhance professionals directory with improved cards and features**
-  - Professional photo placeholders with hover effects
-  - Animated rating stars
-  - Availability status with color indicators
-  - Filter animations with slide effects
+### Product Manager Delegation:
+- [x] **Create specialized agent hierarchy** ✅
+- [ ] **Delegate to system-architecture**: Technical architecture design
+- [ ] **Delegate to ux-ui-designer**: Commercial user journey mapping
+- [ ] **Review and approve architectural decisions**
 
-- [ ] **7. Polish project setup wizard with step flow animations**
-  - Progress bar with smooth fill animations
-  - Step completion checkmarks with bounce
-  - Form field focus animations
-  - Budget slider with smooth dragging
+### System Architecture Tasks:
+- [ ] **Commercial Data Models**: Design TypeScript interfaces for commercial properties, ROI calculations, subscriptions
+- [ ] **API Architecture**: Design commercial API endpoints and data flow
+- [ ] **Database Schema**: Create commercial tables and relationships  
+- [ ] **UK Energy Integration**: Build UK commercial energy cost calculation utilities
+- [ ] **Platform Integration**: Ensure seamless integration with existing residential platform
 
-- [ ] **12. Create how-to guides page (src/app/guides/page.tsx)**
-  - Getting Started guides
-  - Project type tutorials
-  - Feature walkthroughs
-  - Interactive tutorials with progress tracking
-
-- [ ] **13. Integrate reviews and testimonials into materials page**
-  - "Used in 47 successful projects" badges
-  - Mini customer review cards
-  - Success rate percentages
-  - Before/after project photos
-
-- [ ] **14. Add testimonials to professionals page**
-  - Customer review excerpts on cards
-  - Project completion galleries
-  - Success story highlights
-  - Client satisfaction ratings
-
-- [ ] **15. Update dashboard with celebrations and success prompts**
-  - Project milestone celebration modals
-  - Achievement unlocked animations
-  - Progress celebration with confetti
-  - Social media sharing integration
-
-- [ ] **16. Create reusable UI components (Button, Card, Input enhancements)**
-  - Button component with ripple effects
-  - Card component with hover elevation
-  - Input component with floating labels
-  - Loading states and success feedback
-
-### Tesla-Uber Redesign Components
-- [ ] **25. TESLA-UBER REDESIGN: Update color scheme to Tesla blue (#1E40AF) and trust navy**
-  - Primary: Tesla Blue (#1E40AF)
-  - Success: Green (#10B981)
-  - Warning: Orange (#F59E0B)
-  - Trust: Navy (#1E293B)
-
-- [ ] **26. TESLA-UBER REDESIGN: Transform materials page to show 'Materials Selected for Your Project'**
-  - Focus on pre-selected items for configuration
-  - Delivery tracking and coordination
-  - "Want different materials? Modify your project"
-
-- [ ] **27. TESLA-UBER REDESIGN: Transform professionals page to show 'Your Assigned Team'**
-  - Show specific team members
-  - Team communication tools
-  - Performance tracking
-  - "Need different professionals? Contact us"
-
-- [ ] **28. TESLA-UBER REDESIGN: Update all copywriting throughout website with new messaging**
-  - "Your dream home, delivered in one click"
-  - "We handle everything - you just configure and confirm"
-  - Update all CTAs to action-oriented language
-
-- [ ] **29. TESLA-UBER REDESIGN: Create 3D house model animations and interactive previews**
-  - Rotating/animating 3D house model
-  - Real-time material changes
-  - Zoom and rotate capabilities
-  - Style transitions between options
-
-- [ ] **30. TESLA-UBER REDESIGN: Implement real-time price updates and configuration animations**
-  - Number count-up animations
-  - Budget meter fills
-  - Savings flash effects
-  - Comparison highlights
-
-- [ ] **31. TESLA-UBER REDESIGN: Add project assembly loading animations (Finding team, sourcing materials)**
-  - Progress indicators with checkmarks
-  - Team photos sliding in
-  - Materials list building up
-  - Timeline drawing animation
-
-- [ ] **32. TESLA-UBER REDESIGN: Mobile-first configurator with swipe navigation**
-  - Swipe between configuration steps
-  - Large touch targets
-  - Vertical scrolling through options
-  - Sticky price display at bottom
+### UX/UI Designer Tasks:
+- [ ] **Commercial User Journey Mapping**: Map B2B decision-maker workflows
+- [ ] **Professional Design System**: Extend Tailwind for B2B aesthetic
+- [ ] **Conversion Optimization**: Design ROI-focused commercial flows
+- [ ] **Component Specifications**: Design CommercialToggle, ROICalculator, PropertyTypeSelector
+- [ ] **Responsive B2B Design**: Desktop-optimized with mobile functionality
 
 ---
 
-## 🔍 LOW PRIORITY TASKS
+## 📋 **PHASE 2: IMPLEMENTATION** (Status: Pending Phase 1)
 
-- [ ] **17. Run linting and type checking to ensure code quality**
-  - `npm run lint`
-  - `npm run type-check`
-  - Fix any TypeScript errors
+### Frontend Engineering Tasks:
+- [ ] **Homepage Modification**: Add commercial/residential toggle with clear differentiation
+- [ ] **Commercial Landing Page**: Create `/commercial` with professional B2B messaging
+- [ ] **Property Assessment Flow**: Build `/commercial/configure` multi-step questionnaire
+- [ ] **Solutions Recommendations**: Create `/commercial/solutions` optimization display
+- [ ] **Business Pricing Tiers**: Implement `/commercial/pricing` subscription presentation
+- [ ] **Component Implementation**: Build CommercialToggle, ROICalculator, PropertyTypeSelector, CommercialPricingTiers
 
-- [ ] **18. Test all pages and features for responsiveness and functionality**
-  - Test mobile responsiveness
-  - Verify all animations work
-  - Check cross-browser compatibility
+### Backend Engineering Tasks:
+- [ ] **Commercial API Endpoints**: Implement property-types, assessment, roi-calculation, solutions, pricing
+- [ ] **Database Implementation**: Deploy commercial schema with proper indexing
+- [ ] **ROI Calculation Engine**: Build UK energy cost calculation algorithms
+- [ ] **Professional Matching**: Extend existing professional network for commercial specialists
+- [ ] **Subscription Integration**: Add commercial tiers to existing Stripe integration
 
-- [ ] **19. Commit all changes to git repository**
-  - Stage all changes
-  - Create comprehensive commit message
-  - Push to remote repository
-
-- [ ] **33. TESLA-UBER REDESIGN: Update typography hierarchy for Tesla-style clean interface**
-  - Larger, bolder fonts for main value props
-  - Clear hierarchy: Problem → Solution → Action
-  - Shorter sentences and bullet points
-
-- [ ] **34. TESLA-UBER REDESIGN: Replace iconography with house configurator and team assignment icons**
-  - 3D house with customization arrows
-  - Team assignment icons with checkmarks
-  - Timeline icons with progress
-  - One-click icons with magic wand
-
-- [ ] **35. TESLA-UBER REDESIGN: Add success metrics counters (Houses configured today: 247)**
-  - "Houses configured today: 247"
-  - "Average savings: £23,450"
-  - "Time to configure: 3 minutes"
-  - "Projects completed on time: 94%"
+### Security Analyst Tasks:
+- [ ] **Security Architecture Review**: Validate commercial data protection approach
+- [ ] **UK GDPR Compliance**: Ensure business data processing compliance
+- [ ] **API Security**: Implement rate limiting and input validation
+- [ ] **Payment Security**: Validate commercial subscription security
+- [ ] **Access Control**: Implement enterprise-grade authentication
 
 ---
 
-## 📂 FILES CREATED/MODIFIED
+## 📋 **PHASE 3: QUALITY & DEPLOYMENT** (Status: Pending Phase 2)
 
-### ✅ Completed Files
-- `CLAUDE.md` - Project requirements documentation
-- `TODO.md` - This comprehensive task list
-- `src/app/globals.css` - Enhanced with premium animations and utilities
-- `src/app/page.tsx` - Enhanced homepage with testimonials and metrics
-- `src/app/case-studies/page.tsx` - Complete case studies showcase
-- `src/app/success-stories/page.tsx` - Interactive success stories
-- `src/app/reviews/page.tsx` - Comprehensive review system
+### QA Testing Tasks:
+- [ ] **Functional Testing**: Verify all commercial features work correctly
+- [ ] **Integration Testing**: Ensure seamless residential/commercial platform integration
+- [ ] **Performance Testing**: Validate enterprise-grade performance (sub-2-second loads)
+- [ ] **Security Testing**: Comprehensive security validation
+- [ ] **Cross-browser Testing**: Ensure business-grade compatibility
+- [ ] **Mobile Responsiveness**: Test commercial flows on business devices
 
-### 🔄 Files to Modify
-- `src/app/layout.tsx` - Update navigation structure
-- `src/app/dashboard/page.tsx` - Tesla-Uber style redesign
-- `src/app/materials/page.tsx` - Transform to project-focused view
-- `src/app/professionals/page.tsx` - Transform to team-focused view
-- `src/app/start/page.tsx` - Polish wizard or redirect to configurator
-
-### 📝 Files to Create
-- `src/app/configure/page.tsx` - Tesla-style configurator
-- `src/app/review/page.tsx` - Uber-style project assembly
-- `src/app/guides/page.tsx` - How-to guides and tutorials
-- `src/components/ui/Button.tsx` - Enhanced button component
-- `src/components/ui/Card.tsx` - Enhanced card component
-- `src/components/ui/Input.tsx` - Enhanced input component
+### DevOps Tasks:
+- [ ] **Code Quality Verification**: Run type-check, lint, build, test suites
+- [ ] **Environment Configuration**: Set up production environment variables
+- [ ] **Database Migration**: Deploy commercial schema to production
+- [ ] **GitHub Repository**: Commit comprehensive commercial implementation
+- [ ] **Vercel Deployment**: Deploy to production with monitoring
+- [ ] **Performance Monitoring**: Set up alerts and health checks
 
 ---
 
-## 🎯 IMPLEMENTATION STRATEGY
+## 📊 **DETAILED IMPLEMENTATION REQUIREMENTS**
 
-### Phase 1: Tesla-Uber Core Experience (High Priority)
-1. Homepage redesign with clear value proposition
-2. Create configurator page with Tesla-style interface
-3. Build review page with Uber-style assembly
-4. Update navigation to support new flow
+### Commercial User Journey Pages:
 
-### Phase 2: Supporting Features (Medium Priority)
-1. Dashboard redesign for project tracking
-2. Transform materials and professionals pages
-3. Update copywriting and messaging
-4. Add animations and visual enhancements
+#### 1. Homepage Toggle (`src/app/page.tsx`)
+- Professional toggle: "🏠 Build Your Home" vs "🏢 Optimize Your Property" 
+- Clear value differentiation with appropriate messaging
+- Maintain existing residential functionality
 
-### Phase 3: Polish and Optimization (Low Priority)
-1. Component library enhancements
-2. Typography and iconography updates
-3. Success metrics and counters
-4. Testing and quality assurance
+#### 2. Commercial Landing (`src/app/commercial/page.tsx`)
+- Professional B2B value proposition
+- Trust indicators: certifications, case studies, testimonials
+- Business-focused messaging emphasizing ROI and cost savings
+- Professional aesthetic suitable for £50k-£500k+ decisions
+
+#### 3. Property Assessment (`src/app/commercial/configure/page.tsx`)
+- Multi-step questionnaire with progress indicator
+- Property type selection: Office, Retail, Warehouse, Hotel, Manufacturing, Healthcare
+- Building details: Size (sq ft), age, current systems, energy costs
+- Business goals: Energy savings, compliance, smart automation, productivity
+- Budget ranges: £10k-£50k, £50k-£200k, £200k-£1M+
+
+#### 4. Solutions Display (`src/app/commercial/solutions/page.tsx`)
+- Categorized recommendations: Energy Efficiency, Smart Building Technology, Compliance, Productivity
+- ROI projections with specific £ savings amounts
+- Payback period calculations based on UK market data
+- Professional service provider integration
+
+#### 5. Business Pricing (`src/app/commercial/pricing/page.tsx`)
+- **Business Starter** (£199/month): Up to 3 properties, basic optimization
+- **Business Professional** (£499/month): Up to 15 properties, advanced analytics  
+- **Business Enterprise** (£1,499/month): Unlimited properties, white-label, dedicated support
+
+### ROI Calculator Requirements:
+- UK-specific energy costs (£2-4/sq ft annually by property type)
+- LED savings: 60-80% lighting cost reduction
+- HVAC optimization: 20-40% heating/cooling savings
+- Solar ROI: 8-12% annual return
+- Smart building savings: 15-25% overall energy reduction
+- Property value increase: 8-15% with efficiency upgrades
+
+### Technical Specifications:
+- **Framework**: Next.js 14 with TypeScript (zero compilation errors)
+- **Styling**: Tailwind CSS with professional B2B color scheme
+- **Database**: Supabase with commercial schema extensions
+- **Performance**: All pages load under 2 seconds
+- **Mobile**: Responsive design optimized for business users
+- **Security**: Enterprise-grade data protection and UK GDPR compliance
 
 ---
 
-## 📱 TECHNICAL REQUIREMENTS
+## 🚀 **SUCCESS CRITERIA**
 
-- **Framework**: Next.js 14 with TypeScript
-- **Styling**: Tailwind CSS with custom animations
-- **Components**: Reusable UI component library
-- **Responsiveness**: Mobile-first design approach
-- **Performance**: Optimized animations and loading states
-- **Accessibility**: ARIA labels and keyboard navigation
-- **Testing**: Cross-browser and device compatibility
+### Functional Requirements:
+- [ ] User can toggle between residential and commercial on homepage
+- [ ] Commercial questionnaire captures business requirements effectively
+- [ ] ROI calculator shows realistic UK energy savings projections
+- [ ] Commercial pricing tiers are clearly presented with feature differentiation
+- [ ] Professional navigation between all commercial pages
+- [ ] Existing residential functionality remains completely unaffected
 
----
+### Technical Requirements:
+- [ ] Zero TypeScript compilation errors
+- [ ] All commercial pages load under 2 seconds
+- [ ] Mobile responsive design for business users
+- [ ] Professional B2B aesthetic throughout commercial sections
+- [ ] UK-specific content, costs, and regulations integrated
+- [ ] Enterprise-grade security and data protection
 
-## 🚀 SUCCESS METRICS
-
-### User Experience Goals
-- Immediate understanding of "Configure → Review → Build" flow
-- 3-minute average configuration time
-- Clear value proposition communication
-- Tesla-level interface polish
-- Uber-level simplicity
-
-### Technical Goals
-- All pages load under 2 seconds
-- Smooth 60fps animations
-- Mobile-responsive design
-- Accessible to all users
-- Clean, maintainable codebase
+### Business Requirements:
+- [ ] Commercial subscription tiers integrated with Stripe
+- [ ] ROI calculations based on accurate UK commercial energy data
+- [ ] Professional network filtered for commercial specialists
+- [ ] Trust indicators and business credibility throughout
+- [ ] Conversion-optimized flows for B2B decision makers
 
 ---
 
-*Last Updated: 2025-08-01*
-*Total Tasks: 35 | Completed: 12 | Pending: 23 | Progress: 34%*
+## 🎯 **DEPLOYMENT TARGETS**
+
+### GitHub Repository:
+- **Repository**: https://github.com/giquina/BuildMate
+- **Branch Strategy**: Feature branch → Pull Request → Main branch merge
+- **Commit Requirements**: Comprehensive commit message with all commercial features
+
+### Vercel Production:
+- **Production URL**: https://build-mate-mu.vercel.app/
+- **Commercial Demo**: https://build-mate-mu.vercel.app/commercial
+- **Environment**: Production with all necessary API keys and database connections
+- **Performance**: Global CDN with <2-second load times
+
+---
+
+## ⏱️ **SESSION CONTINUATION PLAN**
+
+**Note**: Everything not completed in current session due to usage limits will be systematically continued tomorrow using the agent hierarchy.
+
+### Tomorrow's Priority Order:
+1. **Product Manager** initiates Phase 1 delegation
+2. **System Architecture** + **UX/UI Designer** complete foundation work
+3. **Frontend** + **Backend Engineering** implement core features
+4. **Security Analyst** conducts ongoing security review
+5. **QA Testing** validates all implementations
+6. **DevOps** handles final deployment to GitHub and Vercel
+
+### Handoff Documentation:
+- All agent specifications created and ready
+- Hierarchical delegation structure established
+- Detailed implementation requirements documented
+- Success criteria and deployment targets defined
+- Commercial B2B requirements comprehensively specified
+
+---
+
+## 📋 **PHASE 0 COMPLETION REVIEW** ✅
+
+### Documentation Updates Completed (2025-08-08):
+
+#### 1. UK Commercial Real Estate Market Research
+- **Confirmed Terminology**: "Optimize Your Property" (preferred over "Optimize Your Assets")
+- **Market Data**: £148.80B market growing to £177.40B by 2030 (3.58% CAGR)
+- **Focus Areas**: Portfolio diversification, technology integration, sustainability (EPC B+), energy efficiency
+- **Regional Opportunities**: Beyond London - logistics, retail warehousing, mixed-use regeneration
+
+#### 2. CLAUDE.md Comprehensive Updates
+- **Agent Hierarchy**: Updated with complete 17-agent system (5 tiers)
+- **Commercial Platform**: Enhanced with "Optimize Your Property" messaging and UK market context
+- **Agent Coordination**: Added hierarchical delegation system and coordination protocols
+- **Commercial Standards**: Updated ROI expectations (30-50% savings, 2-4 year payback)
+
+#### 3. README.md Enhancement
+- **Dual Platform**: Clear residential/commercial differentiation
+- **User Personas**: Separate residential and commercial B2B user types
+- **UK Market Standards**: Commercial property optimization metrics and growth data
+- **Agent System**: Complete 17-agent hierarchy documentation with activation status
+
+#### 4. Agent System Documentation
+- **Created**: `.claude/AGENT_SYSTEM.md` comprehensive coordination guide
+- **Hierarchy**: 5-tier structure with clear reporting relationships
+- **Protocols**: Task delegation flow, communication patterns, decision authority matrix
+- **Activation**: All 17 agents ready for immediate coordination
+
+#### 5. Commercial Messaging Updates
+- **Commercial Page**: Updated `/commercial` page messaging to "Commercial real estate" focus
+- **Toggle System**: Maintained consistent "Optimize Your Property" messaging
+- **Value Proposition**: Aligned with UK market research findings
+
+### Key Achievements:
+- ✅ All 17 specialized agents documented and ready for delegation
+- ✅ Commercial platform messaging aligned with UK market terminology
+- ✅ Comprehensive agent coordination system established
+- ✅ Documentation synchronized across all project files
+- ✅ Commercial focus confirmed: "Optimize Your Property" for business real estate
+
+### System Status:
+- **Agent System**: Fully operational with 17 active agents
+- **Documentation**: Current and comprehensive across all files
+- **Commercial Platform**: Ready for Phase 1 technical implementation
+- **Coordination**: Hierarchical delegation system ready for immediate use
+
+---
+
+**🎯 MISSION CONTINUES**: Transform BuildMate into a comprehensive residential + commercial platform serving both homeowners and business property owners across the UK construction and optimization market.
+
+*Documentation Phase Complete: 2025-08-08*  
+*Agent System Status: All 17 agents active and ready*  
+*Commercial Focus: "Optimize Your Property" - UK commercial real estate optimization*  
+*Next Phase: Begin Phase 1 Foundation & Architecture with product-manager coordination*

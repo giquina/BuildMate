@@ -278,8 +278,8 @@ export default function HomePage() {
                   >
                     <span className="text-2xl">🏢</span>
                     <div className="text-left">
-                      <div className="font-bold">Optimize Your Business</div>
-                      <div className="text-xs opacity-70">Energy efficiency, smart systems, ROI</div>
+                      <div className="font-bold">Optimize Your Real Estate</div>
+                      <div className="text-xs opacity-70">Commercial property, investment returns, asset value</div>
                     </div>
                   </Link>
                 </div>

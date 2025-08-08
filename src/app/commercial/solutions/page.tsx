@@ -280,10 +280,10 @@ export default function CommercialSolutionsPage() {
             </Link>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-            Your Optimization Solutions
+            Your Property Investment Recommendations
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Personalized recommendations to reduce costs, improve efficiency, and increase property value
+            Personalized recommendations to enhance yields, reduce costs, and maximize asset value
           </p>
         </div>
 

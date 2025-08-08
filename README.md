@@ -227,15 +227,62 @@ perf: Optimize bundle size with simplified webpack config
 ## 🎯 Industry Focus
 
 ### User Personas
+
+#### Residential Users
 - **Homeowners**: First-time builders, extension planners
 - **Self-Builders**: Experienced DIY enthusiasts  
-- **Property Developers**: Commercial and residential developers
+- **Property Developers**: Residential development projects
 - **Professionals**: Architects, builders, tradespeople
 
+#### Commercial B2B Users
+- **Business Property Owners**: SMEs seeking property optimization (primary target)
+- **Facility Managers**: Corporate real estate and facility management teams
+- **Commercial Property Developers**: Large-scale commercial development projects
+- **Energy Consultants**: Specialists in commercial energy efficiency
+- **Smart Building Professionals**: IoT, automation, and smart technology specialists
+
 ### UK Market Standards
+
+#### Residential Construction
 - **Typical Costs**: Extensions £1,200-£2,500/m², new builds £1,500-£3,000/m²
 - **Timeline Expectations**: Extensions 12-20 weeks, new builds 12-24+ months
 - **Compliance**: Building regs, planning permission, professional certifications
+
+#### Commercial Property Optimization
+- **Energy Costs**: UK commercial properties average £2-4/sq ft annually
+- **ROI Performance**: 30-50% energy cost reduction, 2-4 year payback periods
+- **Property Value Impact**: 8-15% increase through efficiency improvements
+- **Market Growth**: 3.58% CAGR (£148.80B to £177.40B by 2030)
+- **Compliance Requirements**: EPC B+ ratings, MEES standards, net-zero transition
+
+### Dual Platform Navigation
+Users can seamlessly switch between:
+- **🏠 Build Your Home**: Extensions, new builds, renovations
+- **🏢 Optimize Your Property**: Commercial assets, energy efficiency, ROI
+
+## 🤖 AI-Powered Development
+
+### 17-Agent Development Hierarchy
+BuildMate utilizes a sophisticated agent system for enhanced development:
+
+#### Executive & Strategic (Tiers 1-2)
+- **product-manager**: Executive oversight and coordination
+- **system-architecture**: Technical architecture decisions
+- **ux-ui-designer**: User experience design leadership
+
+#### Implementation Teams (Tier 3)
+- **frontend-engineering**: React/Next.js development
+- **backend-engineering**: API and database architecture
+- **security-analyst**: Enterprise-grade security
+
+#### Quality & Deployment (Tier 4)
+- **qa-testing**: Comprehensive testing strategies
+- **devops**: Deployment automation and monitoring
+
+#### Specialized Support (9 Additional Agents)
+- UI/UX specialists, construction experts, code reviewers, documentation maintainers, performance optimizers, and deployment specialists
+
+**Agent Status**: All 17 agents active and available for immediate coordination
 
 ---
 
