@@ -432,6 +432,14 @@ export default function ProjectCollaborationPage() {
 
   const projectId = params.projectId as string
 
+  const handleFileUpload = useCallback((files: File[]) => {
+    setSelectedFiles(files)
+    // In a real implementation, this would upload to cloud storage
+    console.log('Uploading files:', files)
+    setShowFileUploadModal(false)
+    setSelectedFiles([])
+  }, [])
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -443,14 +451,6 @@ export default function ProjectCollaborationPage() {
       </div>
     )
   }
-
-  const handleFileUpload = useCallback((files: File[]) => {
-    setSelectedFiles(files)
-    // In a real implementation, this would upload to cloud storage
-    console.log('Uploading files:', files)
-    setShowFileUploadModal(false)
-    setSelectedFiles([])
-  }, [])
 
   const getTeamMemberStatusColor = (status: string) => {
     switch (status) {

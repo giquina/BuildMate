@@ -354,7 +354,21 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: [],
+    vatRate: 0.20,
+    regionalPricing: {
+      london: 1.32, // +32% for London (electrical goods)
+      southeast: 1.18, // +18% for South East
+      midlands: 1.0, // Baseline
+      north: 0.93, // -7% for North
+      scotland: 0.90, // -10% for Scotland
+      wales: 0.92 // -8% for Wales
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 10,
+      minOrderValue: 300
+    }
   },
   {
     id: '5',
@@ -394,7 +408,21 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: [],
+    vatRate: 0.20,
+    regionalPricing: {
+      london: 1.40, // +40% for London (premium bathroom suites)
+      southeast: 1.22, // +22% for South East
+      midlands: 1.0, // Baseline
+      north: 0.88, // -12% for North
+      scotland: 0.85, // -15% for Scotland
+      wales: 0.87 // -13% for Wales
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 18,
+      minOrderValue: 500
+    }
   },
   {
     id: '6',
@@ -434,7 +462,21 @@ const projectMaterials: ProjectMaterial[] = [
     customerReviews: [],
     professionalEndorsements: [],
     projectShowcases: [],
-    recommendedWith: []
+    recommendedWith: [],
+    vatRate: 0.20,
+    regionalPricing: {
+      london: 1.38, // +38% for London (kitchen units)
+      southeast: 1.20, // +20% for South East
+      midlands: 1.0, // Baseline
+      north: 0.90, // -10% for North
+      scotland: 0.86, // -14% for Scotland
+      wales: 0.88 // -12% for Wales
+    },
+    tradeDiscount: {
+      available: true,
+      percentage: 22,
+      minOrderValue: 1200
+    }
   }
 ]
 
@@ -854,7 +896,8 @@ export default function MaterialsPage() {
                 )}
               </CardContent>
             </Card>
-          ))}
+            )
+          })}
         </div>
 
         {/* Project Modification CTA */}
