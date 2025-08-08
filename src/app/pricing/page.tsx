@@ -3,8 +3,8 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 
 export const metadata = {
-  title: 'BuildMate AI Pricing | UK Construction Platform Plans',
-  description: 'Choose the perfect BuildMate AI plan for your UK construction project. From free basic access to professional enterprise solutions.',
+  title: 'BuildMate AI AI Pricing | UK Construction Platform Plans',
+  description: 'Choose the perfect BuildMate AI AI plan for your UK construction project. From free basic access to professional enterprise solutions.',
 }
 
 export const dynamic = 'force-static'
@@ -15,7 +15,7 @@ export default function PricingPage() {
       name: "Free",
       price: "£0",
       period: "forever",
-      description: "Perfect for exploring BuildMate AI and small DIY projects",
+      description: "Perfect for exploring BuildMate AI AI and small DIY projects",
       features: [
         "Basic project configuration",
         "1 AI-generated floor plan",
@@ -155,7 +155,7 @@ export default function PricingPage() {
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            From free exploration to enterprise solutions, BuildMate AI offers pricing that scales with your UK construction needs. 
+            From free exploration to enterprise solutions, BuildMate AI AI offers pricing that scales with your UK construction needs. 
             Start free and upgrade as your projects grow.
           </p>
 
@@ -255,7 +255,7 @@ export default function PricingPage() {
               Optional Add-ons
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Enhance your BuildMate AI experience with specialized services tailored to UK construction needs.
+              Enhance your BuildMate AI AI experience with specialized services tailored to UK construction needs.
             </p>
           </div>
 
@@ -282,7 +282,7 @@ export default function PricingPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-xl text-gray-600">
-              Get answers to common questions about BuildMate AI pricing and features.
+              Get answers to common questions about BuildMate AI AI pricing and features.
             </p>
           </div>
 
@@ -305,7 +305,7 @@ export default function PricingPage() {
               Start Building Smarter Today
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join thousands of UK construction professionals who trust BuildMate AI for their projects.
+              Join thousands of UK construction professionals who trust BuildMate AI AI for their projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

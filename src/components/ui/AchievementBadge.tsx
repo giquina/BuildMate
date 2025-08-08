@@ -317,7 +317,7 @@ export const defaultAchievements: Achievement[] = [
   {
     id: 'early-adopter',
     title: 'Early Adopter',
-    description: 'One of the first 100 users on BuildMate',
+    description: 'One of the first 100 users on BuildMate AI',
     icon: 'star',
     category: 'milestone',
     earned: false,

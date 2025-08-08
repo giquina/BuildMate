@@ -1,4 +1,4 @@
-// User Analytics Dashboard for BuildMate Admin
+// User Analytics Dashboard for BuildMate AI Admin
 'use client'
 
 import { useState, useEffect } from 'react'

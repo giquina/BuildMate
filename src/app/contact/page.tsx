@@ -2,8 +2,8 @@ import { ArrowLeft, Mail, Phone, MapPin, Clock, MessageSquare } from 'lucide-rea
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Contact Us - BuildMate',
-  description: 'Get in touch with BuildMate support team. UK construction platform assistance.',
+  title: 'Contact Us - BuildMate AI',
+  description: 'Get in touch with BuildMate AI support team. UK construction platform assistance.',
 }
 
 export default function ContactPage() {
@@ -19,7 +19,7 @@ export default function ContactPage() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact BuildMate</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact BuildMate AI</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Get expert support for your UK construction projects. We're here to help you build better.
           </p>
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   <div>
                     <p className="font-medium text-gray-900">UK Office</p>
                     <p className="text-gray-600">
-                      BuildMate Ltd<br/>
+                      BuildMate AI Ltd<br/>
                       Innovation Centre<br/>
                       London Tech Hub<br/>
                       London E14 5AB, UK
@@ -233,7 +233,7 @@ export default function ContactPage() {
                     className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <label htmlFor="updates" className="ml-3 text-sm text-gray-600">
-                    I'd like to receive updates about new BuildMate features and UK construction insights
+                    I'd like to receive updates about new BuildMate AI features and UK construction insights
                   </label>
                 </div>
 

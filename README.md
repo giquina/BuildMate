@@ -1,8 +1,8 @@
-# BuildMate
+# BuildMate AI
 
 **🏗️ UK's First Smart Home Building & Renovation Platform**
 
-Transform your home building dreams into reality with smart floorplan generation, intelligent material sourcing, and verified professional networks - all designed specifically for the UK market.
+Transform your home building dreams into reality with AI-powered floorplan generation, intelligent material sourcing, and verified professional networks - all designed specifically for the UK market.
 
 ## 🚀 Quick Start
 
@@ -10,8 +10,8 @@ Transform your home building dreams into reality with smart floorplan generation
 
 ```bash
 # 1. Clone and enter the project
-git clone https://github.com/giquina/BuildMate.git
-cd BuildMate
+git clone https://github.com/giquina/BuildMate-AI.git
+cd BuildMate-AI
 
 # 2. Install dependencies
 npm install
@@ -28,13 +28,13 @@ npm run dev
 
 ## 🏗️ What is BuildMate?
 
-BuildMate is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
+BuildMate AI is a comprehensive platform that connects UK homeowners, self-builders, and property developers with:
 
-- **🧠 Smart Floorplan Generation**: Describe your dream home and get professional-grade layouts
-- **🏠 Intelligent Image Generation**: Create realistic home renders powered by Replicate + SDXL
+- **🧠 AI Floorplan Generation**: Describe your dream home and get professional-grade layouts
+- **🏠 AI Image Generation**: Create realistic home renders powered by Replicate + SDXL
 - **🛒 Materials Marketplace**: Shop from Travis Perkins, Wickes, B&Q - all in one cart
 - **👷 Verified Professionals**: Connect with rated builders, architects, and tradespeople
-- **📋 Planning Assistance**: Navigate UK building regulations and planning permission
+- **📋 AI Planning Assistance**: Navigate UK building regulations and planning permission
 - **💰 Smart Budgeting**: Optimize costs with bulk purchasing and regional pricing
 
 ## 🛠️ Development Commands
@@ -65,7 +65,7 @@ npm run type-check && npm run lint && npm run build
 ## 📁 Project Structure
 
 ```
-BuildMate/
+BuildMate-AI/
 ├── src/
 │   ├── app/                 # Next.js App Router pages
 │   │   ├── layout.tsx       # Root layout with navigation
@@ -95,13 +95,13 @@ BuildMate/
 
 ## 🎯 Key Features
 
-### Smart Configuration System
-- **Intelligent Questionnaire**: Dynamically adapts based on user responses
+### AI Configuration System
+- **AI-Powered Questionnaire**: Dynamically adapts based on user responses
 - **UK Property Types**: Detached, semi-detached, terraced, bungalow, flat, cottage
 - **Architectural Styles**: Victorian, Edwardian, Georgian, Modern, Contemporary
 - **Regional Pricing**: London vs. regional cost variations
 
-### Live Image Generation
+### Live AI Image Generation
 - **Replicate + SDXL Integration**: Professional architectural rendering
 - **Cost**: ~£0.002 per image (very affordable)
 - **Quality**: Professional photography quality, 1024x768px
@@ -120,16 +120,16 @@ BuildMate/
 - **Styling**: Tailwind CSS with custom design system
 - **UI Components**: Custom component library
 - **API**: Next.js API routes for backend functionality
-- **Integration**: Replicate (active), Supabase, Stripe, OpenAI (mocked)
+- **AI Integration**: Replicate (active), OpenAI (mocked), Supabase, Stripe
 - **Performance**: Custom React hooks with stable references
 
 ## 📝 Code Conventions
 
 ### Terminology Guidelines
-- **Never use**: "AI", "ai-powered", "ai-generated", "artificial intelligence"
-- **Always use**: "smart", "intelligent", "automated", "advanced"
-- **Function names**: `generateSmartSuggestions`, `smartInsights`, `smartSuggestion`
-- **Branding**: "BuildMate" (not "BuildMate AI")
+- **Platform Branding**: "BuildMate AI" (official platform name)
+- **Feature Naming**: "AI-powered", "AI-generated", "AI insights"
+- **Function names**: `generateAISuggestions`, `aiInsights`, `aiRecommendation`
+- **Marketing Copy**: Emphasize AI capabilities and intelligent automation
 
 ### File Naming
 - **Components**: `PascalCase.tsx` (e.g., `AnimatedProgressBar.tsx`)
@@ -153,16 +153,16 @@ BuildMate/
 
 ### Vercel Deployment
 - **Production URL**: https://buildmate-ai.vercel.app
-- **Repository**: https://github.com/giquina/BuildMate
+- **Repository**: https://github.com/giquina/BuildMate-AI
 - **Auto-deployment**: Enabled from `main` branch
 
 ### Environment Variables
 ```bash
 # Required for full functionality
-REPLICATE_API_TOKEN=r8_xxx...        # Smart image generation (ACTIVE)
+REPLICATE_API_TOKEN=r8_xxx...        # AI image generation (ACTIVE)
 NEXT_PUBLIC_SUPABASE_URL=xxx         # Database connection
 SUPABASE_SERVICE_ROLE_KEY=xxx        # Server-side database access
-OPENAI_API_KEY=xxx                   # Smart floorplan generation
+OPENAI_API_KEY=xxx                   # AI floorplan generation
 STRIPE_SECRET_KEY=xxx                # Payment processing
 ```
 
@@ -186,7 +186,7 @@ main                    # Main production branch
 ### Making Good Commits
 **Good commit messages:**
 ```
-feat: Add smart material recommendation system
+feat: Add AI material recommendation system
 fix: Resolve Fast Refresh runtime errors in performance hook
 docs: Update README with current terminology guidelines
 perf: Optimize bundle size with simplified webpack config
@@ -212,8 +212,8 @@ perf: Optimize bundle size with simplified webpack config
 
 ### Getting Help
 - Check [CLAUDE.md](./CLAUDE.md) for comprehensive development guidance
-- Review [GitHub Issues](https://github.com/giquina/BuildMate/issues)
-- Join [GitHub Discussions](https://github.com/giquina/BuildMate/discussions)
+- Review [GitHub Issues](https://github.com/giquina/BuildMate-AI/issues)
+- Join [GitHub Discussions](https://github.com/giquina/BuildMate-AI/discussions)
 
 ## 📊 Project Status
 
@@ -263,7 +263,7 @@ Users can seamlessly switch between:
 ## 🤖 AI-Powered Development
 
 ### 17-Agent Development Hierarchy
-BuildMate utilizes a sophisticated agent system for enhanced development:
+BuildMate AI utilizes a sophisticated 17-agent AI system for enhanced development:
 
 #### Executive & Strategic (Tiers 1-2)
 - **product-manager**: Executive oversight and coordination

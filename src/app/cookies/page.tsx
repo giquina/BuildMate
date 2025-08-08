@@ -2,8 +2,8 @@ import { ArrowLeft, Cookie, Shield, Settings, Eye, FileText, CheckCircle } from 
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Cookie Policy - BuildMate',
-  description: 'Learn about how BuildMate uses cookies to improve your experience and protect your privacy.',
+  title: 'Cookie Policy - BuildMate AI',
+  description: 'Learn about how BuildMate AI uses cookies to improve your experience and protect your privacy.',
 }
 
 export default function CookiesPage() {
@@ -24,7 +24,7 @@ export default function CookiesPage() {
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Cookie Policy</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Learn how BuildMate uses cookies to enhance your experience, protect your privacy, and improve our construction platform services.
+            Learn how BuildMate AI uses cookies to enhance your experience, protect your privacy, and improve our construction platform services.
           </p>
           <p className="text-sm text-gray-500 mt-4">
             Last updated: January 2024
@@ -125,7 +125,7 @@ export default function CookiesPage() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="font-medium text-gray-900">Authentication Cookies</h4>
-                          <p className="text-gray-600">Keep you logged in to your BuildMate account</p>
+                          <p className="text-gray-600">Keep you logged in to your BuildMate AI account</p>
                         </div>
                         <span className="text-green-600 font-medium">Required</span>
                       </div>
@@ -217,7 +217,7 @@ export default function CookiesPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Cookie Banner</h3>
                   <p className="text-gray-600 mb-4 text-sm">
-                    When you first visit BuildMate, you'll see a cookie banner where you can choose which types of cookies to accept. You can change these preferences at any time.
+                    When you first visit BuildMate AI, you'll see a cookie banner where you can choose which types of cookies to accept. You can change these preferences at any time.
                   </p>
                   
                   <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
@@ -257,7 +257,7 @@ export default function CookiesPage() {
                     <div>
                       <h4 className="font-medium text-yellow-900 mb-1">Important Note</h4>
                       <p className="text-yellow-800 text-sm">
-                        Disabling essential cookies may prevent certain features of BuildMate from working properly, such as staying logged in or maintaining your project data.
+                        Disabling essential cookies may prevent certain features of BuildMate AI from working properly, such as staying logged in or maintaining your project data.
                       </p>
                     </div>
                   </div>

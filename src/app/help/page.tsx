@@ -2,8 +2,8 @@ import { ArrowLeft, Search, MessageCircle, FileText, Phone, Mail, Clock, CheckCi
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Help Center - BuildMate',
-  description: 'Get help with BuildMate. Find answers to common questions, contact support, and access guides for home building projects.',
+  title: 'Help Center - BuildMate AI AI',
+  description: 'Get help with BuildMate AI AI. Find answers to common questions, contact support, and access guides for home building projects.',
 }
 
 export default function HelpPage() {
@@ -82,7 +82,7 @@ export default function HelpPage() {
                     </Link>
                   </h3>
                   <p className="text-gray-600 text-sm mb-2">
-                    Step-by-step guide to setting up your home building project on BuildMate.
+                    Step-by-step guide to setting up your home building project on BuildMate AI.
                   </p>
                   <span className="text-xs text-blue-600 font-medium">5 min read</span>
                 </div>
@@ -121,17 +121,17 @@ export default function HelpPage() {
                 <div className="border-b border-gray-100 pb-6">
                   <h3 className="font-semibold text-gray-900 mb-2 flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    How much does it cost to use BuildMate?
+                    How much does it cost to use BuildMate AI?
                   </h3>
                   <p className="text-gray-600 text-sm ml-7">
-                    BuildMate offers a free plan with basic features, and paid plans starting from £29/month for advanced project management and professional connections.
+                    BuildMate AI offers a free plan with basic features, and paid plans starting from £29/month for advanced project management and professional connections.
                   </p>
                 </div>
 
                 <div className="border-b border-gray-100 pb-6">
                   <h3 className="font-semibold text-gray-900 mb-2 flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    Are all professionals on BuildMate verified?
+                    Are all professionals on BuildMate AI verified?
                   </h3>
                   <p className="text-gray-600 text-sm ml-7">
                     Yes, all professionals go through our verification process including insurance checks, qualification verification, and background checks.
@@ -164,7 +164,7 @@ export default function HelpPage() {
                     What if I'm not happy with a professional's work?
                   </h3>
                   <p className="text-gray-600 text-sm ml-7">
-                    We offer dispute resolution support and all work is covered by our BuildMate guarantee for added peace of mind.
+                    We offer dispute resolution support and all work is covered by our BuildMate AI guarantee for added peace of mind.
                   </p>
                 </div>
               </div>

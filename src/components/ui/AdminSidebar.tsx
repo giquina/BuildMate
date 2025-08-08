@@ -1,4 +1,4 @@
-// Admin Sidebar Component for BuildMate Dashboard
+// Admin Sidebar Component for BuildMate AI Dashboard
 'use client'
 
 import { useState } from 'react'

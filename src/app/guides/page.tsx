@@ -107,14 +107,14 @@ export default function GuidesPage() {
     {
       id: 'getting-started',
       name: 'Getting Started',
-      description: 'Essential guides for your first BuildMate project',
+      description: 'Essential guides for your first BuildMate AI project',
       icon: <Home className="h-6 w-6" />,
       color: 'blue',
       guides: [
         {
           id: 'first-project-setup',
           title: 'First Project Setup Guide',
-          description: 'Complete walkthrough of setting up your very first building project on BuildMate',
+          description: 'Complete walkthrough of setting up your very first building project on BuildMate AI',
           category: 'getting-started',
           difficulty: 'beginner',
           duration: '15 min',
@@ -128,7 +128,7 @@ export default function GuidesPage() {
         },
         {
           id: 'platform-overview',
-          title: 'BuildMate Platform Overview',
+          title: 'BuildMate AI Platform Overview',
           description: 'Understanding all features and capabilities of the Tesla-Uber building experience',
           category: 'getting-started',
           difficulty: 'beginner',
@@ -152,7 +152,7 @@ export default function GuidesPage() {
         {
           id: 'extension-planning',
           title: 'Extension Planning',
-          description: 'Complete guide to planning and executing home extensions with BuildMate AI',
+          description: 'Complete guide to planning and executing home extensions with BuildMate AI AI',
           category: 'project-types',
           difficulty: 'intermediate',
           duration: '25 min',
@@ -199,7 +199,7 @@ export default function GuidesPage() {
     {
       id: 'feature-tutorials',
       name: 'Feature Tutorials',
-      description: 'Learn to use specific BuildMate features effectively',
+      description: 'Learn to use specific BuildMate AI features effectively',
       icon: <Cpu className="h-6 w-6" />,
       color: 'purple',
       guides: [
@@ -235,7 +235,7 @@ export default function GuidesPage() {
         {
           id: 'materials-shopping',
           title: 'Materials Shopping',
-          description: 'Complete guide to sourcing and purchasing materials through BuildMate',
+          description: 'Complete guide to sourcing and purchasing materials through BuildMate AI',
           category: 'feature-tutorials',
           difficulty: 'beginner',
           duration: '15 min',
@@ -292,7 +292,7 @@ export default function GuidesPage() {
   const videoTutorials: Tutorial[] = [
     {
       id: 'quick-start',
-      title: 'BuildMate Quick Start (5 minutes)',
+      title: 'BuildMate AI Quick Start (5 minutes)',
       description: 'Get up and running with your first project in under 5 minutes',
       videoUrl: '/api/placeholder/video/quick-start',
       duration: '4:32',
@@ -313,7 +313,7 @@ export default function GuidesPage() {
     {
       id: 'professional-workflow',
       title: 'Professional Workflow Setup',
-      description: 'How professionals use BuildMate for multiple client projects',
+      description: 'How professionals use BuildMate AI for multiple client projects',
       videoUrl: '/api/placeholder/video/pro-workflow',
       duration: '18:45',
       thumbnail: '/api/placeholder/600/400',
@@ -374,7 +374,7 @@ export default function GuidesPage() {
   const faqs: FAQ[] = [
     {
       id: 'faq-1',
-      question: 'How do I start my first project on BuildMate?',
+      question: 'How do I start my first project on BuildMate AI?',
       answer: 'Starting your first project is simple! Click "Start Building" from the main navigation, choose your project type (new build, extension, or renovation), and follow our step-by-step setup wizard. The AI will guide you through each decision point.',
       category: 'getting-started',
       helpful: 234
@@ -431,7 +431,7 @@ export default function GuidesPage() {
       id: 'tip-4',
       user: 'Mike T.',
       avatar: '/api/placeholder/40/40',
-      tip: 'Start the planning permission process early - it takes longer than you think, even with BuildMate\'s help.',
+      tip: 'Start the planning permission process early - it takes longer than you think, even with BuildMate AI\'s help.',
       likes: 94,
       category: 'Planning'
     }
@@ -498,7 +498,7 @@ export default function GuidesPage() {
               <BookOpen className="h-8 w-8" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              BuildMate Knowledge Hub
+              BuildMate AI Knowledge Hub
             </h1>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               Master the Tesla-Uber building experience with comprehensive guides, tutorials, and expert insights
@@ -950,7 +950,7 @@ export default function GuidesPage() {
         <div className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Community Tips</h2>
-            <p className="text-gray-600">Real advice from BuildMate users</p>
+            <p className="text-gray-600">Real advice from BuildMate AI users</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {communityTips.map((tip) => (

@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { Card } from '@/components/ui/Card'
 
 export const metadata = {
-  title: 'How BuildMate AI Works | UK Construction Platform',
-  description: 'Discover how BuildMate AI streamlines UK construction projects with intelligent planning, professional matching, and cost optimization.',
+  title: 'How BuildMate AI AI Works | UK Construction Platform',
+  description: 'Discover how BuildMate AI AI streamlines UK construction projects with intelligent planning, professional matching, and cost optimization.',
 }
 
 export default function HowItWorksPage() {
@@ -105,7 +105,7 @@ export default function HowItWorksPage() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            How BuildMate AI
+            How BuildMate AI AI
             <span className="block text-blue-700">Transforms Construction</span>
           </h1>
           
@@ -132,7 +132,7 @@ export default function HowItWorksPage() {
               Four Simple Steps to Success
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From project configuration to completion, BuildMate AI guides you through every step of your UK construction journey.
+              From project configuration to completion, BuildMate AI AI guides you through every step of your UK construction journey.
             </p>
           </div>
 
@@ -193,7 +193,7 @@ export default function HowItWorksPage() {
               Measurable Results
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              See the tangible benefits that BuildMate AI delivers to UK construction projects.
+              See the tangible benefits that BuildMate AI AI delivers to UK construction projects.
             </p>
           </div>
 

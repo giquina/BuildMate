@@ -1,4 +1,4 @@
-// Admin Navigation Component for BuildMate Dashboard
+// Admin Navigation Component for BuildMate AI Dashboard
 'use client'
 
 import { useState } from 'react'
@@ -52,7 +52,7 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
             <div className="flex items-center">
               <Shield className="w-8 h-8 text-blue-600 mr-3" />
               <div>
-                <h1 className="text-xl font-bold text-slate-900">BuildMate Admin</h1>
+                <h1 className="text-xl font-bold text-slate-900">BuildMate AI Admin</h1>
                 <p className="text-xs text-slate-500 hidden sm:block">Platform Management Dashboard</p>
               </div>
             </div>

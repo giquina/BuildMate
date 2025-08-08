@@ -13,7 +13,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Home className="h-5 w-5 text-white" />
               </div>
-              <span className="ml-2 text-lg font-bold text-white">BuildMate</span>
+              <span className="ml-2 text-lg font-bold text-white">BuildMate AI</span>
             </div>
             <p className="text-gray-400 text-sm">
               UK's first smart home building platform. From design to completion, we connect homeowners with verified professionals and intelligent materials sourcing.
@@ -72,7 +72,7 @@ export function Footer() {
         <div className="border-t border-gray-800 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
-              <p>© 2025 BuildMate. All rights reserved.</p>
+              <p>© 2025 BuildMate AI. All rights reserved.</p>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center text-green-400">
                   <Shield className="h-3 w-3 mr-1" />

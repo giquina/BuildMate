@@ -2,8 +2,8 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Accessibility Statement - BuildMate AI',
-  description: 'BuildMate AI accessibility statement and WCAG 2.1 AA compliance information.',
+  title: 'Accessibility Statement - BuildMate AI AI',
+  description: 'BuildMate AI AI accessibility statement and WCAG 2.1 AA compliance information.',
 }
 
 export default function AccessibilityPage() {
@@ -24,7 +24,7 @@ export default function AccessibilityPage() {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">♿ Our Commitment to Accessibility</h2>
             <p className="text-gray-700 mb-6">
-              BuildMate AI is committed to ensuring digital accessibility for people with disabilities. 
+              BuildMate AI AI is committed to ensuring digital accessibility for people with disabilities. 
               We continually improve the user experience for everyone and apply relevant accessibility standards.
             </p>
 
@@ -148,7 +148,7 @@ export default function AccessibilityPage() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">⚖️ Legal Compliance</h2>
             <p className="text-gray-700 mb-6">
-              BuildMate AI strives to comply with UK accessibility legislation including the Equality Act 2010 
+              BuildMate AI AI strives to comply with UK accessibility legislation including the Equality Act 2010 
               and the Public Sector Bodies (Websites and Mobile Applications) Accessibility Regulations 2018.
             </p>
 
@@ -165,7 +165,7 @@ export default function AccessibilityPage() {
 
             <div className="mt-8 p-4 bg-green-50 border-l-4 border-green-500">
               <p className="text-green-800 font-medium">
-                <strong>Our Promise:</strong> Every construction professional deserves equal access to BuildMate AI. 
+                <strong>Our Promise:</strong> Every construction professional deserves equal access to BuildMate AI AI. 
                 We're committed to removing barriers and creating an inclusive building platform for all users.
               </p>
             </div>

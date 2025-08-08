@@ -18,8 +18,8 @@ export default function TestimonialsPage() {
       rating: 5,
       date: '2024-07-15',
       category: 'homeowner',
-      quote: 'BuildMate AI transformed our home building journey from overwhelming to exciting. The AI floorplan generator created exactly what we envisioned, and connecting with verified professionals was seamless.',
-      story: 'After months of struggling with traditional architects, Sarah discovered BuildMate AI. Within 2 weeks, she had AI-generated floorplans, material quotes from 3 suppliers, and was connected with James Mitchell, a verified builder. Her £450,000 new build was completed 3 weeks ahead of schedule.',
+      quote: 'BuildMate AI AI transformed our home building journey from overwhelming to exciting. The AI floorplan generator created exactly what we envisioned, and connecting with verified professionals was seamless.',
+      story: 'After months of struggling with traditional architects, Sarah discovered BuildMate AI AI. Within 2 weeks, she had AI-generated floorplans, material quotes from 3 suppliers, and was connected with James Mitchell, a verified builder. Her £450,000 new build was completed 3 weeks ahead of schedule.',
       results: {
         timeSaved: '6 weeks',
         moneySaved: '£15,000',
@@ -37,8 +37,8 @@ export default function TestimonialsPage() {
       rating: 5,
       date: '2024-07-20',
       category: 'professional',
-      quote: 'As a builder, BuildMate AI has revolutionized how I connect with serious clients. The platform pre-qualifies homeowners and provides detailed project specs, making every conversation productive.',
-      story: 'James joined BuildMate AI after 15 years of traditional lead generation. In 6 months, his project completion rate improved by 40%, client satisfaction scores reached 4.9/5, and he reduced project delays by 60% through better upfront planning.',
+      quote: 'As a builder, BuildMate AI AI has revolutionized how I connect with serious clients. The platform pre-qualifies homeowners and provides detailed project specs, making every conversation productive.',
+      story: 'James joined BuildMate AI AI after 15 years of traditional lead generation. In 6 months, his project completion rate improved by 40%, client satisfaction scores reached 4.9/5, and he reduced project delays by 60% through better upfront planning.',
       results: {
         projectIncrease: '40%',
         clientSatisfaction: '4.9/5',
@@ -56,8 +56,8 @@ export default function TestimonialsPage() {
       rating: 5,
       date: '2024-06-28',
       category: 'developer',
-      quote: 'For our 12-unit development project, BuildMate AI was invaluable. The bulk materials sourcing saved us £89,000, and the AI-generated layouts optimized space utilization by 15%.',
-      story: 'The Thompsons were developing their first multi-unit project in Manchester. BuildMate AI\'s bulk purchasing power, combined with AI-optimized layouts and verified subcontractor network, helped them complete the £2.4M project under budget and ahead of schedule.',
+      quote: 'For our 12-unit development project, BuildMate AI AI was invaluable. The bulk materials sourcing saved us £89,000, and the AI-generated layouts optimized space utilization by 15%.',
+      story: 'The Thompsons were developing their first multi-unit project in Manchester. BuildMate AI AI\'s bulk purchasing power, combined with AI-optimized layouts and verified subcontractor network, helped them complete the £2.4M project under budget and ahead of schedule.',
       results: {
         moneySaved: '£89,000',
         spaceOptimization: '15%',
@@ -75,8 +75,8 @@ export default function TestimonialsPage() {
       rating: 5,
       date: '2024-07-10',
       category: 'professional',
-      quote: 'The heritage building regulations compliance features in BuildMate AI saved me countless hours. For Victorian conversions, having UK building regs built into the platform is a game-changer.',
-      story: 'Rachel specializes in Victorian property conversions in Edinburgh. BuildMate AI\'s compliance checking, heritage building materials sourcing, and conservation-approved professional network helped her complete 8 conversion projects with zero compliance issues.',
+      quote: 'The heritage building regulations compliance features in BuildMate AI AI saved me countless hours. For Victorian conversions, having UK building regs built into the platform is a game-changer.',
+      story: 'Rachel specializes in Victorian property conversions in Edinburgh. BuildMate AI AI\'s compliance checking, heritage building materials sourcing, and conservation-approved professional network helped her complete 8 conversion projects with zero compliance issues.',
       results: {
         complianceIssues: '0',
         projectsCompleted: '8',
@@ -117,7 +117,7 @@ export default function TestimonialsPage() {
             Customer Success Stories
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Real results from UK homeowners, builders, and developers using BuildMate AI to transform their construction projects
+            Real results from UK homeowners, builders, and developers using BuildMate AI AI to transform their construction projects
           </p>
         </div>
 
@@ -254,7 +254,7 @@ export default function TestimonialsPage() {
             Ready to Write Your Success Story?
           </h2>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Join thousands of UK homeowners and professionals who are transforming their construction projects with BuildMate AI
+            Join thousands of UK homeowners and professionals who are transforming their construction projects with BuildMate AI AI
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 

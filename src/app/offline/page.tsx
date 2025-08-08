@@ -72,7 +72,7 @@ export default function OfflinePage() {
 
   const loadOfflineDataCounts = () => {
     // Count photos in IndexedDB
-    const request = indexedDB.open('BuildMateOffline', 1)
+    const request = indexedDB.open('BuildMate AIOffline', 1)
     request.onsuccess = () => {
       const db = request.result
       
@@ -200,7 +200,7 @@ export default function OfflinePage() {
             <p className="text-gray-600 max-w-md mx-auto">
               {isOnline 
                 ? 'Your internet connection is back. Sync your construction data now.'
-                : 'No internet connection detected. You can still use BuildMate for essential construction tasks.'
+                : 'No internet connection detected. You can still use BuildMate AI for essential construction tasks.'
               }
             </p>
           </div>

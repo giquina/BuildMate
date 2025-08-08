@@ -244,7 +244,7 @@ export default function CheckoutPage() {
                     <Lightbulb className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-blue-900">BuildMate AI Recommendations</CardTitle>
+                    <CardTitle className="text-blue-900">BuildMate AI AI Recommendations</CardTitle>
                     <p className="text-sm text-blue-700 mt-1">
                       Smart suggestions based on your materials and project type
                     </p>

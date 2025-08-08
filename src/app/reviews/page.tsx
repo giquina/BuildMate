@@ -87,7 +87,7 @@ const mockReviews: Review[] = [
     customerLocation: 'Birmingham',
     projectType: 'Extension',
     rating: 5,
-    reviewText: "BuildMate AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees! The professional network was incredible - every tradesperson was vetted and professional. We finished 3 weeks early and under budget. Couldn't be happier with the results.",
+    reviewText: "BuildMate AI AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees! The professional network was incredible - every tradesperson was vetted and professional. We finished 3 weeks early and under budget. Couldn't be happier with the results.",
     date: '2024-01-15',
     verified: true,
     helpful: 47,
@@ -101,7 +101,7 @@ const mockReviews: Review[] = [
     buildMateResponse: {
       text: "Thank you Jennifer! We're thrilled that our AI layout optimization helped save you £15k. Your project is a perfect example of how technology and skilled professionals can work together. Congratulations on your beautiful new extension!",
       date: '2024-01-16',
-      responder: 'BuildMate Team'
+      responder: 'BuildMate AI Team'
     }
   },
   {
@@ -110,7 +110,7 @@ const mockReviews: Review[] = [
     customerLocation: 'Manchester',
     projectType: 'New Build',
     rating: 5,
-    reviewText: "As a first-time builder, I was terrified. BuildMate's professional network held my hand through everything. The step-by-step guidance and project management tools were invaluable. Finished 3 weeks early and the quality is exceptional!",
+    reviewText: "As a first-time builder, I was terrified. BuildMate AI's professional network held my hand through everything. The step-by-step guidance and project management tools were invaluable. Finished 3 weeks early and the quality is exceptional!",
     date: '2024-01-10',
     verified: true,
     helpful: 32,
@@ -144,7 +144,7 @@ const mockReviews: Review[] = [
     customerLocation: 'Glasgow',
     projectType: 'Full Renovation',
     rating: 4,
-    reviewText: "From planning permission to final inspection, BuildMate guided every step. The professional coordination was seamless. Only minor issue was a delay with materials, but the team handled it professionally.",
+    reviewText: "From planning permission to final inspection, BuildMate AI guided every step. The professional coordination was seamless. Only minor issue was a delay with materials, but the team handled it professionally.",
     date: '2024-01-05',
     verified: true,
     helpful: 19,
@@ -159,7 +159,7 @@ const mockReviews: Review[] = [
     customerLocation: 'London',
     projectType: 'Kitchen Renovation',
     rating: 5,
-    reviewText: "40% material savings through BuildMate's supplier network! The AI space optimization suggestions transformed our cramped kitchen into a spacious, functional heart of our home. Outstanding platform.",
+    reviewText: "40% material savings through BuildMate AI's supplier network! The AI space optimization suggestions transformed our cramped kitchen into a spacious, functional heart of our home. Outstanding platform.",
     date: '2024-01-03',
     verified: true,
     helpful: 35,
@@ -179,7 +179,7 @@ const mockVideoTestimonials: VideoTestimonial[] = [
     customerName: 'Jennifer Mills',
     thumbnail: 'jennifer-thumbnail.jpg',
     duration: '3:45',
-    title: 'How BuildMate Saved Us £15k on Our Extension',
+    title: 'How BuildMate AI Saved Us £15k on Our Extension',
     location: 'Birmingham',
     projectType: 'Extension'
   },
@@ -208,9 +208,9 @@ const mockProfessionalReviews: ProfessionalReview[] = [
     id: '1',
     professionalName: 'Mike Stevens',
     company: 'Elite Construction',
-    customerName: 'BuildMate Platform',
+    customerName: 'BuildMate AI Platform',
     rating: 5,
-    reviewText: "BuildMate connects me with serious, prepared clients. My project completion rate increased 40%. The platform's project management tools help me deliver on time, every time. Highly recommend to fellow professionals.",
+    reviewText: "BuildMate AI connects me with serious, prepared clients. My project completion rate increased 40%. The platform's project management tools help me deliver on time, every time. Highly recommend to fellow professionals.",
     date: '2024-01-12',
     projectType: 'Professional Network',
     location: 'Birmingham'
@@ -219,7 +219,7 @@ const mockProfessionalReviews: ProfessionalReview[] = [
     id: '2',
     professionalName: 'Rachel Cooper',
     company: 'RC Electrical Services',
-    customerName: 'BuildMate Platform',
+    customerName: 'BuildMate AI Platform',
     rating: 5,
     reviewText: "The platform's project management tools help me deliver on time, every time. Clients come with realistic budgets and clear plans. It's transformed how I run my business.",
     date: '2024-01-10',
@@ -230,9 +230,9 @@ const mockProfessionalReviews: ProfessionalReview[] = [
     id: '3',
     professionalName: 'David Park',
     company: 'Park & Associates Architects',
-    customerName: 'BuildMate Platform',
+    customerName: 'BuildMate AI Platform',
     rating: 4,
-    reviewText: "BuildMate clients come with realistic budgets and clear plans. Makes my job so much easier. The AI layout suggestions often provide great starting points for my designs.",
+    reviewText: "BuildMate AI clients come with realistic budgets and clear plans. Makes my job so much easier. The AI layout suggestions often provide great starting points for my designs.",
     date: '2024-01-08',
     projectType: 'Professional Network',
     location: 'London'
@@ -316,7 +316,7 @@ export default function ReviewsPage() {
               Customer Reviews & Testimonials
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              See what thousands of UK homeowners and professionals are saying about their BuildMate experience
+              See what thousands of UK homeowners and professionals are saying about their BuildMate AI experience
             </p>
           </div>
         </div>
@@ -437,7 +437,7 @@ export default function ReviewsPage() {
                     <div className="flex items-center text-green-700">
                       <TrendingUp className="h-5 w-5 mr-2" />
                       <span className="font-semibold">
-                        Saved £{reviews[featuredReviewIndex].projectDetails.savings?.toLocaleString()} through BuildMate
+                        Saved £{reviews[featuredReviewIndex].projectDetails.savings?.toLocaleString()} through BuildMate AI
                       </span>
                     </div>
                   </div>
@@ -583,7 +583,7 @@ export default function ReviewsPage() {
                           <div className="text-green-600 font-semibold">
                             Saved £{review.projectDetails.savings.toLocaleString()}
                           </div>
-                          <div className="text-gray-500">through BuildMate</div>
+                          <div className="text-gray-500">through BuildMate AI</div>
                         </div>
                       )}
                     </div>
@@ -862,7 +862,7 @@ export default function ReviewsPage() {
                   <textarea
                     rows={4}
                     className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Tell us about your BuildMate experience..."
+                    placeholder="Tell us about your BuildMate AI experience..."
                   />
                 </div>
 
@@ -894,7 +894,7 @@ export default function ReviewsPage() {
                 <div className="flex items-center">
                   <input type="checkbox" className="rounded border-gray-300" />
                   <label className="ml-2 text-sm text-gray-600">
-                    I verify that this review is based on my own experience with BuildMate
+                    I verify that this review is based on my own experience with BuildMate AI
                   </label>
                 </div>
 
@@ -921,7 +921,7 @@ export default function ReviewsPage() {
             Join Thousands of Satisfied Customers
           </h2>
           <p className="text-blue-100 text-lg mb-6 max-w-2xl mx-auto">
-            Start your own success story with BuildMate AI. Get AI-powered layouts, find verified professionals, and save thousands on your project.
+            Start your own success story with BuildMate AI AI. Get AI-powered layouts, find verified professionals, and save thousands on your project.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">

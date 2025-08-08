@@ -22,7 +22,7 @@ const TestimonialsSection = memo(({
           Real Stories, Real Results
         </h2>
         <p className="text-xl text-gray-600">
-          See how UK builders are succeeding with BuildMate coordination
+          See how UK builders are succeeding with BuildMate AI coordination
         </p>
       </div>
       <div className="relative">
@@ -147,7 +147,7 @@ export default function HomePage() {
     {
       name: 'Sarah Chen',
       role: 'Self-Builder, Manchester',
-      content: 'BuildMate streamlined our extension project beautifully. The smart layouts saved us £5k in coordination fees and 6 weeks of back-and-forth!',
+      content: 'BuildMate AI streamlined our extension project beautifully. The smart layouts saved us £5k in coordination fees and 6 weeks of back-and-forth!',
       rating: 5,
       savings: '£5,000',
       project: 'Victorian Extension',
@@ -165,7 +165,7 @@ export default function HomePage() {
     {
       name: 'Jennifer Mills',
       role: 'First-Time Builder, Leeds',
-      content: 'As a first-time builder, I was terrified. BuildMate"s professional network held my hand through everything.',
+      content: 'As a first-time builder, I was terrified. BuildMate AI"s professional network held my hand through everything.',
       rating: 5,
       savings: '£8,500',
       project: 'New Build Home',
@@ -201,7 +201,7 @@ export default function HomePage() {
     finalCost: '£79k',
     savings: '£6k',
     timeline: '18 weeks (on schedule)',
-    quote: 'BuildMate"s coordination platform kept our project organized and on track throughout.',
+    quote: 'BuildMate AI"s coordination platform kept our project organized and on track throughout.',
     beforeImage: '🏠',
     afterImage: '🏡'
   }), [])
@@ -304,7 +304,7 @@ export default function HomePage() {
                 <Link 
                   href="/configure" 
                   className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
-                  aria-label="Start building your home with BuildMate configurator - Professional construction platform"
+                  aria-label="Start building your home with BuildMate AI configurator - Professional construction platform"
                   role="button"
                 >
                   <HardHat className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
@@ -314,7 +314,7 @@ export default function HomePage() {
                 <button 
                   onClick={handleShowDemo}
                   className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
-                  aria-label="Watch how BuildMate works - Professional construction demo video"
+                  aria-label="Watch how BuildMate AI works - Professional construction demo video"
                   role="button"
                 >
                   <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
@@ -349,7 +349,7 @@ export default function HomePage() {
                     <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg transform transition-transform group-hover:scale-110">
                       <Play className="h-6 sm:h-8 w-6 sm:w-8 text-blue-600 ml-1" />
                     </div>
-                    <p className="text-gray-700 font-medium text-sm sm:text-base">Watch How BuildMate Works</p>
+                    <p className="text-gray-700 font-medium text-sm sm:text-base">Watch How BuildMate AI Works</p>
                     <p className="text-gray-500 text-xs sm:text-sm mt-1">3 minute demo • Real UK projects</p>
                     <div className="mt-3 flex items-center justify-center space-x-4 text-xs text-gray-600">
                       <span className="flex items-center">
@@ -430,7 +430,7 @@ export default function HomePage() {
                 Featured Success Story
               </h2>
               <p className="text-xl text-gray-600">
-                From concept to completion: a real BuildMate transformation
+                From concept to completion: a real BuildMate AI transformation
               </p>
             </div>
             
@@ -720,7 +720,7 @@ export default function HomePage() {
                 More Success Stories
               </h2>
               <p className="text-xl text-gray-600">
-                Join thousands who have built smarter with BuildMate
+                Join thousands who have built smarter with BuildMate AI
               </p>
             </div>
 
@@ -729,7 +729,7 @@ export default function HomePage() {
                 {
                   name: 'Mike Stevens',
                   role: 'Professional Builder, Elite Construction',
-                  content: 'BuildMate connects me with serious, prepared clients. My project completion rate increased 40%.',
+                  content: 'BuildMate AI connects me with serious, prepared clients. My project completion rate increased 40%.',
                   rating: 5,
                   type: 'Professional',
                   image: '👷‍♂️'
@@ -745,7 +745,7 @@ export default function HomePage() {
                 {
                   name: 'The Anderson Family',
                   role: 'Homeowners, Glasgow',
-                  content: 'From planning permission to final inspection, BuildMate guided every step. Could not be happier.',
+                  content: 'From planning permission to final inspection, BuildMate AI guided every step. Could not be happier.',
                   rating: 5,
                   type: 'Client',
                   image: '🏠'
@@ -859,7 +859,7 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">How BuildMate Works</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">How BuildMate AI Works</h3>
                   <p className="text-gray-600 mt-1">3 minute demo • Real UK construction projects</p>
                 </div>
                 <button 

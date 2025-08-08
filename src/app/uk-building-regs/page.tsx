@@ -2,7 +2,7 @@ import { ArrowLeft, BookOpen, CheckCircle, AlertTriangle, FileText, Building, Us
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'UK Building Regulations Guide - BuildMate',
+  title: 'UK Building Regulations Guide - BuildMate AI',
   description: 'Complete guide to UK building regulations, planning permission, and compliance requirements for construction projects.',
 }
 
@@ -237,7 +237,7 @@ export default function UKBuildingRegsPage() {
             <div className="bg-blue-600 text-white rounded-lg p-6">
               <h3 className="text-lg font-semibold mb-4">Need Professional Help?</h3>
               <p className="text-blue-100 mb-4 text-sm">
-                BuildMate connects you with qualified architects, structural engineers, and planning consultants.
+                BuildMate AI connects you with qualified architects, structural engineers, and planning consultants.
               </p>
               <Link 
                 href="/professionals" 
@@ -272,7 +272,7 @@ export default function UKBuildingRegsPage() {
                 </li>
                 <li>
                   <Link href="/help" className="text-blue-600 hover:text-blue-700 transition-colors">
-                    BuildMate Help Center
+                    BuildMate AI Help Center
                   </Link>
                 </li>
               </ul>

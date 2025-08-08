@@ -1,4 +1,4 @@
-// Admin Dashboard Charts Component for BuildMate Platform
+// Admin Dashboard Charts Component for BuildMate AI Platform
 'use client'
 
 import { useState } from 'react'

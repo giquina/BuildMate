@@ -2,8 +2,8 @@ import { ArrowLeft, Code, Key, Database, Zap, Shield, GitBranch, Copy } from 'lu
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'API Documentation - BuildMate',
-  description: 'Complete API documentation for BuildMate. Learn how to integrate with our construction platform APIs.',
+  title: 'API Documentation - BuildMate AI',
+  description: 'Complete API documentation for BuildMate AI. Learn how to integrate with our construction platform APIs.',
 }
 
 export default function ApiDocsPage() {
@@ -24,7 +24,7 @@ export default function ApiDocsPage() {
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">API Documentation</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Integrate with BuildMate's construction platform APIs. Access professional networks, material suppliers, and project management tools.
+            Integrate with BuildMate AI's construction platform APIs. Access professional networks, material suppliers, and project management tools.
           </p>
         </div>
 
@@ -295,7 +295,7 @@ export default function ApiDocsPage() {
             <div className="bg-blue-600 text-white rounded-lg p-6">
               <h3 className="text-lg font-semibold mb-4">Get Your API Key</h3>
               <p className="text-blue-100 mb-4 text-sm">
-                Sign up for a BuildMate account to get your API key and start integrating with our platform.
+                Sign up for a BuildMate AI account to get your API key and start integrating with our platform.
               </p>
               <Link 
                 href="/configure" 

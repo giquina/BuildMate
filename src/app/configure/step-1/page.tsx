@@ -80,7 +80,7 @@ export default function ConfigureStep1() {
             Configure Your Dream Home
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Use BuildMate AI's advanced configuration system to design your perfect UK home with professional architectural accuracy and realistic visualizations.
+            Use BuildMate AI AI's advanced configuration system to design your perfect UK home with professional architectural accuracy and realistic visualizations.
           </p>
         </div>
 
@@ -158,7 +158,7 @@ export default function ConfigureStep1() {
                 Ready to Start Designing?
               </h2>
               <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                Begin your home configuration journey with BuildMate AI. Our advanced system will generate realistic visualizations of your dream home as you make your selections.
+                Begin your home configuration journey with BuildMate AI AI. Our advanced system will generate realistic visualizations of your dream home as you make your selections.
               </p>
               <Button 
                 size="lg"

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowLeft, Shield, Eye, Cookie, Lock, Globe, Users, AlertTriangle, CheckCircle, Download, Mail, Clock } from 'lucide-react'
 
 export const metadata = {
-  title: 'Enhanced Privacy Dashboard - BuildMate AI',
+  title: 'Enhanced Privacy Dashboard - BuildMate AI AI',
   description: 'Interactive privacy dashboard with live transparency features, data export, and granular privacy controls.',
 }
 
@@ -45,7 +45,7 @@ export default function EnhancedPrivacyPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">Your Privacy Score</h2>
-                <p className="text-gray-600">BuildMate AI respects your privacy with industry-leading practices</p>
+                <p className="text-gray-600">BuildMate AI AI respects your privacy with industry-leading practices</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-bold text-green-600">A+</div>
@@ -158,7 +158,7 @@ export default function EnhancedPrivacyPage() {
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-3 px-4 font-semibold">Feature</th>
-                  <th className="text-center py-3 px-4 font-semibold text-green-600">BuildMate AI (Plausible)</th>
+                  <th className="text-center py-3 px-4 font-semibold text-green-600">BuildMate AI AI (Plausible)</th>
                   <th className="text-center py-3 px-4 font-semibold text-red-600">Google Analytics</th>
                   <th className="text-center py-3 px-4 font-semibold text-red-600">Facebook Pixel</th>
                 </tr>

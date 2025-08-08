@@ -1,11 +1,11 @@
-// Admin Dashboard Layout for BuildMate Platform
+// Admin Dashboard Layout for BuildMate AI Platform
 import { Metadata } from 'next'
 import AdminNavigation from '../../components/ui/AdminNavigation'
 import AdminSidebar from '../../components/ui/AdminSidebar'
 
 export const metadata: Metadata = {
-  title: 'BuildMate Admin Dashboard',
-  description: 'Administrative dashboard for BuildMate platform management',
+  title: 'BuildMate AI Admin Dashboard',
+  description: 'Administrative dashboard for BuildMate AI platform management',
   robots: 'noindex, nofollow'
 }
 

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'construction planning tool'
   ],
   openGraph: {
-    title: 'Smart Floorplan Generator | BuildMate',
+    title: 'Smart Floorplan Generator | BuildMate AI',
     description: 'Generate professional floorplans for your UK home building project. Create detailed layouts and get instant cost estimates.',
     type: 'website',
     images: [
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
         url: '/og-configure.jpg',
         width: 1200,
         height: 630,
-        alt: 'BuildMate Smart Floorplan Generator',
+        alt: 'BuildMate AI Smart Floorplan Generator',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Smart Floorplan Generator | BuildMate',  
+    title: 'Smart Floorplan Generator | BuildMate AI',  
     description: 'Generate professional floorplans for your UK home building project. Create detailed layouts and get instant cost estimates.',
     images: ['/twitter-configure.jpg'],
   },
@@ -70,7 +70,7 @@ export default function ConfigureLayout({
             ],
             "provider": {
               "@type": "Organization",
-              "name": "BuildMate",
+              "name": "BuildMate AI",
               "url": "https://build-mate-mu.vercel.app"
             }
           })

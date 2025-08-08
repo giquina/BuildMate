@@ -1,4 +1,4 @@
-// Main Admin Dashboard Page for BuildMate Platform
+// Main Admin Dashboard Page for BuildMate AI Platform
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Admin Dashboard</h1>
           <p className="text-slate-600 mt-1">
-            Welcome back! Here's what's happening with BuildMate today.
+            Welcome back! Here's what's happening with BuildMate AI today.
           </p>
         </div>
         <div className="flex space-x-3">

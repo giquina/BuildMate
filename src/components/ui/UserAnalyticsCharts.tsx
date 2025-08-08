@@ -1,4 +1,4 @@
-// User Analytics Charts Component for BuildMate Admin
+// User Analytics Charts Component for BuildMate AI Admin
 'use client'
 
 import { useState, useEffect } from 'react'

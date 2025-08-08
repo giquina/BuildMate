@@ -41,7 +41,7 @@ export function Navigation() {
               </div>
               <div className="ml-3">
                 <span className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors block">
-                  BuildMate
+                  BuildMate AI
                 </span>
                 <span className="text-xs text-gray-500 font-medium">
                   Professional Building Platform

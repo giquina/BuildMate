@@ -97,7 +97,7 @@ export function AuthModal({ isOpen, onClose, initialTab = 'login' }: AuthModalPr
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">
-              {activeTab === 'login' ? 'Welcome Back' : 'Join BuildMate'}
+              {activeTab === 'login' ? 'Welcome Back' : 'Join BuildMate AI'}
             </h2>
             <p className="text-gray-600 text-sm mt-1">
               {activeTab === 'login' 

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'UK building specialists'
   ],
   openGraph: {
-    title: 'Verified UK Construction Professionals | BuildMate',
+    title: 'Verified UK Construction Professionals | BuildMate AI',
     description: 'Connect with verified UK construction professionals. Read reviews, compare quotes, and hire with confidence.',
     type: 'website',
     images: [
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
         url: '/og-professionals.jpg',
         width: 1200,
         height: 630,
-        alt: 'BuildMate Verified Professionals',
+        alt: 'BuildMate AI Verified Professionals',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Verified UK Construction Professionals | BuildMate',
+    title: 'Verified UK Construction Professionals | BuildMate AI',
     description: 'Connect with verified UK construction professionals. Read reviews, compare quotes, and hire with confidence.',
     images: ['/twitter-professionals.jpg'],
   },
@@ -85,7 +85,7 @@ export default function ProfessionalsLayout({
             },
             "provider": {
               "@type": "Organization",
-              "name": "BuildMate",
+              "name": "BuildMate AI",
               "url": "https://build-mate-mu.vercel.app"
             }
           })

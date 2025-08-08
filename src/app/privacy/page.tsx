@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
 export const metadata = {
-  title: 'Privacy Policy - BuildMate AI',
-  description: 'Learn how BuildMate AI protects your privacy with cookie-free analytics and transparent data practices.',
+  title: 'Privacy Policy - BuildMate AI AI',
+  description: 'Learn how BuildMate AI AI protects your privacy with cookie-free analytics and transparent data practices.',
 }
 
 export default function PrivacyPage() {
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">🔒 Your Privacy Matters</h2>
             <p className="text-gray-700 mb-6">
-              At BuildMate AI, we believe your privacy is fundamental. This privacy policy explains how we collect, use, and protect your information when you use our UK construction platform.
+              At BuildMate AI AI, we believe your privacy is fundamental. This privacy policy explains how we collect, use, and protect your information when you use our UK construction platform.
             </p>
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">📊 Analytics & Data Collection</h2>
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3">Why We Use Analytics</h3>
             <p className="text-gray-700 mb-6">
-              Understanding how you use BuildMate AI helps us improve the user experience for UK builders and homeowners, 
+              Understanding how you use BuildMate AI AI helps us improve the user experience for UK builders and homeowners, 
               identify valuable features, optimize performance for construction professionals on mobile devices, and make 
               data-driven decisions about new features.
             </p>

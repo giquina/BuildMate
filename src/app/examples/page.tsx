@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { Card } from '@/components/ui/Card'
 
 export const metadata = {
-  title: 'BuildMate AI Examples | UK Construction Projects',
-  description: 'Explore real UK construction examples and success stories powered by BuildMate AI technology.',
+  title: 'BuildMate AI AI Examples | UK Construction Projects',
+  description: 'Explore real UK construction examples and success stories powered by BuildMate AI AI technology.',
 }
 
 export default function ExamplesPage() {
@@ -105,7 +105,7 @@ export default function ExamplesPage() {
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Explore real UK construction projects delivered with BuildMate AI technology. 
+            Explore real UK construction projects delivered with BuildMate AI AI technology. 
             See how our platform helps achieve better outcomes, reduce costs, and streamline timelines.
           </p>
 
@@ -174,7 +174,7 @@ export default function ExamplesPage() {
               Ready to Start Your Project?
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join thousands of UK homeowners who've successfully completed their construction projects with BuildMate AI
+              Join thousands of UK homeowners who've successfully completed their construction projects with BuildMate AI AI
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

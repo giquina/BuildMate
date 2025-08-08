@@ -2,8 +2,8 @@ import { ArrowLeft, Users, Award, Target, Heart, Building, CheckCircle } from 'l
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'About Us - BuildMate',
-  description: 'Learn about BuildMate, the UK\'s leading construction platform for homeowners and professionals.',
+  title: 'About Us - BuildMate AI',
+  description: 'Learn about BuildMate AI, the UK\'s leading construction platform for homeowners and professionals.',
 }
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
           </div>
           
           <div className="text-center py-12">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4">About BuildMate</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">About BuildMate AI</h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               Revolutionizing the UK construction industry with smart tools, professional networking, 
               and comprehensive project management solutions.
@@ -78,7 +78,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
             <div className="space-y-4 text-gray-700">
               <p>
-                BuildMate AI was founded in 2024 by a team of construction professionals, software engineers, 
+                BuildMate AI AI was founded in 2024 by a team of construction professionals, software engineers, 
                 and AI researchers who experienced firsthand the challenges of the UK building industry.
               </p>
               <p>
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 individual homeowners and self-builders across the UK.
               </p>
               <p>
-                Today, BuildMate AI serves thousands of users nationwide, from first-time builders in Scotland 
+                Today, BuildMate AI AI serves thousands of users nationwide, from first-time builders in Scotland 
                 to experienced developers in London, all united by the goal of building better homes efficiently 
                 and affordably.
               </p>
@@ -148,7 +148,7 @@ export default function AboutPage() {
             <Heart className="h-12 w-12 text-red-500 mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
             <p className="text-xl text-gray-600">
-              The principles that guide everything we do at BuildMate AI
+              The principles that guide everything we do at BuildMate AI AI
             </p>
           </div>
 
@@ -275,7 +275,7 @@ export default function AboutPage() {
         <div className="text-center mt-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Building?</h2>
           <p className="text-gray-600 mb-6">
-            Join thousands of UK homeowners who trust BuildMate AI for their construction projects.
+            Join thousands of UK homeowners who trust BuildMate AI AI for their construction projects.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

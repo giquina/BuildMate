@@ -174,7 +174,7 @@ const mockCelebrations: Celebration[] = [
     title: 'Foundation Complete!',
     description: 'Major milestone achieved ahead of schedule',
     achievement: 'Foundation Master',
-    shareText: 'Just completed the foundation for my dream home build! 🏗️ #BuildMate #DreamHome',
+    shareText: 'Just completed the foundation for my dream home build! 🏗️ #BuildMate AI #DreamHome',
     isActive: true,
     timestamp: '2024-07-23T10:00:00Z'
   },
@@ -184,7 +184,7 @@ const mockCelebrations: Celebration[] = [
     title: 'Budget Champion!',
     description: 'You\'re £15,000 under budget so far',
     value: '£15,000',
-    shareText: 'Staying under budget on my home build thanks to smart planning! 💰 #BuildMate #SmartBuilding',
+    shareText: 'Staying under budget on my home build thanks to smart planning! 💰 #BuildMate AI #SmartBuilding',
     isActive: false,
     timestamp: '2024-07-20T14:30:00Z'
   }

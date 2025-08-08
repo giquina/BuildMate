@@ -323,7 +323,7 @@ export default function WishlistPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">
-                  Based on your saved items, BuildMate AI suggests these complementary materials:
+                  Based on your saved items, BuildMate AI AI suggests these complementary materials:
                 </p>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">

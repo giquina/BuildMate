@@ -77,7 +77,7 @@ const mockCaseStudies: CaseStudy[] = [
     professionals: ['Mitchell Construction', 'Elite Electrical'],
     keySuccess: 'AI layout optimization saved £12k in structural changes',
     description: 'Double-story rear extension with modern open-plan design',
-    quote: 'BuildMate AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees!',
+    quote: 'BuildMate AI AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees!',
     featured: true,
     beforeImage: '/api/placeholder/600/400',
     afterImage: '/api/placeholder/600/400',
@@ -102,7 +102,7 @@ const mockCaseStudies: CaseStudy[] = [
     professionals: ['Green Build Solutions', 'EcoTech Systems'],
     keySuccess: 'Professional network efficiency, material bulk buying',
     description: '3-bedroom eco-friendly house with sustainable features',
-    quote: 'As first-time builders, we were terrified. BuildMate\'s professional network held our hand through everything. Finished on time!',
+    quote: 'As first-time builders, we were terrified. BuildMate AI\'s professional network held our hand through everything. Finished on time!',
     featured: false,
     beforeImage: '/api/placeholder/600/400',
     afterImage: '/api/placeholder/600/400',
@@ -152,7 +152,7 @@ const mockCaseStudies: CaseStudy[] = [
     professionals: ['Leeds Commercial Build', 'Northern Electrical'],
     keySuccess: 'Coordinated professional scheduling',
     description: 'Office space conversion with modern amenities',
-    quote: 'BuildMate connects me with serious, prepared clients. My project completion rate increased 40%.',
+    quote: 'BuildMate AI connects me with serious, prepared clients. My project completion rate increased 40%.',
     featured: false,
     beforeImage: '/api/placeholder/600/400',
     afterImage: '/api/placeholder/600/400',
@@ -177,7 +177,7 @@ const mockCaseStudies: CaseStudy[] = [
     professionals: ['Heritage Restore Ltd', 'Classic Crafts'],
     keySuccess: 'Specialist professional network, heritage compliance',
     description: 'Victorian terrace renovation maintaining historical character',
-    quote: 'From planning permission to final inspection, BuildMate guided every step. Couldn\'t be happier.',
+    quote: 'From planning permission to final inspection, BuildMate AI guided every step. Couldn\'t be happier.',
     featured: false,
     beforeImage: '/api/placeholder/600/400',
     afterImage: '/api/placeholder/600/400',
@@ -375,7 +375,7 @@ export default function CaseStudiesPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Discover how BuildMate AI has helped UK homeowners and developers save millions 
+              Discover how BuildMate AI AI has helped UK homeowners and developers save millions 
               while delivering exceptional construction projects across the country.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -783,7 +783,7 @@ export default function CaseStudiesPage() {
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               Join thousands of UK homeowners and developers who have transformed 
-              their construction projects with BuildMate AI.
+              their construction projects with BuildMate AI AI.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg">
@@ -807,7 +807,7 @@ export default function CaseStudiesPage() {
               Get Case Study Updates
             </h3>
             <p className="text-gray-600 mb-6">
-              Be the first to read about new success stories and construction insights from the BuildMate community.
+              Be the first to read about new success stories and construction insights from the BuildMate AI community.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input

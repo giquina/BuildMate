@@ -417,7 +417,7 @@ export default function CommercialPage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Why Property Investors Choose BuildMate
+                Why Property Investors Choose BuildMate AI
               </h2>
               <p className="text-xl text-gray-600">
                 Professional-grade optimization with measurable investment returns
@@ -499,7 +499,7 @@ export default function CommercialPage() {
               Ready to Optimize Your Property Investment?
             </h2>
             <p className="text-blue-100 text-xl mb-8 leading-relaxed">
-              Join 2,400+ property investors who've enhanced yields and increased asset value with BuildMate
+              Join 2,400+ property investors who've enhanced yields and increased asset value with BuildMate AI
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

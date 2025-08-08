@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'UK construction suppliers'
   ],
   openGraph: {
-    title: 'Construction Materials Marketplace | BuildMate',
+    title: 'Construction Materials Marketplace | BuildMate AI',
     description: 'Source high-quality construction materials from verified UK suppliers. Compare prices and get bulk discounts.',
     type: 'website',
     images: [
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
         url: '/og-materials.jpg',
         width: 1200,
         height: 630,
-        alt: 'BuildMate Materials Marketplace',
+        alt: 'BuildMate AI Materials Marketplace',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Construction Materials Marketplace | BuildMate',
+    title: 'Construction Materials Marketplace | BuildMate AI',
     description: 'Source high-quality construction materials from verified UK suppliers. Compare prices and get bulk discounts.',
     images: ['/twitter-materials.jpg'],
   },
@@ -81,7 +81,7 @@ export default function MaterialsLayout({
             },
             "provider": {
               "@type": "Organization",
-              "name": "BuildMate",
+              "name": "BuildMate AI",
               "url": "https://build-mate-mu.vercel.app"
             }
           })

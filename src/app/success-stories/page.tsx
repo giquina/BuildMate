@@ -18,7 +18,7 @@ const featuredStory = {
   },
   professionals: ["Mitchell Construction", "Elite Electrical"],
   keySuccess: "AI layout optimization saved £12k in structural changes",
-  testimonial: "BuildMate AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees!",
+  testimonial: "BuildMate AI AI turned our extension nightmare into a dream project. The AI layouts saved us £15k in architectural fees!",
   location: "Birmingham",
   beforeImage: "/api/placeholder/600/400",
   afterImage: "/api/placeholder/600/400",
@@ -35,7 +35,7 @@ const successStories = [
     savings: 18000,
     timeline: 18,
     category: "First-time buyers",
-    testimonial: "As first-time builders, we were terrified. BuildMate's professional network held our hand through everything. Finished 3 weeks early!",
+    testimonial: "As first-time builders, we were terrified. BuildMate AI's professional network held our hand through everything. Finished 3 weeks early!",
     location: "Manchester",
     beforeImage: "/api/placeholder/400/300",
     afterImage: "/api/placeholder/400/300",
@@ -66,7 +66,7 @@ const successStories = [
     savings: 22000,
     timeline: 12,
     category: "Commercial",
-    testimonial: "BuildMate connects me with serious, prepared clients. My project completion rate increased 40%.",
+    testimonial: "BuildMate AI connects me with serious, prepared clients. My project completion rate increased 40%.",
     location: "Leeds",
     beforeImage: "/api/placeholder/400/300",
     afterImage: "/api/placeholder/400/300",
@@ -82,7 +82,7 @@ const successStories = [
     savings: 4000,
     timeline: 20,
     category: "Extensions",
-    testimonial: "From planning permission to final inspection, BuildMate guided every step. Couldn't be happier.",
+    testimonial: "From planning permission to final inspection, BuildMate AI guided every step. Couldn't be happier.",
     location: "Liverpool",
     beforeImage: "/api/placeholder/400/300",
     afterImage: "/api/placeholder/400/300",
@@ -94,7 +94,7 @@ const professionalTestimonials = [
   {
     name: "Mike Stevens",
     company: "Elite Construction",
-    testimonial: "BuildMate connects me with serious, prepared clients. My project completion rate increased 40%.",
+    testimonial: "BuildMate AI connects me with serious, prepared clients. My project completion rate increased 40%.",
     rating: 5,
     projects: 47
   },
@@ -108,7 +108,7 @@ const professionalTestimonials = [
   {
     name: "David Park",
     company: "Park & Associates Architects",
-    testimonial: "BuildMate clients come with realistic budgets and clear plans. Makes my job so much easier.",
+    testimonial: "BuildMate AI clients come with realistic budgets and clear plans. Makes my job so much easier.",
     rating: 5,
     projects: 31
   }
@@ -155,7 +155,7 @@ export default function SuccessStoriesPage() {
               UK Builders' Success Stories
             </p>
             <p className="text-xl max-w-3xl mx-auto text-blue-200 leading-relaxed">
-              Discover how BuildMate AI has transformed construction projects across the UK, 
+              Discover how BuildMate AI AI has transformed construction projects across the UK, 
               delivering exceptional savings, quality, and peace of mind.
             </p>
           </div>
@@ -429,7 +429,7 @@ export default function SuccessStoriesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Professional Network Testimonials</h2>
-            <p className="text-lg text-gray-600">What construction professionals say about working with BuildMate</p>
+            <p className="text-lg text-gray-600">What construction professionals say about working with BuildMate AI</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -456,7 +456,7 @@ export default function SuccessStoriesPage() {
                 <p className="text-gray-700 mb-4 italic">"{testimonial.testimonial}"</p>
                 
                 <div className="text-sm text-gray-500">
-                  {testimonial.projects} projects completed via BuildMate
+                  {testimonial.projects} projects completed via BuildMate AI
                 </div>
               </div>
             ))}
@@ -468,7 +468,7 @@ export default function SuccessStoriesPage() {
       <section className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Share Your Success Story</h2>
-          <p className="text-lg text-gray-600">Help inspire other builders by sharing your BuildMate experience</p>
+          <p className="text-lg text-gray-600">Help inspire other builders by sharing your BuildMate AI experience</p>
         </div>
 
         {!showSubmissionForm ? (
@@ -526,7 +526,7 @@ export default function SuccessStoriesPage() {
                 <textarea 
                   rows={6} 
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us about your experience with BuildMate AI..."
+                  placeholder="Tell us about your experience with BuildMate AI AI..."
                 ></textarea>
               </div>
 
@@ -566,7 +566,7 @@ export default function SuccessStoriesPage() {
         <div className="max-w-4xl mx-auto px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-4">Ready to Create Your Own Success Story?</h2>
           <p className="text-xl mb-8 text-blue-100">
-            Join thousands of UK builders who have transformed their projects with BuildMate AI
+            Join thousands of UK builders who have transformed their projects with BuildMate AI AI
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-blue-600 py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors font-medium">
