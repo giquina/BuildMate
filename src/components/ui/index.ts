@@ -22,6 +22,11 @@ export * from './LiveNotifications'
 // Layout Components
 export * from './Footer'
 
+// Performance & Loading Components
+export * from './LoadingSpinner'
+export * from './ErrorBoundary'
+export * from './ROICalculator'
+
 // Re-export commonly used component combinations
 export {
   // Button variants

@@ -13,38 +13,17 @@ export function Navigation() {
 
   return (
     <>
-      {/* Enhanced Global Navigation */}
+      {/* Streamlined Global Navigation */}
       <nav className="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200 fixed top-0 w-full z-50">
         <div className="max-w-7xl mx-auto px-4">
-          {/* Trust Indicators Bar */}
-          <div className="hidden md:block border-b border-gray-100 py-2">
-            <div className="flex items-center justify-center space-x-6 text-xs">
-              <div className="flex items-center text-green-600">
-                <Shield className="h-3 w-3 mr-1" />
-                <span className="font-semibold">UK Building Regs Compliant</span>
-              </div>
-              <div className="flex items-center text-blue-600">
-                <Award className="h-3 w-3 mr-1" />
-                <span className="font-semibold">RIBA Certified Platform</span>
-              </div>
-              <div className="flex items-center text-orange-600">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                <span className="font-semibold">10,000+ Projects Completed</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-3">
             <Link href="/" className="flex items-center group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-700 to-blue-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
-                <Home className="h-7 w-7 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-800 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                <Home className="h-5 w-5 text-white" />
               </div>
-              <div className="ml-3">
-                <span className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors block">
+              <div className="ml-2">
+                <span className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
                   BuildMate AI
-                </span>
-                <span className="text-xs text-gray-500 font-medium">
-                  Professional Building Platform
                 </span>
               </div>
             </Link>
@@ -62,10 +41,6 @@ export function Navigation() {
               <Link href="/professionals" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <User className="h-4 w-4 mr-2" />
                 Professionals
-              </Link>
-              <Link href="/examples" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <Eye className="h-4 w-4 mr-2" />
-                Examples
               </Link>
               <Link href="/pricing" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <PoundSterling className="h-4 w-4 mr-2" />
@@ -91,9 +66,9 @@ export function Navigation() {
               {/* User Menu */}
               <UserMenu onOpenAuth={() => setAuthModalOpen(true)} />
               
-              <Link href="/configure" className="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-6 py-3 rounded-xl font-bold flex items-center transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] ml-4">
-                Configure Now
-                <ArrowRight className="h-4 w-4 ml-2" />
+              <Link href="/configure" className="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-4 py-2 rounded-lg font-semibold flex items-center transition-all duration-200 shadow-md hover:shadow-lg ml-4">
+                Build Now
+                <ArrowRight className="h-4 w-4 ml-1" />
               </Link>
             </div>
 
@@ -148,15 +123,6 @@ export function Navigation() {
                   Professionals
                 </Link>
                 <Link 
-                  href="/examples" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
-                  onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <Eye className="h-5 w-5 mr-3" aria-hidden="true" />
-                  Examples
-                </Link>
-                <Link 
                   href="/pricing" 
                   className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
@@ -168,11 +134,11 @@ export function Navigation() {
                 <div className="border-t border-gray-200 pt-3 mt-3">
                   <Link 
                     href="/configure" 
-                    className="flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 text-white px-6 py-3 rounded-xl font-bold transition-all duration-200 shadow-lg"
+                    className="flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Configure Now
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    Build Now
+                    <ArrowRight className="h-4 w-4 ml-1" />
                   </Link>
                 </div>
               </div>

@@ -18,11 +18,11 @@ const TestimonialsSection = memo(({
   <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
     <div className="max-w-6xl mx-auto px-4">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Real Stories, Real Results
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          Success Stories
         </h2>
-        <p className="text-xl text-gray-600">
-          See how UK builders are succeeding with BuildMate AI coordination
+        <p className="text-lg text-gray-600">
+          Real UK builders, real results
         </p>
       </div>
       <div className="relative">
@@ -248,94 +248,82 @@ export default function HomePage() {
       
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-8 pb-16">
+        <section className="pt-20 pb-12">
           <div className="max-w-6xl mx-auto px-4">
             {/* Announcement Bar */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-6">
               <div className="inline-flex items-center bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
                 <Sparkles className="h-4 w-4 mr-2" />
-                Now serving 10,000+ UK builders
+                10,000+ UK builders trust BuildMate
               </div>
             </div>
 
             {/* Commercial/Residential Toggle */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-2 shadow-lg">
-                <div className="flex items-center space-x-4">
+            <div className="flex justify-center mb-6">
+              <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-xl p-1 shadow-md">
+                <div className="flex items-center space-x-2">
                   <Link 
                     href="/"
-                    className="flex items-center space-x-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold transition-all duration-200 shadow-lg"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium transition-all duration-200 shadow-sm"
                   >
-                    <span className="text-2xl">🏠</span>
-                    <div className="text-left">
-                      <div className="font-bold">Build Your Home</div>
-                      <div className="text-xs opacity-90">Extensions, new builds, renovations</div>
-                    </div>
+                    <span className="text-lg">🏠</span>
+                    <div>Build Home</div>
                   </Link>
                   <Link 
                     href="/commercial"
-                    className="flex items-center space-x-3 px-6 py-4 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-semibold transition-all duration-200"
+                    className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-all duration-200"
                   >
-                    <span className="text-2xl">🏢</span>
-                    <div className="text-left">
-                      <div className="font-bold">Optimize Your Real Estate</div>
-                      <div className="text-xs opacity-70">Commercial property, investment returns, asset value</div>
-                    </div>
+                    <span className="text-lg">🏢</span>
+                    <div>Optimize Property</div>
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="text-center mb-8 sm:mb-12">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
-                Smart Home Building
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-2">
-                  Made Simple
+            <div className="text-center mb-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                Build Smarter
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block">
+                  Build Faster
                 </span>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-                Generate floorplans, visualize designs, source materials, and connect with verified UK builders - all in one professional platform.
-                <span className="block mt-2 sm:mt-3 text-sm sm:text-base lg:text-lg text-blue-600 font-semibold">
-                  From concept to completion in 3 simple steps
-                </span>
+              <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+                Professional building platform for UK homeowners and developers. Generate plans, find materials, connect with trades.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                 <Link 
                   href="/configure" 
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 shadow-xl group transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-blue-500 focus:ring-offset-2"
-                  aria-label="Start building your home with BuildMate AI configurator - Professional construction platform"
-                  role="button"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg group min-h-[48px]"
                 >
-                  <HardHat className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
-                  <span className="relative z-10">Start Building Your Home</span>
-                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform relative z-10" />
+                  <HardHat className="mr-2 h-5 w-5" />
+                  Start Building
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <button 
                   onClick={handleShowDemo}
-                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 shadow-lg group transform hover:scale-105 hover:shadow-xl text-base sm:text-lg lg:text-xl min-h-[56px] sm:min-h-[64px] touch-manipulation focus:ring-4 focus:ring-gray-500 focus:ring-offset-2"
-                  aria-label="Watch how BuildMate AI works - Professional construction demo video"
-                  role="button"
+                  className="inline-flex items-center justify-center bg-white hover:bg-gray-50 text-gray-800 font-semibold px-6 py-3 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-200 shadow-sm min-h-[48px]"
                 >
-                  <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-                  <span>See How It Works</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 rounded-xl"></div>
+                  <Play className="mr-2 h-5 w-5" />
+                  Watch Demo
                 </button>
               </div>
               
-              {/* Enhanced Trust Indicators */}
-              <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 lg:gap-8 text-xs sm:text-sm text-gray-500 px-4">
-                <div className="flex items-center bg-green-50 px-3 py-2 rounded-full border border-green-200">
-                  <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                  <span className="text-green-700 font-medium">Free to start</span>
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-green-600 mr-1" />
+                  <span>Free to start</span>
                 </div>
-                <div className="flex items-center bg-blue-50 px-3 py-2 rounded-full border border-blue-200">
-                  <CheckCircle className="h-4 w-4 text-blue-600 mr-2" />
-                  <span className="text-blue-700 font-medium">UK building regulations</span>
+                <span className="text-gray-300">•</span>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-blue-600 mr-1" />
+                  <span>UK compliant</span>
                 </div>
-                <div className="flex items-center bg-orange-50 px-3 py-2 rounded-full border border-orange-200">
-                  <CheckCircle className="h-4 w-4 text-orange-600 mr-2" />
-                  <span className="text-orange-700 font-medium">Verified professionals</span>
+                <span className="text-gray-300">•</span>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-orange-600 mr-1" />
+                  <span>Verified trades</span>
                 </div>
               </div>
             </div>

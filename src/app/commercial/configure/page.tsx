@@ -1,13 +1,16 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect, Suspense, memo } from 'react'
 import Link from 'next/link'
 import { ArrowRight, ArrowLeft, Building2, MapPin, Zap, Target, DollarSign, Clock, CheckCircle, AlertCircle } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { LoadingSpinner, PropertyTypeSelectorSkeleton } from '@/components/ui/LoadingSpinner'
+import { CommercialErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { calculateCommercialEnergyCost, getEnergyRecommendations, calculateEnergyUpgradeROI, ENERGY_BENCHMARKS } from '@/lib/uk-utils'
 import type { CommercialPropertyType, EPCRating, BusinessIndustry, OccupancyType, OperatingHours } from '@/types'
+import { usePerformanceMonitoring } from '@/lib/performance'
 
 interface PropertyData {
   propertyType: CommercialPropertyType | ''

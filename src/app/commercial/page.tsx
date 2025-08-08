@@ -2,14 +2,21 @@
 
 import Link from 'next/link'
 import { ArrowRight, TrendingUp, Zap, Shield, Award, CheckCircle, Building2, DollarSign, Clock, Target, Lightbulb, BarChart3, Users, Globe, Star } from 'lucide-react'
-import { useState, useEffect, memo, useMemo, useCallback } from 'react'
+import { useState, useEffect, memo, useMemo, useCallback, Suspense } from 'react'
 import { calculateCommercialEnergyCost, calculateEnergyUpgradeROI, ENERGY_BENCHMARKS } from '@/lib/uk-utils'
+import { CommercialErrorBoundary } from '@/components/ui/ErrorBoundary'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { usePerformanceMonitoring } from '@/lib/performance'
 
-// Animated Counter Component for Business Metrics
+// Optimized Animated Counter Component for Business Metrics
 const BusinessCounter = memo(({ value, suffix, duration = 2000 }: { value: string, suffix?: string, duration?: number }) => {
   const [displayValue, setDisplayValue] = useState('0')
+  const [isAnimating, setIsAnimating] = useState(false)
   
   useEffect(() => {
+    if (isAnimating) return // Prevent multiple animations
+    
+    setIsAnimating(true)
     const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
     const prefix = value.replace(/[0-9]/g, '')
     let start = 0
@@ -19,143 +26,169 @@ const BusinessCounter = memo(({ value, suffix, duration = 2000 }: { value: strin
       start += increment
       if (start >= numericValue) {
         setDisplayValue(value + (suffix || ''))
+        setIsAnimating(false)
         clearInterval(timer)
       } else {
         setDisplayValue(prefix + Math.floor(start).toLocaleString() + (suffix || ''))
       }
     }, 50)
     
-    return () => clearInterval(timer)
-  }, [value, suffix, duration])
+    return () => {
+      clearInterval(timer)
+      setIsAnimating(false)
+    }
+  }, [value, suffix, duration, isAnimating])
   
   return <span className="font-bold text-white">{displayValue}</span>
 })
 
-export default function CommercialPage() {
+BusinessCounter.displayName = 'BusinessCounter'
+
+// Memoized property types to prevent re-creation
+const PROPERTY_TYPES = [
+  {
+    type: 'Prime Office Buildings',
+    icon: '🏢',
+    savings: '£8,000-£25,000',
+    description: 'Grade A offices, business parks, corporate headquarters',
+    improvements: ['Smart building automation', 'Energy performance certificates', 'Tenant attraction features'],
+    roiMonths: '18-24',
+    color: 'blue'
+  },
+  {
+    type: 'High Street Retail',
+    icon: '🏪',
+    savings: '£12,000-£40,000',
+    description: 'Shop units, retail parks, shopping centers',
+    improvements: ['Energy-efficient systems', 'Modern fit-outs', 'Digital infrastructure'],
+    roiMonths: '12-18',
+    color: 'green'
+  },
+  {
+    type: 'Industrial & Logistics',
+    icon: '🏭',
+    savings: '£15,000-£60,000',
+    description: 'Warehouses, distribution centers, industrial estates',
+    improvements: ['LED lighting upgrades', 'Automated systems', 'Energy monitoring'],
+    roiMonths: '6-12',
+    color: 'orange'
+  },
+  {
+    type: 'Hospitality Properties',
+    icon: '🏨',
+    savings: '£20,000-£80,000',
+    description: 'Hotels, pubs, restaurants, leisure facilities',
+    improvements: ['Guest experience systems', 'Energy management', 'Revenue optimization'],
+    roiMonths: '24-36',
+    color: 'purple'
+  },
+  {
+    type: 'Healthcare Real Estate',
+    icon: '🏥',
+    savings: '£25,000-£75,000',
+    description: 'Medical centers, care homes, dental practices',
+    improvements: ['Specialist HVAC systems', 'Compliance upgrades', 'Patient comfort features'],
+    roiMonths: '18-30',
+    color: 'blue'
+  },
+  {
+    type: 'Student Accommodation',
+    icon: '🏫',
+    savings: '£18,000-£55,000',
+    description: 'Purpose-built student housing, HMOs, educational facilities',
+    improvements: ['Energy-efficient heating', 'Modern amenities', 'Security systems'],
+    roiMonths: '20-36',
+    color: 'green'
+  },
+  {
+    type: 'Mixed-Use Investments',
+    icon: '🏬',
+    savings: '£30,000-£120,000',
+    description: 'Retail-residential, commercial-residential developments',
+    improvements: ['Flexible space design', 'Multi-tenant systems', 'Asset diversification'],
+    roiMonths: '24-42',
+    color: 'orange'
+  },
+  {
+    type: 'Alternative Investments',
+    icon: '💻',
+    savings: '£50,000-£200,000',
+    description: 'Data centers, self-storage, car parks, specialist facilities',
+    improvements: ['Specialized optimization', 'Technology upgrades', 'Operational efficiency'],
+    roiMonths: '12-24',
+    color: 'purple'
+  }
+] as const
+
+const VALUE_PROPS = [
+  {
+    title: 'Maximize Rental Yields',
+    description: 'Increase rental income through property improvements and efficiency',
+    icon: '💰',
+    metrics: 'Typical yield improvement: 12-20% increase',
+    color: 'green'
+  },
+  {
+    title: 'Enhance Asset Value',
+    description: 'Boost capital appreciation with smart building upgrades',
+    icon: '📈',
+    metrics: 'Average increase: 8-15% property value',
+    color: 'blue'
+  },
+  {
+    title: 'Improve Tenant Retention',
+    description: 'Reduce void periods with modern, efficient properties',
+    icon: '😊',
+    metrics: 'Up to 40% longer tenancy agreements',
+    color: 'purple'
+  },
+  {
+    title: 'Ensure Regulatory Compliance',
+    description: 'Meet EPC requirements and avoid letting restrictions',
+    icon: '✅',
+    metrics: 'MEES compliance and C-rating achievement',
+    color: 'emerald'
+  }
+] as const
+
+const BUSINESS_METRICS = [
+  { label: 'Average Annual Savings', value: '£45,000', icon: DollarSign, color: 'green', suffix: '' },
+  { label: 'Typical ROI', value: '15', icon: TrendingUp, color: 'blue', suffix: '%' },
+  { label: 'Payback Period', value: '3.2', icon: Clock, color: 'purple', suffix: ' years' },
+  { label: 'Carbon Reduction', value: '40', icon: Globe, color: 'emerald', suffix: '%' },
+  { label: 'Property Value Increase', value: '12', icon: Building2, color: 'indigo', suffix: '%' },
+  { label: 'Properties Optimized', value: '2,400', icon: Users, color: 'orange', suffix: '+' }
+] as const
+
+function CommercialPageInner() {
+  const { onMount, measureOperation } = usePerformanceMonitoring('CommercialPage')
   const [animatedStats, setAnimatedStats] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   
-  // Business success metrics
-  const businessMetrics = useMemo(() => [
-    { label: 'Average Annual Savings', value: '£45,000', icon: DollarSign, color: 'green', suffix: '' },
-    { label: 'Typical ROI', value: '15', icon: TrendingUp, color: 'blue', suffix: '%' },
-    { label: 'Payback Period', value: '3.2', icon: Clock, color: 'purple', suffix: ' years' },
-    { label: 'Carbon Reduction', value: '40', icon: Globe, color: 'emerald', suffix: '%' },
-    { label: 'Property Value Increase', value: '12', icon: Building2, color: 'indigo', suffix: '%' },
-    { label: 'Properties Optimized', value: '2,400', icon: Users, color: 'orange', suffix: '+' }
-  ], [])
-
-  // UK commercial real estate investment property types
-  const propertyTypes = useMemo(() => [
-    {
-      type: 'Prime Office Buildings',
-      icon: '🏢',
-      savings: '£8,000-£25,000',
-      description: 'Grade A offices, business parks, corporate headquarters',
-      improvements: ['Smart building automation', 'Energy performance certificates', 'Tenant attraction features'],
-      roiMonths: '18-24',
-      color: 'blue'
-    },
-    {
-      type: 'High Street Retail',
-      icon: '🏪',
-      savings: '£12,000-£40,000',
-      description: 'Shop units, retail parks, shopping centers',
-      improvements: ['Energy-efficient systems', 'Modern fit-outs', 'Digital infrastructure'],
-      roiMonths: '12-18',
-      color: 'green'
-    },
-    {
-      type: 'Industrial & Logistics',
-      icon: '🏭',
-      savings: '£15,000-£60,000',
-      description: 'Warehouses, distribution centers, industrial estates',
-      improvements: ['LED lighting upgrades', 'Automated systems', 'Energy monitoring'],
-      roiMonths: '6-12',
-      color: 'orange'
-    },
-    {
-      type: 'Hospitality Properties',
-      icon: '🏨',
-      savings: '£20,000-£80,000',
-      description: 'Hotels, pubs, restaurants, leisure facilities',
-      improvements: ['Guest experience systems', 'Energy management', 'Revenue optimization'],
-      roiMonths: '24-36',
-      color: 'purple'
-    },
-    {
-      type: 'Healthcare Real Estate',
-      icon: '🏥',
-      savings: '£25,000-£75,000',
-      description: 'Medical centers, care homes, dental practices',
-      improvements: ['Specialist HVAC systems', 'Compliance upgrades', 'Patient comfort features'],
-      roiMonths: '18-30',
-      color: 'blue'
-    },
-    {
-      type: 'Student Accommodation',
-      icon: '🏫',
-      savings: '£18,000-£55,000',
-      description: 'Purpose-built student housing, HMOs, educational facilities',
-      improvements: ['Energy-efficient heating', 'Modern amenities', 'Security systems'],
-      roiMonths: '20-36',
-      color: 'green'
-    },
-    {
-      type: 'Mixed-Use Investments',
-      icon: '🏬',
-      savings: '£30,000-£120,000',
-      description: 'Retail-residential, commercial-residential developments',
-      improvements: ['Flexible space design', 'Multi-tenant systems', 'Asset diversification'],
-      roiMonths: '24-42',
-      color: 'orange'
-    },
-    {
-      type: 'Alternative Investments',
-      icon: '💻',
-      savings: '£50,000-£200,000',
-      description: 'Data centers, self-storage, car parks, specialist facilities',
-      improvements: ['Specialized optimization', 'Technology upgrades', 'Operational efficiency'],
-      roiMonths: '12-24',
-      color: 'purple'
-    }
-  ], [])
-
-  // Real estate investment value propositions
-  const valueProps = useMemo(() => [
-    {
-      title: 'Maximize Rental Yields',
-      description: 'Increase rental income through property improvements and efficiency',
-      icon: '💰',
-      metrics: 'Typical yield improvement: 12-20% increase',
-      color: 'green'
-    },
-    {
-      title: 'Enhance Asset Value',
-      description: 'Boost capital appreciation with smart building upgrades',
-      icon: '📈',
-      metrics: 'Average increase: 8-15% property value',
-      color: 'blue'
-    },
-    {
-      title: 'Improve Tenant Retention',
-      description: 'Reduce void periods with modern, efficient properties',
-      icon: '😊',
-      metrics: 'Up to 40% longer tenancy agreements',
-      color: 'purple'
-    },
-    {
-      title: 'Ensure Regulatory Compliance',
-      description: 'Meet EPC requirements and avoid letting restrictions',
-      icon: '✅',
-      metrics: 'MEES compliance and C-rating achievement',
-      color: 'emerald'
-    }
-  ], [])
-
+  // Performance monitoring on mount
   useEffect(() => {
-    const timer = setTimeout(() => setAnimatedStats(true), 500)
+    onMount()
+    // Simulate initial loading
+    const timer = setTimeout(() => setIsLoading(false), 300)
     return () => clearTimeout(timer)
-  }, [])
+  }, [onMount])
+  
+  // Trigger animations after component loads
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => setAnimatedStats(true), 500)
+      return () => clearTimeout(timer)
+    }
+  }, [isLoading])
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <LoadingSpinner size="lg" text="Loading commercial platform..." />
+      </div>
+    )
+  }
+
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -316,7 +349,7 @@ export default function CommercialPage() {
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative z-10">
-                {businessMetrics.map((metric, index) => {
+                {BUSINESS_METRICS.map((metric, index) => {
                   const Icon = metric.icon
                   const gradients = {
                     green: 'from-emerald-500 to-green-600',
@@ -378,7 +411,7 @@ export default function CommercialPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {propertyTypes.map((property, index) => (
+              {PROPERTY_TYPES.map((property, index) => (
                 <div key={index} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-blue-500">
                   <div className="text-center mb-6">
                     <div className="text-4xl mb-4">{property.icon}</div>
@@ -425,7 +458,7 @@ export default function CommercialPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {valueProps.map((prop, index) => (
+              {VALUE_PROPS.map((prop, index) => (
                 <div key={index} className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-100">
                   <div className="text-4xl mb-4">{prop.icon}</div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">{prop.title}</h3>
@@ -537,5 +570,20 @@ export default function CommercialPage() {
         </section>
       </div>
     </div>
+  )
+}
+
+// Export with performance optimizations
+export default function CommercialPage() {
+  return (
+    <CommercialErrorBoundary>
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+          <LoadingSpinner size="lg" text="Loading commercial platform..." />
+        </div>
+      }>
+        <CommercialPageInner />
+      </Suspense>
+    </CommercialErrorBoundary>
   )
 }
