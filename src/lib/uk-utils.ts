@@ -495,3 +495,338 @@ All professionals must have valid certifications and insurance coverage.
 Gas work must only be carried out by Gas Safe registered engineers.
 Electrical work may require Building Control notification under Part P.
 `
+
+// ========================================
+// COMMERCIAL B2B ENERGY CALCULATIONS
+// ========================================
+
+// UK Commercial Energy Costs (2024 data)
+export const UK_COMMERCIAL_ENERGY_COSTS = {
+  // Electricity costs (pence per kWh) by business size
+  electricity: {
+    small_business: 28.5, // <100kW
+    medium_business: 24.8, // 100-500kW
+    large_business: 21.2, // >500kW
+  },
+  // Gas costs (pence per kWh) by business size
+  gas: {
+    small_business: 8.4,
+    medium_business: 7.8,
+    large_business: 6.9,
+  },
+  // Standing charges per day
+  standingCharges: {
+    electricity: 45.2, // pence per day
+    gas: 28.8, // pence per day
+  },
+  // Climate Change Levy (CCL) rates
+  ccl: {
+    electricity: 0.775, // pence per kWh
+    gas: 0.212, // pence per kWh
+  }
+} as const
+
+// Energy consumption benchmarks by property type (kWh/m²/year)
+export const ENERGY_BENCHMARKS = {
+  office_building: {
+    electricity: 95, // kWh/m²/year
+    gas: 120, // kWh/m²/year
+    typical_epc: 'D' as const
+  },
+  retail_space: {
+    electricity: 150,
+    gas: 180,
+    typical_epc: 'D' as const
+  },
+  warehouse: {
+    electricity: 45,
+    gas: 60,
+    typical_epc: 'C' as const
+  },
+  manufacturing: {
+    electricity: 180,
+    gas: 200,
+    typical_epc: 'D' as const
+  },
+  hospitality: {
+    electricity: 200,
+    gas: 250,
+    typical_epc: 'E' as const
+  },
+  healthcare: {
+    electricity: 250,
+    gas: 300,
+    typical_epc: 'D' as const
+  },
+  education: {
+    electricity: 80,
+    gas: 100,
+    typical_epc: 'C' as const
+  },
+  multi_tenant: {
+    electricity: 120,
+    gas: 150,
+    typical_epc: 'D' as const
+  },
+  mixed_use: {
+    electricity: 130,
+    gas: 160,
+    typical_epc: 'D' as const
+  }
+} as const
+
+// Energy efficiency improvement potentials
+export const EFFICIENCY_IMPROVEMENTS = {
+  led_lighting: {
+    energySavings: 0.65, // 65% reduction
+    applicableLoad: 0.25, // 25% of total energy
+    costPerSqM: 15, // £15/m²
+    lifespan: 15, // years
+    maintenanceReduction: 0.8 // 80% less maintenance
+  },
+  hvac_optimization: {
+    energySavings: 0.35, // 35% reduction
+    applicableLoad: 0.45, // 45% of total energy
+    costPerSqM: 45, // £45/m²
+    lifespan: 12,
+    maintenanceReduction: 0.3
+  },
+  insulation_upgrade: {
+    energySavings: 0.25, // 25% reduction in heating
+    applicableLoad: 0.6, // applies to heating/cooling
+    costPerSqM: 35, // £35/m²
+    lifespan: 25,
+    maintenanceReduction: 0
+  },
+  smart_controls: {
+    energySavings: 0.15, // 15% reduction
+    applicableLoad: 0.8, // applies to most systems
+    costPerSqM: 25, // £25/m²
+    lifespan: 10,
+    maintenanceReduction: 0.2
+  },
+  solar_panels: {
+    energyGeneration: 950, // kWh/kWp/year (UK average)
+    costPerKwp: 1200, // £1,200/kWp installed
+    lifespan: 25,
+    maintenanceReduction: 0,
+    feedInTariff: 0.05 // 5p/kWh export
+  },
+  heat_pump: {
+    energySavings: 0.45, // vs gas boiler
+    applicableLoad: 1.0, // heating only
+    costPerKw: 1500, // £1,500/kW capacity
+    lifespan: 15,
+    maintenanceReduction: 0.4,
+    ropReduction: 0.6 // Renewable heat incentive
+  }
+} as const
+
+// Calculate annual energy cost for commercial property
+export function calculateCommercialEnergyCost(
+  propertyType: keyof typeof ENERGY_BENCHMARKS,
+  floorArea: number, // m²
+  businessSize: 'small_business' | 'medium_business' | 'large_business' = 'small_business'
+): {
+  annualElectricity: number
+  annualGas: number
+  totalAnnualCost: number
+  carbonFootprint: number
+  costPerSqM: number
+} {
+  const benchmark = ENERGY_BENCHMARKS[propertyType]
+  const electricityRates = UK_COMMERCIAL_ENERGY_COSTS.electricity[businessSize]
+  const gasRates = UK_COMMERCIAL_ENERGY_COSTS.gas[businessSize]
+  
+  const annualElectricity = benchmark.electricity * floorArea
+  const annualGas = benchmark.gas * floorArea
+  
+  const electricityCost = (annualElectricity * (electricityRates + UK_COMMERCIAL_ENERGY_COSTS.ccl.electricity)) / 100
+  const gasCost = (annualGas * (gasRates + UK_COMMERCIAL_ENERGY_COSTS.ccl.gas)) / 100
+  
+  // Add standing charges
+  const standingChargesCost = (UK_COMMERCIAL_ENERGY_COSTS.standingCharges.electricity + UK_COMMERCIAL_ENERGY_COSTS.standingCharges.gas) * 365 / 100
+  
+  const totalAnnualCost = electricityCost + gasCost + standingChargesCost
+  
+  // Carbon footprint calculation (kg CO2)
+  const carbonFootprint = (annualElectricity * 0.193 + annualGas * 0.184) / 1000 // tonnes CO2
+  
+  return {
+    annualElectricity: Math.round(annualElectricity),
+    annualGas: Math.round(annualGas),
+    totalAnnualCost: Math.round(totalAnnualCost),
+    carbonFootprint: Math.round(carbonFootprint * 100) / 100,
+    costPerSqM: Math.round((totalAnnualCost / floorArea) * 100) / 100
+  }
+}
+
+// Calculate ROI for energy efficiency improvements
+export function calculateEnergyUpgradeROI(
+  currentAnnualCost: number,
+  floorArea: number,
+  improvements: (keyof typeof EFFICIENCY_IMPROVEMENTS)[],
+  region: string = 'UK Average'
+): {
+  totalInvestment: number
+  annualSavings: number
+  simplePayback: number
+  netPresentValue: number
+  internalRateOfReturn: number
+  carbonSavings: number
+} {
+  let totalInvestment = 0
+  let totalAnnualSavings = 0
+  let totalCarbonSavings = 0
+  
+  const regionalMultiplier = getRegionalCostMultiplier(region === 'UK Average' ? 'B1 1AA' : region)
+  
+  improvements.forEach(improvement => {
+    const config = EFFICIENCY_IMPROVEMENTS[improvement]
+    
+    if (improvement === 'solar_panels') {
+      // Solar calculation based on roof area (assume 60% of floor area available)
+      const roofArea = floorArea * 0.6
+      const systemSize = roofArea * 0.15 // 150W/m² panel efficiency
+      const solarConfig = config as typeof EFFICIENCY_IMPROVEMENTS.solar_panels
+      const investment = systemSize * solarConfig.costPerKwp * regionalMultiplier
+      const annualGeneration = systemSize * solarConfig.energyGeneration
+      const savingsFromGeneration = annualGeneration * UK_COMMERCIAL_ENERGY_COSTS.electricity.small_business / 100
+      const exportEarnings = annualGeneration * 0.5 * solarConfig.feedInTariff * 100 // 50% exported
+      
+      totalInvestment += investment
+      totalAnnualSavings += savingsFromGeneration + exportEarnings
+      totalCarbonSavings += annualGeneration * 0.193 / 1000
+    } else if (improvement === 'heat_pump') {
+      // Heat pump calculation
+      const heatPumpConfig = config as typeof EFFICIENCY_IMPROVEMENTS.heat_pump
+      const investment = floorArea * heatPumpConfig.costPerKw * regionalMultiplier
+      const applicableEnergyCost = currentAnnualCost * heatPumpConfig.applicableLoad
+      const savings = applicableEnergyCost * heatPumpConfig.energySavings
+      
+      totalInvestment += investment
+      totalAnnualSavings += savings
+      totalCarbonSavings += savings / (UK_COMMERCIAL_ENERGY_COSTS.electricity.small_business / 100) * 0.193 / 1000
+    } else {
+      // Standard efficiency improvements
+      const standardConfig = config as typeof EFFICIENCY_IMPROVEMENTS.led_lighting
+      const investment = floorArea * standardConfig.costPerSqM * regionalMultiplier
+      const applicableEnergyCost = currentAnnualCost * standardConfig.applicableLoad
+      const savings = applicableEnergyCost * standardConfig.energySavings
+      
+      totalInvestment += investment
+      totalAnnualSavings += savings
+      totalCarbonSavings += savings / (UK_COMMERCIAL_ENERGY_COSTS.electricity.small_business / 100) * 0.193 / 1000
+    }
+  })
+  
+  // Financial calculations
+  const simplePayback = totalInvestment / totalAnnualSavings
+  
+  // NPV calculation (10% discount rate, 20 year horizon)
+  const discountRate = 0.10
+  const horizon = 20
+  let npv = -totalInvestment
+  
+  for (let year = 1; year <= horizon; year++) {
+    const annualCashFlow = totalAnnualSavings * Math.pow(1.03, year - 1) // 3% energy inflation
+    npv += annualCashFlow / Math.pow(1 + discountRate, year)
+  }
+  
+  // IRR calculation (simplified)
+  let irr = 0
+  if (npv > 0 && simplePayback < 20) {
+    irr = (totalAnnualSavings / totalInvestment) * 100
+    if (irr > 50) irr = 50 // Cap unrealistic returns
+  }
+  
+  return {
+    totalInvestment: Math.round(totalInvestment),
+    annualSavings: Math.round(totalAnnualSavings),
+    simplePayback: Math.round(simplePayback * 10) / 10,
+    netPresentValue: Math.round(npv),
+    internalRateOfReturn: Math.round(irr * 10) / 10,
+    carbonSavings: Math.round(totalCarbonSavings * 100) / 100
+  }
+}
+
+// Get energy efficiency recommendations based on property type and current performance
+export function getEnergyRecommendations(
+  propertyType: keyof typeof ENERGY_BENCHMARKS,
+  currentEPCRating: 'A+' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G',
+  budget: 'low' | 'medium' | 'high' | 'unlimited',
+  priorities: ('cost_savings' | 'carbon_reduction' | 'comfort' | 'compliance')[]
+): (keyof typeof EFFICIENCY_IMPROVEMENTS)[] {
+  const recommendations: (keyof typeof EFFICIENCY_IMPROVEMENTS)[] = []
+  
+  // Always recommend LED lighting for poor EPC ratings
+  if (['D', 'E', 'F', 'G'].includes(currentEPCRating)) {
+    recommendations.push('led_lighting')
+  }
+  
+  // HVAC optimization for most commercial properties
+  if (['office_building', 'retail_space', 'hospitality', 'healthcare'].includes(propertyType)) {
+    recommendations.push('hvac_optimization')
+  }
+  
+  // Smart controls for cost savings priority
+  if (priorities.includes('cost_savings')) {
+    recommendations.push('smart_controls')
+  }
+  
+  // Insulation for older buildings (poor EPC)
+  if (['E', 'F', 'G'].includes(currentEPCRating) && budget !== 'low') {
+    recommendations.push('insulation_upgrade')
+  }
+  
+  // Solar panels for high energy users and unlimited budget
+  if (['retail_space', 'manufacturing', 'hospitality'].includes(propertyType) && 
+      (budget === 'high' || budget === 'unlimited')) {
+    recommendations.push('solar_panels')
+  }
+  
+  // Heat pump for carbon reduction priority
+  if (priorities.includes('carbon_reduction') && 
+      (budget === 'high' || budget === 'unlimited')) {
+    recommendations.push('heat_pump')
+  }
+  
+  return recommendations
+}
+
+// Commercial property value impact from efficiency improvements
+export function calculatePropertyValueImpact(
+  currentPropertyValue: number,
+  epcImprovement: number, // rating levels improved (e.g., D to B = 2)
+  improvements: (keyof typeof EFFICIENCY_IMPROVEMENTS)[]
+): {
+  valueIncrease: number
+  percentageIncrease: number
+  improvedValue: number
+} {
+  // Base value increase from EPC improvement (2-4% per rating level)
+  let valueIncrease = currentPropertyValue * (epcImprovement * 0.03)
+  
+  // Additional value from specific improvements
+  if (improvements.includes('solar_panels')) {
+    valueIncrease += currentPropertyValue * 0.05 // 5% for renewable energy
+  }
+  
+  if (improvements.includes('smart_controls')) {
+    valueIncrease += currentPropertyValue * 0.02 // 2% for smart building tech
+  }
+  
+  if (improvements.includes('hvac_optimization')) {
+    valueIncrease += currentPropertyValue * 0.03 // 3% for modern HVAC
+  }
+  
+  // Cap maximum increase at 15%
+  const maxIncrease = currentPropertyValue * 0.15
+  valueIncrease = Math.min(valueIncrease, maxIncrease)
+  
+  return {
+    valueIncrease: Math.round(valueIncrease),
+    percentageIncrease: Math.round((valueIncrease / currentPropertyValue) * 1000) / 10,
+    improvedValue: Math.round(currentPropertyValue + valueIncrease)
+  }
+}

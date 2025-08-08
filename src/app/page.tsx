@@ -258,6 +258,34 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Commercial/Residential Toggle */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-2 shadow-lg">
+                <div className="flex items-center space-x-4">
+                  <Link 
+                    href="/"
+                    className="flex items-center space-x-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold transition-all duration-200 shadow-lg"
+                  >
+                    <span className="text-2xl">🏠</span>
+                    <div className="text-left">
+                      <div className="font-bold">Build Your Home</div>
+                      <div className="text-xs opacity-90">Extensions, new builds, renovations</div>
+                    </div>
+                  </Link>
+                  <Link 
+                    href="/commercial"
+                    className="flex items-center space-x-3 px-6 py-4 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-semibold transition-all duration-200"
+                  >
+                    <span className="text-2xl">🏢</span>
+                    <div className="text-left">
+                      <div className="font-bold">Optimize Your Business</div>
+                      <div className="text-xs opacity-70">Energy efficiency, smart systems, ROI</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <div className="text-center mb-8 sm:mb-12">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
                 Smart Home Building

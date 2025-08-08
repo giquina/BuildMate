@@ -4,7 +4,8 @@ export interface User {
   email: string
   fullName: string
   postcode?: string
-  subscriptionTier: 'free' | 'pro' | 'enterprise'
+  subscriptionTier: 'free' | 'pro' | 'enterprise' | 'business_starter' | 'business_professional' | 'business_enterprise'
+  userType?: 'residential' | 'commercial'
   createdAt: string
   updatedAt: string
 }
@@ -13,7 +14,7 @@ export interface Project {
   id: string
   userId: string
   name: string
-  type: 'new_build' | 'renovation' | 'extension'
+  type: 'new_build' | 'renovation' | 'extension' | 'commercial_retrofit' | 'energy_upgrade' | 'smart_building'
   status: 'planning' | 'design' | 'materials' | 'professionals' | 'building' | 'completed'
   budget: number
   location: string
@@ -583,4 +584,385 @@ export interface ProjectPhase {
   duration: number
   startDate: string
   dependencies: string[]
+}
+
+// ========================================
+// COMMERCIAL B2B EXPANSION TYPES
+// ========================================
+
+// Commercial Property Types
+export interface CommercialProperty {
+  id: string
+  userId: string
+  name: string
+  propertyType: CommercialPropertyType
+  address: {
+    street: string
+    city: string
+    postcode: string
+    region: string
+  }
+  specifications: {
+    totalFloorArea: number // m²
+    numberOfFloors: number
+    yearBuilt: number
+    currentEPCRating: EPCRating
+    targetEPCRating?: EPCRating
+    occupancyType: OccupancyType
+    operatingHours: OperatingHours
+  }
+  currentSystems: {
+    heating: HeatingSystemType
+    lighting: LightingSystemType
+    insulation: InsulationType
+    windows: WindowType
+    smartSystems: SmartSystemType[]
+  }
+  energyData: {
+    annualEnergyConsumption: number // kWh
+    annualEnergyCost: number // £
+    gasConsumption?: number // m³
+    electricityConsumption?: number // kWh
+    carbonFootprint: number // CO2 tonnes
+  }
+  businessInfo: {
+    industry: BusinessIndustry
+    employeeCount: number
+    annualRevenue?: number
+    sustainabilityGoals: string[]
+    complianceRequirements: ComplianceRequirement[]
+  }
+  createdAt: string
+  updatedAt: string
+}
+
+export type CommercialPropertyType = 
+  | 'office_building'
+  | 'retail_space'
+  | 'warehouse'
+  | 'manufacturing'
+  | 'hospitality'
+  | 'healthcare'
+  | 'education'
+  | 'multi_tenant'
+  | 'mixed_use'
+
+export type EPCRating = 'A+' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
+
+export type OccupancyType = 
+  | 'owner_occupied'
+  | 'single_tenant'
+  | 'multi_tenant'
+  | 'mixed_use'
+  | 'vacant'
+
+export type OperatingHours = 
+  | 'standard_business' // 9-5, Mon-Fri
+  | 'extended_hours' // 7am-9pm, Mon-Sat
+  | 'twenty_four_seven' // 24/7
+  | 'seasonal' // Variable
+  | 'weekend_only'
+
+export type HeatingSystemType = 
+  | 'gas_boiler'
+  | 'electric_heating'
+  | 'heat_pump'
+  | 'district_heating'
+  | 'biomass'
+  | 'solar_thermal'
+  | 'combined_heat_power'
+
+export type LightingSystemType = 
+  | 'traditional_fluorescent'
+  | 'led_retrofit'
+  | 'smart_led'
+  | 'natural_light_optimized'
+  | 'motion_sensor'
+  | 'daylight_dimming'
+
+export type InsulationType = 
+  | 'basic'
+  | 'standard'
+  | 'enhanced'
+  | 'passive_house_standard'
+  | 'zero_carbon_ready'
+
+export type WindowType = 
+  | 'single_glazed'
+  | 'double_glazed'
+  | 'triple_glazed'
+  | 'smart_glass'
+  | 'solar_control'
+  | 'low_e_coating'
+
+export type SmartSystemType = 
+  | 'smart_meters'
+  | 'bms_system' // Building Management System
+  | 'hvac_controls'
+  | 'lighting_controls'
+  | 'occupancy_sensors'
+  | 'energy_monitoring'
+  | 'predictive_maintenance'
+  | 'iot_integration'
+
+export type BusinessIndustry = 
+  | 'technology'
+  | 'finance'
+  | 'healthcare'
+  | 'retail'
+  | 'manufacturing'
+  | 'education'
+  | 'hospitality'
+  | 'logistics'
+  | 'professional_services'
+  | 'public_sector'
+  | 'non_profit'
+
+export type ComplianceRequirement = 
+  | 'building_regulations'
+  | 'fire_safety'
+  | 'accessibility'
+  | 'environmental'
+  | 'health_safety'
+  | 'data_protection'
+  | 'industry_specific'
+
+// Energy Assessment and ROI Types
+export interface EnergyAssessment {
+  id: string
+  propertyId: string
+  assessmentDate: string
+  assessor: {
+    name: string
+    certification: string
+    company: string
+  }
+  currentPerformance: {
+    epcRating: EPCRating
+    energyEfficiencyScore: number
+    carbonEmissions: number
+    annualEnergyCost: number
+    primaryEnergyUse: number
+  }
+  recommendations: EnergyRecommendation[]
+  improvementPotential: {
+    potentialEPCRating: EPCRating
+    energySavings: number // %
+    costSavings: number // £/year
+    carbonReduction: number // tonnes CO2/year
+    paybackPeriod: number // years
+  }
+  validUntil: string
+  createdAt: string
+}
+
+export interface EnergyRecommendation {
+  id: string
+  category: EnergyUpgradeCategory
+  title: string
+  description: string
+  priority: 'low' | 'medium' | 'high' | 'essential'
+  estimatedCost: {
+    min: number
+    max: number
+    currency: 'GBP'
+  }
+  estimatedSavings: {
+    annualEnergyReduction: number // kWh
+    annualCostSaving: number // £
+    carbonReduction: number // tonnes CO2
+  }
+  paybackPeriod: {
+    min: number // years
+    max: number
+  }
+  implementationTime: number // weeks
+  disruptionLevel: 'minimal' | 'moderate' | 'significant'
+  grantEligible: boolean
+  requiredCertifications: string[]
+}
+
+export type EnergyUpgradeCategory = 
+  | 'insulation'
+  | 'heating_cooling'
+  | 'lighting'
+  | 'windows_doors'
+  | 'renewable_energy'
+  | 'smart_systems'
+  | 'ventilation'
+  | 'hot_water'
+
+// ROI Calculation Types
+export interface ROICalculation {
+  id: string
+  propertyId: string
+  upgradePackage: EnergyUpgradePackage
+  financialProjections: {
+    initialInvestment: number
+    annualSavings: number
+    netPresentValue: number
+    simplePayback: number // years
+    discountedPayback: number // years
+    internalRateOfReturn: number // %
+    profitabilityIndex: number
+  }
+  assumptions: {
+    energyPriceInflation: number // % per year
+    discountRate: number // %
+    analysisHorizon: number // years
+    maintenanceCosts: number // % of initial investment
+    degradationFactor: number // % per year
+  }
+  riskFactors: RiskFactor[]
+  incentives: {
+    grants: Grant[]
+    taxIncentives: TaxIncentive[]
+    utilityRebates: UtilityRebate[]
+    greenFinancing: GreenFinancingOption[]
+  }
+  calculatedAt: string
+  validUntil: string
+}
+
+export interface EnergyUpgradePackage {
+  id: string
+  name: string
+  description: string
+  recommendations: string[] // EnergyRecommendation IDs
+  totalCost: number
+  totalAnnualSavings: number
+  overallPayback: number
+  epcRatingImprovement: {
+    from: EPCRating
+    to: EPCRating
+  }
+  carbonImpact: number // tonnes CO2 saved per year
+}
+
+export interface RiskFactor {
+  type: RiskType
+  description: string
+  impact: 'low' | 'medium' | 'high'
+  mitigation: string
+}
+
+export type RiskType = 
+  | 'technology_obsolescence'
+  | 'energy_price_volatility'
+  | 'regulatory_changes'
+  | 'property_usage_changes'
+  | 'maintenance_costs'
+  | 'performance_degradation'
+
+export interface Grant {
+  name: string
+  provider: string
+  maxAmount: number
+  coveragePercentage: number
+  eligibilityCriteria: string[]
+  applicationDeadline?: string
+  processingTime: number // weeks
+}
+
+export interface TaxIncentive {
+  name: string
+  type: 'deduction' | 'credit' | 'allowance'
+  benefit: number // £ or %
+  eligibilityCriteria: string[]
+  claimDeadline?: string
+}
+
+export interface UtilityRebate {
+  utility: string
+  programName: string
+  rebateAmount: number
+  eligibleUpgrades: string[]
+  applicationProcess: string
+}
+
+export interface GreenFinancingOption {
+  lender: string
+  productName: string
+  interestRate: number // %
+  loanTerm: number // years
+  maxLoanAmount: number
+  eligibilityCriteria: string[]
+}
+
+// Commercial Professional Types Extensions
+export interface CommercialSpecialist extends Professional {
+  commercialExperience: {
+    yearsInCommercial: number
+    typicalProjectSize: ProjectSizeCategory
+    industrySpecializations: BusinessIndustry[]
+    certifiedSystems: string[]
+    portfolioValue: number // £
+  }
+  serviceOfferings: {
+    energyAudits: boolean
+    designServices: boolean
+    projectManagement: boolean
+    commissioning: boolean
+    maintenance: boolean
+    consultancy: boolean
+  }
+  commercialRates: {
+    consultationRate: number // £/hour
+    dayRate: number // £/day
+    projectFeeStructure: 'fixed' | 'hourly' | 'percentage' | 'value_based'
+    minimumProjectValue: number
+    paymentTerms: string
+  }
+}
+
+export type ProjectSizeCategory = 
+  | 'small' // £10k-£50k
+  | 'medium' // £50k-£250k  
+  | 'large' // £250k-£1M
+  | 'major' // £1M+
+
+// Business Subscription Tiers
+export interface BusinessSubscription {
+  tierId: string
+  name: 'Business Starter' | 'Business Professional' | 'Business Enterprise'
+  monthlyPrice: number
+  annualPrice: number
+  features: BusinessFeature[]
+  limits: BusinessLimits
+  support: SupportLevel
+  addOns: BusinessAddOn[]
+}
+
+export interface BusinessFeature {
+  id: string
+  name: string
+  description: string
+  included: boolean
+  limitValue?: number
+  limitUnit?: string
+}
+
+export interface BusinessLimits {
+  properties: number
+  assessments: number
+  recommendations: number
+  roiCalculations: number
+  professionalContacts: number
+  teamMembers: number
+  apiCalls?: number
+}
+
+export type SupportLevel = 
+  | 'email_only'
+  | 'email_phone'
+  | 'priority_support'
+  | 'dedicated_manager'
+
+export interface BusinessAddOn {
+  id: string
+  name: string
+  description: string
+  monthlyPrice: number
+  unit?: string
+  category: 'analysis' | 'support' | 'integration' | 'reporting'
 }

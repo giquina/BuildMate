@@ -15,9 +15,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 9. **Minimize the code impact of every change**. Simplicity always wins.
 
 ## Project Overview
-BuildMate is a UK-focused construction platform built with Next.js 14, TypeScript, and Tailwind CSS. It provides smart floorplan generation, materials marketplace, and professional networking for homeowners, self-builders, and property developers.
+BuildMate is a UK-focused construction platform built with Next.js 14, TypeScript, and Tailwind CSS. It provides smart floorplan generation, materials marketplace, and professional networking for both residential and commercial markets. The platform serves homeowners, self-builders, property developers, and now business property owners seeking commercial property optimization.
 
 **IMPORTANT**: All "AI" terminology has been removed from the platform. Use "smart", "intelligent", or "automated" instead to make the platform accessible to general users unfamiliar with AI terminology.
+
+## Commercial B2B Platform Extension
+
+BuildMate's Commercial B2B platform extension represents a major market expansion that doubles the platform's addressable market by targeting business property owners. The commercial section focuses on property optimization for energy efficiency, smart technology integration, compliance, and ROI maximization.
+
+### Commercial Architecture Overview
+
+The commercial platform extends BuildMate's core architecture to support business property optimization alongside residential construction. The commercial section operates as a seamless extension of the main platform while providing specialized business-focused functionality.
+
+**Commercial User Journey Pages**:
+- **`/commercial`**: Commercial landing page with B2B value proposition and ROI focus
+- **`/commercial/configure`**: Business property questionnaire and assessment system
+- **`/commercial/solutions`**: Optimization recommendations categorized by property type and solution area
+- **`/commercial/pricing`**: Business subscription tiers with commercial-specific features and pricing
+
+**Commercial/Residential Toggle System**:
+The platform implements a homepage toggle system allowing users to select between residential and commercial experiences. This toggle is implemented through the `CommercialToggle` component and maintains user preference throughout the session.
+
+**Business Property Optimization Focus**:
+The commercial platform emphasizes measurable business outcomes including:
+- Energy efficiency improvements with quantified savings projections
+- Smart technology integration for operational efficiency
+- UK building compliance and regulation adherence
+- Productivity enhancement through optimized workspace design
+- ROI calculations with payback period analysis
 
 ## Core Architecture
 
@@ -36,15 +61,20 @@ BuildMate is a UK-focused construction platform built with Next.js 14, TypeScrip
 src/
 ├── app/                          # Next.js App Router
 │   ├── layout.tsx               # Root layout with Navigation + UserProvider
-│   ├── page.tsx                 # Homepage with testimonials/stats
+│   ├── page.tsx                 # Homepage with residential/commercial toggle
 │   ├── globals.css              # Global styles + animations
-│   ├── pricing/page.tsx         # Pricing plans (force-static)
+│   ├── pricing/page.tsx         # Residential pricing plans (force-static)
 │   ├── configure/page.tsx       # Smart image generation & style selection
 │   ├── materials/page.tsx       # Materials marketplace with UK suppliers
 │   ├── professionals/page.tsx   # Verified UK professionals network
 │   ├── dashboard/page.tsx       # User-specific project management dashboard
 │   ├── review/page.tsx          # Project review and assembly
 │   ├── wishlist/page.tsx        # User wishlist with authentication integration
+│   ├── commercial/              # Commercial B2B platform
+│   │   ├── page.tsx            # Commercial landing page with B2B focus
+│   │   ├── configure/page.tsx   # Business property questionnaire
+│   │   ├── solutions/page.tsx   # Optimization recommendations
+│   │   └── pricing/page.tsx     # Business subscription tiers
 │   ├── account/                 # User account management
 │   │   ├── settings/page.tsx    # Account settings, notifications, privacy
 │   │   └── profile/page.tsx     # User profile with project activity
@@ -68,7 +98,9 @@ src/
 ```
 
 ### Key Page Flows
-1. **Homepage (`/`)** → User education and trust building
+
+**Residential Flows**:
+1. **Homepage (`/`)** → User education and trust building with residential/commercial toggle
 2. **Authentication Flow** → Login/register via AuthModal with demo credentials
 3. **Configure (`/configure`)** → Smart image generation + style selection
 4. **Materials (`/materials`)** → UK supplier integration and shopping
@@ -77,6 +109,14 @@ src/
 7. **Dashboard (`/dashboard`)** → User-specific project management and activity
 8. **Account Management** → Profile settings, notifications, and privacy controls
 9. **Wishlist (`/wishlist`)** → Saved materials and professionals with authentication
+
+**Commercial B2B Flows**:
+1. **Commercial Landing (`/commercial`)** → B2B value proposition with ROI focus
+2. **Property Assessment (`/commercial/configure`)** → Business property questionnaire and analysis
+3. **Solution Recommendations (`/commercial/solutions`)** → Optimization strategies by category
+4. **Commercial Pricing (`/commercial/pricing`)** → Business subscription tiers and features
+5. **ROI Dashboard** → Commercial-specific metrics and progress tracking
+6. **Professional Network** → Commercial specialists and certified professionals
 
 ### Key Architectural Patterns
 
@@ -104,6 +144,15 @@ Core entities are defined in `src/types/index.ts` and `src/types/user.ts`:
 - **Material**: UK supplier integration, categories, pricing
 - **Professional**: UK trades with certifications, insurance verification
 - **Quote**: Professional estimates with timeline and status
+
+**Commercial B2B Types (Extension to `src/types/index.ts`)**:
+- **CommercialProperty**: Business property types (Office, Retail, Warehouse, Hotel, Manufacturing, Healthcare)
+- **PropertyOptimization**: Energy efficiency solutions, smart technology integration, compliance improvements, productivity enhancements
+- **ROICalculation**: Energy savings projections, operational cost reductions, payback period analysis, productivity gains
+- **CommercialSubscription**: Business tier structure with commercial-specific features and pricing
+- **CommercialProfessional**: Specialized commercial contractors, energy consultants, smart building specialists
+- **EnergyAudit**: Property energy assessment data and improvement recommendations
+- **ComplianceReport**: UK commercial building regulation compliance status and requirements
 
 ### UI Design System
 
@@ -158,30 +207,89 @@ npm run perf:budget        # Check bundle size limits
 ## Construction Industry Context
 
 ### UK-Specific Considerations
+
+**Residential Considerations**:
 - **Building Regulations**: Current UK compliance requirements
 - **Planning Permission**: Permitted development vs. full applications
 - **Regional Pricing**: London vs. regional cost variations
 - **Professional Standards**: RIBA, NHBC, FMB certifications
 - **VAT Handling**: Zero-rated new builds vs. standard-rated renovations
 
+### UK Commercial Market Integration
+
+**Commercial Building Regulations**:
+- **EPC Requirements**: Minimum Energy Performance Certificate rating of E for commercial lettings
+- **MEES Compliance**: Minimum Energy Efficiency Standards with C rating requirement by 2027
+- **Building Safety Act**: Enhanced safety requirements for commercial high-rise buildings
+- **Accessibility Standards**: DDA and Equality Act compliance for commercial properties
+- **Fire Safety**: Updated fire safety regulations and risk assessments
+
+**UK Commercial Energy Market**:
+- **Energy Costs**: Average £2-4 per sq ft annually across different commercial property types
+- **Regional Variations**: London commercial energy costs 20-30% higher than regional averages
+- **Peak Demand Pricing**: Time-of-use electricity tariffs for commercial properties
+- **Carbon Reporting**: Mandatory carbon emissions reporting for large commercial properties
+- **Government Incentives**: Enhanced Capital Allowances for energy-efficient equipment
+
+**Professional Network Extension**:
+- **Commercial Specialists**: MEP engineers, energy consultants, smart building integrators
+- **Certification Requirements**: CIBSE membership, BREEAM assessors, LEED AP credentials
+- **Insurance Standards**: Professional indemnity and public liability for commercial projects
+- **Procurement Standards**: Construction Line, CHAS, SafeContractor accreditations
+
+**ROI Calculation Framework**:
+- **Energy Savings**: Quantified reductions in electricity, gas, and water consumption
+- **Operational Efficiency**: Productivity gains from improved workspace design and smart systems
+- **Compliance Savings**: Avoided penalties and regulatory compliance costs
+- **Property Value**: Commercial property value enhancement through efficiency improvements
+- **Tax Benefits**: Capital allowances and tax incentives for sustainable improvements
+
 ### User Personas
+
+**Residential Users**:
 - **Homeowners**: First-time builders, extension planners
 - **Self-Builders**: Experienced DIY enthusiasts
-- **Property Developers**: Commercial and residential developers
+- **Property Developers**: Residential development projects
 - **Professionals**: Architects, builders, tradespeople
+
+**Commercial B2B Users**:
+- **Business Property Owners**: Small to medium enterprises seeking property optimization
+- **Facility Managers**: Corporate real estate and facility management teams
+- **Commercial Property Developers**: Large-scale commercial development projects
+- **Energy Consultants**: Specialists in commercial energy efficiency and sustainability
+- **Smart Building Professionals**: IoT, automation, and smart technology specialists
 
 ### Authentication Integration
 All user personas now benefit from:
 - **Personalized Experience**: Custom dashboards and project management
-- **Subscription Tiers**: Free, Pro (£29/month), Enterprise (£99/month)
+- **Dual Subscription Systems**: Residential and commercial tier structures
 - **Saved Projects**: Persistent project data and progress tracking
 - **Wishlist Functionality**: Save materials and professionals across sessions
 - **Account Management**: Profile, settings, and privacy controls
 
+**Residential Subscription Tiers**:
+- **Free**: Basic features with upgrade prompts
+- **Pro (£29/month)**: Enhanced residential features
+- **Enterprise (£99/month)**: Full residential features with commercial access
+
+**Commercial B2B Subscription Tiers**:
+- **Business Starter (£199/month)**: Essential commercial property optimization tools
+- **Professional (£499/month)**: Advanced analytics, ROI tracking, and multi-property management
+- **Enterprise (£1,499/month)**: Complete commercial platform with dedicated support and custom integrations
+
 ### Industry Standards
+
+**Residential Standards**:
 - **Typical Costs**: Extensions £1,200-£2,500/m², new builds £1,500-£3,000/m²
 - **Timeline Expectations**: Extensions 12-20 weeks, new builds 12-24+ months
 - **Compliance Requirements**: Building regs, planning permission, professional certifications
+
+**Commercial Standards**:
+- **Energy Costs**: UK commercial properties average £2-4/sq ft annually for energy
+- **EPC Requirements**: Minimum EPC rating of E for commercial lettings (upgrading to C by 2027)
+- **ROI Expectations**: Energy efficiency improvements typically achieve 15-30% cost savings
+- **Payback Periods**: Smart building technologies average 2-5 years payback
+- **Compliance Requirements**: Commercial building regulations, BREEAM standards, accessibility compliance
 
 ## Component Development Guidelines
 
@@ -199,6 +307,27 @@ All user personas now benefit from:
 - **useUser Hook**: Access authentication state and methods throughout the app
 - **useUserProjects Hook**: Manage user-specific projects with CRUD operations
 - **useWishlist Hook**: Handle user wishlist for materials and professionals
+
+### Commercial B2B Components
+
+**Core Commercial Components**:
+- **CommercialToggle**: Homepage residential/commercial selection with preference persistence
+- **ROICalculator**: UK commercial energy cost calculations with property-specific inputs
+- **CommercialSolutions**: Optimization recommendations categorized by property type and solution area
+- **CommercialQuestionnaire**: Business property assessment form with progressive disclosure
+- **EnergyAuditDisplay**: Visual representation of energy usage and improvement opportunities
+- **PaybackAnalysis**: Interactive ROI timeline and payback period visualization
+
+**Commercial Navigation Components**:
+- **CommercialNav**: Specialized navigation for commercial user flows
+- **BusinessSubscriptionTier**: Commercial subscription display with upgrade prompts
+- **CommercialDashboard**: Business property management interface with KPI tracking
+
+**Commercial Form Components**:
+- **PropertyTypeSelector**: Business property category selection (Office, Retail, Warehouse, etc.)
+- **OptimizationGoals**: Multi-select component for energy, compliance, productivity goals
+- **BudgetRangeSlider**: Commercial budget selection with business-appropriate ranges
+- **ContactPreferences**: B2B communication preferences with account manager options
 
 ### Animation Standards
 - Use CSS transforms for performance

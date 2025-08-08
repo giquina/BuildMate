@@ -51,6 +51,10 @@ export function Navigation() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4">
+              <Link href="/commercial" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
+                <Building2 className="h-4 w-4 mr-2" />
+                Commercial
+              </Link>
               <Link href="/materials" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <Hammer className="h-4 w-4 mr-2" />
                 Materials
@@ -116,6 +120,15 @@ export function Navigation() {
               aria-labelledby="mobile-menu-button"
             >
               <div className="flex flex-col space-y-3" role="none">
+                <Link 
+                  href="/commercial" 
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Building2 className="h-5 w-5 mr-3" aria-hidden="true" />
+                  Commercial
+                </Link>
                 <Link 
                   href="/materials" 
                   className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
