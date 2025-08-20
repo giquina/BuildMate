@@ -52,6 +52,118 @@ export interface Material {
   specifications: Record<string, any>
   inStock: boolean
   deliveryDays: number
+  // B&Q Affiliate Integration Fields
+  affiliateData?: {
+    productCode: string
+    affiliateUrl: string
+    commission: number
+    lastUpdated: string
+    stockLevel: StockLevel
+    bulkPricing: BulkPricingTier[]
+    regionalPricing: RegionalPricing
+    deliveryOptions: DeliveryOption[]
+    vatInfo: VATInfo
+  }
+}
+
+// B&Q Affiliate Integration Types
+export interface StockLevel {
+  level: 'in_stock' | 'low_stock' | 'out_of_stock' | 'discontinued'
+  quantity: number
+  lastChecked: string
+  nextRestock?: string
+  branchAvailability: BranchStock[]
+}
+
+export interface BulkPricingTier {
+  minQuantity: number
+  maxQuantity?: number
+  unitPrice: number
+  discount: number
+  savingsPerUnit: number
+  totalSavings: number
+}
+
+export interface RegionalPricing {
+  basePrice: number
+  regionalVariations: {
+    [region: string]: {
+      price: number
+      multiplier: number
+      deliveryFee: number
+    }
+  }
+}
+
+export interface DeliveryOption {
+  id: string
+  name: string
+  description: string
+  price: number
+  estimatedDays: number
+  available: boolean
+  restrictions?: string[]
+  trackingAvailable: boolean
+}
+
+export interface VATInfo {
+  rate: number
+  included: boolean
+  exemptions: string[]
+  category: 'standard' | 'reduced' | 'zero'
+}
+
+export interface BranchStock {
+  branchId: string
+  branchName: string
+  postcode: string
+  distance: number
+  stockLevel: number
+  reservationAvailable: boolean
+  clickAndCollect: boolean
+}
+
+// B&Q API Response Types
+export interface BQAffiliateResponse {
+  success: boolean
+  data?: any
+  error?: string
+  metadata: {
+    timestamp: string
+    requestId: string
+    rateLimit: {
+      remaining: number
+      resetTime: string
+    }
+    affiliate: {
+      commission: number
+      trackingId: string
+    }
+  }
+}
+
+export interface BulkPricingRequest {
+  productIds: string[]
+  quantities: number[]
+  postcode?: string
+  customerType?: 'trade' | 'retail' | 'business'
+}
+
+export interface StockCheckRequest {
+  productIds: string[]
+  postcode?: string
+  radius?: number
+  checkBranches?: boolean
+}
+
+export interface AffiliateCommission {
+  productId: string
+  saleValue: number
+  commissionRate: number
+  commissionAmount: number
+  trackingId: string
+  timestamp: string
+  status: 'pending' | 'approved' | 'paid' | 'cancelled'
 }
 
 export interface Supplier {

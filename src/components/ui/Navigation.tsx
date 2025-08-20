@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2 } from 'lucide-react'
+import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2, Smartphone } from 'lucide-react'
 import { useState } from 'react'
 import { UserMenu } from './UserMenu'
 import { AuthModal } from './AuthModal'
@@ -34,6 +34,10 @@ export function Navigation() {
                 <Building2 className="h-4 w-4 mr-2" />
                 Commercial
               </Link>
+              <Link href="/commercial-real-estate" className="flex items-center text-gray-700 hover:text-indigo-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-indigo-50">
+                <Shield className="h-4 w-4 mr-2" />
+                Real Estate Intelligence
+              </Link>
               <Link href="/materials" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <Hammer className="h-4 w-4 mr-2" />
                 Materials
@@ -41,6 +45,14 @@ export function Navigation() {
               <Link href="/professionals" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <User className="h-4 w-4 mr-2" />
                 Professionals
+              </Link>
+              <Link href="/smart-homes" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
+                <Smartphone className="h-4 w-4 mr-2" />
+                Smart Homes
+              </Link>
+              <Link href="/modular-homes" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
+                <Building2 className="h-4 w-4 mr-2" />
+                Modular Homes
               </Link>
               <Link href="/pricing" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
                 <PoundSterling className="h-4 w-4 mr-2" />
@@ -105,6 +117,15 @@ export function Navigation() {
                   Commercial
                 </Link>
                 <Link 
+                  href="/commercial-real-estate" 
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded-lg transition-colors min-h-[44px]"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Shield className="h-5 w-5 mr-3" aria-hidden="true" />
+                  Real Estate Intelligence
+                </Link>
+                <Link 
                   href="/materials" 
                   className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
                   onClick={() => setMobileMenuOpen(false)}
@@ -121,6 +142,24 @@ export function Navigation() {
                 >
                   <User className="h-5 w-5 mr-3" aria-hidden="true" />
                   Professionals
+                </Link>
+                <Link 
+                  href="/smart-homes" 
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Smartphone className="h-5 w-5 mr-3" aria-hidden="true" />
+                  Smart Homes
+                </Link>
+                <Link 
+                  href="/modular-homes" 
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Building2 className="h-5 w-5 mr-3" aria-hidden="true" />
+                  Modular Homes
                 </Link>
                 <Link 
                   href="/pricing" 

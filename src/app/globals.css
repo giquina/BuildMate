@@ -583,3 +583,168 @@
     transform: translateX(0) scale(1);
   }
 }
+
+/* Boxabl-Specific Animations */
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-20px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(20px);
+    opacity: 1;
+  }
+}
+
+/* Animation Utilities for Boxabl */
+.animate-slide-right {
+  animation: slideRight 2s ease-out;
+  will-change: transform, opacity;
+}
+
+.animate-slide-left {
+  animation: slideLeft 2s ease-out;
+  will-change: transform, opacity;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.duration-8000 {
+  transition-duration: 8000ms;
+}
+
+.duration-4000 {
+  transition-duration: 4000ms;
+}
+
+/* Luxury Pod Space-Age Colors and Styles */
+@layer components {
+  /* Gold Color Palette for Luxury */
+  .text-gold-400 { color: #facc15; }
+  .text-gold-500 { color: #eab308; }
+  .text-gold-600 { color: #ca8a04; }
+  .bg-gold-400 { background-color: #facc15; }
+  .bg-gold-500 { background-color: #eab308; }
+  .bg-gold-600 { background-color: #ca8a04; }
+  .border-gold-300 { border-color: #fde047; }
+  .border-gold-400 { border-color: #facc15; }
+  
+  /* Gold gradient backgrounds */
+  .from-gold-400 { --tw-gradient-from: #facc15 var(--tw-gradient-from-position); }
+  .to-gold-600 { --tw-gradient-to: #ca8a04 var(--tw-gradient-to-position); }
+  .via-gold-500 { --tw-gradient-via: #eab308 var(--tw-gradient-via-position); }
+  .from-gold-500 { --tw-gradient-from: #eab308 var(--tw-gradient-from-position); }
+  .to-gold-700 { --tw-gradient-to: #a16207 var(--tw-gradient-to-position); }
+  .via-gold-600 { --tw-gradient-via: #ca8a04 var(--tw-gradient-via-position); }
+  .from-gold-100 { --tw-gradient-from: #fef3c7 var(--tw-gradient-from-position); }
+  .to-yellow-100 { --tw-gradient-to: #fef3c7 var(--tw-gradient-to-position); }
+  
+  /* Space-Age Luxury Button Styles */
+  .btn-luxury-gold {
+    @apply bg-gradient-to-r from-gold-500 via-gold-600 to-yellow-600 hover:from-gold-600 hover:via-gold-700 hover:to-yellow-700 text-black font-bold py-6 px-12 rounded-2xl transition-all duration-300 shadow-2xl;
+  }
+  
+  .btn-space-pod {
+    @apply bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold py-6 px-12 rounded-2xl border-2 border-white/30 hover:border-white/50 transition-all duration-300 shadow-2xl;
+  }
+  
+  /* Luxury Card Styles */
+  .card-luxury {
+    @apply bg-gradient-to-br backdrop-blur-xl border shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 rounded-2xl;
+  }
+  
+  .card-space-pod {
+    @apply bg-gradient-to-br from-slate-800 via-blue-900 to-purple-900 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl hover:shadow-white/10 transition-all duration-500;
+  }
+  
+  /* Space-Age Background Effects */
+  .space-background {
+    @apply bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900;
+  }
+  
+  .luxury-glow {
+    box-shadow: 0 0 30px rgba(250, 204, 21, 0.3);
+  }
+  
+  .luxury-glow:hover {
+    box-shadow: 0 0 50px rgba(250, 204, 21, 0.5);
+  }
+  
+  /* Premium Shadow Effects */
+  .shadow-gold {
+    box-shadow: 0 25px 50px -12px rgba(250, 204, 21, 0.25);
+  }
+  
+  .shadow-gold-500 {
+    --tw-shadow-color: rgba(250, 204, 21, 0.5);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+  
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@layer utilities {
+  /* Luxury Animation Utilities */
+  .animate-luxury-float {
+    animation: luxuryFloat 4s ease-in-out infinite;
+    will-change: transform;
+  }
+  
+  .animate-space-glow {
+    animation: spaceGlow 3s ease-in-out infinite;
+    will-change: box-shadow;
+  }
+  
+  .animate-gold-shimmer {
+    background: linear-gradient(90deg, #fef3c7 25%, #facc15 50%, #fef3c7 75%);
+    background-size: 200% 100%;
+    animation: goldShimmer 2s infinite;
+    will-change: background-position;
+  }
+}
+
+/* Luxury Keyframe Animations */
+@keyframes luxuryFloat {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) rotate(0deg); 
+  }
+  33% { 
+    transform: translate3d(0, -15px, 0) rotate(1deg); 
+  }
+  66% { 
+    transform: translate3d(0, -5px, 0) rotate(-1deg); 
+  }
+}
+
+@keyframes spaceGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(168, 85, 247, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 0 80px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@keyframes goldShimmer {
+  0% { 
+    background-position: -200% 0; 
+  }
+  100% { 
+    background-position: 200% 0; 
+  }
+}

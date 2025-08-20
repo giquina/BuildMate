@@ -36,7 +36,8 @@ import {
   Eye,
   BadgeCheck,
   StarHalf,
-  AlertCircle
+  AlertCircle,
+  ShoppingCart
 } from 'lucide-react'
 
 interface CustomerReview {
@@ -274,7 +275,7 @@ const projectMaterials: ProjectMaterial[] = [
     totalPrice: 780.00,
     unit: 'boards',
     supplier: {
-      name: 'B&Q',
+      name: 'B&Q Trade',
       logo: '/logos/bq.png',
       rating: 4.4,
       status: 'confirmed'
@@ -667,6 +668,53 @@ export default function MaterialsPage() {
         </div>
       </div>
 
+      {/* Live B&Q Affiliate Integration Section */}
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 border-b">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <Card className="bg-white border-orange-200 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <div className="w-16 h-16 bg-orange-600 rounded-xl flex items-center justify-center mr-4">
+                    <span className="text-white font-bold text-2xl">B&Q</span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">Live B&Q Trade Integration</h3>
+                    <p className="text-gray-600">Real-time pricing, stock levels, and affiliate commission tracking</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="flex items-center text-green-600 mb-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                    <span className="font-medium">Live Connection Active</span>
+                  </div>
+                  <div className="text-sm text-gray-500">Last sync: 2 mins ago</div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-orange-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-orange-600">2.8%</div>
+                  <div className="text-sm text-gray-600">Affiliate Commission</div>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-green-600">£13,947</div>
+                  <div className="text-sm text-gray-600">Monthly Earnings</div>
+                </div>
+                <div className="bg-blue-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-600">94%</div>
+                  <div className="text-sm text-gray-600">Items In Stock</div>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-purple-600">8-22%</div>
+                  <div className="text-sm text-gray-600">Bulk Discounts</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
           <h2 className="text-2xl font-bold text-gray-900">Materials Selected for Your Project</h2>
@@ -708,6 +756,14 @@ export default function MaterialsPage() {
             >
               <Settings className="h-4 w-4 mr-2" />
               Modify Project
+            </Button>
+            
+            <Button 
+              onClick={() => handleRouterPush('/materials/bulk-order')}
+              className="bg-orange-600 hover:bg-orange-700 text-white"
+            >
+              <ShoppingCart className="h-4 w-4 mr-2" />
+              Bulk Order System
             </Button>
           </div>
         </div>
@@ -803,6 +859,12 @@ export default function MaterialsPage() {
                     <Award className="h-4 w-4 text-amber-500" />
                     <span className="text-xs text-gray-600">{material.quality.warranty}</span>
                   </div>
+                  {material.supplier.name.includes('B&Q') && (
+                    <div className="flex items-center gap-1 bg-orange-100 text-orange-800 px-2 py-1 rounded-full">
+                      <TrendingUp className="h-3 w-3" />
+                      <span className="text-xs font-medium">Live Pricing</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Supplier & Delivery Info */}

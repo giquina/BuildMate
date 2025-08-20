@@ -148,3 +148,25 @@ export {
   ToastProvider,
   useToast
 } from './Toast'
+
+// Partnership and Professional Components
+export {
+  PartnershipShowcase,
+  type Partner
+} from './PartnershipShowcase'
+
+export {
+  MetricsDashboard
+} from './MetricsDashboard'
+
+export {
+  EnhancedCommercialToggle
+} from './EnhancedCommercialToggle'
+
+export {
+  CustomerSuccessStories
+} from './CustomerSuccessStories'
+
+export {
+  BulkOrderingSystem
+} from './BulkOrderingSystem'
