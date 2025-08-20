@@ -5,7 +5,7 @@ export interface User {
   email: string
   name: string
   avatar?: string
-  subscription: 'free' | 'pro' | 'enterprise'
+  subscription: 'free' | 'trial' | 'pro' | 'enterprise'
   postcode?: string
   phone?: string
   preferences: UserPreferences
@@ -106,7 +106,7 @@ export interface RegisterData {
   password: string
   postcode?: string
   phone?: string
-  subscription?: 'free' | 'pro' | 'enterprise'
+  subscription?: 'free' | 'trial' | 'pro' | 'enterprise'
 }
 
 export interface LoginData {

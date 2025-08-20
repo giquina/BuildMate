@@ -11,7 +11,9 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { Breadcrumbs, useBreadcrumbs } from '@/components/ui/Breadcrumbs'
 import { WelcomeFlow } from '@/components/ui/WelcomeFlow'
 import { formatCurrency } from '@/lib/uk-utils'
-import { useUser, useUserProjects } from '@/contexts/UserContext'
+import { useUser, useUserProjects, useFreemium } from '@/contexts/UserContext'
+import { XPDisplay, BadgeCollection, FreemiumSystem, useFeatureAccess, BadgeSystem, DailyChallenges } from '@/components/ui'
+import { useNotifications, useXPNotification } from '@/components/ui/NotificationSystem'
 import { 
   Plus, 
   TrendingUp, 
@@ -300,6 +302,9 @@ export default function DashboardPage() {
   const pathname = usePathname()
   const { user, isAuthenticated } = useUser()
   const { projects, isLoading } = useUserProjects()
+  const freemium = useFreemium()
+  const { addNotification } = useNotifications()
+  const addXPNotification = useXPNotification()
   
   const [teamUpdates] = useState<TeamUpdate[]>(mockTeamUpdates)
   const [deliveries] = useState<Delivery[]>(mockDeliveries)
@@ -484,7 +489,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Welcome message for returning users */}
+        {/* Welcome message with XP and Level Display */}
         {user && projects.length > 0 && (
           <div className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
             <div className="flex items-center justify-between">
@@ -496,7 +501,11 @@ export default function DashboardPage() {
                   You have {projects.length} active project{projects.length !== 1 ? 's' : ''} in progress.
                 </p>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-4">
+                {/* XP and Level Display */}
+                <div className="text-right">
+                  <XPDisplay showDetails={false} />
+                </div>
                 <div className="text-right">
                   <div className="text-sm font-medium text-blue-900">
                     {user.subscription === 'free' ? 'Free Plan' : 
@@ -575,6 +584,36 @@ export default function DashboardPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Project Tracking */}
           <div className="lg:col-span-2 space-y-6">
+            
+            {/* Daily Challenges Section - New */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Target className="h-5 w-5" />
+                  <span>Daily Challenges</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <DailyChallenges 
+                  challenges={[]} 
+                  streaks={[]}
+                  onChallengeComplete={(challengeId) => {
+                    console.log('Challenge completed:', challengeId)
+                    addXPNotification(50, 'Challenge completed!')
+                  }}
+                  onClaimReward={(challengeId) => {
+                    console.log('Reward claimed:', challengeId)
+                    addNotification({
+                      type: 'badge',
+                      title: 'Badge Unlocked!',
+                      message: 'Challenge Master badge earned!',
+                      badge: '🏆',
+                      duration: 5000
+                    })
+                  }}
+                />
+              </CardContent>
+            </Card>
             {/* Progress Timeline - Uber Style */}
             <Card className="overflow-hidden">
               <CardContent className="p-6">
@@ -874,39 +913,43 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Achievements Section */}
+            {/* Badge Collection Section - Enhanced */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Trophy className="h-5 w-5" />
-                  <span>Achievements</span>
+                  <span>Badge Collection</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  {mockAchievements.slice(0, 4).map((achievement) => (
-                    <AchievementBadge
-                      key={achievement.id}
-                      achievement={achievement}
-                      variant="minimal"
-                      size="sm"
-                      showPoints
-                    />
-                  ))}
-                </div>
-                <Button variant="outline" className="w-full" size="sm">
+                <BadgeCollection limit={5} />
+                <Button 
+                  variant="outline" 
+                  className="w-full" 
+                  size="sm"
+                  onClick={() => {
+                    // Demo: Add a badge notification
+                    addNotification({
+                      type: 'badge',
+                      title: 'New Badge Preview!',
+                      message: 'This is how badge notifications work',
+                      badge: '🎯',
+                      duration: 4000
+                    })
+                  }}
+                >
                   <Award className="h-4 w-4 mr-2" />
-                  View All Achievements
+                  View All Badges
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Project Health */}
+            {/* Project Health + Quick XP Actions */}
             <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
               <CardContent className="p-4">
                 <div className="flex items-start space-x-3">
                   <Zap className="h-5 w-5 text-green-600 mt-0.5" />
-                  <div>
+                  <div className="flex-1">
                     <h4 className="font-medium text-green-900 mb-1">Project Health</h4>
                     <p className="text-sm text-green-800 mb-2">
                       Your project is on track and within budget. Great progress!
@@ -918,22 +961,103 @@ export default function DashboardPage() {
                       size="sm"
                       className="mb-2"
                     />
-                    <div className="flex items-center space-x-1">
-                      <CheckCircle className="h-3 w-3 text-green-600" />
-                      <span className="text-xs text-green-700">All systems go</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-1">
+                        <CheckCircle className="h-3 w-3 text-green-600" />
+                        <span className="text-xs text-green-700">All systems go</span>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => {
+                          addXPNotification(25, 'Daily check-in completed!')
+                        }}
+                      >
+                        <Zap className="h-3 w-3 mr-1" />
+                        +25 XP
+                      </Button>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
+            
+            {/* Gamification Demo Actions */}
+            <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+              <CardContent className="p-4">
+                <h4 className="font-medium text-purple-900 mb-3">🎮 Test Gamification Features</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => addXPNotification(50, 'Project milestone reached!')}
+                  >
+                    +50 XP Test
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      addNotification({
+                        type: 'level_up',
+                        title: 'Level 3 Reached!',
+                        message: 'You\'ve unlocked new features!',
+                        duration: 5000
+                      })
+                    }}
+                  >
+                    Level Up Test
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      addNotification({
+                        type: 'upgrade',
+                        title: 'Upgrade Required',
+                        message: 'You\'ve reached your daily AI limit',
+                        duration: 0,
+                        actions: [{
+                          label: 'Upgrade Now',
+                          onClick: () => router.push('/pricing'),
+                          variant: 'primary'
+                        }]
+                      })
+                    }}
+                  >
+                    Upgrade Test
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      addNotification({
+                        type: 'warning',
+                        title: 'Streak Warning!',
+                        message: 'Complete a challenge today to maintain your 7-day streak',
+                        duration: 6000
+                      })
+                    }}
+                  >
+                    Warning Test
+                  </Button>
+                </div>
+                <p className="text-xs text-purple-600 mt-2">
+                  These buttons demonstrate the gamification notification system
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
         
-        <WelcomeFlow 
-          isOpen={showWelcome}
-          onClose={handleWelcomeClose}
-          onComplete={handleWelcomeComplete}
-        />
+        {/* Wrap in FreemiumSystem for upgrade prompts */}
+        <FreemiumSystem feature="projects">
+          <WelcomeFlow 
+            isOpen={showWelcome}
+            onClose={handleWelcomeClose}
+            onComplete={handleWelcomeComplete}
+          />
+        </FreemiumSystem>
       </div>
     </div>
   )

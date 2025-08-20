@@ -10,7 +10,6 @@ export * from './AuthModal'
 // Utility Components
 export * from './Badge'
 export * from './Progress'
-export * from './Skeleton'
 export * from './Tooltip'
 
 // Dashboard Components
@@ -77,18 +76,6 @@ export {
   CircularProgress,
   StepProgress
 } from './Progress'
-
-export {
-  // Legacy Skeleton variants
-  Skeleton as LegacySkeleton,
-  TextSkeleton,
-  AvatarSkeleton,
-  CardSkeleton,
-  TableSkeleton,
-  ListSkeleton,
-  FormSkeleton,
-  DashboardSkeleton
-} from './Skeleton'
 
 export {
   // Tooltip variants
@@ -170,3 +157,85 @@ export {
 export {
   BulkOrderingSystem
 } from './BulkOrderingSystem'
+
+// Freemium System Components
+export {
+  FreemiumSystem,
+  useFeatureAccess,
+  XPDisplay,
+  BadgeCollection
+} from './FreemiumSystem'
+
+export {
+  SubscriptionModal
+} from './SubscriptionModal'
+
+// Gamification System Components
+export {
+  BadgeSystem
+} from './BadgeSystem'
+
+export {
+  ProgressTracking
+} from './ProgressTracking'
+
+export {
+  DailyChallenges
+} from './DailyChallenges'
+
+export {
+  PaywallModal
+} from './PaywallModal'
+
+export {
+  FOOMNotifications,
+  useFOOMNotifications,
+  createUpgradeActivityNotification,
+  createStreakWarningNotification,
+  createProgressLossNotification,
+  createSocialProofNotification
+} from './FOOMNotifications'
+
+// Gamification Notification System
+export {
+  NotificationSystem,
+  useNotifications,
+  useXPNotification,
+  useBadgeNotification,
+  useLevelUpNotification,
+  useUpgradeNotification,
+  // Advanced Conversion Optimization Components
+  ExitIntentModal,
+  CountdownTimer,
+  SocialProofWidget,
+  UrgencyTriggers,
+  ProgressiveProfiler,
+  // Conversion Optimization Hooks
+  useProgressiveProfiler,
+  useExitIntentAnalytics
+} from './NotificationSystem'
+
+// Abandoned Cart Recovery & Conversion System
+export {
+  AbandonedCartTracker,
+  useAbandonedCartTracker,
+  type CartSession,
+  type AbandonmentEvent,
+  type CartAnalytics
+} from './AbandonedCartTracker'
+
+export {
+  CartRecoveryModal
+} from './CartRecoveryModal'
+
+export {
+  CartValueOptimizer
+} from './CartValueOptimizer'
+
+export {
+  ReturnUserWelcome
+} from './ReturnUserWelcome'
+
+export {
+  ConversionAnalytics
+} from './ConversionAnalytics'

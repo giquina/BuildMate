@@ -2,6 +2,9 @@
 
 import { useState, useEffect, memo, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { useFreemium } from '@/contexts/UserContext'
+import { FreemiumSystem, useFeatureAccess } from '@/components/ui'
+import { useNotifications, useXPNotification } from '@/components/ui/NotificationSystem'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { formatCurrency, calculateRegionalCost, CONSTRUCTION_DISCLAIMER } from '@/lib/uk-utils'
@@ -507,11 +510,17 @@ const deliveryPhases: DeliveryPhase[] = [
 
 export default function MaterialsPage() {
   const router = useRouter()
+  const freemium = useFreemium()
+  const { addNotification } = useNotifications()
+  const addXPNotification = useXPNotification()
+  const cartFeatureAccess = useFeatureAccess('save_progress')
+  
   const [selectedPhase, setSelectedPhase] = useState('all')
   const [showAlternatives, setShowAlternatives] = useState<string | null>(null)
   const [expandedMaterial, setExpandedMaterial] = useState<string | null>(null)
   const [selectedRegion, setSelectedRegion] = useState<'london' | 'southeast' | 'midlands' | 'north' | 'scotland' | 'wales'>('midlands')
   const [showVatInclusive, setShowVatInclusive] = useState(true)
+  const [cartItems, setCartItems] = useState<string[]>([])
   // const { onMount, measureOperation } = usePerformanceMonitoring('MaterialsPage')
 
   // Calculate regional and VAT-adjusted pricing
@@ -581,6 +590,50 @@ export default function MaterialsPage() {
   const handleRouterPush = useCallback((path: string) => {
     router.push(path)
   }, [router])
+
+  // Add to cart with freemium limits
+  const handleAddToCart = useCallback((materialId: string) => {
+    // Check if user has reached cart limit (free users: 3 items, pro users: unlimited)
+    if (freemium.subscription.tier === 'free' && cartItems.length >= 3 && !cartItems.includes(materialId)) {
+      addNotification({
+        type: 'upgrade',
+        title: 'Cart Limit Reached',
+        message: 'Free users can add up to 3 items to cart. Upgrade for unlimited cart capacity!',
+        duration: 0,
+        actions: [{
+          label: 'Upgrade Now',
+          onClick: () => router.push('/pricing'),
+          variant: 'primary'
+        }]
+      })
+      return
+    }
+
+    if (cartItems.includes(materialId)) {
+      // Remove from cart
+      setCartItems(prev => prev.filter(id => id !== materialId))
+      addNotification({
+        type: 'warning',
+        title: 'Item Removed',
+        message: 'Material removed from cart',
+        duration: 2000
+      })
+    } else {
+      // Add to cart
+      setCartItems(prev => [...prev, materialId])
+      addXPNotification(10, 'Material added to cart!')
+      
+      // Check if cart is getting full for free users
+      if (freemium.subscription.tier === 'free' && cartItems.length === 2) {
+        addNotification({
+          type: 'warning',
+          title: 'Cart Almost Full',
+          message: 'You can add 1 more item to your cart. Upgrade for unlimited capacity!',
+          duration: 4000
+        })
+      }
+    }
+  }, [cartItems, freemium.subscription.tier, addNotification, addXPNotification, router])
 
   // Performance monitoring on mount
   useEffect(() => {
@@ -932,6 +985,14 @@ export default function MaterialsPage() {
                         Upgrade +{formatCurrency(material.upgradePrice)}
                       </Button>
                     )}
+                    <Button
+                      size="sm"
+                      className={cartItems.includes(material.id) ? "bg-green-600 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700"}
+                      onClick={() => handleAddToCart(material.id)}
+                    >
+                      <ShoppingCart className="h-4 w-4 mr-1" />
+                      {cartItems.includes(material.id) ? 'In Cart' : 'Add to Cart'}
+                    </Button>
                   </div>
                 </div>
 
@@ -1000,6 +1061,23 @@ export default function MaterialsPage() {
             <p>• Actual installation costs not included in material pricing</p>
           </div>
         </div>
+        
+        {/* Floating Cart Indicator */}
+        {cartItems.length > 0 && (
+          <div className="fixed bottom-6 right-6 z-50">
+            <div className="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-all cursor-pointer animate-bounce">
+              <div className="flex items-center space-x-2">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="font-medium">{cartItems.length}</span>
+                {freemium.subscription.tier === 'free' && (
+                  <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                    {3 - cartItems.length} left
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

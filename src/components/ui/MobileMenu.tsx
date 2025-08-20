@@ -85,6 +85,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     
     const subscriptionConfig = {
       free: { label: 'Free Plan', icon: Shield, color: 'text-gray-600' },
+      trial: { label: 'Free Trial', icon: Zap, color: 'text-green-600' },
       pro: { label: 'Pro Plan', icon: Zap, color: 'text-blue-600' },
       enterprise: { label: 'Enterprise Plan', icon: Crown, color: 'text-purple-600' }
     }

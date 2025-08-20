@@ -286,17 +286,17 @@ export default function HomePage() {
             </div>
 
             <div className="text-center mb-8">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight px-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight px-2 max-w-4xl mx-auto">
                 Build Your Dream Home
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block">
                   in 8 Weeks, Not 8 Months
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 max-w-2xl mx-auto px-4 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 max-w-3xl mx-auto px-4 leading-relaxed">
                 UK's first AI-powered construction ecosystem. We guarantee your budget, eliminate delays, and connect you with verified professionals. <span className="font-semibold text-blue-600">78% of homeowners exceed their budgets – not with us.</span>
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6 px-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6 px-4 max-w-lg mx-auto">
                 <Link 
                   href="/configure" 
                   className="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[52px] text-base sm:text-lg"
@@ -315,7 +315,7 @@ export default function HomePage() {
               </div>
               
               {/* Trust Indicators - Simplified for Mobile */}
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm text-gray-600 px-4">
+              <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-sm text-gray-600 px-4 max-w-xl mx-auto">
                 <div className="flex items-center bg-green-50 px-3 py-1 rounded-full">
                   <CheckCircle className="h-4 w-4 text-green-600 mr-1" />
                   <span className="font-medium">Free to start</span>
@@ -372,21 +372,21 @@ export default function HomePage() {
 
         {/* Simplified Features Section - Mobile-First */}
         <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-5xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-10 sm:mb-16">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 max-w-3xl mx-auto">
                 Everything You Need to Build
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-3 sm:mb-4">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-3 sm:mb-4 max-w-2xl mx-auto">
                 Complete UK construction platform
               </p>
-              <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-3 py-2 rounded-full text-sm font-semibold">
+              <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
                 <Award className="h-4 w-4" />
                 <span>Trusted by 10,000+ builders</span>
               </div>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
               {[
                 {
                   icon: <Building className="h-8 w-8" />,
@@ -425,14 +425,14 @@ export default function HomePage() {
                 return (
                   <div 
                     key={index} 
-                    className={`text-center p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border-2 ${colorClasses.border}`}
+                    className={`text-center p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border-2 ${colorClasses.border} h-full flex flex-col`}
                     style={{animationDelay: `${index * 150}ms`}}
                   >
                     <div className={`w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br ${colorClasses.bg} rounded-xl sm:rounded-2xl flex items-center justify-center ${colorClasses.icon} mb-4 sm:mb-6 mx-auto shadow-md transition-all duration-200 hover:scale-105`}>
                       {feature.icon}
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{feature.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed flex-grow">{feature.description}</p>
                   </div>
                 )
               })}
@@ -440,8 +440,8 @@ export default function HomePage() {
             
             {/* Professional Certifications */}
             <div className="mt-16 text-center">
-              <p className="text-gray-600 font-semibold mb-6">Certified by leading UK construction bodies:</p>
-              <div className="flex flex-wrap justify-center items-center gap-6">
+              <p className="text-gray-600 font-semibold mb-6 max-w-2xl mx-auto">Certified by leading UK construction bodies:</p>
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 max-w-3xl mx-auto">
                 {['RIBA', 'CITB', 'NHBC', 'FMB', 'RICS'].map((cert, index) => (
                   <div key={index} className="certification-badge animate-trust-indicator" style={{animationDelay: `${index * 0.1}s`}}>
                     {cert}
@@ -454,12 +454,12 @@ export default function HomePage() {
 
         {/* Simplified 3-Step Process - Mobile-First */}
         <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-          <div className="max-w-5xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-10 sm:mb-16">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 max-w-3xl mx-auto">
                 How It Works
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-2 sm:mb-4">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-2 sm:mb-4 max-w-2xl mx-auto">
                 <span className="font-semibold">Configure → Review → Build</span>
               </p>
               <p className="text-sm sm:text-base text-blue-600 font-medium">
@@ -467,7 +467,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-8">
+            <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-8 max-w-5xl mx-auto">
               {[
                 {
                   step: '1',
@@ -544,17 +544,17 @@ export default function HomePage() {
             </div>
             
             {/* Instant Value Demo */}
-            <div className="mt-20 bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="mt-20 bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl mx-auto">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-6">
-                <h3 className="text-2xl font-bold mb-2">See What You Get Instantly</h3>
-                <p className="text-blue-100">In 30 seconds, you will have everything needed to build</p>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">See What You Get Instantly</h3>
+                <p className="text-blue-100 text-sm sm:text-base">In 30 seconds, you will have everything needed to build</p>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-8 p-8">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 p-6 sm:p-8">
                 <div className="text-center">
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">What You Tell Us</h4>
-                  <div className="bg-gray-50 rounded-xl p-6 border-2 border-dashed border-gray-300">
-                    <div className="text-gray-600 space-y-2">
+                  <div className="bg-gray-50 rounded-xl p-6 border-2 border-dashed border-gray-300 h-full flex flex-col justify-center">
+                    <div className="text-gray-600 space-y-3 text-sm sm:text-base">
                       <div>🏠 3-bed modern house</div>
                       <div>💰 £200k budget</div>
                       <div>📍 Birmingham location</div>
@@ -564,14 +564,14 @@ export default function HomePage() {
                 
                 <div className="text-center">
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">What You Get Back</h4>
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200 h-full flex flex-col justify-center">
                     <div className="text-green-800 space-y-2 text-sm">
                       <div>✅ Initial 3D house concept</div>
                       <div>✅ Estimated materials list</div>
                       <div>✅ Professional contacts available</div>
                       <div>✅ 24-36 month realistic timeline</div>
                       <div>✅ £195,000 estimated cost range</div>
-                      <div className="font-bold text-green-700">🎉 £5,000 coordination savings!</div>
+                      <div className="font-bold text-green-700 mt-3">🎉 £5,000 coordination savings!</div>
                     </div>
                   </div>
                 </div>
@@ -584,11 +584,11 @@ export default function HomePage() {
         {/* Simplified CTA Section - Mobile-First */}
         <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-indigo-600 relative overflow-hidden">
           <div className="absolute inset-0 bg-black opacity-10"></div>
-          <div className="relative z-10 max-w-3xl mx-auto text-center px-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 max-w-3xl mx-auto">
               Ready to Start Building?
             </h2>
-            <p className="text-blue-100 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-blue-100 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto">
               Join <AnimatedCounter value="247" animatedStats={animatedStats} /> builders who started today.
             </p>
             
@@ -609,7 +609,7 @@ export default function HomePage() {
             </div>
             
             {/* Trust indicators - Mobile-friendly */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm text-blue-100">
+            <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-sm text-blue-100 max-w-xl mx-auto">
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
                 <span>4.8★ Rating</span>
@@ -626,7 +626,7 @@ export default function HomePage() {
             
             {/* Legal Disclaimer */}
             <div className="mt-6 text-center">
-              <p className="text-xs text-blue-200 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xs text-blue-200 max-w-4xl mx-auto leading-relaxed px-4">
                 *Cost estimates are indicative and subject to regional variations, market conditions, and project specifics. 
                 Planning permission and building regulations approval times vary by local authority. All building work must comply with current UK Building Regulations. 
                 Professional availability depends on local demand and seasonal factors.

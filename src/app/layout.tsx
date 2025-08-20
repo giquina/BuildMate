@@ -5,6 +5,7 @@ import { Navigation } from '@/components/ui/Navigation'
 import { LiveNotifications } from '@/components/ui/LiveNotifications'
 import { Footer } from '@/components/ui/Footer'
 import { ToastProvider } from '@/components/ui/Toast'
+import { NotificationSystem } from '@/components/ui/NotificationSystem'
 import { UserProvider } from '@/contexts/UserContext'
 
 const inter = Inter({ 
@@ -124,7 +125,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ToastProvider>
-          <UserProvider>
+          <NotificationSystem>
+            <UserProvider>
             {/* Skip Link for accessibility */}
             <a 
               href="#main-content" 
@@ -144,7 +146,8 @@ export default function RootLayout({
 
             {/* Live Activity Notifications */}
             <LiveNotifications />
-          </UserProvider>
+            </UserProvider>
+          </NotificationSystem>
         </ToastProvider>
 
         {/* Structured Data - JSON-LD for SEO */}

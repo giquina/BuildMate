@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2, Smartphone } from 'lucide-react'
+import { Home, Eye, PoundSterling, Settings, User, ArrowRight, Heart, ShoppingCart, Shield, Award, CheckCircle, Menu, X, Hammer, Building2, Smartphone, ChevronDown, LayoutGrid, Store, BarChart } from 'lucide-react'
 import { useState } from 'react'
 import { UserMenu } from './UserMenu'
 import { AuthModal } from './AuthModal'
@@ -10,6 +10,7 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login')
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   return (
     <>
@@ -28,55 +29,128 @@ export function Navigation() {
               </div>
             </Link>
             
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link href="/commercial" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <Building2 className="h-4 w-4 mr-2" />
-                Commercial
-              </Link>
-              <Link href="/commercial-real-estate" className="flex items-center text-gray-700 hover:text-indigo-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-indigo-50">
-                <Shield className="h-4 w-4 mr-2" />
-                Real Estate Intelligence
-              </Link>
-              <Link href="/materials" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <Hammer className="h-4 w-4 mr-2" />
-                Materials
-              </Link>
-              <Link href="/professionals" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <User className="h-4 w-4 mr-2" />
-                Professionals
-              </Link>
-              <Link href="/smart-homes" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <Smartphone className="h-4 w-4 mr-2" />
-                Smart Homes
-              </Link>
-              <Link href="/modular-homes" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
-                <Building2 className="h-4 w-4 mr-2" />
-                Modular Homes
-              </Link>
-              <Link href="/pricing" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-3 py-2 rounded-lg hover:bg-blue-50">
+            {/* Desktop Navigation - 4 Main Items with Dropdowns */}
+            <div className="hidden lg:flex items-center space-x-1 relative">
+              {/* Solutions Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('solutions')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
+                  <LayoutGrid className="h-4 w-4 mr-2" />
+                  Solutions
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </button>
+                {activeDropdown === 'solutions' && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    <Link href="/" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <Home className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Smart Homes</div>
+                        <div className="text-xs text-gray-500">AI-powered residential design</div>
+                      </div>
+                    </Link>
+                    <Link href="/modular-homes" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <Building2 className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Modular Homes</div>
+                        <div className="text-xs text-gray-500">Pre-fabricated solutions</div>
+                      </div>
+                    </Link>
+                    <Link href="/commercial" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <Shield className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Commercial</div>
+                        <div className="text-xs text-gray-500">Business property optimization</div>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Marketplace Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('marketplace')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
+                  <Store className="h-4 w-4 mr-2" />
+                  Marketplace
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </button>
+                {activeDropdown === 'marketplace' && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    <Link href="/materials" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <Hammer className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Materials</div>
+                        <div className="text-xs text-gray-500">UK suppliers & bulk pricing</div>
+                      </div>
+                    </Link>
+                    <Link href="/professionals" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <User className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Professionals</div>
+                        <div className="text-xs text-gray-500">Verified trades & specialists</div>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Dashboard Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('dashboard')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
+                  <BarChart className="h-4 w-4 mr-2" />
+                  Dashboard
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </button>
+                {activeDropdown === 'dashboard' && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    <Link href="/dashboard" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                      <BarChart className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">My Projects</div>
+                        <div className="text-xs text-gray-500">Track build progress</div>
+                      </div>
+                    </Link>
+                    <Link href="/wishlist" className="flex items-center px-4 py-3 text-gray-700 hover:text-red-500 hover:bg-red-50 transition-colors">
+                      <Heart className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Wishlist</div>
+                        <div className="text-xs text-gray-500">Saved items & designs</div>
+                      </div>
+                    </Link>
+                    <Link href="/cart" className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors relative">
+                      <ShoppingCart className="h-4 w-4 mr-3" />
+                      <div>
+                        <div className="font-medium">Cart</div>
+                        <div className="text-xs text-gray-500">Materials & services</div>
+                      </div>
+                      <div className="absolute top-2 right-4 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-white">3</span>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Pricing - Single Item */}
+              <Link href="/pricing" className="flex items-center text-gray-700 hover:text-blue-700 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
                 <PoundSterling className="h-4 w-4 mr-2" />
                 Pricing
               </Link>
-              
-              {/* Desktop Cart & Wishlist */}
-              <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-gray-200">
-                <Link href="/wishlist" className="flex items-center text-gray-700 hover:text-red-500 transition-colors px-3 py-2 rounded-lg hover:bg-red-50 relative">
-                  <Heart className="h-5 w-5" />
-                  <span className="sr-only">Wishlist</span>
-                </Link>
-                <Link href="/cart" className="flex items-center text-gray-700 hover:text-blue-700 transition-colors px-3 py-2 rounded-lg hover:bg-blue-50 relative">
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="sr-only">Cart</span>
-                  {/* Cart badge */}
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center">
-                    <span className="text-xs font-bold text-white">3</span>
-                  </div>
-                </Link>
-              </div>
 
               {/* User Menu */}
-              <UserMenu onOpenAuth={() => setAuthModalOpen(true)} />
+              <div className="ml-4 pl-4 border-l border-gray-200">
+                <UserMenu onOpenAuth={() => setAuthModalOpen(true)} />
+              </div>
               
               <Link href="/configure" className="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-4 py-2 rounded-lg font-semibold flex items-center transition-all duration-200 shadow-md hover:shadow-lg ml-4">
                 Build Now
@@ -88,7 +162,7 @@ export function Navigation() {
             <button
               id="mobile-menu-button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors min-h-[44px] min-w-[44px]"
+              className="lg:hidden p-2 rounded-lg text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition-colors min-h-[44px] min-w-[44px]"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -102,81 +176,101 @@ export function Navigation() {
           {mobileMenuOpen && (
             <div 
               id="mobile-menu"
-              className="md:hidden border-t border-gray-200 py-4 bg-white/95 backdrop-blur-md"
+              className="lg:hidden border-t border-gray-200 py-4 bg-white/95 backdrop-blur-md"
               role="menu"
               aria-labelledby="mobile-menu-button"
             >
-              <div className="flex flex-col space-y-3" role="none">
+              <div className="flex flex-col space-y-1" role="none">
+                {/* Solutions Group */}
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">Solutions</div>
                 <Link 
-                  href="/commercial" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  href="/" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
                   onClick={() => setMobileMenuOpen(false)}
                   role="menuitem"
                 >
-                  <Building2 className="h-5 w-5 mr-3" aria-hidden="true" />
-                  Commercial
-                </Link>
-                <Link 
-                  href="/commercial-real-estate" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 rounded-lg transition-colors min-h-[44px]"
-                  onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <Shield className="h-5 w-5 mr-3" aria-hidden="true" />
-                  Real Estate Intelligence
-                </Link>
-                <Link 
-                  href="/materials" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
-                  onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <Hammer className="h-5 w-5 mr-3" aria-hidden="true" />
-                  Materials
-                </Link>
-                <Link 
-                  href="/professionals" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
-                  onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <User className="h-5 w-5 mr-3" aria-hidden="true" />
-                  Professionals
-                </Link>
-                <Link 
-                  href="/smart-homes" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
-                  onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <Smartphone className="h-5 w-5 mr-3" aria-hidden="true" />
+                  <Home className="h-4 w-4 mr-3" aria-hidden="true" />
                   Smart Homes
                 </Link>
                 <Link 
                   href="/modular-homes" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
                   onClick={() => setMobileMenuOpen(false)}
                   role="menuitem"
                 >
-                  <Building2 className="h-5 w-5 mr-3" aria-hidden="true" />
+                  <Building2 className="h-4 w-4 mr-3" aria-hidden="true" />
                   Modular Homes
                 </Link>
                 <Link 
-                  href="/pricing" 
-                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px]"
+                  href="/commercial" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
                   onClick={() => setMobileMenuOpen(false)}
                   role="menuitem"
                 >
-                  <PoundSterling className="h-5 w-5 mr-3" aria-hidden="true" />
+                  <Shield className="h-4 w-4 mr-3" aria-hidden="true" />
+                  Commercial
+                </Link>
+                
+                {/* Marketplace Group */}
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mt-4">Marketplace</div>
+                <Link 
+                  href="/materials" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Hammer className="h-4 w-4 mr-3" aria-hidden="true" />
+                  Materials
+                </Link>
+                <Link 
+                  href="/professionals" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <User className="h-4 w-4 mr-3" aria-hidden="true" />
+                  Professionals
+                </Link>
+                
+                {/* Dashboard Group */}
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mt-4">Dashboard</div>
+                <Link 
+                  href="/dashboard" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] ml-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <BarChart className="h-4 w-4 mr-3" aria-hidden="true" />
+                  My Projects
+                </Link>
+                <Link 
+                  href="/wishlist" 
+                  className="flex items-center px-6 py-3 text-gray-700 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors min-h-[44px] ml-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <Heart className="h-4 w-4 mr-3" aria-hidden="true" />
+                  Wishlist
+                </Link>
+                
+                {/* Pricing */}
+                <Link 
+                  href="/pricing" 
+                  className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors min-h-[44px] mt-4"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  <PoundSterling className="h-4 w-4 mr-3" aria-hidden="true" />
                   Pricing
                 </Link>
-                <div className="border-t border-gray-200 pt-3 mt-3">
+                
+                <div className="border-t border-gray-200 pt-4 mt-4">
                   <Link 
                     href="/configure" 
-                    className="flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md"
+                    className="flex items-center justify-center bg-gradient-to-r from-blue-700 to-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md mx-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Build Now
+                    Start Building Now
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Link>
                 </div>

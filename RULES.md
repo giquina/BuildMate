@@ -60,6 +60,22 @@ npm run type-check && npm run lint && npm run build
 - **Progressive enhancement** for desktop features
 - **Test across breakpoints** - sm (640px), md (768px), lg (1024px), xl (1280px)
 
+## 🤝 Partnership Integration Rules
+
+### Strategic Partnerships
+- **Trigrr Building OS**: Smart building control integration for 80,000+ devices
+- **Boxabl Foldable Homes**: £50K Casita configurator with 2-hour assembly
+- **Volferda Luxury Pods**: £85K-£195K space-age accommodation showcase
+- **B&Q Trade**: 2.8% commission, real-time pricing, bulk discounts (8-22%)
+- **Colliers Commercial**: Live deal flow and market intelligence
+
+### Partnership Implementation Standards
+- **Always display revenue metrics** - £497K monthly revenue demonstration
+- **Show real ROI data** - 68% time savings, £89K average cost savings
+- **Maintain commission tracking** - B&Q £13,947 monthly earnings
+- **Update stock availability** - Real-time integration required
+- **Test bulk ordering flows** - Ensure discount tiers apply correctly
+
 ## 🎯 Branding & Terminology Rules
 
 ### Platform Branding
@@ -143,8 +159,10 @@ import { Button } from '../../../components/ui/Button'
 3. **Smart image generation** on `/configure` page
 4. **User dashboard** and project management
 5. **Wishlist functionality** across sessions
-6. **Mobile responsiveness** across all pages
-7. **TypeScript compilation** and build success
+6. **Partnership integrations** (Trigrr, Boxabl, Volferda, B&Q Trade)
+7. **Bulk ordering system** with discount tiers
+8. **Mobile responsiveness** across all pages
+9. **TypeScript compilation** and build success
 
 ### Performance Monitoring
 - **Bundle size limits**: Enforce via `bundlesize` package

@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { User, Settings, BookmarkIcon, FolderOpen, LogOut, Crown, ChevronDown } from 'lucide-react'
+import { User, Settings, BookmarkIcon, FolderOpen, LogOut, Crown, ChevronDown, Zap, Trophy } from 'lucide-react'
 import Link from 'next/link'
-import { useUser } from '@/contexts/UserContext'
+import { useUser, useFreemium } from '@/contexts/UserContext'
 import { Button } from './Button'
+import { Badge } from './Badge'
 
 interface UserMenuProps {
   onOpenAuth: () => void
@@ -12,6 +13,7 @@ interface UserMenuProps {
 
 export function UserMenu({ onOpenAuth }: UserMenuProps) {
   const { user, isAuthenticated, logout, isLoading } = useUser()
+  const freemium = useFreemium()
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -103,7 +105,7 @@ export function UserMenu({ onOpenAuth }: UserMenuProps) {
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-          {/* User Info Header */}
+          {/* User Info Header with Gamification */}
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center space-x-3">
               {user?.avatar ? (
@@ -113,10 +115,14 @@ export function UserMenu({ onOpenAuth }: UserMenuProps) {
                   className="w-10 h-10 rounded-full object-cover"
                 />
               ) : (
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center relative">
                   <span className="text-white font-medium">
                     {user?.name?.charAt(0).toUpperCase()}
                   </span>
+                  {/* Level Badge */}
+                  <div className="absolute -bottom-1 -right-1 bg-yellow-400 text-yellow-800 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                    {freemium.xp.currentLevel}
+                  </div>
                 </div>
               )}
               <div className="flex-1 min-w-0">
@@ -126,9 +132,29 @@ export function UserMenu({ onOpenAuth }: UserMenuProps) {
                 <p className="text-xs text-gray-500 truncate">
                   {user?.email}
                 </p>
-                <div className="flex items-center mt-1">
+                <div className="flex items-center mt-1 space-x-2">
                   {getSubscriptionBadge()}
+                  <div className="flex items-center space-x-1 bg-blue-50 px-2 py-1 rounded-full">
+                    <Zap className="h-3 w-3 text-blue-600" />
+                    <span className="text-xs font-medium text-blue-800">
+                      {freemium.xp.totalXP.toLocaleString()} XP
+                    </span>
+                  </div>
                 </div>
+              </div>
+            </div>
+            
+            {/* XP Progress Bar */}
+            <div className="mt-2 space-y-1">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-600">Level {freemium.xp.currentLevel}</span>
+                <span className="text-gray-600">{freemium.xp.xpToNextLevel} XP to next level</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${freemium.xp.levelProgress}%` }}
+                />
               </div>
             </div>
           </div>

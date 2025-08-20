@@ -309,6 +309,47 @@
     will-change: transform, opacity;
   }
 
+  /* Gamification Animation Utilities */
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .animate-pulse-in {
+    animation: pulseIn 0.8s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .animate-shake {
+    animation: shake 0.6s ease-in-out;
+    will-change: transform;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .animate-badge-unlock {
+    animation: badgeUnlock 1s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .animate-xp-gain {
+    animation: xpGain 0.8s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .animate-progress-surge {
+    animation: progressSurge 1.2s ease-out;
+    will-change: transform;
+  }
+
+  .animate-notification-slide {
+    animation: notificationSlide 0.4s ease-out;
+    will-change: transform, opacity;
+  }
+
   /* Hardware-Accelerated Hover Utilities */
   .hover-lift {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -746,5 +787,107 @@
   }
   100% { 
     background-position: 200% 0; 
+  }
+}
+
+/* Gamification Keyframe Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes badgeUnlock {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(-90deg);
+  }
+  75% {
+    transform: scale(0.95) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes xpGain {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes progressSurge {
+  0% {
+    transform: scaleX(0);
+  }
+  60% {
+    transform: scaleX(1.05);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes notificationSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }

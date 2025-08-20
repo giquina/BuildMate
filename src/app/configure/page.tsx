@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useFreemium } from '@/contexts/UserContext'
+import { FreemiumSystem, useFeatureAccess } from '@/components/ui'
+import { useNotifications, useXPNotification } from '@/components/ui/NotificationSystem'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { 
@@ -64,6 +67,11 @@ interface GenerationProgress {
 
 export default function ConfigurePage() {
   const router = useRouter()
+  const freemium = useFreemium()
+  const { addNotification } = useNotifications()
+  const addXPNotification = useXPNotification()
+  const aiFeatureAccess = useFeatureAccess('ai_suggestions')
+  
   const [selectedStyle, setSelectedStyle] = useState('')
   const [bedrooms, setBedrooms] = useState(3)
   const [bathrooms, setBathrooms] = useState(2)
@@ -171,9 +179,28 @@ export default function ConfigurePage() {
     setGenerationProgress(prev => ({ ...prev, generating: false }))
   }
 
-  // Regenerate all styles with updated preferences
+  // Regenerate all styles with updated preferences and AI limit check
   const regenerateAllStyles = async () => {
+    // Check AI feature access first
+    if (!aiFeatureAccess.canUse()) {
+      addNotification({
+        type: 'upgrade',
+        title: 'AI Generation Limit Reached',
+        message: 'You\'ve used your daily AI generation limit. Upgrade for unlimited access!',
+        duration: 0,
+        actions: [{
+          label: 'Upgrade Now',
+          onClick: () => router.push('/pricing'),
+          variant: 'primary'
+        }]
+      })
+      return
+    }
+    
     setGenerationProgress({ completed: 0, total: 4, generating: true })
+    
+    // Award XP for starting generation
+    addXPNotification(20, 'Started AI image generation!')
     
     // Reset all images to loading state with updated prompts
     const updatedImages: {[key: string]: GeneratedImage} = {}
@@ -195,6 +222,9 @@ export default function ConfigurePage() {
     
     await Promise.allSettled(promises)
     setGenerationProgress(prev => ({ ...prev, generating: false }))
+    
+    // Award XP for completing generation
+    addXPNotification(50, 'AI image generation complete!')
   }
 
   // Generate a single architectural style image
@@ -282,7 +312,25 @@ export default function ConfigurePage() {
   const handleGenerateSmartFloorplan = async () => {
     if (!selectedStyle) return
     
+    // Check AI feature access first
+    if (!aiFeatureAccess.canUse()) {
+      addNotification({
+        type: 'upgrade',
+        title: 'AI Suggestion Limit Reached',
+        message: 'You\'ve used your daily AI suggestions. Upgrade for unlimited smart features!',
+        duration: 0,
+        actions: [{
+          label: 'Upgrade Now',
+          onClick: () => router.push('/pricing'),
+          variant: 'primary'
+        }]
+      })
+      return
+    }
+    
     setFloorplanLoading(true)
+    addXPNotification(30, 'Started smart floorplan generation!')
+    
     try {
       const response = await fetch('/api/ai/generate', {
         method: 'POST',
@@ -304,11 +352,24 @@ export default function ConfigurePage() {
       if (data.success) {
         setGeneratedFloorplan(data.floorplan)
         setGenerateFloorplan(true)
+        addXPNotification(75, 'Smart floorplan generated successfully!')
       } else {
         console.error('Smart floorplan generation failed:', data.error)
+        addNotification({
+          type: 'warning',
+          title: 'Generation Failed',
+          message: 'Smart floorplan generation encountered an error. Please try again.',
+          duration: 4000
+        })
       }
     } catch (error) {
       console.error('Error generating smart floorplan:', error)
+      addNotification({
+        type: 'warning',
+        title: 'Network Error',
+        message: 'Unable to connect to AI service. Please check your connection.',
+        duration: 4000
+      })
     } finally {
       setFloorplanLoading(false)
     }
@@ -330,6 +391,9 @@ export default function ConfigurePage() {
         // Include smart floorplan data if generated
         smartFloorplan: generatedFloorplan
       }))
+      
+      // Award XP for completing configuration step
+      addXPNotification(25, 'Configuration completed!')
       router.push('/materials')
     }
   }
